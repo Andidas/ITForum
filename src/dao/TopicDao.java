@@ -1,5 +1,7 @@
 package dao;
 
-public interface TopicDao {
 
+
+public interface TopicDao {
+	
 }

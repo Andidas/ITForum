@@ -6,9 +6,9 @@ package entity;
  * @author lwy
  * 实体类,uid,uemail,uregdate不可改
  * @param uid 用户ID
- * @param uname 用户昵称
+ * @param uname 用户昵称，唯一
  * @param upassword 密码
- * @param uemail 电子邮件
+ * @param uemail 电子邮件，唯一
  * @param ubirthady 生日
  * @param usex 性别
  * @param uhead 用户头像

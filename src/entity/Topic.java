@@ -21,7 +21,6 @@ package entity;
 public class Topic {
 	/**
 	 * 一开始必须初始的值
-	 * @param tid
 	 * @param tsid
 	 * @param tuid
 	 * @param ttopic

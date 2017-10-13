@@ -11,7 +11,7 @@ import entity.User;
 public interface UserDao {
 	/**
 	 * 增加用户
-	 * @param user 要增加的用户 (uid,uname,upassword,uemail,uregdate)
+	 * @param user 要增加的用户 (uname,upassword,uemail,uregdate)
 	 * @return 返回被增加的条数，如果不大于0则表示失败
 	 */
 	int addUser(User user);

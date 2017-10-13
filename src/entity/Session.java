@@ -2,9 +2,9 @@ package entity;
 
 /**
  * @author lwy
- * 板块实体类
+ * 板块实体类,id不可修改
  * @param sid 版块ID
- * @param sname 版块名称
+ * @param sname 版块名称，唯一
  * @param smasterid 版主ID,外键(引用用户表的UID)
  * @param sprofile 版块主题
  * @param sstatement 本版留言
@@ -14,13 +14,11 @@ package entity;
 public class Session {
 	/**
 	 * 一开始需要初始化的数据
-	 * @param sid
 	 * @param sname
 	 * @param smasterid
 	 */
-	public Session(int sid, String sname, int smasterid) {
+	public Session( String sname, int smasterid) {
 		super();
-		this.sid = sid;
 		this.sname = sname;
 		this.smasterid = smasterid;
 	}
@@ -56,9 +54,6 @@ public class Session {
 	}
 	public int getSid() {
 		return sid;
-	}
-	public void setSid(int sid) {
-		this.sid = sid;
 	}
 	public String getSname() {
 		return sname;
