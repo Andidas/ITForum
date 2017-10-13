@@ -4,7 +4,7 @@ package entity;
 
 /**
  * @author lwy
- * 实体类
+ * 实体类,uid,uemail,uregdate不可改
  * @param uid 用户ID
  * @param uname 用户昵称
  * @param upassword 密码
@@ -20,19 +20,22 @@ package entity;
  */
 public class User {
 
+	/**
+	 * 全部参数
+	 */
 	public User(int uid, String uname, String upassword, String uemail,
-			String ubirthady, int usex, String uhead, String usatement,
-			String uregdate, int ustate, int upoint, int uissectioner) {
+			String uregdate, String ubirthady, int usex, String uhead,
+			String usatement, int ustate, int upoint, int uissectioner) {
 		super();
 		this.uid = uid;
 		this.uname = uname;
 		this.upassword = upassword;
 		this.uemail = uemail;
+		this.uregdate = uregdate;
 		this.ubirthady = ubirthady;
 		this.usex = usex;
 		this.uhead = uhead;
 		this.usatement = usatement;
-		this.uregdate = uregdate;
 		this.ustate = ustate;
 		this.upoint = upoint;
 		this.uissectioner = uissectioner;
@@ -40,16 +43,14 @@ public class User {
 
 	/**
 	 * 一开始必须初始的值
-	 * @param uid
 	 * @param uname
 	 * @param upassword
 	 * @param uemail
 	 * @param uregdate
 	 */
-	public User(int uid, String uname, String upassword, String uemail,
+	public User(String uname, String upassword, String uemail,
 			String uregdate) {
 		super();
-		this.uid = uid;
 		this.uname = uname;
 		this.upassword = upassword;
 		this.uemail = uemail;
@@ -64,30 +65,15 @@ public class User {
 	private String uname;
 	private String upassword;
 	private String uemail;
+	private String uregdate;
 	private String ubirthady;
 	private int usex;
 	private String uhead;
 	private String usatement;
-	private String uregdate;
 	private int ustate;
 	private int upoint;
 	private int uissectioner;
-	@Override
-	public String toString() {
-		return "User [uid=" + uid + ", uname=" + uname + ", upassword="
-				+ upassword + ", uemail=" + uemail + ", ubirthady=" + ubirthady
-				+ ", usex=" + usex + ", uhead=" + uhead + ", usatement="
-				+ usatement + ", uregdate=" + uregdate + ", ustate=" + ustate
-				+ ", upoint=" + upoint + ", uissectioner=" + uissectioner + "]";
-	}
 
-	public int getUid() {
-		return uid;
-	}
-
-	public void setUid(int uid) {
-		this.uid = uid;
-	}
 
 	public String getUname() {
 		return uname;
@@ -103,14 +89,6 @@ public class User {
 
 	public void setUpassword(String upassword) {
 		this.upassword = upassword;
-	}
-
-	public String getUemail() {
-		return uemail;
-	}
-
-	public void setUemail(String uemail) {
-		this.uemail = uemail;
 	}
 
 	public String getUbirthady() {
@@ -145,14 +123,6 @@ public class User {
 		this.usatement = usatement;
 	}
 
-	public String getUregdate() {
-		return uregdate;
-	}
-
-	public void setUregdate(String uregdate) {
-		this.uregdate = uregdate;
-	}
-
 	public int getUstate() {
 		return ustate;
 	}
@@ -176,6 +146,29 @@ public class User {
 	public void setUissectioner(int uissectioner) {
 		this.uissectioner = uissectioner;
 	}
+
+	public int getUid() {
+		return uid;
+	}
+
+	public String getUemail() {
+		return uemail;
+	}
+
+	public String getUregdate() {
+		return uregdate;
+	}
+
+	@Override
+	public String toString() {
+		return "User [uid=" + uid + ", uname=" + uname + ", upassword="
+				+ upassword + ", uemail=" + uemail + ", uregdate=" + uregdate
+				+ ", ubirthady=" + ubirthady + ", usex=" + usex + ", uhead="
+				+ uhead + ", usatement=" + usatement + ", ustate=" + ustate
+				+ ", upoint=" + upoint + ", uissectioner=" + uissectioner + "]";
+	}
+
+
 
 	
 }

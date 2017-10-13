@@ -11,16 +11,16 @@ import entity.User;
 public interface UserDao {
 	/**
 	 * 增加用户
-	 * @param user 要删除的用户 
+	 * @param user 要增加的用户 (uid,uname,upassword,uemail,uregdate)
 	 * @return 返回被增加的条数，如果不大于0则表示失败
 	 */
 	int addUser(User user);
 	/**
 	 * 删除用户
-	 * @param uid 用户的id
+	 * @param uemail 用户的email
 	 * @return 返回被删除的条数，如果不大于0则表示失败
 	 */
-	int delUser(int uid);
+	int delUser(String uemail);
 	/**
 	 * 修改用户
 	 * @param user 要修改的用户
@@ -29,10 +29,10 @@ public interface UserDao {
 	int modifyUser(User user);
 	/**
 	 * 查询单个用户
-	 * @param uid 要查询的用户id
-	 * @return 查询到得一个用户
+	 * @param uemail 要查询的用户email
+	 * @return 查询到得一个用户user(all)
 	 */
-	User searchUser(int uid);
+	User searchUser(String uemail);
 	/**
 	 * 查询所有的用户
 	 * @return 用户组
