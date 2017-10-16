@@ -1,7 +1,11 @@
 package dao;
 
 import entity.Session;
-
+/**
+ * 版块的数据库处理操作的接口
+ * @author lwy
+ *
+ */
 public interface SessionDao {
 	/**
 	 * 增加版块
@@ -23,7 +27,7 @@ public interface SessionDao {
 	int modifySession(Session Session);
 	/**
 	 * 查询单个版块
-	 * @param uemail 要查询的版块email
+	 * @param sname 要查询的版块name
 	 * @return 查询到得一个版块Session(all)
 	 */
 	Session searchSession(String sname);

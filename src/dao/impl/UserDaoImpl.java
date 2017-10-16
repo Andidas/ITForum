@@ -8,6 +8,10 @@ import utils.DBUtils;
 import dao.UserDao;
 import entity.User;
 
+/**
+ * @author lwy
+ *
+ */
 public class UserDaoImpl implements UserDao {
 
 

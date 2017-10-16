@@ -7,6 +7,10 @@ import utils.DBUtils;
 import dao.SessionDao;
 import entity.Session;
 
+/**
+ * @author lwy
+ *
+ */
 public class SessionDaoImpl implements SessionDao {
 
 	@Override

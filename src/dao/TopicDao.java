@@ -1,13 +1,17 @@
 package dao;
 
 import entity.Topic;
-
+/**
+ * 主贴的数据库处理操作的接口
+ * @author lwy
+ *
+ */
 
 
 public interface TopicDao {
 	/**
 	 * 增加主贴
-	 * @param Topic 要增加的主贴 (sname,smasterid)
+	 * @param Topic 要增加的主贴 (tid,tsid,tuid,ttopic,tcontents,ttime)
 	 * @return 返回被增加的条数，如果不大于0则表示失败
 	 */
 	int addTopic(Topic topic);

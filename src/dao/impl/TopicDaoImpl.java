@@ -7,6 +7,10 @@ import utils.DBUtils;
 import dao.TopicDao;
 import entity.Topic;
 
+/**
+ * @author lwy
+ *
+ */
 public class TopicDaoImpl implements TopicDao {
 
 	@Override

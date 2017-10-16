@@ -5,7 +5,7 @@ import java.util.Vector;
 import entity.User;
 /**
  * 用户的数据库处理操作的接口
- * @author andi(刘伟艺)
+ * @author lwy
  *
  */
 public interface UserDao {
