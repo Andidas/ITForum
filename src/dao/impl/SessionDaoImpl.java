@@ -10,21 +10,21 @@ import entity.Session;
 public class SessionDaoImpl implements SessionDao {
 
 	@Override
-	public int addSession(Session Session) {
-		String sql = "insert into Session(sid,sname,smasterid) values(NULL,?,?)";
+	public int addSession(Session session) {
+		String sql = "insert into session(sid,sname,smasterid) values(NULL,?,?)";
 		return DBUtils
-				.doUpdate(sql, Session.getSname(), Session.getSmasterid());
+				.doUpdate(sql, session.getSname(), session.getSmasterid());
 	}
 
 	@Override
 	public int delSession(String sname) {
-		String sql = "delete from user where sname = ?";
+		String sql = "delete from session where sname = ?";
 		return DBUtils.doUpdate(sql, sname);
 	}
 
 	@Override
 	public int modifySession(Session session) {
-		String sql = "update user set smasterid=?,sprofile=?,sstatement=?,stopiccount=?,sclickcount=? where sid =?;";
+		String sql = "update session set smasterid=?,sprofile=?,sstatement=?,stopiccount=?,sclickcount=? where sid =?;";
 		return DBUtils.doUpdate(sql, session.getSmasterid(),
 				session.getSprofile(), session.getSstatement(),
 				session.getStopiccount(), session.getSclickcount(),
@@ -33,7 +33,7 @@ public class SessionDaoImpl implements SessionDao {
 
 	@Override
 	public Session searchSession(String sname) {
-		String sql = "select * from user where sname =?";
+		String sql = "select * from session where sname =?";
 		ResultSet rs = DBUtils.doQuery(sql, sname);
 		Session session = null;
 		if (rs != null) {

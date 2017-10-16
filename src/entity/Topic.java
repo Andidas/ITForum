@@ -27,10 +27,9 @@ public class Topic {
 	 * @param tcontents
 	 * @param ttime
 	 */
-	public Topic(int tid, int tsid, int tuid, String ttopic, String tcontents,
+	public Topic(int tsid, int tuid, String ttopic, String tcontents,
 			String ttime) {
 		super();
-		this.tid = tid;
 		this.tsid = tsid;
 		this.tuid = tuid;
 		this.ttopic = ttopic;
