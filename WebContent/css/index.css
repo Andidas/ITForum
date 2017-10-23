@@ -1,119 +1,122 @@
-/* Custom Styles */		
+/* Custom Styles */
 
-			#myScrollspy ul.nav-tabs {
-				width: 140px;
-				margin-top: 25px;
-				border-radius: 4px;
-				border: 1px solid #ddd;
-				box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
-			}
-			
-			#myScrollspy ul.nav-tabs li {
-				margin: 0;
-				border-top: 1px solid #ddd;
-			}
-			
-			#myScrollspy ul.nav-tabs li:first-child {
-				border-top: none;
-			}
-			
-			#myScrollspy ul.nav-tabs li a {
-				margin: 0;
-				padding: 8px 16px;
-				border-radius: 0;
-			}
-			
-			#myScrollspy ul.nav-tabs li.active a,
-			#myScrollspy ul.nav-tabs li.active a:hover {
-				color: #fff;
-				background: #0088cc;
-				border: 1px solid #0088cc;
-			}
-			
-			#myScrollspy ul.nav-tabs li:first-child a {
-				border-radius: 4px 4px 0 0;
-			}
-			
-			#myScrollspy ul.nav-tabs li:last-child a {
-				border-radius: 0 0 4px 4px;
-			}
-			
-			#myScrollspy ul.nav-tabs.affix {
-				top: 30px;
-				/* Set the top position of pinned element */
-			}
-			
-			body {
-				margin-top: 10px;
-			}
-			
-			.login {
-				padding-right: 40px;
-			}
-			
-			.login span {
-				padding: 0 8px 0 0;
-			}
-			
-			.login .dropdown-menu li:hover a {
-				background-color: #0366D6;
-				color: white;
-			}
-			
-			
-			#return_top {
-				position: fixed;
-				bottom: 100px;
-				right: 100px;
-				width: 45px;
-				height: 45px;
-				background: url(img/aside_float_bar_z_9bec013.png);
-			}
-			
-			#return_top:hover {
-				background-position: 109px 99px;
-			}
-			
-			#content .row {
-				margin-top: 50px;
-			}
-			
-			#HotQuestion .panel-body a {
-				text-decoration: none;
-				font-size: 12px;
-			}
-			
-			#HotQuestion .panel-body li {
-				display: inline-block;
-				margin-bottom: 10px;
-			}
-			
-			#content .col-xs-7 >ul:nth-child(1) {
-				margin-bottom: 30px;
-			}
-			
-			#content-center .content-text h3 {
-				margin-bottom: 10px;
-			}
-			
-			#content-center .content-text p {
-				white-space: nowrap;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				margin-top: -15px;
-			
-			}
-			#content-center .content-text ul>li {			
-				display: inline-block;
-			}
-			#content-center .content-text img{
-				width: 190px;height: 180px;
-				margin-right:13px ;
-			}
-			#content-center .content-nav{
-				margin: 10px 0;
-			}
-			#content-center .panel-footer,
-			#content-center .panel-footer a {
-				color: gainsboro;
-			}
+#myScrollspy ul.nav-tabs {
+	width: 140px;
+	margin-top: 25px;
+	border-radius: 4px;
+	border: 1px solid #ddd;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+}
+
+#myScrollspy ul.nav-tabs li {
+	margin: 0;
+	border-top: 1px solid #ddd;
+}
+
+#myScrollspy ul.nav-tabs li:first-child {
+	border-top: none;
+}
+
+#myScrollspy ul.nav-tabs li a {
+	margin: 0;
+	padding: 8px 16px;
+	border-radius: 0;
+}
+
+#myScrollspy ul.nav-tabs li.active a,
+#myScrollspy ul.nav-tabs li.active a:hover {
+	color: #fff;
+	background: #0088cc;
+	border: 1px solid #0088cc;
+}
+
+#myScrollspy ul.nav-tabs li:first-child a {
+	border-radius: 4px 4px 0 0;
+}
+
+#myScrollspy ul.nav-tabs li:last-child a {
+	border-radius: 0 0 4px 4px;
+}
+
+#myScrollspy ul.nav-tabs.affix {
+	top: 30px;
+	/* Set the top position of pinned element */
+}
+
+body {
+	margin-top: 10px;
+}
+
+.login {
+	padding-right: 40px;
+}
+
+.login span {
+	padding: 0 8px 0 0;
+}
+
+.login .dropdown-menu li:hover a {
+	background-color: #0366D6;
+	color: white;
+}
+
+#return_top {
+	position: fixed;
+	bottom: 100px;
+	right: 100px;
+	width: 45px;
+	height: 45px;
+	background: url(img/aside_float_bar_z_9bec013.png);
+}
+
+#return_top:hover {
+	background-position: 109px 99px;
+}
+
+#content .row {
+	margin-top: 50px;
+}
+
+#HotQuestion .panel-body a {
+	text-decoration: none;
+	font-size: 12px;
+}
+
+#HotQuestion .panel-body li {
+	display: inline-block;
+	margin-bottom: 10px;
+}
+
+#content .col-xs-7 >ul:nth-child(1) {
+	margin-bottom: 30px;
+}
+
+#content-center .content-text h3 {
+	margin-bottom: 10px;
+}
+
+#content-center .content-text p {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-top: -15px;
+}
+
+#content-center .content-text ul>li {
+	display: inline-block;
+}
+
+#content-center .content-text img {
+	width: 190px;
+	height: 180px;
+	margin-right: 13px;
+}
+
+#content-center .content-nav {
+	margin: 10px 0;
+}
+
+#content-center .panel-footer,
+#content-center .panel-footer a {
+	color: gainsboro;
+}
