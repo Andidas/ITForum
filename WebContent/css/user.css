@@ -5,7 +5,7 @@ body.user-page #content * {
 
 /*用户信息*/
 
-#user-card {
+#profile,#activity,#edit {
 	margin-top: 26px;
 }
 
@@ -348,30 +348,5 @@ a {
 	font-weight: 400;
 }
 
-.top-posts .filter {
-	float: right;
-	position: relative;
-	top: -6px;
-	box-sizing: border-box;
-	float: right;
-	margin: 0;
-}
 
 
-}
-.filter a {}
-.filter a {
-	display: inline-flex;
-	margin: 0 0 0 2px;
-	padding: 8px;
-	border-bottom: 2px solid transparent;
-	color: #6a737c;
-	font-size: 12px;
-	line-height: 1.53333333;
-	text-decoration: none;
-	transition: all 150ms cubic-bezier(.19, 1, .22, 1);
-}
-.filter a.active {
-	border-color: #f69c55;
-	font-weight: 700;
-}
