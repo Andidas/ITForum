@@ -1,7 +1,38 @@
-﻿* {
-margin: 0;
-padding: 0;
+* {
+	margin: 0;
+	padding: 0;
 }
-ul,li{
+
+ul,
+li {
 	list-style: none;
+}
+/*子菜单*/
+#myTab {
+	font-size: 12px;
+}
+
+#myTab>li>a {
+	border-radius: 0;
+}
+
+#myTab li.active a {
+	border-top-color: red;
+	border-top-width: 2px;
+}
+
+#Tabson {
+	font-size: 12px;
+}
+
+#Tabson>li>a {
+	border-radius: 0;
+}
+
+#Tabson li.active a {
+	border-left-color: transparent;
+	border-right-color: transparent;
+	border-top-color: transparent;
+	border-bottom-color: red;
+	border-bottom-width: 2px;
 }
