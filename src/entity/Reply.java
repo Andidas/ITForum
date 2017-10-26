@@ -14,26 +14,7 @@ package entity;
  * @param rtime 回贴时间
  */
 public class Reply {
-	/**
-	 * 一开始必须初始的值
-	 * @param rid
-	 * @param rtid
-	 * @param rsid
-	 * @param ruid
-	 * @param rcontent
-	 * @param rtime
-	 */
-	public Reply(int rid, int rtid, int rsid, int ruid, String rcontent,
-			String rtime) {
-		super();
-		this.rid = rid;
-		this.rtid = rtid;
-		this.rsid = rsid;
-		this.ruid = ruid;
-		this.rcontent = rcontent;
-		this.rtime = rtime;
-	}
-
+	
 	public Reply() {
 		super();
 	}

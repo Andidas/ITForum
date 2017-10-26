@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.List;
 import java.util.Vector;
 
 import entity.User;
@@ -32,7 +33,12 @@ public interface UserDao {
 	 * @param uemail 要查询的用户email
 	 * @return 查询到得一个用户user(all)
 	 */
-	User searchUser(String uemail);
+	User queryUser(String uemail);
+	/**
+	 * 查询所有的用户
+	 * @return 用户组
+	 */
+	List<User> queryUserList();
 	/**
 	 * 查询所有的用户
 	 * @return 用户组
@@ -44,4 +50,13 @@ public interface UserDao {
 	 * @return
 	 */
 	Vector<String> getTitles();
+	
+	
+	/**
+	 * 检查用户是否存在
+	 * @param email 用户名
+	 * @param password 密码
+	 * @return
+	 */
+	boolean checkUser(String email,String password);
 }

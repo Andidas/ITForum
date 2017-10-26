@@ -40,23 +40,6 @@ public class User {
 		this.upoint = upoint;
 		this.uissectioner = uissectioner;
 	}
-
-	/**
-	 * 一开始必须初始的值
-	 * @param uname
-	 * @param upassword
-	 * @param uemail
-	 * @param uregdate
-	 */
-	public User(String uname, String upassword, String uemail,
-			String uregdate) {
-		super();
-		this.uname = uname;
-		this.upassword = upassword;
-		this.uemail = uemail;
-		this.uregdate = uregdate;
-	}
-
 	public User() {
 		super();
 	}
@@ -166,6 +149,18 @@ public class User {
 				+ ", ubirthady=" + ubirthady + ", usex=" + usex + ", uhead="
 				+ uhead + ", usatement=" + usatement + ", ustate=" + ustate
 				+ ", upoint=" + upoint + ", uissectioner=" + uissectioner + "]";
+	}
+
+	public void setUid(int uid) {
+		this.uid = uid;
+	}
+
+	public void setUemail(String uemail) {
+		this.uemail = uemail;
+	}
+
+	public void setUregdate(String uregdate) {
+		this.uregdate = uregdate;
 	}
 
 

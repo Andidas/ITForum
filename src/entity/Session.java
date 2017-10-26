@@ -12,16 +12,7 @@ package entity;
  * @param sclickcount 点击率
  */
 public class Session {
-	/**
-	 * 一开始需要初始化的数据
-	 * @param sname
-	 * @param smasterid
-	 */
-	public Session( String sname, int smasterid) {
-		super();
-		this.sname = sname;
-		this.smasterid = smasterid;
-	}
+	
 
 	public Session() {
 		super();

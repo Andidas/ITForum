@@ -1,11 +1,17 @@
 package dao.impl;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
+
+import org.apache.ibatis.session.SqlSession;
 
 import utils.DBUtils;
 import dao.UserDao;
+import db.DBAccess;
 import entity.User;
 
 /**
@@ -14,7 +20,8 @@ import entity.User;
  */
 public class UserDaoImpl implements UserDao {
 
-
+	 private SqlSession sqlSession = null;
+	 private DBAccess dbAccess  = new DBAccess();
 	@Override
 	public int addUser(User user) {
 		String sql = "insert into user(uid,uname,upassword,uemail,uregdate) values(NULL,?,?,?,?)";
@@ -37,29 +44,15 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User searchUser(String uemail) {	
-		String sql="select * from user where uemail =?";
-		 ResultSet rs = DBUtils.doQuery(sql, uemail);
-		 User user = null;
-		 if(rs!=null){
-			 try {
-				rs.next();
-				user = new User(rs.getInt("uid"),rs.getString("uname"),rs.getString("upassword"),rs.getString("uemail"),
-						rs.getString("uregdate"),rs.getString("ubirthady"),rs.getInt("usex"),rs.getString("uhead"),
-						rs.getString("usatement"),rs.getInt("ustate"),rs.getInt("upoint"),rs.getInt("uissectioner"));
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally{
-				try {
-					DBUtils.close(rs.getStatement().getConnection(), rs.getStatement(), rs);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		 }else{
-			 System.err.println("uemail无效，查找不到数据");
-		 }
-		return user;
+	public User queryUser(String uemail) {	
+		 User user = new User();
+		 try {
+			sqlSession = dbAccess.getSqlSession();
+			user = sqlSession.selectOne("User.queryUser",uemail);
+		 } catch (IOException e) {
+			e.printStackTrace();
+		}
+		 return user;
 	}
 
 	@Override
@@ -71,5 +64,39 @@ public class UserDaoImpl implements UserDao {
 	public Vector<String> getTitles() {
 		return null;
 	}
+
+	@Override
+	public List<User> queryUserList() {
+		List<User> userList = new ArrayList<User>();
+		try {
+			sqlSession =dbAccess.getSqlSession();
+			userList = sqlSession.selectList("User.queryUserList");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			if(sqlSession!=null){sqlSession.close();}
+			}
+		
+		return userList;
+	}
+
+	@Override
+	public boolean checkUser(String email, String password) {
+		User result = null;
+		try {
+			sqlSession =dbAccess.getSqlSession();
+			User user = new User();
+			user.setUemail(email);
+			user.setUpassword(password);
+			result = sqlSession.selectOne("User.checkUser",user);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if(result==null){
+			return false;
+		}else
+		return true;
+	}
+	
 
 }

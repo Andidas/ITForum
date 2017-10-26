@@ -19,23 +19,7 @@ package entity;
  * @param tlastreplaytime 最后回复时间
  */
 public class Topic {
-	/**
-	 * 一开始必须初始的值
-	 * @param tsid
-	 * @param tuid
-	 * @param ttopic
-	 * @param tcontents
-	 * @param ttime
-	 */
-	public Topic(int tsid, int tuid, String ttopic, String tcontents,
-			String ttime) {
-		super();
-		this.tsid = tsid;
-		this.tuid = tuid;
-		this.ttopic = ttopic;
-		this.tcontents = tcontents;
-		this.ttime = ttime;
-	}
+	
 
 	public Topic() {
 		super();
