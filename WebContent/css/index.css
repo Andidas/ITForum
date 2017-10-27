@@ -1,48 +1,4 @@
 /* Custom Styles */
-
-#myScrollspy ul.nav-tabs {
-	width: 140px;
-	margin-top: 25px;
-	border-radius: 4px;
-	border: 1px solid #ddd;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
-}
-
-#myScrollspy ul.nav-tabs li {
-	margin: 0;
-	border-top: 1px solid #ddd;
-}
-
-#myScrollspy ul.nav-tabs li:first-child {
-	border-top: none;
-}
-
-#myScrollspy ul.nav-tabs li a {
-	margin: 0;
-	padding: 8px 16px;
-	border-radius: 0;
-}
-
-#myScrollspy ul.nav-tabs li.active a,
-#myScrollspy ul.nav-tabs li.active a:hover {
-	color: #fff;
-	background: #0088cc;
-	border: 1px solid #0088cc;
-}
-
-#myScrollspy ul.nav-tabs li:first-child a {
-	border-radius: 4px 4px 0 0;
-}
-
-#myScrollspy ul.nav-tabs li:last-child a {
-	border-radius: 0 0 4px 4px;
-}
-
-#myScrollspy ul.nav-tabs.affix {
-	top: 30px;
-	/* Set the top position of pinned element */
-}
-
 body {
 	margin-top: 10px;
 }
@@ -119,4 +75,41 @@ body {
 #content-center .panel-footer,
 #content-center .panel-footer a {
 	color: gainsboro;
+}
+
+/*×ó±ßµÄ»¬¶¯²Ëµ¥*/
+#accordion .panel-heading,#accordion .panel-body{
+	padding: 0 15px;
+	margin: 0;
+}
+#accordion .panel-group-header .panel-heading{
+	border-radius: 3px 3px 0 0;
+}
+#accordion .panel-heading{
+	background: lightskyblue;
+	border-radius: 0px;
+}
+#accordion .panel-body{
+	background:aliceblue;
+}
+#accordion .panel a{
+	text-decoration: none;
+	display: block;
+}
+#accordion .panel{
+	width: 170px;
+	margin: 0;
+}
+#accordion .panel .in a{
+	color:#000000;
+}
+#accordion .panel .in a:hover{
+	color: lightskyblue;
+}
+#accordion .panel-group-footer{
+	height: 15px;width: 168px;
+	background:lightgray ;
+	border:1px red transparent ;
+	border-radius: 0 0 6px 6px;
+	margin: 0px 1px;
 }

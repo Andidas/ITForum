@@ -1,8 +1,6 @@
 package dao.impl;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -16,7 +14,7 @@ import entity.User;
 
 /**
  * @author lwy
- *
+ *	用户的数据库处理操作的实现
  */
 public class UserDaoImpl implements UserDao {
 

@@ -20,7 +20,6 @@ public class EncodingFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res,
 			FilterChain chain) throws IOException, ServletException {
-		System.out.println("统一字符集编码的过滤器过滤");
 		req.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");
 		chain.doFilter(req, res);

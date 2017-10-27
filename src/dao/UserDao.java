@@ -3,7 +3,6 @@ package dao;
 import java.util.List;
 import java.util.Vector;
 
-import org.apache.ibatis.annotations.Insert;
 
 import entity.User;
 /**
