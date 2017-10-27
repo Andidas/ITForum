@@ -24,8 +24,17 @@ public class UserDaoImpl implements UserDao {
 	 private DBAccess dbAccess  = new DBAccess();
 	@Override
 	public int addUser(User user) {
-		String sql = "insert into user(uid,uname,upassword,uemail,uregdate) values(NULL,?,?,?,?)";
-		return DBUtils.doUpdate(sql, user.getUname(),user.getUpassword(),user.getUemail(),user.getUregdate());
+		int result = 0;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			result = sqlSession.insert("User.addUser",user);
+			sqlSession.commit();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			if(sqlSession!=null){sqlSession.close();}
+			}
+		return result;
 	}
 
 	@Override
@@ -51,7 +60,9 @@ public class UserDaoImpl implements UserDao {
 			user = sqlSession.selectOne("User.queryUser",uemail);
 		 } catch (IOException e) {
 			e.printStackTrace();
-		}
+		}finally{
+			if(sqlSession!=null){sqlSession.close();}
+			}
 		 return user;
 	}
 
@@ -71,6 +82,7 @@ public class UserDaoImpl implements UserDao {
 		try {
 			sqlSession =dbAccess.getSqlSession();
 			userList = sqlSession.selectList("User.queryUserList");
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}finally{

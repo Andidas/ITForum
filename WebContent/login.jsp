@@ -10,7 +10,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <base href="<%=basePath%>">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>login</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -24,32 +23,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <style type="text/css">
-#login form>div {
+#register form>div,#login form>div {
 	padding: 0 30px;
 }
 
-#login {
+#register #login {
 	padding-top: 50px;
 }
 
-#login label {
+#register label,#login label {
 	padding: 10px 0 5px 0;
 	display: block;
 	text-align: left;
 }
 
-#login .other {
+#register .other,#login .other {
 	list-style: none;
 }
 
-#login .other>li a {
+#register .other>li a,#login .other>li a {
 	float: left;
 	font-size: 12px;
 	padding: 4px;
 	color: #000000;
 }
 
-#login .other>li a:hover {
+#register .other>li a:hover,#login .other>li a:hover {
 	color: dodgerblue;
 }
 </style>
@@ -62,44 +61,98 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="text-center">
 						<img src="img/骑行.jpg" width="48" height="48" class="img-circle" />
 						<h3>
-							登录 <small>GitHub</small>
+							登录 <small>ITFroum</small>
 						</h3>
 					</div>
 					<div class="panel panel-default">
-						<form class="form-horizontal " role="form" action="userLogin"
+						<form class="form-horizontal " role="form" action="userServlet?op=login"
 							method="post">
 							<div class="form-group ">
-								<label for="inputEmail3" class=" control-label">Email</label> <input
-									type="email" class="form-control" id="inputEmail3" name="email" />
+								<label for="inputEmail" class=" control-label">Email</label> <input
+									type="email" class="form-control" id="inputEmail" name="email" />
 
 							</div>
 							<div class="form-group">
-								<label for="inputPassword3" class=" control-label">Password
+								<label for="inputPassword" class=" control-label">Password
 									<a href="#" class="label-link small" style="float: right;">Forgot
 										password?</a>
 								</label> <input type="password" name="password" class="form-control"
-									id="inputPassword3" />
+									id="inputPassword" />
 
 							</div>
 							<div class="form-group">
 								<div class="col-sm-offset-1 col-sm-11">
 									<div class="checkbox">
-										<label><input type="checkbox" />Remember me</label>
+										<label><input type="checkbox" name="rememberMe"/>Remember me</label>
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
-
 								<button type="submit"
 									class="btn btn-block btn-default btn-success">按钮</button>
-
 							</div>
 						</form>
 					</div>
 					<div class="panel panel-default">
 						<div class="panel-body text-center">
-							New to GitHub? <a href="#" class="text-right">Create an
+							New to ITFroum? <a href="#" class="text-right">Create an
 								account</a>.
+						</div>
+					</div>
+					<div class="text-center">
+						<ul class="other">
+							<li><a href="#">Terms</a></li>
+							<li><a href="#">Privacy</a></li>
+							<li><a href="#">Security</a></li>
+							<li><a href="#">Contact GitHub</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container" id="register">
+		<div class="row clearfix">
+			<div class="col-md-4 column col-md-offset-4">
+				<div class="col-sm-offset-0.5 col-sm-11">
+					<div class="text-center">
+						<img src="img/骑行.jpg" width="48" height="48" class="img-circle" />
+						<h3>
+							注册 <small>ITFroum</small>
+						</h3>
+					</div>
+					<div class="panel panel-default">
+						<form class="form-horizontal " role="form" action="userServlet?op=register"
+							method="post">
+							<div class="form-group">
+								<label for="inputName3" class="control-label">Name</label> <input
+									type="text" class="form-control" id="inputName3" name="rname" />
+
+							</div>
+							<div class="form-group ">
+								<label for="inputEmail3" class=" control-label">Email</label> <input
+									type="email" class="form-control" id="inputEmail3" name="remail" />
+
+							</div>
+							<div class="form-group">
+								<label for="inputPassword3" class=" control-label">Password
+								</label> <input type="password" name="rpassword" class="form-control"
+									id="inputPassword3" />
+							</div>
+							<div class="form-group">
+								<label for="inputEnsurePassword3" class=" control-label">again Password
+								</label> <input type="password" name="ensurePassword" class="form-control"
+									id="inputEnsurePassword3" />
+							</div>
+							<div class="form-group">
+								<button type="submit"
+									class="btn btn-block btn-default btn-success">create</button>
+							</div>
+						</form>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-body text-center">
+							Have a ITFroum? <a href="#" class="text-right">go to login</a>.
 						</div>
 					</div>
 					<div class="text-center">
