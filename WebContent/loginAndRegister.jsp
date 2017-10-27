@@ -27,7 +27,7 @@
 		<div id="landing">登录</div>
 		<div id="registered">注册</div>
 		<div class="fix"></div>
-		<div id="landing-content">
+		<div id="landing-content" class="show">
 			<form class="form-horizontal " role="form"
 				action="UserServlet?op=login" method="post" id="FormLogin">
 				<div id="photo">
@@ -48,7 +48,7 @@
 				</div>
 			</form>
 		</div>
-		<div id="registered-content">
+		<div id="registered-content" class="hidden">
 			<form class="form-horizontal " role="form"
 				action="UserServlet?op=register" method="post" id="Formregister">
 

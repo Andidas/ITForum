@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -28,9 +29,6 @@
 <link href="css/index.css" rel="stylesheet" />
 <link href="css/init.css" rel="stylesheet" />
 
-<script type="text/javascript">
-	
-</script>
 </head>
 <body data-spy="scroll" data-target="#myScrollspy">
 	<div class="clearfix">
@@ -79,13 +77,16 @@
 						</div>
 
 					</form>
+					
 					<div class="login">
 						<ul class="nav navbar-nav navbar-right">
-							<li class="hidden"><a href="login.jsp"><span
+							<c:if test="${empty sessionScope.email}">
+							<li><a href="loginAndRegister.jsp"><span
 									class="glyphicon glyphicon-user"></span>注册</a></li>
-							<li class="hidden"><a href="login.jsp"><span
+							<li><a href="loginAndRegister.jsp"><span
 									class="glyphicon glyphicon-log-in"></span>登录</a></li>
-
+							</c:if>
+							<c:if test="${!empty sessionScope.email}">
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown"> <img alt="user" src="img/骑行.jpg"
 									width="22" height="22" class="img-rounded" /> <strong
@@ -102,8 +103,9 @@
 									<li class="divider"></li>
 									<li><a href="#" class="dropdown-item"> 帮助</a></li>
 									<li><a href="#" class="dropdown-item"> 设置</a></li>
-									<li><a href="#" class="dropdown-item"> 退出</a></li>
+									<li><a href="#" class="dropdown-item" id="exitEmail"> 退出</a></li>
 								</ul></li>
+							</c:if>
 						</ul>
 					</div>
 				</div>
@@ -348,4 +350,17 @@
 
 		<a href="#" class="btn btn-link" id="return_top"></a>
 </body>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#exitEmail").click(function(){
+			var param = {
+				"op" : "exitUser"
+			};
+			$.post("UserServlet", param, function(data) {
+				console.log(data);
+			});
+		});
+	});
+</script>
 </html>

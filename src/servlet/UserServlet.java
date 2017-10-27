@@ -36,6 +36,8 @@ public class UserServlet extends HttpServlet {
 			getPassword(request, response);
 		} else if (op.equals("register")) {
 			register(request, response);
+		}else if(op.equals("exitUser")){
+			exitEmail(request, response);
 		}
 	}
 
@@ -48,7 +50,6 @@ public class UserServlet extends HttpServlet {
 			if (cookie.getName().equals("Advance2")
 					&& email.equals(cookie.getValue())) {
 				String password = userService.queryUser(email).getUpassword();
-				
 				out.print(password);
 			}
 		}
@@ -69,18 +70,24 @@ public class UserServlet extends HttpServlet {
 				Cookie c = new Cookie("Advance2", null);
 				c.setMaxAge(0);
 				response.addCookie(c);
-				session.setAttribute("email", email);
 			}
+			session.setAttribute("email", email);
 			response.sendRedirect("index.jsp");
 		} else {
 			Cookie c = new Cookie("Advance2", null);
 			c.setMaxAge(0);
 			response.addCookie(c);
-
+			session.setAttribute("email", null);
 			response.sendRedirect("loginAndRegister.jsp");
 		}
 	}
-
+	private void exitEmail(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		session.setAttribute("email", null);
+		PrintWriter out = response.getWriter();
+		out.print("exitEmail");
+	}
 	private void register(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("rname");
