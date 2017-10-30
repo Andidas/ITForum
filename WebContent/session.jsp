@@ -19,9 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 <title>版块</title>
-<link href="css/bootstrap.min.css" rel="stylesheet" />
-<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
+
 
 <link href="css/init.css" rel="stylesheet" />
 <script type="text/javascript">
@@ -38,6 +36,7 @@ body {
 
 </head>
 <body>
+	<jsp:include page="nav.jsp" flush="true"/>
 	<div class="clearfix container">
 		<div class="row-fluid">
 			<div class="col-xs-8">

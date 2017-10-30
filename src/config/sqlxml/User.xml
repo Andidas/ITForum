@@ -38,8 +38,7 @@
 	</select>
 
 	<select id="checkUser" parameterType="entity.User" resultMap="UserResult">
-		select * from user where uemail = #{uemail} and upassword =
-		#{upassword}
+		select * from user where uemail = #{uemail} and upassword = #{upassword}
 	</select>
 
 	<insert id="addUser" parameterType="entity.User">
@@ -56,4 +55,21 @@
 		#{uregdate}
 		)
 	</insert>
+	
+	 <update id="updateUser" parameterType="entity.User">
+    UPDATE user SET
+    uname = #{uname,jdbcType=VARCHAR},
+    upassword = #{upassword,jdbcType=VARCHAR},
+    uemail = #{uemail,jdbcType=VARCHAR},
+    uregdate = #{uregdate,jdbcType=VARCHAR},
+    ubirthady = #{ubirthady,jdbcType=VARCHAR},
+    usex = #{usex,jdbcType=INTEGER},
+    uhead = #{uhead,jdbcType=VARCHAR},
+    usatement = #{usatement,jdbcType=VARCHAR},
+    ustate = #{ustate,jdbcType=INTEGER},
+    upoint = #{upoint,jdbcType=INTEGER},
+    uissectioner = #{uissectioner,jdbcType=INTEGER}
+    WHERE
+    uid = #{uid,jdbcType=INTEGER}
+  </update>
 </mapper>

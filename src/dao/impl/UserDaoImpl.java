@@ -43,11 +43,16 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public int modifyUser(User user) {
-		String sql = "update user set uname=?,upassword=?,ubirthady=?,usex=?, uhead=?,usatement=?,ustate=?,upoint=?,uissectioner=? where uemail =?;";
-		return DBUtils.doUpdate(sql, user.getUname(), user.getUpassword(),
-				user.getUbirthady(), user.getUsex(), user.getUhead(),
-				user.getUsatement(), user.getUstate(), user.getUpoint(),
-				user.getUissectioner(), user.getUemail());
+		int result = 0;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			result = sqlSession.update("User.updateUser",user);
+			sqlSession.commit();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 	@Override

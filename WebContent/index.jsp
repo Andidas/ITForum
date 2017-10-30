@@ -22,97 +22,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 <title>首页</title>
-<link href="css/bootstrap.min.css" rel="stylesheet" />
-<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
 
 <link href="css/index.css" rel="stylesheet" />
 <link href="css/init.css" rel="stylesheet" />
+<style type="text/css">
 
+</style>
 </head>
-<body data-spy="scroll" data-target="#myScrollspy">
-	<div class="clearfix">
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
-			style="border-top: solid #F48024 3px;">
-			<div class="container">
-
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse"
-						data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">Brand</a>
-				</div>
-
-				<div class="collapse navbar-collapse"
-					id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Link</a></li>
-
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-								<li class="divider"></li>
-								<li><a href="#">One more separated link</a></li>
-							</ul></li>
-					</ul>
-
-					<form action="http://www.baidu.com/s"
-						class="navbar-form navbar-left" role="search">
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="search.."
-								autocomplete="off" maxlength="240" /> <span
-								class="input-group-btn">
-								<button class="btn btn-default btn-primary" type="button">
-									<span class="glyphicon glyphicon-search"></span>
-								</button>
-							</span>
-						</div>
-
-					</form>
-					
-					<div class="login">
-						<ul class="nav navbar-nav navbar-right">
-							<c:if test="${empty sessionScope.email}">
-							<li><a href="loginAndRegister.jsp"><span
-									class="glyphicon glyphicon-user"></span>注册</a></li>
-							<li><a href="loginAndRegister.jsp"><span
-									class="glyphicon glyphicon-log-in"></span>登录</a></li>
-							</c:if>
-							<c:if test="${!empty sessionScope.email}">
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown"> <img alt="user" src="img/骑行.jpg"
-									width="22" height="22" class="img-rounded" /> <strong
-									class="caret"></strong>
-							</a>
-								<ul class="dropdown-menu ">
-									<li
-										class="dropdown-header header-nav-current-user css-truncate">
-										欢迎您！ <strong class="css-truncate-target">Andidas</strong>
-									</li>
-									<li class="divider"></li>
-									<li><a href="#" class="dropdown-item">个人信息</a></li>
-
-									<li class="divider"></li>
-									<li><a href="#" class="dropdown-item"> 帮助</a></li>
-									<li><a href="#" class="dropdown-item"> 设置</a></li>
-									<li><a href="#" class="dropdown-item" id="exitEmail"> 退出</a></li>
-								</ul></li>
-							</c:if>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</nav>
-	</div>
-
+<body data-spy="scroll" data-target="#myScrollspy" style="margin-top:30px;">
+	<jsp:include page="nav.jsp" flush="true"></jsp:include>
+	
 	<div class="container" id="content">
 		<div class="row clearfix">
 			<div class="col-lg-2" id="myScrollspy">
@@ -351,16 +270,4 @@
 		<a href="#" class="btn btn-link" id="return_top"></a>
 </body>
 
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#exitEmail").click(function(){
-			var param = {
-				"op" : "exitUser"
-			};
-			$.post("UserServlet", param, function(data) {
-				console.log(data);
-			});
-		});
-	});
-</script>
 </html>

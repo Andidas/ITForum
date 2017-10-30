@@ -31,7 +31,7 @@
 			<form class="form-horizontal " role="form"
 				action="UserServlet?op=login" method="post" id="FormLogin">
 				<div id="photo">
-					<img src="img/photo.jpg" />
+					<img src="img/ITForum.jpg" />
 				</div>
 				<div class="inp">
 					<input type="email" placeholder="邮箱" id="inputEmail" name="email" />

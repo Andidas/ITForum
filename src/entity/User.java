@@ -18,11 +18,8 @@ package entity;
  * @param upoint 用户积分
  * @param uissectioner 是否版主
  */
-public class User {
+public class User implements Cloneable{
 
-	/**
-	 * 全部参数
-	 */
 	public User(int uid, String uname, String upassword, String uemail,
 			String uregdate, String ubirthady, int usex, String uhead,
 			String usatement, int ustate, int upoint, int uissectioner) {
@@ -42,7 +39,14 @@ public class User {
 	}
 	public User() {
 		super();
+		// TODO 自动生成的构造函数存根
 	}
+	//克隆借口实现
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+			return super.clone();
+	}
+	
 
 	private int uid;
 	private String uname;
@@ -56,92 +60,6 @@ public class User {
 	private int ustate;
 	private int upoint;
 	private int uissectioner;
-
-
-	public String getUname() {
-		return uname;
-	}
-
-	public void setUname(String uname) {
-		this.uname = uname;
-	}
-
-	public String getUpassword() {
-		return upassword;
-	}
-
-	public void setUpassword(String upassword) {
-		this.upassword = upassword;
-	}
-
-	public String getUbirthady() {
-		return ubirthady;
-	}
-
-	public void setUbirthady(String ubirthady) {
-		this.ubirthady = ubirthady;
-	}
-
-	public int getUsex() {
-		return usex;
-	}
-
-	public void setUsex(int usex) {
-		this.usex = usex;
-	}
-
-	public String getUhead() {
-		return uhead;
-	}
-
-	public void setUhead(String uhead) {
-		this.uhead = uhead;
-	}
-
-	public String getUsatement() {
-		return usatement;
-	}
-
-	public void setUsatement(String usatement) {
-		this.usatement = usatement;
-	}
-
-	public int getUstate() {
-		return ustate;
-	}
-
-	public void setUstate(int ustate) {
-		this.ustate = ustate;
-	}
-
-	public int getUpoint() {
-		return upoint;
-	}
-
-	public void setUpoint(int upoint) {
-		this.upoint = upoint;
-	}
-
-	public int getUissectioner() {
-		return uissectioner;
-	}
-
-	public void setUissectioner(int uissectioner) {
-		this.uissectioner = uissectioner;
-	}
-
-	public int getUid() {
-		return uid;
-	}
-
-	public String getUemail() {
-		return uemail;
-	}
-
-	public String getUregdate() {
-		return uregdate;
-	}
-
 	@Override
 	public String toString() {
 		return "User [uid=" + uid + ", uname=" + uname + ", upassword="
@@ -150,20 +68,77 @@ public class User {
 				+ uhead + ", usatement=" + usatement + ", ustate=" + ustate
 				+ ", upoint=" + upoint + ", uissectioner=" + uissectioner + "]";
 	}
-
+	public int getUid() {
+		return uid;
+	}
 	public void setUid(int uid) {
 		this.uid = uid;
 	}
-
+	public String getUname() {
+		return uname;
+	}
+	public void setUname(String uname) {
+		this.uname = uname;
+	}
+	public String getUpassword() {
+		return upassword;
+	}
+	public void setUpassword(String upassword) {
+		this.upassword = upassword;
+	}
+	public String getUemail() {
+		return uemail;
+	}
 	public void setUemail(String uemail) {
 		this.uemail = uemail;
 	}
-
+	public String getUregdate() {
+		return uregdate;
+	}
 	public void setUregdate(String uregdate) {
 		this.uregdate = uregdate;
 	}
-
-
-
-	
+	public String getUbirthady() {
+		return ubirthady;
+	}
+	public void setUbirthady(String ubirthady) {
+		this.ubirthady = ubirthady;
+	}
+	public int getUsex() {
+		return usex;
+	}
+	public void setUsex(int usex) {
+		this.usex = usex;
+	}
+	public String getUhead() {
+		return uhead;
+	}
+	public void setUhead(String uhead) {
+		this.uhead = uhead;
+	}
+	public String getUsatement() {
+		return usatement;
+	}
+	public void setUsatement(String usatement) {
+		this.usatement = usatement;
+	}
+	public int getUstate() {
+		return ustate;
+	}
+	public void setUstate(int ustate) {
+		this.ustate = ustate;
+	}
+	public int getUpoint() {
+		return upoint;
+	}
+	public void setUpoint(int upoint) {
+		this.upoint = upoint;
+	}
+	public int getUissectioner() {
+		return uissectioner;
+	}
+	public void setUissectioner(int uissectioner) {
+		this.uissectioner = uissectioner;
+	}
 }
+
