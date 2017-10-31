@@ -98,7 +98,7 @@
 							<c:if test="${!empty sessionScope.NowLoginUser.uemail}">
 								<li class="dropdown"><a href="#" class="dropdown-toggle"
 									data-toggle="dropdown"> <img alt="user"
-										src="<%=basePath%>files/${sessionScope.NowLoginUser.uhead}"
+										src="<c:if test="${not empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/${sessionScope.NowLoginUser.uhead}</c:if><c:if test="${empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/ITForum.jpg</c:if>"
 										width="22" height="22" class="img-rounded" /> <strong
 										class="caret"></strong>
 								</a>

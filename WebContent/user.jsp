@@ -266,7 +266,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<form role="form" method="post" enctype="multipart/form-data" action="UserServlet?op=update">
 							<div class="col-md-3">
 								<div class="thumbnail">
-									<img src="<%=basePath%>files/${sessionScope.NowLoginUser.uhead}" alt="图片不符合规范" 
+									<img src="<c:if test="${not empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/${sessionScope.NowLoginUser.uhead}</c:if><c:if test="${empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/ITForum.jpg</c:if>" alt="图片不符合规范" 
 										id="userPicture" style="width:235;height:235;">
 									<div class="caption">
 										<label for="setUserPicture" class="btn btn-success btn-block">set

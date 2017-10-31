@@ -34,11 +34,34 @@ public class AuthenticateServlet extends HttpServlet {
 		String op = request.getParameter("op");
 		if(op.equals("emailCaptcha")){
 			emailCaptcha(request,response);
+		}else if(op.equals("toCheckEmailCaptcha")){
+			toCheckEmailCaptcha(request,response);
 		}
 	}
 
 	/**
-	 * 邮箱验证,ajax实现
+	 * 验证输入的验证码是否正确
+	 */
+	private void toCheckEmailCaptcha(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException,IOException{
+		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
+		//保存在session的验证码,emailCaptcha
+		String emailCaptcha = (String)session.getAttribute("emailCaptcha");
+		//从页面传来的验证码,inputCaptcha
+		String inputCaptcha = request.getParameter("captcha");
+		if(emailCaptcha!=null & inputCaptcha!=null){
+			if(emailCaptcha.equals(inputCaptcha)){
+				out.print("true");
+			}
+		}else{
+			out.print("false");
+		}
+		
+	}
+
+	/**
+	 * 邮箱验证,ajax实现,得到验证码
 	 * @throws ServletException,IOException 
 	 * @throws GeneralSecurityException 
 	 */
@@ -46,14 +69,16 @@ public class AuthenticateServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException,IOException {
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
-		String to = request.getParameter("email");
-		String Captcha = authenticateService.emailCaptcha(to);
+		
+		String to = request.getParameter("remail");//得到注册的email
+		String Captcha = authenticateService.emailCaptcha(to);//得到随机验证码
 		if(Captcha!=null){
-			out.print(Captcha);
-			session.setAttribute("emailCaptcha", Captcha);
+			//发送验证码成功
+			out.print("true");
+			session.setAttribute("emailCaptcha", Captcha);//将email验证码保存在session中
 		}else{
 			out.print("false");
-			session.setAttribute("emailCaptcha", null);
+			session.setAttribute("emailCaptcha", null);//清空session里面的email验证码
 		}
 	}
 

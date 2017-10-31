@@ -57,7 +57,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User queryUser(String uemail) {	
-		 User user = new User();
+		 User user = null;
 		 try {
 			sqlSession = dbAccess.getSqlSession();
 			user = sqlSession.selectOne("User.queryUser",uemail);

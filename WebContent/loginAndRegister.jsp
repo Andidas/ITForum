@@ -86,42 +86,60 @@
 		$("#sendEmail").click(function(){
 			var param = {
 				"op" : "emailCaptcha",
-				"email" : $("#remail").val()
+				"remail" : $("#remail").val()
 			}
 			$.post("AuthenticateServlet",param,function(data){
 				console.log(data);
 				if(data == "false"){
 					$("#reSmall").html("发送失败，请检查邮箱");
-					$("#reSmall").show();
+					$("#reSmall").show(300);
 				}else{
 					$("#reSmall").html("发送成功，请在邮箱查看验证码");
-					$("#reSmall").show();
+					$("#reSmall").show(300);
 				}
 				$("#reSend").html("重新发送");
+			});
+		});
+	});
+	/*校验验证码是否正确,ajax*/
+	$(document).ready(function(){
+		$("#captcha").blur(function(){
+			var param = {
+				"op" :"toCheckEmailCaptcha",
+				"captcha" :$("#captcha").val()
+			}
+			$.post("AuthenticateServlet",param,function(data){
+				console.log(data);
+				if(data == "true"){
+					$("#reSmall").hide(300);
+					$("#reSmall").html("true");
+				}else{
+					$("#reSmall").html("验证码错误!");
+					$("#reSmall").show(300);
+				}
 			});
 		});
 	});
 	/*点击登录和注册的动作*/
 	$(document).ready(function() {
 
-		$(".form").slideDown(500);
+		$(".form").slideDown(300);
 
 		$("#landing").addClass("border-btn");
 
 		$("#registered").click(function() {
 			$("#landing").removeClass("border-btn");
-			$("#landing-content").hide(500);
+			$("#landing-content").hide(300);
 			$(this).addClass("border-btn");
-			$("#registered-content").show(500);
-
+			$("#registered-content").show(300);
 		})
 
 		$("#landing").click(function() {
 			$("#registered").removeClass("border-btn");
 			$(this).addClass("border-btn");
 
-			$("#landing-content").show(500);
-			$("#registered-content").hide(500);
+			$("#landing-content").show(300);
+			$("#registered-content").hide(300);
 		})
 	});
 
@@ -131,35 +149,35 @@
 		$("#rname").blur(function(){
 			var regName = /^[\u4e00-\u9fa5\w+$]/;
 			if(!regName.test($(this).val())||$(this).val()==""){
-				$(this).siblings("small").attr("class","show");
+				$(this).siblings("small").show(300);
 			}else{
-				$(this).siblings("small").attr("class","hidden");
+				$(this).siblings("small").hide(300);
 			}
 		});
 		/*验证密码*/
 		$("#rpassword").blur(function(){
 			var regPass = /^[a-zA-Z]\w{5,17}$/;
 			if(!regPass.test($(this).val())||$(this).val()==""){
-				$(this).siblings("small").attr("class","show");
+				$(this).siblings("small").show(300);
 			}else{
-				$(this).siblings("small").attr("class","hidden");
+				$(this).siblings("small").hide(300);
 			}
 		});
 		/*确认密码*/
 		$("#ensurePassword").blur(function(){
 			if($(this).val()!=$("#rpassword").val()){
-				$(this).siblings("small").attr("class","show");
+				$(this).siblings("small").show(300);
 			}else{
-				$(this).siblings("small").attr("class","hidden");
+				$(this).siblings("small").hide(300);
 			}
 		});
 		/*验证邮箱*/
 		$("#remail").blur(function(){
 			var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
 			if(!regEmail.test($(this).val())||$(this).val()==""){
-				$(this).siblings("small").attr("class","show");
+				$(this).siblings("small").show(300);
 			}else{
-				$(this).siblings("small").attr("class","hidden");
+				$(this).siblings("small").hide(300);
 			}
 		});
 		/*表单提交*/
@@ -172,16 +190,19 @@
 			var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
 			if(!regName.test($("#rname").val())||$("#rname").val()==""){
 				$("#rname").focus();
-				$("#rname").siblings("small").attr("class","show");
+				$("#rname").siblings("small").show(300);
 			}else if(!regPass.test($("#rpassword").val())||$("#rpassword").val()==""){
 				$("#rpassword").focus();
-				$("#rpassword").siblings("small").attr("class","show");
+				$("#rpassword").siblings("small").show(300);
 			}else if($("#ensurePassword").val()!=$("#rpassword").val()){
 				$("#ensurePassword").focus();
-				$("#ensurePassword").siblings("small").attr("class","show");
+				$("#ensurePassword").siblings("small").show(300);
 			}else if(!regEmail.test($("#remail").val())||$("#remail").val()==""){
 				$("#remail").focus();
-				$("#remail").siblings("small").attr("class","show");
+				$("#remail").siblings("small").show(300);
+			}else if($("#reSmall").html()!="true"){
+				$("#captcha").focus();
+				$("#reSmall").show(300);
 			}else{
 				$("#Formregister").submit();				
 			}
