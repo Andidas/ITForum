@@ -15,11 +15,14 @@ import com.jspsmart.upload.SmartFiles;
 import com.jspsmart.upload.SmartRequest;
 import com.jspsmart.upload.SmartUpload;
 import com.jspsmart.upload.SmartUploadException;
-import com.sun.corba.se.spi.activation.Repository;
 
 import entity.User;
 import service.UserService;
 
+/**
+ * @author 刘伟艺
+ * 用户servlet
+ */
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService userService = new UserService();
@@ -52,6 +55,9 @@ public class UserServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * 更新用户
+	 */
 	private void update(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -101,6 +107,9 @@ public class UserServlet extends HttpServlet {
 
 	}
 
+	/**
+	 * 得到用户密码，用ajax密码自动填写
+	 */
 	private void getPassword(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
@@ -115,6 +124,9 @@ public class UserServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * 跳转到登录页面，保存跳转之前的页面url
+	 */
 	private void toLogin(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String url = request.getHeader("REFERER");
@@ -123,6 +135,9 @@ public class UserServlet extends HttpServlet {
 		response.sendRedirect("loginAndRegister.jsp");
 	}
 
+	/**
+	 * 用户登录，cookie保存
+	 */
 	private void login(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String email = request.getParameter("email");
@@ -152,6 +167,9 @@ public class UserServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * 退出用户
+	 */
 	private void exitUser(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -160,6 +178,9 @@ public class UserServlet extends HttpServlet {
 		response.sendRedirect(url);
 	}
 
+	/**
+	 * 用户注册
+	 */
 	private void register(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("rname");

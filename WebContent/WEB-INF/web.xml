@@ -9,6 +9,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <!-- servlet设置 -->
   <servlet>
     <servlet-name>UserServlet</servlet-name>
     <servlet-class>servlet.UserServlet</servlet-class>
@@ -17,13 +18,23 @@
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/UserServlet</url-pattern>
   </servlet-mapping>
+  <!-- 验证码 -->
+  <servlet>
+  	<servlet-name>AuthenticateServlet</servlet-name>
+  	<servlet-class>servlet.AuthenticateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AuthenticateServlet</servlet-name>
+  	<url-pattern>/AuthenticateServlet</url-pattern>
+  </servlet-mapping>
   
+  <!-- 过滤器 -->
   <filter>
-		<filter-name>EncodingFilter</filter-name>
-		<filter-class>filter.EncodingFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>EncodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+    <filter-name>EncodingFilter</filter-name>
+    <filter-class>filter.EncodingFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>EncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>

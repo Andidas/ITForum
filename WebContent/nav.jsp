@@ -1,10 +1,12 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html>
 <html>
@@ -18,13 +20,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="expires" content="0">
 <meta http-equiv="description" content="loginAndRegister">
 <meta charset="UTF-8">
-	<title>导航条</title>
-		<link href="css/bootstrap.min.css" rel="stylesheet" />
-		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.js"></script>
+<title>导航条</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<style type="text/css">
+.login {
+	padding-right: 40px;
+}
+
+.login span {
+	padding: 0 8px 0 0;
+}
+
+.login .dropdown-menu li:hover a {
+	background-color: #0366D6;
+	color: white;
+}
+</style>
 </head>
 <body>
-		<div class="clearfix">
+	<div class="clearfix">
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
 			style="border-top: solid #F48024 3px;">
 			<div class="container">
@@ -36,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">Brand</a>
+					<a class="navbar-brand" href="index.jsp">ITFOURM</a>
 				</div>
 
 				<div class="collapse navbar-collapse"
@@ -70,34 +86,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 
 					</form>
-					
+
 					<div class="login">
 						<ul class="nav navbar-nav navbar-right">
 							<c:if test="${empty sessionScope.NowLoginUser.uemail}">
-							<li><a href="UserServlet?op=toLogin"><span
-									class="glyphicon glyphicon-user"></span>注册</a></li>
-							<li><a href="UserServlet?op=toLogin"><span
-									class="glyphicon glyphicon-log-in"></span>登录</a></li>
+								<li><a href="UserServlet?op=toLogin"><span
+										class="glyphicon glyphicon-user"></span>注册</a></li>
+								<li><a href="UserServlet?op=toLogin"><span
+										class="glyphicon glyphicon-log-in"></span>登录</a></li>
 							</c:if>
 							<c:if test="${!empty sessionScope.NowLoginUser.uemail}">
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown"> <img alt="user" src="<%=basePath%>files/${sessionScope.NowLoginUser.uhead}"
-									width="22" height="22" class="img-rounded" /> <strong
-									class="caret"></strong>
-							</a>
-								<ul class="dropdown-menu ">
-									<li
-										class="dropdown-header header-nav-current-user css-truncate">
-										欢迎您！ <strong class="css-truncate-target">${sessionScope.NowLoginUser.uname}</strong>
-									</li>
-									<li class="divider"></li>
-									<li><a href="user.jsp" class="dropdown-item">个人信息</a></li>
+								<li class="dropdown"><a href="#" class="dropdown-toggle"
+									data-toggle="dropdown"> <img alt="user"
+										src="<%=basePath%>files/${sessionScope.NowLoginUser.uhead}"
+										width="22" height="22" class="img-rounded" /> <strong
+										class="caret"></strong>
+								</a>
+									<ul class="dropdown-menu ">
+										<li
+											class="dropdown-header header-nav-current-user css-truncate">
+											欢迎您！ <strong class="css-truncate-target">${sessionScope.NowLoginUser.uname}</strong>
+										</li>
+										<li class="divider"></li>
+										<li><a href="user.jsp" class="dropdown-item">个人信息</a></li>
 
-									<li class="divider"></li>
-									<li><a href="#" class="dropdown-item"> 帮助</a></li>
-									<li><a href="#" class="dropdown-item"> 设置</a></li>
-									<li><a href="javaScript:void(0)" class="dropdown-item" id="exitEmail"> 退出</a></li>
-								</ul></li>
+										<li class="divider"></li>
+										<li><a href="#" class="dropdown-item"> 帮助</a></li>
+										<li><a href="#" class="dropdown-item"> 设置</a></li>
+										<li><a href="javaScript:void(0)" class="dropdown-item"
+											id="exitEmail"> 退出</a></li>
+									</ul></li>
 							</c:if>
 						</ul>
 					</div>
@@ -110,7 +128,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 $(document).ready(function(){
 		$("#exitEmail").click(function(){
 			location.href='<%=basePath%>UserServlet?op=exitUser';
-			
 		});
 	});
 </script>

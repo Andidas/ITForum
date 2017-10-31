@@ -31,7 +31,7 @@
 			<form class="form-horizontal " role="form"
 				action="UserServlet?op=login" method="post" id="FormLogin">
 				<div id="photo">
-					<img src="img/ITForum.jpg" />
+					<img src="img/photo.jpg" />
 				</div>
 				<div class="inp">
 					<input type="email" placeholder="邮箱" id="inputEmail" name="email" />
@@ -68,6 +68,11 @@
 					<input type="text" placeholder="电子邮箱" name="remail" id="remail" />
 					<small class="hidden">邮箱格式错误</small>
 				</div>
+				<div class="ensureEmail">
+					<input type="text" placeholder="验证码" name="captcha" id="captcha" />
+					<a href="javaScript:void(0)" id="sendEmail"><span id="reSend">邮箱验证</span></a>
+					<small class="hidden" id="reSmall">请到邮箱查看验证码</small>
+				</div>
 				<div class="login" id="register">立即注册</div>
 			</form>
 		</div>
@@ -75,7 +80,28 @@
 
 
 </body>
-<script>
+<script type="text/javascript">
+	/*发送邮箱验证，ajax*/
+	$(document).ready(function(){
+		$("#sendEmail").click(function(){
+			var param = {
+				"op" : "emailCaptcha",
+				"email" : $("#remail").val()
+			}
+			$.post("AuthenticateServlet",param,function(data){
+				console.log(data);
+				if(data == "false"){
+					$("#reSmall").html("发送失败，请检查邮箱");
+					$("#reSmall").show();
+				}else{
+					$("#reSmall").html("发送成功，请在邮箱查看验证码");
+					$("#reSmall").show();
+				}
+				$("#reSend").html("重新发送");
+			});
+		});
+	});
+	/*点击登录和注册的动作*/
 	$(document).ready(function() {
 
 		$(".form").slideDown(500);

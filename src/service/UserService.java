@@ -7,9 +7,14 @@ import java.util.List;
 import dao.impl.UserDaoImpl;
 import entity.User;
 
+/**
+ * @author 刘伟艺
+ * 用户服务
+ */
 public class UserService {
 
 	UserDaoImpl udi = new UserDaoImpl();
+	
 	public List<User> queryUserList() {
 		return udi.queryUserList();
 	}

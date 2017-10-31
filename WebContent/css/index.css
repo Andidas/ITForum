@@ -1,17 +1,6 @@
 /* Custom Styles */
 
-.login {
-	padding-right: 40px;
-}
 
-.login span {
-	padding: 0 8px 0 0;
-}
-
-.login .dropdown-menu li:hover a {
-	background-color: #0366D6;
-	color: white;
-}
 
 #return_top {
 	position: fixed;
