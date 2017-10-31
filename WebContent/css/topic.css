@@ -1,3 +1,4 @@
+@CHARSET "UTF-8";
 	body {
 		margin-top: 10px;
 	}
@@ -206,7 +207,7 @@
 	strong {
 		font-weight: bold;
 }
-/*楼中楼回复*/
+/*妤间腑妤煎洖澶�*/
 .lzl_editor_container_s {
     padding-top: 13px;
 }

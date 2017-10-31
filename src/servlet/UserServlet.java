@@ -183,6 +183,7 @@ public class UserServlet extends HttpServlet {
 	 */
 	private void register(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session =request.getSession();
 		String name = request.getParameter("rname");
 		String email = request.getParameter("remail");
 		String password = request.getParameter("rpassword");
@@ -197,7 +198,7 @@ public class UserServlet extends HttpServlet {
 
 		} else if (result == 4) {
 			out.print("<script>alert('新增成功');history.back();</script>");
-
+			session.setAttribute("emailCaptcha", null);
 		}
 
 	}

@@ -1,9 +1,10 @@
+@CHARSET "UTF-8";
 body.user-page #content * {
 	box-sizing: border-box;
 }
 
 
-/*ÓÃ»§ĞÅÏ¢*/
+/*ç”¨æˆ·ä¿¡æ¯*/
 
 #profile,#activity,#edit {
 	margin-top: 26px;
@@ -277,7 +278,7 @@ a {
 }
 
 
-/*¹Ø×¢µÄ°æ¿é*/
+/*å…³æ³¨çš„ç‰ˆå—*/
 #sidebar{
 	margin-top: 50px;
 }
@@ -334,7 +335,7 @@ a {
 }
 
 
-/*»Ø´ğºÍÌáÎÊ*/
+/*å›ç­”å’Œæé—®*/
 
 .title-section {
 	font-weight: 700;

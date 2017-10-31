@@ -44,14 +44,14 @@
 
 				<div class="login" id="login">登录</div>
 				<div id="bottom">
-					<span id="registeredtxt">立即注册</span><span id="forgotpassword">忘记密码</span>
+					<span id="forgotpassword">忘记密码</span>
 				</div>
 			</form>
 		</div>
 		<div id="registered-content" class="hidden">
 			<form class="form-horizontal " role="form"
 				action="UserServlet?op=register" method="post" id="Formregister">
-
+				
 				<div class="inp">
 					<input type="text" placeholder="请输入用户名" name="rname" id="rname" />
 					<small class="hidden">中文、字母、数字或下划线的组合</small>

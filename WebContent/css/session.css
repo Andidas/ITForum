@@ -1,0 +1,95 @@
+@CHARSET "UTF-8";
+#content {
+	margin-top: 70px;
+}
+/*帖子内容*/
+#mainContent li {
+	float: left;
+	width:100%;
+}
+#mainContent .panel-footer,#mainContent .panel-footer a{
+	color:#dddddd;
+	background:#ffffff;
+}
+/**/
+#sessionHead img{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width:197px;
+    height:197px;
+   
+}
+#sessionHead small{
+	font-size:12px;
+}
+#sessionHead small span{
+	color:#ff7f3e;
+	margin:0 10px;
+	display:inline-block;
+}
+/*关注按钮和取消关注*/
+#sessionHead .follow {
+	border-radius: 4px;
+     display: inline-block;
+    background-color: #4CAF50;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 14px;
+    width: 80px;
+    height: 34px;
+    line-height: 34px;
+	margin:4px 10px;
+ transition: all 0.5s;
+}
+
+#sessionHead .follow span {
+  cursor: pointer;
+    cursor: -ms-pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+    height: 34px;
+    line-height: 34px;
+}
+
+#sessionHead .follow span:after {
+  content: '+';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+#sessionHead .follow:hover span {
+  padding-right: 15px;
+}
+
+#sessionHead .follow:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+#sessionHead .unfollow {
+    background-color: #f4511e; 
+    text-decoration:none;
+    border-radius: 4px;
+    border: none;
+    color: white;
+     width: 100px;
+    height: 34px;
+	line-height:34px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 10px 4px 0;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+#sessionHead .unfollow:hover {
+    box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24),0 5px 10px 0 rgba(0,0,0,0.19);
+}

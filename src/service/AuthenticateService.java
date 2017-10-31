@@ -2,21 +2,15 @@ package service;
 
 import java.security.GeneralSecurityException;
 
+import service.iService.IAuthenticateService;
 import utils.SendEmail;
 
 /**
  * @author 刘伟艺
  * 验证服务
  */
-public class AuthenticateService {
+public class AuthenticateService implements IAuthenticateService{
 	
-	/**
-	 * 验证邮箱服务，邮件发送成功就返回：验证码字符串。
-	 * 否则返回： null
-	 * @param email 收件人邮箱
-	 * @return 验证码或null
-	 * @throws GeneralSecurityException
-	 */
 	public String emailCaptcha(String email) {
 		String captcha = SendEmail.generateCAPTCHA();//生成验证码
 		String to = email;

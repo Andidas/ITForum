@@ -22,121 +22,116 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 <link href="css/init.css" rel="stylesheet" />
-<script type="text/javascript">
-		</script>
+<link href="css/session.css" rel="stylesheet" />
 <style type="text/css">
-body {
-	margin: 50px;
-}
-
-.content-text li {
-	float: left;
-}
 </style>
-
 </head>
 <body>
-	<jsp:include page="nav.jsp" flush="true"/>
-	<div class="clearfix container">
-		<div class="row-fluid">
-			<div class="col-xs-8">
-				<div class="row-fluid">
-					<img src="img/骑行.jpg" class="img-thumbnail pull-left" width="200"
-						height="187" class="col-xs-4" />
-					<div class="page-header col-xs-8">
-						<h1>
-							java <small>Subtext for header</small>
-						</h1>
-						<a class="btn btn-info" href="#writeTopic">发表帖子</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-4">
-				<div class="container">
-					<table>
-						<tbody>
-							<tr>
-								<td>
-									<p class="label-key">asked</p>
-								</td>
-								<td style="padding-left: 10px">
-									<p class="label-key" title="2009-07-30 15:36:42Z">
-										<b>8 years, 2 months ago</b>
-									</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<p class="label-key">viewed</p>
-								</td>
+	<jsp:include page="nav.jsp" flush="true" />
+	<div class="clearfix container" id="content">
+		<div class="row-fluid clearfix" id="sessionHead">
 
-								<td style="padding-left: 10px">
-									<p class="label-key">
-										<b>259,352 times</b>
-									</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<p class="label-key">active</p>
-								</td>
-								<td style="padding-left: 10px">
-									<p class="label-key">
-										<b><a href="?lastactivity" class="lastactivity-link"
-											title="2017-07-28 00:37:31Z">2 months ago</a></b>
-									</p>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+			<div class="col-md-3" style="width: 230px">
+				<img src="img/photo.jpg" />
+			</div>
+			<div class="page-header col-md-9">
+				<h1>
+					java<a href="javaScript:void(0)" class="follow" id="follow"
+						style="display: none;"><span>关注</span></a> <a class="unfollow"
+						id="unfollow" href="javaScript:void(0)" style="">取消关注 </a> <small>关注:<span>4561</span>提问:<span>1235</span></small>
+				</h1>
+				金钱与未来，你的选择是什么？
 			</div>
 		</div>
-		<div class="col-md-8">
-
-			<div class="column">
-				<ul class="content-text">
-					<li>
-						<div class="panel">
-							<div class="panel-heading">
-								<a href="topic.html">题目sdf</a> <span
-									class="glyphicon glyphicon-log-out"></span> 22
-							</div>
-							<div class="panel-body">
-								<p>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，砸敌人的sdfasdfsdfds</p>
-
-							</div>
-							<div class="panel-footer">
-								<span class="glyphicon glyphicon-user"></span> <a
-									href="user.html" title="主题作者" target="_blank"> 1900lwy</a> <span
-									class="glyphicon glyphicon-time"></span> <span class="time">10月
-									10日 00:22</span>
-							</div>
+		<div class="col-md-8" id="mainContent">
+			<ul class="content-text clearfix">
+				<li>
+					<div class="panel">
+						<div class="panel-heading">
+							<a href="topic.html">题目sdf</a> <span
+								class="glyphicon glyphicon-log-out"></span> 22
 						</div>
-					</li>
-					<li>
-						<div class="panel">
-							<div class="panel-heading">
-								<a href="topic.html">题目sdf</a> <span
-									class="glyphicon glyphicon-log-out"></span> 22
-							</div>
-							<div class="panel-body">
-								<p>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，砸敌人的sdfasdfsdfds</p>
+						<div class="panel-body">
+							<p>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，砸敌人的sdfasdfsdfds</p>
 
-							</div>
-							<div class="panel-footer">
-								<span class="glyphicon glyphicon-user"></span> <a
-									href="user.html" title="主题作者" target="_blank"> 1900lwy</a> <span
-									class="glyphicon glyphicon-time"></span> <span class="time">10月
-									10日 00:22</span>
-							</div>
 						</div>
-					</li>
-				</ul>
+						<div class="panel-footer">
+							<span class="glyphicon glyphicon-user"></span> <a
+								href="user.html" title="主题作者" target="_blank"> 1900lwy</a> <span
+								class="glyphicon glyphicon-time"></span> <span class="time">10月
+								10日 00:22</span>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="panel">
+						<div class="panel-heading">
+							<a href="topic.html">题目sdf</a> <span
+								class="glyphicon glyphicon-log-out"></span> 22
+						</div>
+						<div class="panel-body">
+							<p>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，砸敌人的sdfasdfsdfds</p>
 
-			</div>
+						</div>
+						<div class="panel-footer">
+							<span class="glyphicon glyphicon-user"></span> <a
+								href="user.html" title="主题作者" target="_blank"> 1900lwy</a> <span
+								class="glyphicon glyphicon-time"></span> <span class="time">10月
+								10日 00:22</span>
+						</div>
+					</div>
+				</li>
+			</ul>
 		</div>
 		<div class="col-md-4">
+			<div class="column">
+				<table>
+					<tbody>
+						<tr>
+							<td>
+								<p class="label-key">拥有者</p>
+							</td>
+							<td style="padding-left: 10px">
+								<p class="label-key" title="2009-07-30 15:36:42Z">
+									<b>刘伟艺</b>
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="label-key">起始点</p>
+							</td>
+							<td style="padding-left: 10px">
+								<p class="label-key" title="2009-07-30 15:36:42Z">
+									<b>8 years, 2 months ago</b>
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="label-key">总贴数</p>
+							</td>
+
+							<td style="padding-left: 10px">
+								<p class="label-key">
+									<b>259,352 times</b>
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="label-key">active</p>
+							</td>
+							<td style="padding-left: 10px">
+								<p class="label-key">
+									<b><a href="?lastactivity" class="lastactivity-link"
+										title="2017-07-28 00:37:31Z">2 months ago</a></b>
+								</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
 			<div class="panel " id="HotQuestion">
 				<div class="panel-heading">
@@ -172,4 +167,16 @@ body {
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#follow").click(function(){
+			$(this).hide();
+			$("#unfollow").show();
+		});
+		$("#unfollow").click(function(){
+			$(this).hide();
+			$("#follow").show();
+		});
+	});
+</script>
 </html>

@@ -1,3 +1,4 @@
+@CHARSET "UTF-8";
 /* Custom Styles */
 
 
@@ -63,7 +64,7 @@
 	color: gainsboro;
 }
 
-/*×ó±ßµÄ»¬¶¯²Ëµ¥*/
+/*å·¦è¾¹çš„æ»‘åŠ¨èœå•*/
 #accordion .panel-heading,#accordion .panel-body{
 	padding: 0 15px;
 	margin: 0;

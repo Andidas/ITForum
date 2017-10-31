@@ -4,14 +4,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import service.iService.IUserService;
 import dao.impl.UserDaoImpl;
 import entity.User;
 
 /**
  * @author 刘伟艺
- * 用户服务
+ * 用户服务接口
  */
-public class UserService {
+public class UserService implements IUserService{
 
 	UserDaoImpl udi = new UserDaoImpl();
 	
@@ -42,13 +43,6 @@ public class UserService {
 		}
 		return null;
 	}
-	/**
-	 * @param name
-	 * @param email
-	 * @param password
-	 * @param ensurePassword
-	 * @return result = 1两次输入的密码不同，result = 2插入数据库失败，result = 4新增用户成功并插入数据库，
-	 */
 	public int addUser(String name,String email,String password,String ensurePassword) {
 		int result = 1;
 		if(password.equals(ensurePassword)){//校验两次密码是否相同			
