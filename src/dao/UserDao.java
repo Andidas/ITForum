@@ -60,4 +60,12 @@ public interface UserDao {
 	 * @return
 	 */
 	boolean checkUser(String email,String password);
+	
+	/**
+	 * Í¨¹ıÓÊÏäĞŞ¸ÄÃÜÂë
+	 * @param email
+	 * @param password
+	 * @return
+	 */
+	int modifyPasswordByEmail(String email,String password);
 }

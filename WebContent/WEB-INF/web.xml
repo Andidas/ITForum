@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+<web-app id="WebApp_ID">
   <display-name>ITForum</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
@@ -18,7 +18,7 @@
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/UserServlet</url-pattern>
   </servlet-mapping>
-  <!-- 验证码 -->
+  <!-- 邮箱验证码 -->
   <servlet>
   	<servlet-name>AuthenticateServlet</servlet-name>
   	<servlet-class>servlet.AuthenticateServlet</servlet-class>
@@ -27,7 +27,27 @@
   	<servlet-name>AuthenticateServlet</servlet-name>
   	<url-pattern>/AuthenticateServlet</url-pattern>
   </servlet-mapping>
-  
+  <!--  -->
+  <servlet>
+		<servlet-name>StartCaptchaServlet2</servlet-name>
+		<display-name>StartCaptchaServlet2</display-name>
+		<description></description>
+		<servlet-class>demo.demo2.StartCaptchaServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>VerifyLoginServlet2</servlet-name>
+		<display-name>VerifyLoginServlet2</display-name>
+		<description></description>
+		<servlet-class>demo.demo2.VerifyLoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VerifyLoginServlet2</servlet-name>
+		<url-pattern>/gt/ajax-validate2</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>StartCaptchaServlet2</servlet-name>
+		<url-pattern>/gt/register2</url-pattern>
+	</servlet-mapping>
   <!-- 过滤器 -->
   <filter>
     <filter-name>EncodingFilter</filter-name>

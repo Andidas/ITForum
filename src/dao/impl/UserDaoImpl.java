@@ -112,6 +112,22 @@ public class UserDaoImpl implements UserDao {
 		}else
 		return true;
 	}
+
+	@Override
+	public int modifyPasswordByEmail(String email, String password) {
+		int result = 0;
+		try {
+			sqlSession =dbAccess.getSqlSession();
+			User user = new User();
+			user.setUemail(email);
+			user.setUpassword(password);
+			result = sqlSession.update("User.updateUserPasswordByEmail",user);
+			sqlSession.commit();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 
 }

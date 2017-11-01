@@ -46,4 +46,12 @@ public interface IUserService {
 	 */
 	public int addUser(String name,String email,String password,String ensurePassword);
 	
+	/**
+	 * Í¨¹ıÓÊÏäĞŞ¸ÄÃÜÂë
+	 * @param email
+	 * @param password
+	 * @return
+	 */
+	public boolean modifyPasswordByEmail(String email, String password) ;
+	
 }

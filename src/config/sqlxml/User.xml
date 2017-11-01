@@ -72,4 +72,11 @@
     WHERE
     uid = #{uid,jdbcType=INTEGER}
   </update>
+  
+  <update id="updateUserPasswordByEmail" parameterType="entity.User">
+    UPDATE user SET
+    upassword = #{upassword,jdbcType=VARCHAR}
+    WHERE
+    uemail = #{uemail,jdbcType=VARCHAR}
+  </update>
 </mapper>

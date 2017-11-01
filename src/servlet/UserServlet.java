@@ -52,7 +52,25 @@ public class UserServlet extends HttpServlet {
 			toLogin(request, response);
 		} else if (op.equals("update")) {
 			update(request, response);
+		} else if(op.equals("modifyPassword")){
+			modifyPassword(request, response);
 		}
+	}
+
+	/**
+	 * ÐÞ¸ÄÃÜÂë
+	 */
+	private void modifyPassword(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException{
+		String newpassword = request.getParameter("newpassword");
+		String email = request.getParameter("remail");
+		PrintWriter out = response.getWriter();
+		if(userService.modifyPasswordByEmail(email, newpassword)){
+			out.print("true");
+		}else{
+			out.print("false");
+		}
+		
 	}
 
 	/**

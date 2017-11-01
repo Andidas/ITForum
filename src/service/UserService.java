@@ -64,5 +64,12 @@ public class UserService implements IUserService{
 		
 		
 	}
+	@Override
+	public boolean modifyPasswordByEmail(String email, String password) {
+		int result = 0;
+		result = udi.modifyPasswordByEmail(email, password);
+		
+		return result > 0;
+	}
 	
 }

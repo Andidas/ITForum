@@ -38,5 +38,9 @@ public class UserTest {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		System.out.println(df.format(regdateTime));
 	}
+	@Test
+	public void modifyPasswordByEmail() {
+		System.out.println(userService.modifyPasswordByEmail("865799243@qq.com", "a123123"));
+	}
 	
 }
