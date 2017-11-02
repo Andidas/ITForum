@@ -1,8 +1,10 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html>
 <html>
@@ -23,6 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <link href="css/init.css" rel="stylesheet" />
 <link href="css/session.css" rel="stylesheet" />
+<link href="dist/summernote.css" rel="stylesheet" />
 <style type="text/css">
 </style>
 </head>
@@ -38,50 +41,106 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<h1>
 					java<a href="javaScript:void(0)" class="follow" id="follow"
 						style="display: none;"><span>关注</span></a> <a class="unfollow"
-						id="unfollow" href="javaScript:void(0)" style="">取消关注 </a> <small>关注:<span>4561</span>提问:<span>1235</span></small>
+						id="unfollow" href="javaScript:void(0)" style="">取消关注 </a> <small>关注:<span
+						title="目前关注人数">4561</span>提问:<span title="目前问题数">1235</span>主题：<a
+						href="javaScript:void(0)" title="分类依据">HTML/CSS</a></small>
 				</h1>
-				金钱与未来，你的选择是什么？
+				<p title="扼要描述">金钱与未来，你的选择是什么？</p>
 			</div>
 		</div>
 		<div class="col-md-8" id="mainContent">
 			<ul class="content-text clearfix">
 				<li>
-					<div class="panel">
+					<div class="col-xs-2">
+						<div class="thumbsUp">
+							<p title="回复条数">
+								22&emsp;<span class="glyphicon glyphicon-comment"></span>
+							</p>
+							<p title="被赞数目">
+								10&emsp;<span class="glyphicon glyphicon glyphicon-thumbs-up"></span>
+							</p>
+							<p title="观看人数">
+								5555&emsp;<span
+									class="glyphicon glyphicon glyphicon glyphicon-eye-open"></span>
+							</p>
+						</div>
+					</div>
+					<div class="panel col-xs-10">
 						<div class="panel-heading">
-							<a href="topic.html">题目sdf</a> <span
-								class="glyphicon glyphicon-log-out"></span> 22
+							<a href="topic.html">题目sdf</a>
 						</div>
 						<div class="panel-body">
-							<p>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，砸敌人的sdfasdfsdfds</p>
+							<p>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，</p>
 
 						</div>
-						<div class="panel-footer">
-							<span class="glyphicon glyphicon-user"></span> <a
-								href="user.html" title="主题作者" target="_blank"> 1900lwy</a> <span
-								class="glyphicon glyphicon-time"></span> <span class="time">10月
-								10日 00:22</span>
+						<div class="panel-footer clearfix">
+							<div style="float: right">
+								<span class="glyphicon glyphicon-user"></span> <a
+									href="user.jsp" title="提问者" target="_blank"> 1900lwy</a> <span
+									class="glyphicon glyphicon-time"></span> <span class="time"
+									title="提问时间">10月 10日 00:22</span>
+							</div>
+							<div style="float: left">
+								<span class="glyphicon glyphicon glyphicon-comment"></span> <a
+									href="user.jsp" title="最后回复人" target="_blank"> 1900lwy</a> <span
+									class="glyphicon glyphicon-time"></span> <span class="time"
+									title="最后回复时间">10月 10日 00:22</span>
+							</div>
 						</div>
 					</div>
 				</li>
 				<li>
-					<div class="panel">
+					<div class="col-xs-2">
+						<div class="thumbsUp">
+							<p title="回复条数">
+								22&emsp;<span class="glyphicon glyphicon-comment"></span>
+							</p>
+							<p title="被赞数目">
+								10&emsp;<span class="glyphicon glyphicon glyphicon-thumbs-up"></span>
+							</p>
+							<p title="观看人数">
+								5555&emsp;<span
+									class="glyphicon glyphicon glyphicon glyphicon-eye-open"></span>
+							</p>
+						</div>
+					</div>
+					<div class="panel col-xs-10">
 						<div class="panel-heading">
-							<a href="topic.html">题目sdf</a> <span
-								class="glyphicon glyphicon-log-out"></span> 22
+							<a href="topic.html">题目sdf</a>
 						</div>
 						<div class="panel-body">
-							<p>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，砸敌人的sdfasdfsdfds</p>
+							<p>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，</p>
 
 						</div>
-						<div class="panel-footer">
-							<span class="glyphicon glyphicon-user"></span> <a
-								href="user.html" title="主题作者" target="_blank"> 1900lwy</a> <span
-								class="glyphicon glyphicon-time"></span> <span class="time">10月
-								10日 00:22</span>
+						<div class="panel-footer clearfix">
+							<div style="float: right">
+								<span class="glyphicon glyphicon-user"></span> <a
+									href="user.jsp" title="提问者" target="_blank"> 1900lwy</a> <span
+									class="glyphicon glyphicon-time"></span> <span class="time"
+									title="提问时间">10月 10日 00:22</span>
+							</div>
+							<div style="float: left">
+								<span class="glyphicon glyphicon glyphicon-comment"></span> <a
+									href="user.jsp" title="最后回复人" target="_blank"> 1900lwy</a> <span
+									class="glyphicon glyphicon-time"></span> <span class="time"
+									title="最后回复时间">10月 10日 00:22</span>
+							</div>
 						</div>
 					</div>
 				</li>
 			</ul>
+			<div class="col-xs-10 col-xs-offset-1">
+				<div id="topicTitle">
+					题目<input type="text" />
+				</div>
+				<div class="">
+					<div id="topicText"></div>
+				</div>
+				<div>
+					<a class="btn btn-danger" id="topicTextReset">重置</a><a
+						class="btn btn-success" id="topicTextSubmit">提交</a>
+				</div>
+			</div>
 		</div>
 		<div class="col-md-4">
 			<div class="column">
@@ -165,15 +224,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 
 		</div>
+	
 	</div>
+	
 </body>
+<script src="dist/summernote.js"></script>
+<script src="dist/lang/summernote-zh-CN.js"></script>
+<!-- 中文-->
+<script>
+	/*发布帖子，输入框初始化*/
+	$(function() {
+		$('#topicText').summernote(
+				{
+					height : 200,
+					tabsize : 2,
+					lang : 'zh-CN',
+					toolbar : [ [ 'style', [ 'style' ] ],
+							[ 'font', [ 'bold', 'underline', 'clear' ] ],
+							[ 'fontname', [ 'fontname' ] ],
+							[ 'color', [ 'color' ] ],
+							[ 'para', [ 'paragraph' ] ],
+							[ 'insert', [ 'link', 'picture' ] ],
+							[ 'view', [ 'fullscreen', 'codeview', 'help' ] ] ],
+					//placeholder : '输入内容',
+				});
+	});
+	$(function(){
+		/*帖子内容重置*/
+		$('#topicTextReset').click(function(){
+			$('#topicText').summernote('code', "");
+		});
+		/*帖子提交*/
+		$('#topicTextSubmit').click(function(){
+			var SessionText = $('#topicText').summernote('code');
+			alert(SessionText);
+		});
+		
+	});
+</script>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$("#follow").click(function(){
+	$(document).ready(function() {
+		$("#follow").click(function() {
 			$(this).hide();
 			$("#unfollow").show();
 		});
-		$("#unfollow").click(function(){
+		$("#unfollow").click(function() {
 			$(this).hide();
 			$("#follow").show();
 		});

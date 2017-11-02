@@ -54,7 +54,7 @@
       },
       style: {
         style: 'Stil',
-        p: 'Normal',
+        p: 'p',
         blockquote: 'Zitat',
         pre: 'Quellcode',
         h1: 'Überschrift 1',
