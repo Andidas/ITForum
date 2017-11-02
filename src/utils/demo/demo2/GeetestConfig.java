@@ -1,4 +1,4 @@
-package demo.demo2;
+package utils.demo.demo2;
 
 import javax.swing.text.StyledEditorKit.BoldAction;
 

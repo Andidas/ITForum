@@ -129,9 +129,9 @@
 					</div>
 				</li>
 			</ul>
-			<div class="col-xs-10 col-xs-offset-1">
+			<div class="col-xs-10 col-xs-offset-2">
 				<div id="topicTitle">
-					题目<input type="text" />
+					题目<input type="text" id="topicTitleText" />
 				</div>
 				<div class="">
 					<div id="topicText"></div>
@@ -246,8 +246,28 @@
 							[ 'para', [ 'paragraph' ] ],
 							[ 'insert', [ 'link', 'picture' ] ],
 							[ 'view', [ 'fullscreen', 'codeview', 'help' ] ] ],
-					//placeholder : '输入内容',
+					callbacks: {  
+			            onImageUpload: function(files) { //the onImageUpload API  
+			                img = sendFile(files[0]);  
+			       		 } 
+					}
 				});
+		function sendFile(file) {  
+		    data = new FormData();  
+		    data.append("file", file);  
+		    console.log(data.get("file"));  
+		    $.ajax({  
+		        type: "POST",  
+		        url: "SessionServlet",  
+		        data: data, 
+		        cache: false,  
+		        contentType: false,  
+		        processData: false,  
+		        success: function(url) {
+		              $("#topicText").summernote('insertImage', url, 'image name');   
+		        }  
+		    });  
+		}  
 	});
 	$(function(){
 		/*帖子内容重置*/
@@ -257,9 +277,16 @@
 		/*帖子提交*/
 		$('#topicTextSubmit').click(function(){
 			var SessionText = $('#topicText').summernote('code');
-			alert(SessionText);
-		});
-		
+			var titleText = $('#topicTitleText').val();
+			
+			$('#mainContent>ul').prepend('<li><div class="col-xs-2"><div class="thumbsUp"><p title="回复条数">22&emsp;<span class="glyphicon glyphicon-comment"></span></p><p title="被赞数目">10&emsp;<span class="glyphicon glyphicon glyphicon-thumbs-up"></span></p><p title="观看人数">5333&emsp;<span class="glyphicon glyphicon glyphicon glyphicon-eye-open"></span></p></div></div><div class="panel col-xs-10"><div class="panel-heading"><a href="topic.html">题目'
+													+ titleText
+													+ '</a></div><div class="panel-body">'
+													+ SessionText
+													+ '</div><div class="panel-footer clearfix"><div style="float: right"><span class="glyphicon glyphicon-user"></span><a href="user.jsp" title="提问者" target="_blank"> 1900lwy</a><span class="glyphicon glyphicon-time"></span> <span class="time" title="提问时间">10月 10日 00:22</span></div><div style="float: left"><span class="glyphicon glyphicon glyphicon-comment"></span><a href="user.jsp" title="最后回复人" target="_blank"> 1900lwy</a><span class="glyphicon glyphicon-time"></span><span class="time" title="最后回复时间">10月 10日 00:22</span></div></div></div></li>');
+
+						});
+
 	});
 </script>
 <script type="text/javascript">

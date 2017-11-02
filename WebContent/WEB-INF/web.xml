@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app id="WebApp_ID">
+<web-app xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" id="WebApp_ID">
   <display-name>ITForum</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
@@ -9,7 +9,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <!-- servlet设置 -->
   <servlet>
     <servlet-name>UserServlet</servlet-name>
     <servlet-class>servlet.UserServlet</servlet-class>
@@ -18,37 +17,34 @@
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/UserServlet</url-pattern>
   </servlet-mapping>
-  <!-- 邮箱验证码 -->
   <servlet>
-  	<servlet-name>AuthenticateServlet</servlet-name>
-  	<servlet-class>servlet.AuthenticateServlet</servlet-class>
+    <servlet-name>AuthenticateServlet</servlet-name>
+    <servlet-class>servlet.AuthenticateServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>AuthenticateServlet</servlet-name>
-  	<url-pattern>/AuthenticateServlet</url-pattern>
+    <servlet-name>AuthenticateServlet</servlet-name>
+    <url-pattern>/AuthenticateServlet</url-pattern>
   </servlet-mapping>
-  <!--  -->
   <servlet>
-		<servlet-name>StartCaptchaServlet2</servlet-name>
-		<display-name>StartCaptchaServlet2</display-name>
-		<description></description>
-		<servlet-class>demo.demo2.StartCaptchaServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>VerifyLoginServlet2</servlet-name>
-		<display-name>VerifyLoginServlet2</display-name>
-		<description></description>
-		<servlet-class>demo.demo2.VerifyLoginServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>VerifyLoginServlet2</servlet-name>
-		<url-pattern>/gt/ajax-validate2</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>StartCaptchaServlet2</servlet-name>
-		<url-pattern>/gt/register2</url-pattern>
-	</servlet-mapping>
-  <!-- 过滤器 -->
+    <description></description>
+    <display-name>StartCaptchaServlet2</display-name>
+    <servlet-name>StartCaptchaServlet2</servlet-name>
+    <servlet-class>utils.demo.demo2.StartCaptchaServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>VerifyLoginServlet2</display-name>
+    <servlet-name>VerifyLoginServlet2</servlet-name>
+    <servlet-class>utils.demo.demo2.VerifyLoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VerifyLoginServlet2</servlet-name>
+    <url-pattern>/gt/ajax-validate2</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>StartCaptchaServlet2</servlet-name>
+    <url-pattern>/gt/register2</url-pattern>
+  </servlet-mapping>
   <filter>
     <filter-name>EncodingFilter</filter-name>
     <filter-class>filter.EncodingFilter</filter-class>
