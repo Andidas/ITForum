@@ -1,10 +1,14 @@
 package dao.impl;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.ibatis.session.SqlSession;
+
 import utils.DBUtils;
 import dao.SessionDao;
+import db.DBAccess;
 import entity.Session;
 
 /**
@@ -12,7 +16,8 @@ import entity.Session;
  *
  */
 public class SessionDaoImpl implements SessionDao {
-
+	 private SqlSession sqlSession = null;
+	 private DBAccess dbAccess  = new DBAccess();
 	@Override
 	public int addSession(Session session) {
 		String sql = "insert into session(sid,sname,smasterid) values(NULL,?,?)";
@@ -61,6 +66,17 @@ public class SessionDaoImpl implements SessionDao {
 			System.err.println("sname无效，查找不到数据");
 		}
 		return session;
+	}
+
+	public int querySessionIDByName(String sname) {
+		int result =0;
+		try {
+			sqlSession  = dbAccess.getSqlSession();
+			result = sqlSession.selectOne("Session.querySessionIDByName",sname);
+		} catch (IOException e) {
+			return result;
+		}
+		return result;
 	}
 
 }

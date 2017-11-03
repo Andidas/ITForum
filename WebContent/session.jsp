@@ -39,7 +39,7 @@
 			</div>
 			<div class="page-header col-md-9">
 				<h1>
-					java<a href="javaScript:void(0)" class="follow" id="follow"
+					<span id="sessionName">java</span><a href="javaScript:void(0)" class="follow" id="follow"
 						style="display: none;"><span>关注</span></a> <a class="unfollow"
 						id="unfollow" href="javaScript:void(0)" style="">取消关注 </a> <small>关注:<span
 						title="目前关注人数">4561</span>提问:<span title="目前问题数">1235</span>主题：<a
@@ -49,18 +49,18 @@
 			</div>
 		</div>
 		<div class="col-md-8" id="mainContent">
-			<ul class="content-text clearfix">
-				<li>
+			<ul class="content-text">
+				<li class="clearfix">
 					<div class="col-xs-2">
 						<div class="thumbsUp">
 							<p title="回复条数">
-								22&emsp;<span class="glyphicon glyphicon-comment"></span>
+								<span class="activeSpan">22</span><span class="glyphicon glyphicon-comment"></span>
 							</p>
 							<p title="被赞数目">
-								10&emsp;<span class="glyphicon glyphicon glyphicon-thumbs-up"></span>
+								<span class="activeSpan">2232</span><span class="glyphicon glyphicon glyphicon-thumbs-up"></span>
 							</p>
 							<p title="观看人数">
-								5555&emsp;<span
+								<span class="activeSpan">2542</span><span
 									class="glyphicon glyphicon glyphicon glyphicon-eye-open"></span>
 							</p>
 						</div>
@@ -89,17 +89,17 @@
 						</div>
 					</div>
 				</li>
-				<li>
+				<li class="clearfix">
 					<div class="col-xs-2">
 						<div class="thumbsUp">
 							<p title="回复条数">
-								22&emsp;<span class="glyphicon glyphicon-comment"></span>
+								<span class="activeSpan">22</span><span class="glyphicon glyphicon-comment"></span>
 							</p>
 							<p title="被赞数目">
-								10&emsp;<span class="glyphicon glyphicon glyphicon-thumbs-up"></span>
+								<span class="activeSpan">2232</span><span class="glyphicon glyphicon glyphicon-thumbs-up"></span>
 							</p>
 							<p title="观看人数">
-								5555&emsp;<span
+								<span class="activeSpan">2542</span><span
 									class="glyphicon glyphicon glyphicon glyphicon-eye-open"></span>
 							</p>
 						</div>
@@ -109,8 +109,10 @@
 							<a href="topic.html">题目sdf</a>
 						</div>
 						<div class="panel-body">
-							<p>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，</p>
-
+							<p>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，</p>
+							<img src="img/photo.jpg" style="width:25%">
+							<img src="img/photo.jpg" style="width:25%">
+							<img src="img/photo.jpg" style="width:25%">
 						</div>
 						<div class="panel-footer clearfix">
 							<div style="float: right">
@@ -252,13 +254,14 @@
 			       		 } 
 					}
 				});
+		/*把图片存在服务器*/
 		function sendFile(file) {  
 		    data = new FormData();  
 		    data.append("file", file);  
 		    console.log(data.get("file"));  
 		    $.ajax({  
 		        type: "POST",  
-		        url: "SessionServlet",  
+		        url: "UploadFileTopic",  
 		        data: data, 
 		        cache: false,  
 		        contentType: false,  
@@ -276,25 +279,61 @@
 		});
 		/*帖子提交*/
 		$('#topicTextSubmit').click(function(){
-			var SessionText = $('#topicText').summernote('code');
+			var sessionText = $('#topicText').summernote('code');
 			var titleText = $('#topicTitleText').val();
+			var sessionName = $('#sessionName').html();
+			var nowUserName = $('#nowUserName').html();
 			
-			$('#mainContent>ul').prepend('<li><div class="col-xs-2"><div class="thumbsUp"><p title="回复条数">22&emsp;<span class="glyphicon glyphicon-comment"></span></p><p title="被赞数目">10&emsp;<span class="glyphicon glyphicon glyphicon-thumbs-up"></span></p><p title="观看人数">5333&emsp;<span class="glyphicon glyphicon glyphicon glyphicon-eye-open"></span></p></div></div><div class="panel col-xs-10"><div class="panel-heading"><a href="topic.html">题目'
-													+ titleText
-													+ '</a></div><div class="panel-body">'
-													+ SessionText
-													+ '</div><div class="panel-footer clearfix"><div style="float: right"><span class="glyphicon glyphicon-user"></span><a href="user.jsp" title="提问者" target="_blank"> 1900lwy</a><span class="glyphicon glyphicon-time"></span> <span class="time" title="提问时间">10月 10日 00:22</span></div><div style="float: left"><span class="glyphicon glyphicon glyphicon-comment"></span><a href="user.jsp" title="最后回复人" target="_blank"> 1900lwy</a><span class="glyphicon glyphicon-time"></span><span class="time" title="最后回复时间">10月 10日 00:22</span></div></div></div></li>');
+			if(nowUserName==undefined){
+				alert('请登录');
+			}else{
+				console.log('sessionname:'+sessionName+' username:'+nowUserName);
+				/*$.ajax({
+				type : "post",
+				url : "Topic",
+				data:{"op":"releaseTopic","titleText":titleText,"sessionText":sessionText,"sessionName":sessionName,"nowUserName":nowUserName},
+				success:function(data){
+					$('#mainContent>ul').prepend('<li><div class="col-xs-2"><div class="thumbsUp"><p title="回复条数">22&emsp;<span class="glyphicon glyphicon-comment"></span></p><p title="被赞数目">10&emsp;<span class="glyphicon glyphicon glyphicon-thumbs-up"></span></p><p title="观看人数">5333&emsp;<span class="glyphicon glyphicon glyphicon glyphicon-eye-open"></span></p></div></div><div class="panel col-xs-10"><div class="panel-heading"><a href="topic.html">题目'
+							+ titleText
+							+ '</a></div><div class="panel-body">'
+							+ sessionText
+							+ '</div><div class="panel-footer clearfix"><div style="float: right"><span class="glyphicon glyphicon-user"></span><a href="user.jsp" title="提问者" target="_blank"> 1900lwy</a><span class="glyphicon glyphicon-time"></span> <span class="time" title="提问时间">10月 10日 00:22</span></div><div style="float: left"><span class="glyphicon glyphicon glyphicon-comment"></span><a href="user.jsp" title="最后回复人" target="_blank"> 1900lwy</a><span class="glyphicon glyphicon-time"></span><span class="time" title="最后回复时间">10月 10日 00:22</span></div></div></div></li>');
 
-						});
-
+					$('#topicText').summernote('code', "");
+				}
+				});//end ajax*/
+			}
+			
+			
+		});//end #topicTextSubmit
 	});
 </script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		/*观看人数，赞数，评论数的淡入淡出*/
+		$('#mainContent>ul>li').mousemove(function(){
+			$(this).find('.activeSpan').stop();
+			$(this).find('.activeSpan').animate({
+			    right:'30px',
+			    opacity:'1',
+			    width:'60px'
+			});
+		});
+		$('#mainContent>ul>li').mouseout(function(){
+			$(this).find('.activeSpan').stop();
+			$(this).find('.activeSpan').animate({
+			    right:'0',
+			    opacity:'0',
+			    width:'0'
+			});
+		});
+		
+		/*关注*/
 		$("#follow").click(function() {
 			$(this).hide();
 			$("#unfollow").show();
 		});
+		/*取消关注*/
 		$("#unfollow").click(function() {
 			$(this).hide();
 			$("#follow").show();

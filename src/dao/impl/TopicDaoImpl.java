@@ -1,10 +1,14 @@
 package dao.impl;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.ibatis.session.SqlSession;
+
 import utils.DBUtils;
 import dao.TopicDao;
+import db.DBAccess;
 import entity.Topic;
 
 /**
@@ -13,11 +17,19 @@ import entity.Topic;
  */
 public class TopicDaoImpl implements TopicDao {
 
+	private SqlSession sqlSession = null;
+	private DBAccess dbAccess = new DBAccess();
 	@Override
 	public int addTopic(Topic topic) {
-		String sql = "insert into topic(tid,tsid,tuid,ttopic,tcontents,ttime) values(NULL,?,?,?,?,?)";
-		return DBUtils
-				.doUpdate(sql, topic.getTsid(),topic.getTuid(),topic.getTtopic(),topic.getTcontents(),topic.getTtime());
+		int result = 0;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			result = sqlSession.insert("Topic.addTopic",topic);
+			sqlSession.commit();
+		} catch (IOException e) {
+			return result;
+		}
+		return result;
 	}
 
 	@Override

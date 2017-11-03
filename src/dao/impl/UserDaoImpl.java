@@ -128,6 +128,20 @@ public class UserDaoImpl implements UserDao {
 		}
 		return result;
 	}
+
+	@Override
+	public int queryUserIDByName(String uname) {
+		int result = 0;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			User user = new User();
+			user = sqlSession.selectOne("User.queryUserIDByName", uname);
+			result = user.getUid();
+		} catch (IOException e) {
+			return result;
+		}
+		return result;
+	}
 	
 
 }

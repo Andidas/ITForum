@@ -42,6 +42,8 @@
 
   <mappers>
     <mapper resource="config/sqlxml/User.xml"/>
+    <mapper resource="config/sqlxml/Session.xml"/>
+    <mapper resource="config/sqlxml/Topic.xml"/>
   </mappers>
 
 </configuration>

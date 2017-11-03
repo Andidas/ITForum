@@ -168,6 +168,7 @@ public class UserServlet extends HttpServlet {
 		String url = (String) session.getAttribute("toLoginURL");//从哪个页面点击的登录
 		if (userService.checkUser(email, password)) {
 			User user = userService.queryUser(email);
+			user.setUpassword("***");//密码保护
 			if (rememberMe != null && rememberMe.equals("yes")) {
 				Cookie c = new Cookie(String.valueOf(user.getUid())+"itforum", email);//将email和用户名保存在Cookie
 				c.setMaxAge(7 * 24 * 60 * 60);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" id="WebApp_ID">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID">
   <display-name>ITForum</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
@@ -9,6 +9,35 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <!-- 帖子的servlet -->
+  <servlet>
+  	<servlet-name>TopicServlet</servlet-name>
+  	<servlet-class>servlet.TopicServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>TopicServlet</servlet-name>
+  	<url-pattern>/Topic</url-pattern>
+  </servlet-mapping>
+  <!-- 版块的servlet -->
+  <servlet>
+  	<servlet-name>SessionServlet</servlet-name>
+  	<servlet-class>servlet.SessionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>SessionServlet</servlet-name>
+  	<url-pattern>/Session</url-pattern>
+  </servlet-mapping>
+  <!-- 发表帖子时把图片上传到服务器ajax -->
+  <servlet>
+  <servlet-name>UploadFileTopicServlet</servlet-name>
+  <servlet-class>servlet.UploadFileTopicServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>UploadFileTopicServlet</servlet-name>
+  <url-pattern>/UploadFileTopic</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 用户 servlet -->
   <servlet>
     <servlet-name>UserServlet</servlet-name>
     <servlet-class>servlet.UserServlet</servlet-class>
@@ -17,6 +46,8 @@
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/UserServlet</url-pattern>
   </servlet-mapping>
+  
+  <!-- 验证码的servlet ajax-->
   <servlet>
     <servlet-name>AuthenticateServlet</servlet-name>
     <servlet-class>servlet.AuthenticateServlet</servlet-class>
@@ -25,6 +56,8 @@
     <servlet-name>AuthenticateServlet</servlet-name>
     <url-pattern>/AuthenticateServlet</url-pattern>
   </servlet-mapping>
+  
+  
   <servlet>
     <description></description>
     <display-name>StartCaptchaServlet2</display-name>
@@ -45,6 +78,7 @@
     <servlet-name>StartCaptchaServlet2</servlet-name>
     <url-pattern>/gt/register2</url-pattern>
   </servlet-mapping>
+  <!-- 编码过滤器utf8 -->
   <filter>
     <filter-name>EncodingFilter</filter-name>
     <filter-class>filter.EncodingFilter</filter-class>

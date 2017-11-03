@@ -12,6 +12,12 @@ import entity.User;
  */
 public interface UserDao {
 	/**
+	 * 通过用户名查找用户id
+	 * @param uname
+	 * @return uid
+	 */
+	int queryUserIDByName(String uname);
+	/**
 	 * 增加用户
 	 * @param user 要增加的用户 (uname,upassword,uemail,uregdate)
 	 * @return 返回被增加的条数，如果不大于0则表示失败

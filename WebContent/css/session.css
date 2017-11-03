@@ -23,9 +23,9 @@
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
-#mainContent>ul>li:hover{
+/*#mainContent>ul>li:hover{
 	 box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24),0 5px 10px 0 rgba(0,0,0,0.19);
-}
+}*/
 
 /*session头部*/
 #sessionHead img{
@@ -130,3 +130,16 @@
 #mainContent .thumbsUp p span{
 	color:#999;
 }
+#mainContent .activeSpan{
+	position:absolute;
+	margin-right: 14px;
+	height: 20px;
+	width: 0px;
+	opacity:0;
+}
+#mainContent .panel-body p{
+	overflow:hidden; 
+	text-overflow:ellipsis;
+	width:100%;
+	white-space:nowrap;
+	}

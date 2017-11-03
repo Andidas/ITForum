@@ -8,6 +8,12 @@ import entity.Session;
  */
 public interface SessionDao {
 	/**
+	 * 通过session名得到sid
+	 * @param sname
+	 * @return sid
+	 */
+	int querySessionIDByName(String sname);
+	/**
 	 * 增加版块
 	 * @param Session 要增加的版块 (sname,smasterid)
 	 * @return 返回被增加的条数，如果不大于0则表示失败

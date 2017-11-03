@@ -105,7 +105,7 @@
 									<ul class="dropdown-menu ">
 										<li
 											class="dropdown-header header-nav-current-user css-truncate">
-											欢迎您！ <strong class="css-truncate-target">${sessionScope.NowLoginUser.uname}</strong>
+											欢迎您！ <strong class="css-truncate-target" id="nowUserName">${sessionScope.NowLoginUser.uname}</strong>
 										</li>
 										<li class="divider"></li>
 										<li><a href="user.jsp" class="dropdown-item">个人信息</a></li>

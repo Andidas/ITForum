@@ -36,6 +36,10 @@
 	<select id="queryUser" parameterType="String" resultMap="UserResult">
 		select * from user where uemail = #{_parameter}
 	</select>
+	
+	<select id="queryUserIDByName" parameterType="String" resultMap="UserResult">
+		select uid from user where uname = #{_parameter}
+	</select>
 
 	<select id="checkUser" parameterType="entity.User" resultMap="UserResult">
 		select * from user where uemail = #{uemail} and upassword = #{upassword}
