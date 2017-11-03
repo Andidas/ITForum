@@ -76,9 +76,7 @@
 						<div class="panel-footer clearfix">
 							<div style="float: right">
 								<span class="glyphicon glyphicon-user"></span> <a
-									href="user.jsp" title="提问者" target="_blank"> 1900lwy</a> <span
-									class="glyphicon glyphicon-time"></span> <span class="time"
-									title="提问时间">10月 10日 00:22</span>
+									href="user.jsp" title="提问者" target="_blank"> 1900lwy</a>
 							</div>
 							<div style="float: left">
 								<span class="glyphicon glyphicon glyphicon-comment"></span> <a
@@ -117,9 +115,7 @@
 						<div class="panel-footer clearfix">
 							<div style="float: right">
 								<span class="glyphicon glyphicon-user"></span> <a
-									href="user.jsp" title="提问者" target="_blank"> 1900lwy</a> <span
-									class="glyphicon glyphicon-time"></span> <span class="time"
-									title="提问时间">10月 10日 00:22</span>
+									href="user.jsp" title="提问者" target="_blank"> 1900lwy</a>
 							</div>
 							<div style="float: left">
 								<span class="glyphicon glyphicon glyphicon-comment"></span> <a
@@ -287,24 +283,20 @@
 			if(nowUserName==undefined){
 				alert('请登录');
 			}else{
-				console.log('sessionname:'+sessionName+' username:'+nowUserName);
-				/*$.ajax({
-				type : "post",
-				url : "Topic",
-				data:{"op":"releaseTopic","titleText":titleText,"sessionText":sessionText,"sessionName":sessionName,"nowUserName":nowUserName},
-				success:function(data){
-					$('#mainContent>ul').prepend('<li><div class="col-xs-2"><div class="thumbsUp"><p title="回复条数">22&emsp;<span class="glyphicon glyphicon-comment"></span></p><p title="被赞数目">10&emsp;<span class="glyphicon glyphicon glyphicon-thumbs-up"></span></p><p title="观看人数">5333&emsp;<span class="glyphicon glyphicon glyphicon glyphicon-eye-open"></span></p></div></div><div class="panel col-xs-10"><div class="panel-heading"><a href="topic.html">题目'
-							+ titleText
-							+ '</a></div><div class="panel-body">'
-							+ sessionText
-							+ '</div><div class="panel-footer clearfix"><div style="float: right"><span class="glyphicon glyphicon-user"></span><a href="user.jsp" title="提问者" target="_blank"> 1900lwy</a><span class="glyphicon glyphicon-time"></span> <span class="time" title="提问时间">10月 10日 00:22</span></div><div style="float: left"><span class="glyphicon glyphicon glyphicon-comment"></span><a href="user.jsp" title="最后回复人" target="_blank"> 1900lwy</a><span class="glyphicon glyphicon-time"></span><span class="time" title="最后回复时间">10月 10日 00:22</span></div></div></div></li>');
-
-					$('#topicText').summernote('code', "");
-				}
-				});//end ajax*/
+				console.log('titleText:'+titleText+' sessionText'+sessionText+' sessionname:'+sessionName+' username:'+nowUserName);
+				$.ajax({
+					type : "post",
+					url : "Topic",
+					data:{"op":"releaseTopic","ttopic":titleText,"tcontents":sessionText,"sname":sessionName,"uname":nowUserName},
+					success:function(data){
+						console.log(data);
+						$('#topicText').summernote('code', "");	
+						$('#mainContent>ul').prepend(data);
+								
+					}
+				});//end ajax
 			}
-			
-			
+
 		});//end #topicTextSubmit
 	});
 </script>

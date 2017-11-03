@@ -26,8 +26,11 @@ public class TopicDaoImpl implements TopicDao {
 			sqlSession = dbAccess.getSqlSession();
 			result = sqlSession.insert("Topic.addTopic",topic);
 			sqlSession.commit();
+			
 		} catch (IOException e) {
 			return result;
+		}finally{
+			sqlSession.close();
 		}
 		return result;
 	}

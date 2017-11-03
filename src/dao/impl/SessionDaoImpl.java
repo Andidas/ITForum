@@ -42,30 +42,8 @@ public class SessionDaoImpl implements SessionDao {
 
 	@Override
 	public Session searchSession(String sname) {
-		String sql = "select * from session where sname =?";
-		ResultSet rs = DBUtils.doQuery(sql, sname);
-		Session session = null;
-		if (rs != null) {
-			try {
-				rs.next();
-				session = new Session(rs.getInt("sid"), rs.getString("sname"),
-						rs.getInt("smasterid"), rs.getString("sprofile"),
-						rs.getString("sstatement"), rs.getInt("stopiccount"),
-						rs.getInt("sclickcount"));
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					DBUtils.close(rs.getStatement().getConnection(),
-							rs.getStatement(), rs);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		} else {
-			System.err.println("sname无效，查找不到数据");
-		}
-		return session;
+		
+		return null;
 	}
 
 	public int querySessionIDByName(String sname) {
