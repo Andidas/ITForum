@@ -1,7 +1,11 @@
 package service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import dao.impl.SessionDaoImpl;
 import dao.impl.TopicDaoImpl;
@@ -47,11 +51,24 @@ public class TopicService implements ITopicService {
 				+ uname
 				+ "</a></div></div></div></li>";
 				
-
+		
 		return newContents;
 	}
 	
-
+	public List<String> getImageAndContent(String tcontents){
+		 List<String> imgSrc = new ArrayList<String>();//图像的src
+		 String regex = "src=\\'\\S*\\'";//图像的正则
+		 Pattern p = Pattern.compile(regex);
+	     Matcher m = p.matcher(tcontents); // 获取 matcher 对象
+	     int count = 0;
+	     while(m.find()) {
+	    	 imgSrc.add(tcontents.substring(m.start(),m.end()+1));
+	         
+	       }
+		return imgSrc;
+	}
+	
+	
 	
 
 }
