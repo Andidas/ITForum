@@ -136,7 +136,9 @@ public class UserDaoImpl implements UserDao {
 			sqlSession = dbAccess.getSqlSession();
 			User user = new User();
 			user = sqlSession.selectOne("User.queryUserIDByName", uname);
-			result = user.getUid();
+			if(user!=null){
+				result = user.getUid();
+			}
 		} catch (IOException e) {
 			return result;
 		}

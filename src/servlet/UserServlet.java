@@ -54,6 +54,23 @@ public class UserServlet extends HttpServlet {
 			update(request, response);
 		} else if(op.equals("modifyPassword")){
 			modifyPassword(request, response);
+		} else if(op.equals("isNameExist")){
+			isNameExist(request, response);
+		}
+	}
+
+	/**
+	 * 用户名是否存在
+	 */
+	private void isNameExist(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException{
+		PrintWriter out = response.getWriter();
+		String uname = request.getParameter("uname");
+		
+		if(userService.isNameExist(uname)){
+			out.print("true");
+		}else{
+			out.print("false");			
 		}
 	}
 

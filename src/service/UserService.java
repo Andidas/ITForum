@@ -71,5 +71,9 @@ public class UserService implements IUserService{
 		
 		return result > 0;
 	}
+	@Override
+	public boolean isNameExist(String uname) {
+		return udi.queryUserIDByName(uname)>0;
+	}
 	
 }

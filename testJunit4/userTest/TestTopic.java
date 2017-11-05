@@ -32,17 +32,16 @@ public class TestTopic {
 	}
 	@Test
 	public void getImageAndContent(){
-		String input = "<p>请问<img style='width: 25%;' src='files/classic_1.gif' data-filename='image name'></p><p>阿斯顿<img src='files/a2aef601b6cc4f017f21cc429e745548a.jpg' data-filename='image name'><img style='width: 30px;' src='files/iconx2-000000.png' data-filename='image name'>阿斯顿</p>";		
-		List<String> src = new TopicService().getImageAndContent(input);
+		String input = "<p>似乎找到错误了<img src=\"files/ITForum.jpg\" data-filename=\"image name\" style=\"width: 180px;\"></p>";
+	    List<String> src = new TopicService().getImageAndContent(input);
 		System.out.println(src);
 	}
 	@Test
 	public void RegexMatches()
 	{
 		
-		String INPUT = "<p>请问<img style='width: 25%;' src='files/classic_1.gif' data-filename='image name'></p><p>阿斯顿<img src='files/a2aef601b6cc4f017f21cc429e745548a.jpg' data-filename='image name'><img style='width: 30px;' src='files/iconx2-000000.png' data-filename='image name'>阿斯顿</p>";
-		
-	      String REGEX = "src=\\'\\S*\\'";
+		String INPUT = "<p>似乎找到错误了<img src=\"files/ITForum.jpg\" data-filename=\"image name\" style=\"width: 180px;\"></p>";
+	      String REGEX = "src=\"\\S*\"";
 	 
 	       Pattern p = Pattern.compile(REGEX);
 	       Matcher m = p.matcher(INPUT); // 获取 matcher 对象
@@ -58,7 +57,7 @@ public class TestTopic {
 	       
 	       
 	       //style='width: 50%; float: right;'
-	      String newContentInit = INPUT.replaceAll("style=", "styleOld=");
+	       String newContentInit = INPUT.replaceAll("style=", "styleOld=");
 	       String newContent = newContentInit.replaceAll("<img ", "<img style='display:none;' ");
 	       System.out.println("_________________新内容___________________");
 	       System.out.println(newContent);

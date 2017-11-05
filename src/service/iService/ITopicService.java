@@ -16,6 +16,10 @@ public interface ITopicService {
 	
 	/**
 	 * 对上传过来的新帖子内容重新排版，将显示在session的内容之中
+	 * 把内容重新排版：
+	 * <p>文字内容</p>
+	 * <img/><img/><img/>(ps : 最多显示三张图片)
+	 * 
 	 * @param uname 作者
 	 * @param ttopic 帖子题目
 	 * @param tcontents 帖子内容

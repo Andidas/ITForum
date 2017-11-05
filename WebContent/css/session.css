@@ -12,7 +12,8 @@
 	background:#ffffff;
 }
 #mainContent .panel-heading,#mainContent .panel-body,#mainContent .panel-footer{
-	padding-bottom:0px;
+	
+	padding:7px 0 0 0;
 }
 #mainContent .panel{
 	margin-bottom:10px;
@@ -126,16 +127,22 @@
 	text-align:right;
 	color:#e2e1e1;
 	line-height:20px;
+	position:relative;
 }
 #mainContent .thumbsUp p span{
 	color:#999;
 }
 #mainContent .activeSpan{
 	position:absolute;
-	margin-right: 14px;
-	height: 20px;
-	width: 0px;
+	bottom:2px;
+	right:24px;
 	opacity:0;
+	height: 20px;
+	transition:opacity 1s;
+	-webkit-transition:opacity 1s; /* Safari */
+}
+#mainContent>ul>li:hover .activeSpan {
+	opacity:1;
 }
 #mainContent .panel-body p{
 	overflow:hidden; 
@@ -143,3 +150,12 @@
 	width:100%;
 	white-space:nowrap;
 	}
+#releaseTopic{
+	padding:0 15px;
+}
+#releaseTopic .topicTitle input{
+	margin:10px 0;
+	height:32px;
+	text-indent:12px;
+	width:100%
+}

@@ -161,11 +161,21 @@ body {
 	$(document).ready(function(){	
 		/*验证名字*/
 		$("#rname").blur(function(){
+			
 			var regName = /^[\u4e00-\u9fa5\w+$]/;
 			if(!regName.test($(this).val())||$(this).val()==""){
-				$(this).siblings("small").fadeIn(300);
+				$("#rname").siblings("small").fadeIn(300);
 			}else{
-				$(this).siblings("small").fadeOut(300);
+				$.post("UserServlet",{"op":"isNameExist","uname":$("#rname").val()},function(data){
+					if(data=="true"){
+						$("#rname").siblings("small").html('用户名已存在');
+						$("#rname").siblings("small").fadeIn(300);
+					}else{
+						$("#rname").siblings("small").hide();
+						$("#rname").siblings("small").html('中文、字母、数字或下划线的组合');
+					}
+				});
+				//$("#rname").siblings("small").fadeOut(300);
 			}
 		});
 		/*验证密码*/

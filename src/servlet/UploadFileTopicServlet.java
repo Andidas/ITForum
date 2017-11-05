@@ -33,21 +33,21 @@ public class UploadFileTopicServlet extends HttpServlet {
 		String path2 = null;
 		 try {
 		        List<FileItem> items = upload.parseRequest(request);
-		        System.out.println("1:=========" + items.size());
+		       // System.out.println("1:=========" + items.size());
 		        Map param = new HashMap();
 		        for (Object object : items) {
 		            FileItem fileItem = (FileItem) object;
-		            System.out.println("2:=========" + fileItem.toString());
-		            System.out.println("3£ºfileItem.getFieldName():==" + fileItem.getFieldName());
+		           // System.out.println("2:=========" + fileItem.toString());
+		           // System.out.println("3£ºfileItem.getFieldName():==" + fileItem.getFieldName());
 
 		            if (fileItem.isFormField()) {
 		                param.put(fileItem.getFieldName(), fileItem.getString("utf-8"));
-		                System.out.println("4: param.get(fileItem.getFieldName())===" + param.get(fileItem.getFieldName()));
+		               // System.out.println("4: param.get(fileItem.getFieldName())===" + param.get(fileItem.getFieldName()));
 		            } else {
 
 		                String picturename =fileItem.getName();
 		                path= getServletContext().getRealPath("/")+"files\\"+ picturename;
-		                System.out.println("======================="+path+"==========");
+		               // System.out.println("======================="+path+"==========");
 		                path2 = "files/" + picturename;
 		                fileItem.write(new File(path));
 		            }

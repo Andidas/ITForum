@@ -26,7 +26,7 @@
 		<result column="upoint" jdbcType="INTEGER" property="upoint" />
 		<result column="uissectioner" jdbcType="INTEGER" property="uissectioner" />
 	</resultMap>
-
+	
 	<select id="queryUserList" resultMap="UserResult">
 		select
 		uid,uname,upassword,uemail,uregdate,ubirthady,usex,uhead,usatement,ustate,upoint,uissectioner
@@ -37,6 +37,7 @@
 		select * from user where uemail = #{_parameter}
 	</select>
 	
+
 	<select id="queryUserIDByName" parameterType="String" resultMap="UserResult">
 		select uid from user where uname = #{_parameter}
 	</select>

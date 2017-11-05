@@ -16,14 +16,21 @@ public interface IUserService {
 	 * @return
 	 */
 	public User queryUser(String email) ;
+	
 	/**
 	 * 检查用户是否存在
 	 * @param email
 	 * @param password
 	 * @return
 	 */
-	public boolean checkUser(String email, String password) ;
 	
+	public boolean checkUser(String email, String password) ;
+	/**
+	 * 名字是否存在
+	 * @param uname
+	 * @return
+	 */
+	public boolean isNameExist(String uname);
 	/**
 	 * 修改用户
 	 * @param u 用户

@@ -45,7 +45,7 @@
 						title="目前关注人数">4561</span>提问:<span title="目前问题数">1235</span>主题：<a
 						href="javaScript:void(0)" title="分类依据">HTML/CSS</a></small>
 				</h1>
-				<p title="扼要描述">金钱与未来，你的选择是什么？</p>
+				<p title="扼要描述">金钱与未来，你的选择是什么？ <a href="#" title="创建人" style="color:#888;">——刘唯da</a></p>
 			</div>
 		</div>
 		<div class="col-md-8" id="mainContent">
@@ -127,97 +127,23 @@
 					</div>
 				</li>
 			</ul>
-			<div class="col-xs-10 col-xs-offset-2">
-				<div id="topicTitle">
-					题目<input type="text" id="topicTitleText" />
+			<div class="col-xs-10 col-xs-offset-2" id="releaseTopic">
+				<div id="topicTitle" class="topicTitle">
+					<input type="text" id="topicTitleText" placeholder="请输入题目"/>
 				</div>
-				<div class="">
-					<div id="topicText"></div>
-				</div>
+				<div id="topicText"></div>
 				<div>
-					<a class="btn btn-danger" id="topicTextReset">重置</a><a
-						class="btn btn-success" id="topicTextSubmit">提交</a>
+					<a class="btn btn-success" id="topicTextSubmit">发表</a>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="column">
-				<table>
-					<tbody>
-						<tr>
-							<td>
-								<p class="label-key">拥有者</p>
-							</td>
-							<td style="padding-left: 10px">
-								<p class="label-key" title="2009-07-30 15:36:42Z">
-									<b>刘伟艺</b>
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<p class="label-key">起始点</p>
-							</td>
-							<td style="padding-left: 10px">
-								<p class="label-key" title="2009-07-30 15:36:42Z">
-									<b>8 years, 2 months ago</b>
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<p class="label-key">总贴数</p>
-							</td>
-
-							<td style="padding-left: 10px">
-								<p class="label-key">
-									<b>259,352 times</b>
-								</p>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<p class="label-key">active</p>
-							</td>
-							<td style="padding-left: 10px">
-								<p class="label-key">
-									<b><a href="?lastactivity" class="lastactivity-link"
-										title="2017-07-28 00:37:31Z">2 months ago</a></b>
-								</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-
 			<div class="panel " id="HotQuestion">
 				<div class="panel-heading">
 					<h3 class="panel-title">相关session</h3>
 				</div>
 				<div class="panel-body">
-					<ul class="">
-						<li><img src="img/骑行.jpg" alt="通用的占位符缩略图" width="40"
-							height="40" class="col-xs-3"> <a href="#" class="col-xs-9">
-								This is fake right? "FACEBOOK USER LOCATION FINDER"This is fake
-								right? "FACEBOOK USER LOCATION FINDER"</a></li>
-						<li><img src="img/骑行.jpg" alt="通用的占位符缩略图" width="40"
-							height="40" class="col-xs-3"> <a href="#" class="col-xs-9">
-								This is fake right? "FACEBOOK USER LOCATION FINDER"This is fake
-								right? "FACEBOOK USER LOCATION FINDER"</a></li>
-						<li><img src="img/骑行.jpg" alt="通用的占位符缩略图" width="40"
-							height="40" class="col-xs-3"> <a href="#" class="col-xs-9">
-								This is fake right? "FACEBOOK USER LOCATION FINDER"This is fake
-								right? "FACEBOOK USER LOCATION FINDER"</a></li>
-						<li><img src="img/骑行.jpg" alt="通用的占位符缩略图" width="40"
-							height="40" class="col-xs-3"> <a href="#" class="col-xs-9">
-								This is fake right? "FACEBOOK USER LOCATION FINDER"This is fake
-								right? "FACEBOOK USER LOCATION FINDER"</a></li>
-						<li><img src="img/骑行.jpg" alt="通用的占位符缩略图" width="40"
-							height="40" class="col-xs-3"> <a href="#" class="col-xs-9">
-								This is fake right? "FACEBOOK USER LOCATION FINDER"This is fake
-								right? "FACEBOOK USER LOCATION FINDER"</a></li>
-					</ul>
-
+					java
 				</div>
 			</div>
 
@@ -244,6 +170,7 @@
 							[ 'para', [ 'paragraph' ] ],
 							[ 'insert', [ 'link', 'picture' ] ],
 							[ 'view', [ 'fullscreen', 'codeview', 'help' ] ] ],
+					
 					callbacks: {  
 			            onImageUpload: function(files) { //the onImageUpload API  
 			                img = sendFile(files[0]);  
@@ -254,7 +181,7 @@
 		function sendFile(file) {  
 		    data = new FormData();  
 		    data.append("file", file);  
-		    console.log(data.get("file"));  
+		    //console.log(data.get("file"));  
 		    $.ajax({  
 		        type: "POST",  
 		        url: "UploadFileTopic",  
@@ -269,10 +196,7 @@
 		}  
 	});
 	$(function(){
-		/*帖子内容重置*/
-		$('#topicTextReset').click(function(){
-			$('#topicText').summernote('code', "");
-		});
+		
 		/*帖子提交*/
 		$('#topicTextSubmit').click(function(){
 			var sessionText = $('#topicText').summernote('code');
@@ -282,6 +206,12 @@
 			
 			if(nowUserName==undefined){
 				alert('请登录');
+			}else if(titleText==""){
+				$('#topicTitleText').focus();
+				alert('请填写标题');
+			}else if(sessionText==""||sessionText=="<p><br></p>"){
+				$('#topicText').focus();
+				alert('请填写内容');
 			}else{
 				console.log('titleText:'+titleText+' sessionText'+sessionText+' sessionname:'+sessionName+' username:'+nowUserName);
 				$.ajax({
@@ -289,8 +219,9 @@
 					url : "Topic",
 					data:{"op":"releaseTopic","ttopic":titleText,"tcontents":sessionText,"sname":sessionName,"uname":nowUserName},
 					success:function(data){
-						console.log(data);
-						$('#topicText').summernote('code', "");	
+						//console.log(data);
+						$('#topicTitleText').val("");
+						$('#topicText').summernote('code', "");
 						$('#mainContent>ul').prepend(data);
 								
 					}
@@ -302,28 +233,15 @@
 </script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		/*观看人数，赞数，评论数的淡入淡出*/
-		$('#mainContent>ul>li').mousemove(function(){
-			$(this).find('.activeSpan').stop();
-			$(this).find('.activeSpan').animate({
-			    right:'30px',
-			    opacity:'1',
-			    width:'60px'
-			});
-		});
-		$('#mainContent>ul>li').mouseout(function(){
-			$(this).find('.activeSpan').stop();
-			$(this).find('.activeSpan').animate({
-			    right:'0',
-			    opacity:'0',
-			    width:'0'
-			});
-		});
-		
 		/*关注*/
 		$("#follow").click(function() {
-			$(this).hide();
-			$("#unfollow").show();
+			if(nowUserName==undefined){
+				alert('请登录');
+			}else{
+			
+				$(this).hide();
+				$("#unfollow").show();
+			}
 		});
 		/*取消关注*/
 		$("#unfollow").click(function() {
