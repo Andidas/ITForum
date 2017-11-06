@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import entity.Topic;
 /**
  * 主贴的数据库处理操作的接口
@@ -32,9 +34,10 @@ public interface TopicDao {
 	 * @param uemail 要查询的主贴email
 	 * @return 查询到得一个主贴Topic(all)
 	 */
-	Topic searchTopic(int tid);
+	Topic queryTopic(int tid);
 	/**
-	 * 查询所有的主贴
+	 * 查询符合的主贴,过滤条件tsid
 	 * @return 主贴组
 	 */
+	List<Topic> queryTopicListByTSID(int tsid);
 }

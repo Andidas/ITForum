@@ -29,5 +29,18 @@
 	<select id="querySessionIDByName" parameterType="String" resultMap="SessionIDResult">
 		select sid from session where sname = #{_parameter}
 	</select>
-
+	
+	<resultMap type="entity.Session" id="SessionResult">
+		<id column="sid" jdbcType="INTEGER" property="sid" />
+		<result column="sname" jdbcType="VARCHAR" property="sname" />
+		<result column="smasterid" jdbcType="INTEGER" property="smasterid" />
+		<result column="sprofile" jdbcType="VARCHAR" property="sprofile" />
+		<result column="sstatement" jdbcType="VARCHAR" property="sstatement" />
+		<result column="stopiccount" jdbcType="INTEGER" property="stopiccount" />
+		<result column="sclickcount" jdbcType="INTEGER" property="sclickcount" />
+		<result column="spicture" jdbcType="VARCHAR" property="spicture" />
+	</resultMap>
+	<select id="querySession" parameterType="String" resultMap="SessionResult">
+		select * from `session` where sname=#{_parameter}
+	</select>
 </mapper>

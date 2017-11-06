@@ -1,4 +1,9 @@
 package service.iService;
+
+import java.util.List;
+
+import entity.Topic;
+
 /**
  * @author 刘伟艺
  * 帖子接口
@@ -26,4 +31,5 @@ public interface ITopicService {
 	 * @return 新的排版
 	 */
 	public String neatenSessionContent(String uname,String ttopic,String tcontents);
+	public List<Topic> queryTopicListByTSID(int tsid);
 }

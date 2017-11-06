@@ -15,27 +15,27 @@ import service.iService.ITopicService;
 
 public class TopicService implements ITopicService {
 	
-
+	TopicDaoImpl tdi = new TopicDaoImpl();
 	@Override
 	public boolean addTopic(String sname, String uname, String ttopic,
 			String tcontents) {
-		TopicDaoImpl topicDao = new TopicDaoImpl();
-		UserDaoImpl userDao = new UserDaoImpl();
-		SessionDaoImpl sessionDao = new SessionDaoImpl();
+		
+		UserDaoImpl udi = new UserDaoImpl();
+		SessionDaoImpl sdi = new SessionDaoImpl();
 		
 		Topic topic = new Topic();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String ttime = df.format(new Date());//获取注册时间
 		
-		int tuid = userDao.queryUserIDByName(uname);//得到用户id
+		int tuid = udi.queryUserIDByName(uname);//得到用户id
 		topic.setTuid(tuid);
-		int tsid = sessionDao.querySessionIDByName(sname);//得到session的id
+		int tsid = sdi.querySessionIDByName(sname);//得到session的id
 		topic.setTsid(tsid);
 		topic.setTtopic(ttopic);
 		topic.setTcontents(tcontents);
 		topic.setTtime(ttime);
 		
-		int result = topicDao.addTopic(topic);
+		int result = tdi.addTopic(topic);
 		
 		return result>0;
 	}
@@ -74,6 +74,13 @@ public class TopicService implements ITopicService {
 	    	 imgSrc.add(tcontents.substring(m.start(),m.end()+1));
 	       }
 		return imgSrc;
+	}
+
+	@Override
+	public List<Topic> queryTopicListByTSID(int tsid) {
+		List<Topic> topicList = null;
+		topicList = tdi.queryTopicListByTSID(tsid);
+		return topicList;
 	}
 	
 	

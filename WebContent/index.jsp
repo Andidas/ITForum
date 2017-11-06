@@ -162,7 +162,7 @@
 							<div class="panel">
 								<div class="panel-heading">
 									<h3 class="panel-title">
-										<a href="session.jsp">什么吧</a>
+										<a href="javaScript:void(0)" class="sessionName">JAVA</a>
 									</h3>
 									<a href="topic.jsp">题目sdf</a> <span
 										class="glyphicon glyphicon-log-out"></span> 22
@@ -187,7 +187,7 @@
 							<div class="panel">
 								<div class="panel-heading ">
 									<h3 class="panel-title">
-										<a href="session.jsp">什么吧</a>
+										<a href="javaScript:void(0)" class="sessionName">JAVA</a>
 									</h3>
 									<a href="topic.jsp">题目sdf</a> <span
 										class="glyphicon glyphicon-log-in"></span>42
@@ -269,5 +269,12 @@
 
 		<a href="#" class="btn btn-link" id="return_top"></a>
 </body>
-
+	<script type="text/javascript">
+	 	/*session的跳转*/
+	 	$(function(){
+	 		$('.sessionName').click(function(){
+	 			location.href="Session?op=toSession&sessionName="+$(this).html();
+	 		});//end sessionName.click
+	 	});
+	</script>
 </html>

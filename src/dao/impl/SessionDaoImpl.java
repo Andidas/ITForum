@@ -42,8 +42,14 @@ public class SessionDaoImpl implements SessionDao {
 
 	@Override
 	public Session searchSession(String sname) {
-		
-		return null;
+		Session session = null;
+		try {
+			sqlSession  = dbAccess.getSqlSession();
+			session = sqlSession.selectOne("Session.querySession",sname);
+		} catch (IOException e) {
+			return session;
+		}
+		return session;
 	}
 
 	public int querySessionIDByName(String sname) {

@@ -3,6 +3,7 @@ package dao.impl;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -52,7 +53,7 @@ public class TopicDaoImpl implements TopicDao {
 		}
 
 	@Override
-	public Topic searchTopic(int tid) {
+	public Topic queryTopic(int tid) {
 		String sql = "select * from topic where tid =?";
 		ResultSet rs = DBUtils.doQuery(sql, tid);
 		Topic topic = null;
@@ -77,5 +78,18 @@ public class TopicDaoImpl implements TopicDao {
 			System.err.println("tid无效，查找不到数据");
 		}
 		return topic;}
+
+	@Override
+	public List<Topic> queryTopicListByTSID(int tsid) {
+		List<Topic> topics = null;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			topics = sqlSession.selectList("Topic.queryTopicList", tsid);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return topics;
+		}
+		return topics;
+	}
 
 }

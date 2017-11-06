@@ -1,5 +1,7 @@
 package service;
 
+import dao.impl.SessionDaoImpl;
+import entity.Session;
 import service.iService.ISessionService;
 
 /**
@@ -7,7 +9,12 @@ import service.iService.ISessionService;
  * session°æ¿é
  */
 public class SessionService implements ISessionService {
+	SessionDaoImpl sdi = new SessionDaoImpl();
 
-	
-
+	@Override
+	public Session searchSession(String sname) {
+		Session session = null;
+		session = sdi.searchSession(sname);
+		return session;
+	}
 }

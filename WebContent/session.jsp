@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -35,17 +36,22 @@
 		<div class="row-fluid clearfix" id="sessionHead">
 
 			<div class="col-md-3" style="width: 230px">
-				<img src="img/photo.jpg" />
+				<c:if test="${empty nowActiveSession.spicture}">
+					<img src="img/photo.jpg" />
+				</c:if>
+				<c:if test="${not empty nowActiveSession.spicture}">
+					<img src="${nowActiveSession.spicture}" />
+				</c:if>
 			</div>
 			<div class="page-header col-md-9">
 				<h1>
-					<span id="sessionName">java</span><a href="javaScript:void(0)" class="follow" id="follow"
+					<span id="sessionName">${nowActiveSession.sname}</span><a href="javaScript:void(0)" class="follow" id="follow"
 						style="display: none;"><span>关注</span></a> <a class="unfollow"
 						id="unfollow" href="javaScript:void(0)" style="">取消关注 </a> <small>关注:<span
-						title="目前关注人数">4561</span>提问:<span title="目前问题数">1235</span>主题：<a
-						href="javaScript:void(0)" title="分类依据">HTML/CSS</a></small>
+						title="目前关注人数">4561</span>提问:<span title="目前问题数">${nowActiveSession.stopiccount}</span>主题：<a
+						href="javaScript:void(0)" title="分类依据">${nowActiveSession.sprofile}</a></small>
 				</h1>
-				<p title="扼要描述">金钱与未来，你的选择是什么？ <a href="#" title="创建人" style="color:#888;">——刘唯da</a></p>
+				<p title="扼要描述">${nowActiveSession.sstatement}<a href="#" title="创建人" style="color:#888;">——${nowSessionMaster}</a></p>
 			</div>
 		</div>
 		<div class="col-md-8" id="mainContent">

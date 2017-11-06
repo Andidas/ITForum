@@ -37,8 +37,10 @@
 		select * from user where uemail = #{_parameter}
 	</select>
 	
-
-	<select id="queryUserIDByName" parameterType="String" resultMap="UserResult">
+	<resultMap type="INTEGER" id="queryUserIDByNameResult">
+		<id column="uid" jdbcType="INTEGER" property="uid" />
+	</resultMap>
+	<select id="queryUserIDByName" parameterType="String" resultMap="queryUserIDByNameResult">
 		select uid from user where uname = #{_parameter}
 	</select>
 
@@ -84,4 +86,11 @@
     WHERE
     uemail = #{uemail,jdbcType=VARCHAR}
   </update>
+  
+  	<resultMap type="String" id="queryUserNameByIdResult">
+		<result column="uname" jdbcType="VARCHAR" property="uname" />
+	</resultMap>
+	<select id="queryUserNameById" parameterType="INTEGER" resultMap="queryUserNameByIdResult">
+		select uname from user where uid = #{_parameter}
+	</select>
 </mapper>

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 
+
 import entity.User;
 /**
  * 用户的数据库处理操作的接口
@@ -74,4 +75,10 @@ public interface UserDao {
 	 * @return
 	 */
 	int modifyPasswordByEmail(String email,String password);
+	 /**
+	  * 通过用户id查询用户名
+	 * @param sid
+	 * @return
+	 */
+	String queryUserNameById(int sid);
 }
