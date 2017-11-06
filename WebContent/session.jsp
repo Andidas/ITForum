@@ -70,7 +70,7 @@
 							<a href="topic.html">题目sdf</a>
 						</div>
 						<div class="panel-body">
-							<p>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，</p>
+							<div>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，</div>
 
 						</div>
 						<div class="panel-footer clearfix">
@@ -107,7 +107,7 @@
 							<a href="topic.html">题目sdf</a>
 						</div>
 						<div class="panel-body">
-							<p>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，</p>
+							<div>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，</div>
 							<img src="img/photo.jpg" style="width:25%">
 							<img src="img/photo.jpg" style="width:25%">
 							<img src="img/photo.jpg" style="width:25%">
@@ -192,11 +192,10 @@
 		        success: function(url) {
 		              $("#topicText").summernote('insertImage', url, 'image name');   
 		        }  
-		    });  
+		    });//end ajax
 		}  
-	});
+	});//end 输入框初始化
 	$(function(){
-		
 		/*帖子提交*/
 		$('#topicTextSubmit').click(function(){
 			var sessionText = $('#topicText').summernote('code');
@@ -235,19 +234,44 @@
 	$(document).ready(function() {
 		/*关注*/
 		$("#follow").click(function() {
-			if(nowUserName==undefined){
+			if($('#nowUserName').html()==undefined){
 				alert('请登录');
 			}else{
-			
-				$(this).hide();
-				$("#unfollow").show();
+				var param = {
+						"op":"follow",
+						"sessionName":$('#sessionName').html(),
+						"userName" : $('#nowUserName').html()
+					}
+				$.post("FollowAndUnfollow",param,function(data){
+					if(data=="true"){
+						$("#follow").hide();
+						$("#unfollow").show();
+					}else{
+						alert("关注失败，服务器错误！");
+					}					
+				});//end post
 			}
-		});
+		});//end click function
 		/*取消关注*/
 		$("#unfollow").click(function() {
-			$(this).hide();
-			$("#follow").show();
+			if($('#nowUserName').html()==undefined){
+				alert('请登录');
+			}else{
+				var param = {
+						"op" :"unfollow",
+						"sessionName":$('#sessionName').html(),
+						"userName" : $('#nowUserName').html()
+					}
+				$.post("FollowAndUnfollow",param,function(data){
+					if(data=="true"){
+						$("#unfollow").hide();
+						$("#follow").show();
+					}else{
+						alert("取消关注失败，服务器错误！");
+					}									
+				});//end post
+			}
 		});
-	});
+	});//end ready function
 </script>
 </html>

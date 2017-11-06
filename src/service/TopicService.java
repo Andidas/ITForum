@@ -45,7 +45,8 @@ public class TopicService implements ITopicService {
 			String tcontents) {
 		List<String> imgSrcs = getImageAndContent(tcontents);
 		/*重新设置<p></p>里面的内容，把图片隐藏起来*/
-		StringBuilder newContentsInit =new StringBuilder(tcontents.replaceAll("style=", "styleOld=").replaceAll("<img ", "<img style='display:none;' "));
+		StringBuilder newContentsInit =new StringBuilder(tcontents.replaceAll("style=", "styleOld=").replaceAll("<img ", "<img style='display:none;' ").replaceAll("<p>", "<span>").replaceAll("</p>","</span>"));
+		newContentsInit.append("</div>");
 		/*把图片加在后面*/
 		for(int i=0,j=0;i<imgSrcs.size()&j<3;i++,j++){
 			newContentsInit.append("<img "+imgSrcs.get(i)+" width='137px';height='137' >");
@@ -55,7 +56,7 @@ public class TopicService implements ITopicService {
 		String newContents = "<li><div class='col-xs-2'><div class='thumbsUp'><p title='回复条数'><span class='activeSpan'>0</span><span class='glyphicon glyphicon-comment'></span></p><p title='被赞数目'><span class='activeSpan'>0</span><span class='glyphicon glyphicon glyphicon-thumbs-up'></span></p><p title='观看人数'><span class='activeSpan'>0</span><span class='glyphicon glyphicon glyphicon glyphicon-eye-open'></span></p></div></div><div class='panel col-xs-10'><div class='panel-heading'><a href='topic.html'>"
 				+ ttopic
 				+ "</a></div><div class='panel-body'>"
-				+ newContentsInit.toString()
+				+ "<div>"+newContentsInit.toString()
 				+ "</div><div class='panel-footer clearfix'><div style='float: right'><span class='glyphicon glyphicon-user'></span><a href='user.jsp' title='作者' target='_blank'>"
 				+ uname
 				+ "</a></div></div></div></li>";

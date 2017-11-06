@@ -39,4 +39,17 @@ public class FollowDaoImpl implements FollowDao {
 		return result;
 	}
 
+	@Override
+	public int queryFollowID(Follow follow) {
+		int result =0;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			result = sqlSession.selectOne("Follow.queryFollowID",follow);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return result;
+		}
+		return result;
+	}
+
 }

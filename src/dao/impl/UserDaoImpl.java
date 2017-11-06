@@ -64,7 +64,9 @@ public class UserDaoImpl implements UserDao {
 		 } catch (IOException e) {
 			e.printStackTrace();
 		}finally{
-			if(sqlSession!=null){sqlSession.close();}
+			if(sqlSession!=null){
+				sqlSession.close();
+				}
 			}
 		 return user;
 	}

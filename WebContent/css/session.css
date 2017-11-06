@@ -144,7 +144,8 @@
 #mainContent>ul>li:hover .activeSpan {
 	opacity:1;
 }
-#mainContent .panel-body p{
+#mainContent .panel-body div{
+	
 	overflow:hidden; 
 	text-overflow:ellipsis;
 	width:100%;
