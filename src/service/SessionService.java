@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import dao.impl.SessionDaoImpl;
 import entity.Session;
 import service.iService.ISessionService;
@@ -16,5 +18,11 @@ public class SessionService implements ISessionService {
 		Session session = null;
 		session = sdi.searchSession(sname);
 		return session;
+	}
+
+	@Override
+	public List<Session> querySessionByProfile(String sprofile) {
+		
+		return sdi.querySessionByProfile(sprofile);
 	}
 }

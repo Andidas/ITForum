@@ -56,82 +56,47 @@
 		</div>
 		<div class="col-md-8" id="mainContent">
 			<ul class="content-text">
-				<li class="clearfix">
-					<div class="col-xs-2">
-						<div class="thumbsUp">
-							<p title="回复条数">
-								<span class="activeSpan">22</span><span class="glyphicon glyphicon-comment"></span>
-							</p>
-							<p title="被赞数目">
-								<span class="activeSpan">2232</span><span class="glyphicon glyphicon glyphicon-thumbs-up"></span>
-							</p>
-							<p title="观看人数">
-								<span class="activeSpan">2542</span><span
-									class="glyphicon glyphicon glyphicon glyphicon-eye-open"></span>
-							</p>
-						</div>
-					</div>
-					<div class="panel col-xs-10">
-						<div class="panel-heading">
-							<a href="topic.html">题目sdf</a>
-						</div>
-						<div class="panel-body">
-							<div>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，</div>
-
-						</div>
-						<div class="panel-footer clearfix">
-							<div style="float: right">
-								<span class="glyphicon glyphicon-user"></span> <a
-									href="user.jsp" title="提问者" target="_blank"> 1900lwy</a>
-							</div>
-							<div style="float: left">
-								<span class="glyphicon glyphicon glyphicon-comment"></span> <a
-									href="user.jsp" title="最后回复人" target="_blank"> 1900lwy</a> <span
-									class="glyphicon glyphicon-time"></span> <span class="time"
-									title="最后回复时间">10月 10日 00:22</span>
+	
+				<c:forEach items="${topicListBelongNowSession}" var="topicList">
+					<li class="clearfix">
+						<div class="col-xs-2">
+							<div class="thumbsUp">
+								<p title="回复条数">
+									<span class="activeSpan">${topicList.treplycount}</span><span class="glyphicon glyphicon-comment"></span>
+								</p>
+								<!--  <p title="被赞数目">
+									<span class="activeSpan">2232</span><span class="glyphicon glyphicon glyphicon-thumbs-up"></span>
+								</p>-->
+								<p title="观看人数">
+									<span class="activeSpan">${topicList.tclickcount}</span><span
+										class="glyphicon glyphicon glyphicon glyphicon-eye-open"></span>
+								</p>
 							</div>
 						</div>
-					</div>
-				</li>
-				<li class="clearfix">
-					<div class="col-xs-2">
-						<div class="thumbsUp">
-							<p title="回复条数">
-								<span class="activeSpan">22</span><span class="glyphicon glyphicon-comment"></span>
-							</p>
-							<p title="被赞数目">
-								<span class="activeSpan">2232</span><span class="glyphicon glyphicon glyphicon-thumbs-up"></span>
-							</p>
-							<p title="观看人数">
-								<span class="activeSpan">2542</span><span
-									class="glyphicon glyphicon glyphicon glyphicon-eye-open"></span>
-							</p>
-						</div>
-					</div>
-					<div class="panel col-xs-10">
-						<div class="panel-heading">
-							<a href="topic.html">题目sdf</a>
-						</div>
-						<div class="panel-body">
-							<div>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，</div>
-							<img src="img/photo.jpg" style="width:25%">
-							<img src="img/photo.jpg" style="width:25%">
-							<img src="img/photo.jpg" style="width:25%">
-						</div>
-						<div class="panel-footer clearfix">
-							<div style="float: right">
-								<span class="glyphicon glyphicon-user"></span> <a
-									href="user.jsp" title="提问者" target="_blank"> 1900lwy</a>
+						<div class="panel col-xs-10">
+							<div class="panel-heading">
+								<a href="javaScript:void(0)" class="TopicTName" title="题目">${topicList.ttopic}</a>
 							</div>
-							<div style="float: left">
-								<span class="glyphicon glyphicon glyphicon-comment"></span> <a
-									href="user.jsp" title="最后回复人" target="_blank"> 1900lwy</a> <span
-									class="glyphicon glyphicon-time"></span> <span class="time"
-									title="最后回复时间">10月 10日 00:22</span>
+							<div class="panel-body">
+								${topicList.tcontents}
+							</div>
+							<div class="panel-footer clearfix">
+								<div style="float: right">
+									<span class="glyphicon glyphicon-user"></span> <a
+										href="user.jsp" title="提问者" target="_blank">${topicList.tuid}</a>
+								</div>
+								<c:if test="${topicList.tlastreplyuseid !=0}">
+									<div style="float: left">
+										<span class="glyphicon glyphicon glyphicon-comment"></span> <a
+											href="user.jsp" title="最后回复人" target="_blank">${topicList.tlastreplyuseid}</a> <span
+											class="glyphicon glyphicon-time"></span> <span class="time"
+											title="最后回复时间">${topicList.tlastreplaytime}</span>
+									</div>
+								</c:if>
 							</div>
 						</div>
-					</div>
-				</li>
+					</li>
+				</c:forEach>
 			</ul>
 			<div class="col-xs-10 col-xs-offset-2" id="releaseTopic">
 				<div id="topicTitle" class="topicTitle">
@@ -149,7 +114,11 @@
 					<h3 class="panel-title">相关session</h3>
 				</div>
 				<div class="panel-body">
-					java
+					<ul>
+					<c:forEach items="${sameSprofile}" var="session">
+						<li><a href="javaScript:void(0)" class="sessionName">${session.sname }</a></li>
+					</c:forEach>
+					</ul>
 				</div>
 			</div>
 
@@ -236,7 +205,18 @@
 		});//end #topicTextSubmit
 	});
 </script>
+
 <script type="text/javascript">
+	$(function(){
+		/*session的跳转*/
+		$('.sessionName').click(function(){
+			location.href="Session?op=toSession&sessionName="+$(this).html();
+		});//end sessionName.click
+		/*topic的跳转*/
+		$('.TopicTName').click(function(){
+			location.href="Topic?op=toTopic&TopicTName="+$(this).html();
+		});
+	});
 	$(document).ready(function() {
 		/*关注*/
 		$("#follow").click(function() {

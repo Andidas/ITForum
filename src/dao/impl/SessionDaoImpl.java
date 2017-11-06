@@ -3,6 +3,7 @@ package dao.impl;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -61,6 +62,18 @@ public class SessionDaoImpl implements SessionDao {
 			return result;
 		}
 		return result;
+	}
+
+	@Override
+	public List<Session> querySessionByProfile(String sprofile) {
+		 List<Session> sessionList = null;
+		 try {
+				sqlSession  = dbAccess.getSqlSession();
+				sessionList = sqlSession.selectList("Session.querySessionByProfile",sprofile);
+			} catch (IOException e) {
+				return sessionList;
+			}
+		return sessionList;
 	}
 
 }

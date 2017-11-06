@@ -37,9 +37,12 @@
 	</resultMap>
 	
 	<select id="queryTopicList" parameterType="INTEGER" resultMap="TopicListResult">
-		select * from topic where tsid = #{_parameter}
+		select * from topic where tsid = #{_parameter} order by ttime DESC
 	</select>
 	
+	<select id="queryTopicOneByTopic" parameterType="String" resultMap="TopicListResult">
+		select * from topic where ttopic = #{_parameter}
+	</select>
 	<insert id="addTopic" parameterType="entity.Topic">
 		INSERT INTO topic(tsid,tuid,ttopic,tcontents,ttime)
 		VALUES(#{tsid},#{tuid},#{ttopic},#{tcontents},#{ttime})

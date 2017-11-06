@@ -1,6 +1,9 @@
-/servlet/
 /config/
 /dao/
-/service/
-/userTest/
+/db/
 /entity/
+/filter/
+/service/
+/servlet/
+/userTest/
+/utils/

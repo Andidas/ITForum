@@ -43,4 +43,8 @@
 	<select id="querySession" parameterType="String" resultMap="SessionResult">
 		select * from `session` where sname=#{_parameter}
 	</select>
+	
+	<select id="querySessionByProfile" parameterType="String" resultMap="SessionResult">
+		select * from `session` where sprofile=#{_parameter}
+	</select>
 </mapper>

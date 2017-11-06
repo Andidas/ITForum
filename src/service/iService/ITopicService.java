@@ -17,7 +17,7 @@ public interface ITopicService {
 	 * @param tcontents 内容
 	 * @return 添加成功返回true
 	 */
-	public boolean addTopic(String sname,String uname,String ttopic,String tcontents);
+	 boolean addTopic(String sname,String uname,String ttopic,String tcontents);
 	
 	/**
 	 * 对上传过来的新帖子内容重新排版，将显示在session的内容之中
@@ -30,6 +30,17 @@ public interface ITopicService {
 	 * @param tcontents 帖子内容
 	 * @return 新的排版
 	 */
-	public String neatenSessionContent(String uname,String ttopic,String tcontents);
-	public List<Topic> queryTopicListByTSID(int tsid);
+	 String neatenSessionContent(String uname,String ttopic,String tcontents);
+	/**
+	 * 查询属于tsid版块的所有帖子topic
+	 * @param tsid session的id
+	 * @return
+	 */
+	 List<Topic> queryTopicListByTSID(int tsid);
+	 /**
+		 * 通过标题查询帖子
+		 * @param ttopic 帖子标题
+		 * @return
+		 */
+	Topic queryTopicOneByTopic(String ttopic);
 }

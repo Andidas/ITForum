@@ -41,18 +41,36 @@ public class SessionServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		TopicService ts = new TopicService();
 		UserService us = new UserService();
+		
 		//获得板块名
 		String sessionName = request.getParameter("sessionName");
+		
 		//现在被点击的session
 		Session nowActiveSession = ss.searchSession(sessionName);
+		
 		//属于session的所有帖子topic
 		List<Topic> topicListBelongNowSession = ts.queryTopicListByTSID(nowActiveSession.getSid());
+		for (Topic t : topicListBelongNowSession) {
+			String newcontents = ts.neatenSessionContentInit(t.getTcontents());
+			t.setTcontents(newcontents);
+		}
 		//session的拥有者
-		String nowSessionMaster = us.queryUserNameById(9);
-		System.out.println(nowSessionMaster);
-		System.out.println(nowActiveSession);
-		System.out.println(topicListBelongNowSession);
+		String nowSessionMaster = us.queryUserNameById(nowActiveSession.getSmasterid());
+		
+		//相同sprofile的session
+		List<Session> sameSprofile = ss.querySessionByProfile(nowActiveSession.getSprofile());
+		
+		//移除sessionName的session
+		for (int i =0 ;i<sameSprofile.size();i++) {
+			if(sameSprofile.get(i).getSname().equals(sessionName)){
+				sameSprofile.remove(i);
+			}
+		}
+		sameSprofile.remove(sessionName);
+		//
+		//System.out.println(topicListBelongNowSession);
 		//设置参数
+		request.setAttribute("sameSprofile", sameSprofile);
 		request.setAttribute("nowSessionMaster", nowSessionMaster);
 		request.setAttribute("nowActiveSession", nowActiveSession);
 		request.setAttribute("topicListBelongNowSession", topicListBelongNowSession);

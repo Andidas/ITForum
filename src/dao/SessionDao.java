@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import entity.Session;
 /**
  * 版块的数据库处理操作的接口
@@ -38,7 +40,8 @@ public interface SessionDao {
 	 */
 	Session searchSession(String sname);
 	/**
-	 * 查询所有的版块
+	 * 查询符合的版块组，条件sprofile
 	 * @return 版块组
 	 */
+	List<Session> querySessionByProfile(String sprofile);
 }

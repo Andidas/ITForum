@@ -92,4 +92,17 @@ public class TopicDaoImpl implements TopicDao {
 		return topics;
 	}
 
+	@Override
+	public Topic queryTopicOneByTopic(String ttopic) {
+		Topic topic = null;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			topic = sqlSession.selectOne("Topic.queryTopicOneByTopic", ttopic);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return topic;
+		}
+		return topic;
+	}
+
 }

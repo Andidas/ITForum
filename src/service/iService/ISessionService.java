@@ -1,5 +1,7 @@
 package service.iService;
 
+import java.util.List;
+
 import entity.Session;
 
 /**
@@ -13,4 +15,10 @@ public interface ISessionService {
 	 * @return session
 	 */
 	Session searchSession(String sname);
+	/**
+	 * 查询符合的版块组，条件sprofile
+	 * @return 版块组
+	 */
+	List<Session>querySessionByProfile(String sprofile);
 }		
+ 

@@ -40,28 +40,33 @@ public class TopicService implements ITopicService {
 		return result>0;
 	}
 
-	@Override
-	public String neatenSessionContent(String uname, String ttopic,
-			String tcontents) {
+	public String neatenSessionContentInit(String tcontents){
 		List<String> imgSrcs = getImageAndContent(tcontents);
 		/*重新设置<p></p>里面的内容，把图片隐藏起来*/
-		StringBuilder newContentsInit =new StringBuilder(tcontents.replaceAll("style=", "styleOld=").replaceAll("<img ", "<img style='display:none;' ").replaceAll("<p>", "<span>").replaceAll("</p>","</span>"));
+		
+		StringBuilder newContentsInit =new StringBuilder("<div>");
+		newContentsInit.append(tcontents.replaceAll("style=", "styleOld=").replaceAll("<img ", "<img style='display:none;' ").replaceAll("<p>", "").replaceAll("</p>","").replaceAll("<br>",""));
 		newContentsInit.append("</div>");
 		/*把图片加在后面*/
 		for(int i=0,j=0;i<imgSrcs.size()&j<3;i++,j++){
 			newContentsInit.append("<img "+imgSrcs.get(i)+" width='137px';height='137' >");
 		}
 		
-		
-		String newContents = "<li><div class='col-xs-2'><div class='thumbsUp'><p title='回复条数'><span class='activeSpan'>0</span><span class='glyphicon glyphicon-comment'></span></p><p title='被赞数目'><span class='activeSpan'>0</span><span class='glyphicon glyphicon glyphicon-thumbs-up'></span></p><p title='观看人数'><span class='activeSpan'>0</span><span class='glyphicon glyphicon glyphicon glyphicon-eye-open'></span></p></div></div><div class='panel col-xs-10'><div class='panel-heading'><a href='topic.html'>"
+		return newContentsInit.toString();
+	}
+	@Override
+	public String neatenSessionContent(String uname, String ttopic,
+			String tcontents) {
+
+		String newContents = "<li><div class='col-xs-2'><div class='thumbsUp'><p title='回复条数'><span class='activeSpan'>0</span><span class='glyphicon glyphicon-comment'></span></p><p title='观看人数'><span class='activeSpan'>0</span><span class='glyphicon glyphicon glyphicon glyphicon-eye-open'></span></p></div></div><div class='panel col-xs-10'><div class='panel-heading'><a href='javaScript:void(0)'>"
 				+ ttopic
 				+ "</a></div><div class='panel-body'>"
-				+ "<div>"+newContentsInit.toString()
+				+  neatenSessionContentInit(tcontents)
 				+ "</div><div class='panel-footer clearfix'><div style='float: right'><span class='glyphicon glyphicon-user'></span><a href='user.jsp' title='作者' target='_blank'>"
 				+ uname
 				+ "</a></div></div></div></li>";
 				
-		//System.out.println(newContents);
+		
 		return newContents;
 	}
 	/*获得图像的src*/
@@ -81,6 +86,12 @@ public class TopicService implements ITopicService {
 		List<Topic> topicList = null;
 		topicList = tdi.queryTopicListByTSID(tsid);
 		return topicList;
+	}
+
+	@Override
+	public Topic queryTopicOneByTopic(String ttopic) {
+		// TODO 自动生成的方法存根
+		return tdi.queryTopicOneByTopic(ttopic);
 	}
 	
 	

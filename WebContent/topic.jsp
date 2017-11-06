@@ -19,10 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 <title>主贴</title>
-		<link href="css/bootstrap.min.css" rel="stylesheet" />
-		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.js"></script>
-
+		
 		<link href="css/init.css" rel="stylesheet" />
 		<link href="css/topic.css" rel="stylesheet" />
 		<style type="text/css">
@@ -30,91 +27,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</style>
 </head>
 <body>
-<div class="row clearfix" id="nav">
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
-			style="border-top: solid #F48024 3px;">
-			<div class="container">
-
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse"
-						data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">Brand</a>
-				</div>
-
-				<div class="collapse navbar-collapse"
-					id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Link</a></li>
-
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-								<li class="divider"></li>
-								<li><a href="#">One more separated link</a></li>
-							</ul></li>
-					</ul>
-
-					<form action="http://www.baidu.com/s"
-						class="navbar-form navbar-left" role="search">
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="search.."
-								autocomplete="off" maxlength="240" /> <span
-								class="input-group-btn">
-								<button class="btn btn-default btn-primary" type="button">
-									<span class="glyphicon glyphicon-search"></span>
-								</button>
-							</span>
-						</div>
-
-					</form>
-					<div class="login">
-						<ul class="nav navbar-nav navbar-right">
-							<li class="hidden"><a href="login.html"><span
-									class="glyphicon glyphicon-user"></span>注册</a></li>
-							<li class="hidden"><a href="login.html"><span
-									class="glyphicon glyphicon-log-in"></span>登录</a></li>
-
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown"> <img alt="user" src="img/骑行.jpg"
-									width="22" height="22" class="img-rounded" /> <strong
-									class="caret"></strong>
-							</a>
-								<ul class="dropdown-menu ">
-									<li
-										class="dropdown-header header-nav-current-user css-truncate">
-										欢迎您！ <strong class="css-truncate-target">Andidas</strong>
-									</li>
-									<li class="divider"></li>
-									<li><a href="#" class="dropdown-item">个人信息</a></li>
-
-									<li class="divider"></li>
-									<li><a href="#" class="dropdown-item"> 帮助</a></li>
-									<li><a href="#" class="dropdown-item"> 设置</a></li>
-									<li><a href="#" class="dropdown-item"> 退出</a></li>
-								</ul></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</nav>
-	</div>
+<jsp:include page="nav.jsp" flush="true"></jsp:include>
 	<div class="container">
 		<div class="row clearfix">
 			<div class="col-lg-12 page-header">
-				<h2 class="col-lg-12">ROracle not loading Instantclient library
-					on MacOS High Sierra. ROracle not loading Instantclient library on
-					MacOS High Sierra.</h2>
-				<a href="session.html" class="col-lg-12 pull-right">-Subtext for
-					吧</a>
+				<h2 class="col-lg-12" title="题目">${nowActiveTopic.ttopic}</h2>
+				<a href="session.html" class="col-lg-12 pull-right" title="版块">-${nowActiveTopic.tsid}</a>
 			</div>
 			<div class="col-md-8  column">
 				<div class="answer" style="border-bottom: transparent;">
@@ -123,33 +41,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<tr>
 								<td class="votecell">
 									<div class="vote">
-										<span itemprop="upvoteCount" class="vote-count-post ">101</span>
+										<span  class="vote-count-post ">101</span>
 									</div>
 								</td>
 								<td class="answercell">
-									<div class="post-text" itemprop="text">
-										<p>Prefer the try statement. It considered better style
-											and Prefer the try statement. It considered better style and
-											avoids race conditions.</p>
-										<p>Don't take my word for it. There's plenty of support
-											for this theory. Here's a couple:</p>
+									<div class="post-text" >
+										${nowActiveTopic.tcontents}
 									</div>
 									<div class="fw">
 										<div class="post-signature">
 											<div class="user-info ">
 												<div class="user-action-time">
-													asked <span title="2009-11-04 00:48:06Z"
-														class="relativetime">Nov 4 '09 at 0:48</span>
+													asked <span title="发帖时间"
+														class="relativetime">${nowActiveTopic.ttime}</span>
 												</div>
 												<div class="user-gravatar32">
 													<a href="user.html">
-														<div class="gravatar-wrapper-32">
-															<img src="img/17883626.jpg" alt="" width="32" height="32">
-														</div>
+														<img src="img/17883626.jpg" alt="" width="32" height="32">
 													</a>
 												</div>
 												<div class="user-details">
-													<a href="user.html">lwy</a>
+													<a href="javaScript:void(0)" title="作者">${nowActiveTopic.tuid}</a>
 													<div class="-flair">
 														<span class="reputation-score" title="reputation score "
 															dir="ltr">1,993</span><span title="1 gold badge"><span
@@ -188,11 +100,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<tr>
 									<td class="votecell">
 										<div class="vote">
-											<span itemprop="upvoteCount" class="vote-count-post ">101</span>
+											<span class="vote-count-post ">101</span>
 										</div>
 									</td>
 									<td class="answercell">
-										<div class="post-text" itemprop="text">
+										<div class="post-text">
 											<p>Prefer the try statement. It's considered better style
 												and avoids race conditions.</p>
 											<p>Don't take my word for it. There's plenty of support
@@ -207,10 +119,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</div>
 													<div class="user-gravatar32">
 														<a href="/users/5128/pkoch">
-															<div class="gravatar-wrapper-32">
 																<img src="img/17883626.jpg" alt="" width="32"
 																	height="32">
-															</div>
 														</a>
 													</div>
 													<div class="user-details">
@@ -313,11 +223,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														</td>
 														<td style="width: 25%; position: relative">
 															<div class="lzl_panel_btn">
-																<span class="lzl_panel_submit j_lzl_p_sb"
-																	alog-action="lzlpostor">发表</span><span
+																<span class="lzl_panel_submit j_lzl_p_sb">发表</span><span
 																	class="lzl_panel_smile j_lzl_p_sm"
-																	style="position: relative;"><div
-																		class="lzl_insertsmiley_holder"></div></span>
+																	style="position: relative;">
+																	<div class="lzl_insertsmiley_holder">
+																	</div>
+																	</span>
 															</div>
 															<div class="lzl_edui_dialog_container"
 																style="display: block;">
@@ -1148,11 +1059,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<tr>
 									<td class="votecell">
 										<div class="vote">
-											<span itemprop="upvoteCount" class="vote-count-post ">101</span>
+											<span class="vote-count-post ">101</span>
 										</div>
 									</td>
 									<td class="answercell">
-										<div class="post-text" itemprop="text">
+										<div class="post-text" >
 											<p>Prefer the try statement. It's considered better style
 												and avoids race conditions.</p>
 											<p>Don't take my word for it. There's plenty of support
@@ -1208,8 +1119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 
-				<iframe frameborder="0" src="textarea.html" marginwidth="100%"
-					marginheight="100" width="100%" height="430"> </iframe>
+				
 			</div>
 			<div class="col-md-4 column">
 				<div class="module question-stats">

@@ -40,4 +40,10 @@ public interface TopicDao {
 	 * @return 主贴组
 	 */
 	List<Topic> queryTopicListByTSID(int tsid);
+	/**
+	 * 通过标题查询帖子
+	 * @param ttopic 帖子标题
+	 * @return
+	 */
+	Topic queryTopicOneByTopic(String ttopic);
 }
