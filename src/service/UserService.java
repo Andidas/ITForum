@@ -10,7 +10,7 @@ import entity.User;
 
 /**
  * @author 刘伟艺
- * 用户服务接口
+ * 用户服务接口实现
  */
 public class UserService implements IUserService{
 

@@ -15,7 +15,7 @@ public class TopicViewService {
 	private SessionService  sessionService = new SessionService();
 	private UserService userService = new UserService();
 	
-	public TopicView getTopicViewService(String topicTName){
+	public TopicView getTopicView(String topicTName){
 		TopicView topicView = new TopicView();
 		//当前被选中的帖子
 		Topic topic = topicService.queryTopicOneByTopic(topicTName);

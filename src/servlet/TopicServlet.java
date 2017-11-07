@@ -47,10 +47,11 @@ public class TopicServlet extends HttpServlet {
 		//帖子名
 		String topicTName = request.getParameter("TopicTName");
 		//当前被选中的帖子de视图
-		TopicView topicView = topicViewService.getTopicViewService(topicTName);
+		TopicView topicView = topicViewService.getTopicView(topicTName);
 		if(topicView==null){
 			out.print("<script>alert('帖子不存在');history.back();</script>");
 		}else{
+			ts.updateClickCount(topicTName);
 			request.setAttribute("nowActiveTopicView", topicView);
 			request.getRequestDispatcher("topic.jsp").forward(request,response);
 		}

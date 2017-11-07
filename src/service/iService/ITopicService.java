@@ -10,6 +10,12 @@ import entity.Topic;
  */
 public interface ITopicService {
 	/**
+	 * 点击次数加1
+	 * @param ttopic
+	 * @return
+	 */
+	boolean updateClickCount(String ttopic);
+	/**
 	 * 添加帖子
 	 * @param sname session的名
 	 * @param uname 用户的名

@@ -23,9 +23,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<link href="css/init.css" rel="stylesheet" />
 		<link href="css/topic.css" rel="stylesheet" />
-		<style type="text/css">
-
-		</style>
+		<link href="dist/summernote.css" rel="stylesheet" />
+		
 </head>
 <body>
 <jsp:include page="nav.jsp" flush="true"></jsp:include>
@@ -46,7 +45,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<tr>
 								<td class="votecell">
 									<div class="vote">
-										<span  class="vote-count-post ">101</span>
+										 <span class="date-dz-z pull-left" title="赞">
+    										<i class="date-dz-z-click-red"></i><i class="z-num">666</i></span>
 									</div>
 								</td>
 								<td class="answercell">
@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</div>
 								</td>
 							</tr>
-
+							
 						</tbody>
 					</table>
 				</div>
@@ -105,7 +105,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<tr>
 									<td class="votecell">
 										<div class="vote">
-											<span class="vote-count-post ">101</span>
+											 <span class="date-dz-z pull-left" title="赞">
+    										<i class="date-dz-z-click-red"></i><i class="z-num">666</i></span>
 										</div>
 									</td>
 									<td class="answercell">
@@ -159,9 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															<table>
 																<tbody>
 																	<tr>
-																		<td class=" comment-score"><span
-																			title="number of 'useful comment' votes received"
-																			class="cool">1</span></td>
+																		<td class=" comment-score"><span title="条数"class="cool">1</span></td>
 																		<td>&nbsp;</td>
 																	</tr>
 																</tbody>
@@ -172,13 +171,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																<span class="comment-copy">Please add better
 																	sources to support your statement.Please add better
 																	sources to support your statement.</span> –&nbsp; <a
-																	href="/users/221342/bluetrin" title="4,355 reputation"
-																	class="comment-user">BlueTrin</a> <span
-																	class="comment-date" dir="ltr"><a
-																	class="comment-link" href="#comment52854966_1671095"><span
-																		title="2015-09-10 09:09:37Z"
-																		class="relativetime-clean">Sep 10 '15 at 9:09</span></a> </span>
-															</div>
+																	href="javaScript:void(0)" title="用户"class="comment-user">BlueTrin</a> <span
+																	class="comment-date" dir="ltr"><a class="comment-link"><span
+																		title="回复日期" class="relativetime-clean">Sep 10 '15 at 9:09</span></a>
+																		</span></div>
 														</td>
 													</tr>
 
@@ -200,7 +196,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<tr>
 									<td class="votecell">
 										<div class="vote">
-											<span class="vote-count-post ">101</span>
+											 <span class="date-dz-z pull-left" title="赞">
+    										<i class="date-dz-z-click-red"></i><i class="z-num">666</i></span>
 										</div>
 									</td>
 									<td class="answercell">
@@ -254,7 +251,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											</table>
 										</div>
 
-										
 										<div>
 											<a class="comments-link replyComment">回复</a>
 										</div>
@@ -265,7 +261,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 
-				
+				<div id="summernoteReply" ></div>
 			</div>
 			<div class="col-md-4 column">
 				<div class="module question-stats">
@@ -328,22 +324,73 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div style="height: 400px; width: 100px;"></div>
 </body>
 <script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
+<script src="dist/summernote.js"></script>
+<script src="dist/lang/summernote-zh-CN.js"></script>
 <script type="text/javascript">
 $(document).ready(function(e) {
-	/*点击回复的时候跳出回复框*/
-	$('.replyComment').click(function(){
+	
+	$('#summernoteReply').summernote(
+			{
+				height : 200,
+				tabsize : 2,
+				lang : 'zh-CN',
+				toolbar : [ 
+						[ 'font', [ 'bold', 'underline', 'clear' ] ],
+						[ 'color', [ 'color' ] ],
+						[ 'insert', [ 'link' ] ],
+						[ 'view', [ 'fullscreen'] ] ]
+			});
+	//显示回复按钮
+	function showReply(){
 		$('#Demo').siblings('a').show();
 		$('#Demo').remove();
-		var content = "<div id='Demo' style='text-align:center;display:none' >"
-	   				 +"<div class='Input_Box'>"
-			      	+"<textarea class='Input_text'></textarea>"
-			      	+"<div class='faceDiv'> </div>"
-			     	+ "<div class='Input_Foot'> <a class='imgBtn' href='javascript:void(0);'></a><a class='postBtn'>确定</a> </div>"
-			   		+"</div></div>";
-		$(this).parent("div").prepend(content);
-		$(this).hide();
-		ImgIputHandler.Init();
-		$('#Demo').show(500);
+	}
+	//添加回复
+	function addReply(obj,val){
+		var text = "<tr class='comment '>"
+						+"<td class='comment-actions'>"
+						+"<table><tbody><tr>"
+						+"<td class=' comment-score'><span title='条数'class='cool'>1</span></td>"
+						+"<td>&nbsp;</td></tr></tbody></table></td>"
+						+"<td class='comment-text'>"
+						+"<div style='display: block;' class='comment-body'>"
+						+"<span class='comment-copy'>"+val
+						+"</span> –&nbsp; <a "
+						+"href='javaScript:void(0)' title='用户'class='comment-user'>BlueTrin</a> <span"
+						+"class='comment-date' dir='ltr'><w class='comment-link'><span "
+						+"title='回复日期'>Sep 10 '15 at 9:09</span></w>"
+						+"</span></div></td></tr>";
+		obj.append(text);
+	}
+	/*点击回复的时候跳出回复框*/
+	$('.replyComment').click(function(){
+		if($('#nowUserName').html()==undefined){
+			alert('请登录');
+		}else{
+			//去除原来已经存在的回复框
+			showReply();
+			var content = "<div id='Demo' style='text-align:center;display:none' >"
+		   				 +"<div class='Input_Box'>"
+				      	+"<textarea class='Input_text'></textarea>"
+				      	+"<div class='faceDiv'> </div>"
+				     	+ "<div class='Input_Foot'> <a class='imgBtn' href='javascript:void(0);'></a><a class='postBtn'>确定</a> </div>"
+				   		+"</div></div>";
+			$(this).parent("div").prepend(content);//添加回复框
+			$(this).hide();//隐藏回复按钮
+			ImgIputHandler.Init();//初始化回复框
+			$('#Demo').show(500);//回复框显示
+			//确定按钮点击事件
+			$(".postBtn").click(function(){
+				var val = $(".Input_text").val();
+				var obj = $('#Demo').parent("div").siblings(".comments");//回复所要添加的地方
+				if(val==""){
+					showReply();
+				}else{
+					addReply(obj,val);
+					showReply();					
+				}
+			});
+		}//end else
 	});
    
 });
@@ -389,8 +436,6 @@ var ImgIputHandler={
 		{faceName:"敲打",facePath:"38_敲打.gif"},
 		{faceName:"再见",facePath:"39_再见.gif"},
 		{faceName:"擦汗",facePath:"40_擦汗.gif"},
-		
-	
 	]
 	,
 	Init:function(){
@@ -427,9 +472,7 @@ var ImgIputHandler={
 			    $(this).parent().prev().animate({marginTop:"0px"},300);
 			}
 		});
-		$(".postBtn").click(function(){
-			alert($(".Input_text").val());
-		});
+		
 	},
 	insertAtCursor:function(myField, myValue) {
     if (document.selection) {
@@ -454,5 +497,23 @@ var ImgIputHandler={
     }
 }
 }
+</script>
+<!--点赞-->
+<script type="text/javascript">
+	$('.date-dz-z').click(function(){
+		
+	 var zNum = $(this).find('.z-num').html();
+        if($(this).is('.date-dz-z-click')){
+            zNum--;
+            $(this).removeClass('date-dz-z-click red');
+            $(this).find('.z-num').html(zNum);
+            $(this).find('.date-dz-z-click-red').removeClass('red');
+        }else {
+            zNum++;
+            $(this).addClass('date-dz-z-click');
+            $(this).find('.z-num').html(zNum);
+            $(this).find('.date-dz-z-click-red').addClass('red');
+        }
+    })
 </script>
 </html>

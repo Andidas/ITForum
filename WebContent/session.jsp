@@ -36,61 +36,61 @@
 		<div class="row-fluid clearfix" id="sessionHead">
 
 			<div class="col-md-3" style="width: 230px">
-				<c:if test="${empty nowActiveSession.spicture}">
+				<c:if test="${empty nowActiveSessionView.session.spicture}">
 					<img src="img/photo.jpg" />
 				</c:if>
-				<c:if test="${not empty nowActiveSession.spicture}">
+				<c:if test="${not empty nowActiveSessionView.session.spicture}">
 					<img src="${nowActiveSession.spicture}" />
 				</c:if>
 			</div>
 			<div class="page-header col-md-9">
 				<h1>
-					<span id="sessionName">${nowActiveSession.sname}</span><a href="javaScript:void(0)" class="follow" id="follow"
+					<span id="sessionName">${nowActiveSessionView.session.sname}</span><a href="javaScript:void(0)" class="follow" id="follow"
 						style="display: none;"><span>关注</span></a> <a class="unfollow"
 						id="unfollow" href="javaScript:void(0)" style="">取消关注 </a> <small>关注:<span
-						title="目前关注人数">4561</span>提问:<span title="目前问题数">${nowActiveSession.stopiccount}</span>主题：<a
-						href="javaScript:void(0)" title="分类依据">${nowActiveSession.sprofile}</a></small>
+						title="目前关注人数">${nowActiveSessionView.follow}</span>提问:<span title="目前问题数">${nowActiveSessionView.session.stopiccount}</span>主题：<a
+						href="javaScript:void(0)" title="分类依据">${nowActiveSessionView.session.sprofile}</a></small>
 				</h1>
-				<p title="扼要描述">${nowActiveSession.sstatement}<a href="#" title="创建人" style="color:#888;">——${nowSessionMaster}</a></p>
+				<p title="扼要描述">${nowActiveSessionView.session.sstatement}<a href="#" title="创建人" style="color:#888;">——<span>${nowActiveSessionView.sessionMaster}</span></a></p>
 			</div>
 		</div>
 		<div class="col-md-8" id="mainContent">
 			<ul class="content-text">
 	
-				<c:forEach items="${topicListBelongNowSession}" var="topicList">
+				<c:forEach items="${nowActiveSessionView.topicViewList}" var="topicList">
 					<li class="clearfix">
 						<div class="col-xs-2">
 							<div class="thumbsUp">
 								<p title="回复条数">
-									<span class="activeSpan">${topicList.treplycount}</span><span class="glyphicon glyphicon-comment"></span>
+									<span class="activeSpan">${topicList.topic.treplycount}</span><span class="glyphicon glyphicon-comment"></span>
 								</p>
 								<!--  <p title="被赞数目">
 									<span class="activeSpan">2232</span><span class="glyphicon glyphicon glyphicon-thumbs-up"></span>
 								</p>-->
 								<p title="观看人数">
-									<span class="activeSpan">${topicList.tclickcount}</span><span
+									<span class="activeSpan">${topicList.topic.tclickcount}</span><span
 										class="glyphicon glyphicon glyphicon glyphicon-eye-open"></span>
 								</p>
 							</div>
 						</div>
 						<div class="panel col-xs-10">
 							<div class="panel-heading">
-								<a href="javaScript:void(0)" class="TopicTName" title="题目">${topicList.ttopic}</a>
+								<a href="javaScript:void(0)" class="TopicTName" title="题目">${topicList.topic.ttopic}</a>
 							</div>
 							<div class="panel-body" title="内容">
-								${topicList.tcontents}
+								${topicList.topic.tcontents}
 							</div>
 							<div class="panel-footer clearfix">
 								<div style="float: right">
 									<span class="glyphicon glyphicon-user"></span> <a
-										href="user.jsp" title="提问者" target="_blank">${topicList.tuid}</a>
+										href="user.jsp" title="提问者" target="_blank">${topicList.userName}</a>
 								</div>
-								<c:if test="${topicList.tlastreplyuseid !=0}">
+								<c:if test="${topicList.topic.tlastreplyuseid !=0}">
 									<div style="float: left">
 										<span class="glyphicon glyphicon glyphicon-comment"></span> <a
-											href="user.jsp" title="最后回复人" target="_blank">${topicList.tlastreplyuseid}</a> <span
+											href="user.jsp" title="最后回复人" target="_blank">${topicList.lastReplyUserName}</a> <span
 											class="glyphicon glyphicon-time"></span> <span class="time"
-											title="最后回复时间">${topicList.tlastreplaytime}</span>
+											title="最后回复时间">${topicList.topic.tlastreplaytime}</span>
 									</div>
 								</c:if>
 							</div>
@@ -115,7 +115,7 @@
 				</div>
 				<div class="panel-body">
 					<ul>
-					<c:forEach items="${sameSprofile}" var="session">
+					<c:forEach items="${nowActiveSessionView.sameSprofile}" var="session">
 						<li><a href="javaScript:void(0)" class="sessionName">${session.sname }</a></li>
 					</c:forEach>
 					</ul>

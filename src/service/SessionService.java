@@ -22,14 +22,17 @@ public class SessionService implements ISessionService {
 
 	@Override
 	public List<Session> querySessionByProfile(String sprofile) {
-		
 		return sdi.querySessionByProfile(sprofile);
 	}
 
 	@Override
 	public String querySessionNameBySID(int sid) {
-		
 		return sdi.querySessionNameBySID(sid);
+	}
+
+	@Override
+	public boolean updateSessionClickCount(String sname) {
+		return sdi.updateSessionClickCount(sname)>0;
 	}
 
 	

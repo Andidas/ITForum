@@ -54,4 +54,8 @@
 	<select id="querySessionNameBySID" parameterType="INTEGER" resultMap="querySessionNameBySIDResult">
 		select sname from `session` where sid=#{_parameter}
 	</select>
+	
+	<update id="updateSessionClickCount" parameterType="String">
+		UPDATE `session` set sclickcount = sclickcount+1 where sname= #{_parameter}
+	</update>
 </mapper>

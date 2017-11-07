@@ -4,6 +4,12 @@ import entity.Follow;
 
 public interface FollowDao {
 	/**
+	 * 查询session的关注人数
+	 * @param sid
+	 * @return
+	 */
+	int queryFollowCountBySid(int sid);
+	/**
 	 * 添加follow
 	 * @param follow
 	 * @return 返回被增加的条数，如果不大于0则表示失败

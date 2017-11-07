@@ -99,8 +99,12 @@ public class TopicService implements ITopicService {
 
 	@Override
 	public Topic queryTopicOneByTopic(String ttopic) {
-		// TODO 自动生成的方法存根
 		return tdi.queryTopicOneByTopic(ttopic);
+	}
+
+	@Override
+	public boolean updateClickCount(String ttopic) {
+		return tdi.updateClickCount(ttopic)>0;
 	}
 	
 	

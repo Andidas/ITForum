@@ -15,8 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Session;
+import entity.SessionView;
 import entity.Topic;
 import service.SessionService;
+import service.SessionViewService;
 import service.TopicService;
 import service.UserService;
 
@@ -39,13 +41,13 @@ public class SessionServlet extends HttpServlet {
 
 	private void toSession(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		TopicService ts = new TopicService();
-		UserService us = new UserService();
+//		TopicService ts = new TopicService();
+//		UserService us = new UserService();
 		
 		//获得板块名
 		String sessionName = request.getParameter("sessionName");
 		
-		//现在被点击的session
+		/*//现在被点击的session
 		Session nowActiveSession = ss.searchSession(sessionName);
 		
 		//属于session的所有帖子topic
@@ -74,6 +76,10 @@ public class SessionServlet extends HttpServlet {
 		request.setAttribute("nowSessionMaster", nowSessionMaster);
 		request.setAttribute("nowActiveSession", nowActiveSession);
 		request.setAttribute("topicListBelongNowSession", topicListBelongNowSession);
+		*/
+		SessionViewService sessionViewService = new SessionViewService();
+		SessionView sessionView = sessionViewService.getSessionView(sessionName);
+		request.setAttribute("nowActiveSessionView", sessionView);
 		
 		request.getRequestDispatcher("session.jsp").forward(request, response);
 	}

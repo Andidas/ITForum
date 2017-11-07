@@ -314,3 +314,29 @@
 #Demo .faceDiv>img:active {
 	padding: 4px 3px 2px 3px;
 }
+/*点赞*/
+  .date-dz-z {
+    font-size: 12px;
+    color: #8b8b8b;
+    font-family: "Microsoft Yahei";
+    cursor: pointer;
+    cursor: -ms-pointer;
+}
+.red {
+    background-position: -6px -119px !important;
+}
+
+.date-dz-z-click-red {
+    width: 17px;
+    height: 17px;
+    display: block;
+    float: left;
+    background-image: url(../img/icon-all_01.png);
+    background-repeat: no-repeat;
+    background-position: -6px -198px;
+    margin-right: 5px;
+}
+.date-dz-z-click {
+    color: #b83b44;
+}
+.pull-left{float: left !important;}

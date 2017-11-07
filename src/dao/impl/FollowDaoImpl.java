@@ -52,4 +52,17 @@ public class FollowDaoImpl implements FollowDao {
 		return result;
 	}
 
+	@Override
+	public int queryFollowCountBySid(int sid) {
+		int result =0;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			result = sqlSession.selectOne("Follow.queryFollowCountBySid",sid);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return result;
+		}
+		return result;
+	}
+
 }

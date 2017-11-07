@@ -7,18 +7,18 @@ import java.util.List;
  *	要显示在session界面的东西
  *
  * @param session //要显示的版块
- * @param topicList //所有属于版块的topic
+ * @param topicViewList //所有属于版块视图信息的topicView
  * @param sessionMaster //版块的作者，string
  * @param sameSprofile // 相似版块
  * @param follow //关注人数
  */
 public class SessionView {
 	
-	public SessionView(Session session, List<Topic> topicList,
+	public SessionView(Session session, List<TopicView> topicViewList,
 			String sessionMaster, List<Session> sameSprofile, int follow) {
 		super();
 		this.session = session;
-		this.topicList = topicList;
+		this.topicViewList = topicViewList;
 		this.sessionMaster = sessionMaster;
 		this.sameSprofile = sameSprofile;
 		this.follow = follow;
@@ -27,28 +27,18 @@ public class SessionView {
 		super();
 	}
 	private Session session = null;
-	private List<Topic> topicList = null;
+	private List<TopicView> topicViewList = null;
 	private String sessionMaster = null;
 	private List<Session> sameSprofile = null;
 	private int follow = 0;
-	@Override
-	public String toString() {
-		return "SessionView [session=" + session + ", topicList=" + topicList
-				+ ", sessionMaster=" + sessionMaster + ", sameSprofile="
-				+ sameSprofile + ", follow=" + follow + "]";
-	}
+	
 	public Session getSession() {
 		return session;
 	}
 	public void setSession(Session session) {
 		this.session = session;
 	}
-	public List<Topic> getTopicList() {
-		return topicList;
-	}
-	public void setTopicList(List<Topic> topicList) {
-		this.topicList = topicList;
-	}
+	
 	public String getSessionMaster() {
 		return sessionMaster;
 	}
@@ -66,6 +56,18 @@ public class SessionView {
 	}
 	public void setFollow(int follow) {
 		this.follow = follow;
+	}
+	@Override
+	public String toString() {
+		return "SessionView [session=" + session + ", topicViewList="
+				+ topicViewList + ", sessionMaster=" + sessionMaster
+				+ ", sameSprofile=" + sameSprofile + ", follow=" + follow + "]";
+	}
+	public List<TopicView> getTopicViewList() {
+		return topicViewList;
+	}
+	public void setTopicViewList(List<TopicView> topicViewList) {
+		this.topicViewList = topicViewList;
 	}
 	
 }

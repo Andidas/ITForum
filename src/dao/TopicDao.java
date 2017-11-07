@@ -12,6 +12,12 @@ import entity.Topic;
 
 public interface TopicDao {
 	/**
+	 * 点击次数加1
+	 * @param ttopic
+	 * @return
+	 */
+	int updateClickCount(String ttopic);
+	/**
 	 * 增加主贴
 	 * @param Topic 要增加的主贴 (tsid,tuid,ttopic,tcontents,ttime)
 	 * @return 返回被增加的条数，如果不大于0则表示失败
@@ -22,19 +28,19 @@ public interface TopicDao {
 	 * @param tid 主贴的id
 	 * @return 返回被删除的条数，如果不大于0则表示失败
 	 */
-	int delTopic(int tid);
+	//int delTopic(int tid);
 	/**
 	 * 修改主贴
 	 * @param Topic 要修改的主贴
 	 * @return 返回被更新的条数，如果不大于0则表示失败
 	 */
-	int modifyTopic(Topic topic);
+	//int modifyTopic(Topic topic);
 	/**
 	 * 查询单个主贴
 	 * @param uemail 要查询的主贴email
 	 * @return 查询到得一个主贴Topic(all)
 	 */
-	Topic queryTopic(int tid);
+	//Topic queryTopic(int tid);
 	/**
 	 * 查询符合的主贴,过滤条件tsid
 	 * @return 主贴组

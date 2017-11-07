@@ -21,6 +21,17 @@ public interface ISessionService {
 	 */
 	List<Session>querySessionByProfile(String sprofile);
 	
+	/**
+	 * 通过sid查找sname
+	 * @param sid
+	 * @return
+	 */
 	String querySessionNameBySID(int sid);
+	/**
+	 * 点击次数加1
+	 * @param sname
+	 * @return
+	 */
+	boolean updateSessionClickCount(String sname);
 }		
  

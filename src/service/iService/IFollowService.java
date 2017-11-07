@@ -6,7 +6,12 @@ package service.iService;
  */
 public interface IFollowService {
 	/**
-	 * 
+	 * 查询版块的关注人数
+	 * @param sid
+	 * @return
+	 */
+	int queryFollowCountBySid(int sid);
+	/**
 	 * @param uname
 	 * @param sname
 	 * @return 关注成功为true

@@ -21,11 +21,18 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Follow">
-	<resultMap type="INTEGER" id="queryFollowID">
+	<resultMap type="INTEGER" id="queryFollowIDResult">
 		<id column="fid" jdbcType="INTEGER" property="fid" />
 	</resultMap>
-    <select id="queryFollowID" parameterType="entity.Follow" resultMap="queryFollowID">
+    <select id="queryFollowID" parameterType="entity.Follow" resultMap="queryFollowIDResult">
 		select fid from follow where uid = #{uid} and sid = #{sid};
+	</select>
+	
+	<resultMap type="INTEGER" id="queryFollowCountBySidResult">
+		<id column="count" jdbcType="INTEGER" property="count" />
+	</resultMap>
+	<select id="queryFollowCountBySid" parameterType="INTEGER" resultMap="queryFollowCountBySidResult">
+		select count(fid) as count from follow where sid = #{_parameter};
 	</select>
 	
 	<insert id="addFollow" parameterType="entity.Follow">
