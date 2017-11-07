@@ -58,4 +58,21 @@
 	<update id="updateSessionClickCount" parameterType="String">
 		UPDATE `session` set sclickcount = sclickcount+1 where sname= #{_parameter}
 	</update>
+	
+	<update id="addSessionStopiccount" parameterType="String">
+		UPDATE `session` set stopiccount = stopiccount+1 where sname= #{_parameter};
+		
+	</update>
+	
+	<update id="subSessionStopiccount" parameterType="String">
+		UPDATE `session` set stopiccount = stopiccount-1 where sname= #{_parameter};
+	</update>
+	
+	<resultMap type="INTEGER" id="querySessionStopicCountResult">		
+		<result column="stopiccount" jdbcType="INTEGER" property="stopiccount" />		
+	</resultMap>
+	<select id="querySessionStopicCount" parameterType="String" resultMap="querySessionStopicCountResult">
+		select stopiccount from `session` where sname=#{_parameter};
+	</select>
+	
 </mapper>

@@ -45,6 +45,8 @@ public class TopicDaoImpl implements TopicDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return topics;
+		}finally{
+			sqlSession.close();
 		}
 		return topics;
 	}
@@ -58,6 +60,8 @@ public class TopicDaoImpl implements TopicDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return topic;
+		}finally{
+			sqlSession.close();
 		}
 		return topic;
 	}
@@ -72,6 +76,8 @@ public class TopicDaoImpl implements TopicDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return result;
+		}finally{
+			sqlSession.close();
 		}
 		return result;
 	}

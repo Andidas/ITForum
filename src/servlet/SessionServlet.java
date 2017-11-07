@@ -77,6 +77,11 @@ public class SessionServlet extends HttpServlet {
 		request.setAttribute("nowActiveSession", nowActiveSession);
 		request.setAttribute("topicListBelongNowSession", topicListBelongNowSession);
 		*/
+		if(ss.updateSessionClickCount(sessionName)){
+			System.out.println("session："+sessionName+" 点击次数加1");
+		}else{
+			System.out.println("session："+sessionName+" 点击次数加0");
+		}
 		SessionViewService sessionViewService = new SessionViewService();
 		SessionView sessionView = sessionViewService.getSessionView(sessionName);
 		request.setAttribute("nowActiveSessionView", sessionView);

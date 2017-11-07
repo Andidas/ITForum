@@ -10,15 +10,33 @@ import entity.Session;
  */
 public interface SessionDao {
 	/**
+	 * 帖子数加1
+	 * @param sname
+	 * @return 大于0成功
+	 */
+	int addSessionStopiccount(String sname);
+	/**
+	 * 帖子数减1
+	 * @param sname
+	 * @return 大于0成功
+	 */
+	int subSessionStopiccount(String sname);
+	/**
+	 * 查询帖子数
+	 * @param sname
+	 * @return 返回帖子的数目
+	 */
+	int querySessionStopicCount(String sname);
+	/**
 	 * 点击次数加1
 	 * @param sname
-	 * @return
+	 * @return 大于0成功
 	 */
 	int updateSessionClickCount(String sname);
 	/**
 	 * 通过sid查找sname
 	 * @param sid
-	 * @return
+	 * @return 
 	 */
 	String querySessionNameBySID(int sid);
 	/**
@@ -27,24 +45,7 @@ public interface SessionDao {
 	 * @return sid
 	 */
 	int querySessionIDByName(String sname);
-	/**
-	 * 增加版块
-	 * @param Session 要增加的版块 (sname,smasterid)
-	 * @return 返回被增加的条数，如果不大于0则表示失败
-	 */
-	//int addSession(Session Session);
-	/**
-	 * 删除版块
-	 * @param sid 版块的id
-	 * @return 返回被删除的条数，如果不大于0则表示失败
-	 */
-	//int delSession(String sname);
-	/**
-	 * 修改版块
-	 * @param Session 要修改的版块
-	 * @return 返回被更新的条数，如果不大于0则表示失败
-	 */
-	//int modifySession(Session Session);
+	
 	/**
 	 * 查询单个版块
 	 * @param sname 要查询的版块name

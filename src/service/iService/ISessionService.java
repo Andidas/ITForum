@@ -10,6 +10,24 @@ import entity.Session;
  */
 public interface ISessionService {
 	/**
+	 * 帖子数加1
+	 * @param sname
+	 * @return 成功,返回true
+	 */
+	boolean addSessionStopiccount(String sname);
+	/**
+	 * 帖子数减1
+	 * @param sname
+	 * @return 成功,返回true
+	 */
+	boolean subSessionStopiccount(String sname);
+	/**
+	 * 查询帖子数
+	 * @param sname
+	 * @return 返回帖子的数目
+	 */
+	int querySessionStopicCount(String sname);
+	/**
 	 * 查询整个板块的信息
 	 * @param sname 板块的名字
 	 * @return session

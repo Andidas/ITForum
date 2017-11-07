@@ -21,6 +21,8 @@ public class FollowDaoImpl implements FollowDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return result;
+		}finally{
+			sqlSession.close();
 		}
 		return result;
 	}
@@ -35,6 +37,8 @@ public class FollowDaoImpl implements FollowDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return result;
+		}finally{
+			sqlSession.close();
 		}
 		return result;
 	}
@@ -48,6 +52,8 @@ public class FollowDaoImpl implements FollowDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return result;
+		}finally{
+			sqlSession.close();
 		}
 		return result;
 	}
@@ -61,6 +67,8 @@ public class FollowDaoImpl implements FollowDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return result;
+		}finally{
+			sqlSession.close();
 		}
 		return result;
 	}

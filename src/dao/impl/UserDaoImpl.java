@@ -50,6 +50,8 @@ public class UserDaoImpl implements UserDao {
 			sqlSession.commit();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally{
+			sqlSession.close();
 		}
 		
 		return result;
@@ -108,6 +110,8 @@ public class UserDaoImpl implements UserDao {
 			result = sqlSession.selectOne("User.checkUser",user);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally{
+			sqlSession.close();
 		}
 		if(result==null){
 			return false;
@@ -127,6 +131,8 @@ public class UserDaoImpl implements UserDao {
 			sqlSession.commit();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally{
+			sqlSession.close();
 		}
 		return result;
 	}
@@ -139,6 +145,8 @@ public class UserDaoImpl implements UserDao {
 			result = sqlSession.selectOne("User.queryUserIDByName", uname);
 		} catch (IOException e) {
 			return result;
+		}finally{
+			sqlSession.close();
 		}
 		return result;
 	}
@@ -150,6 +158,8 @@ public class UserDaoImpl implements UserDao {
 			result = sqlSession.selectOne("User.queryUserNameById", uid);
 		} catch (IOException e) {
 			return result;
+		}finally{
+			sqlSession.close();
 		}
 		return result;
 	}

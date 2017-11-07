@@ -35,5 +35,22 @@ public class SessionService implements ISessionService {
 		return sdi.updateSessionClickCount(sname)>0;
 	}
 
+	@Override
+	public boolean addSessionStopiccount(String sname) {
+		
+		return sdi.addSessionStopiccount(sname)>0;
+	}
+
+	@Override
+	public boolean subSessionStopiccount(String sname) {
+		return sdi.subSessionStopiccount(sname)>0;
+	}
+
+	@Override
+	public int querySessionStopicCount(String sname) {
+		
+		return sdi.querySessionStopicCount(sname);
+	}
+
 	
 }

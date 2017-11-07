@@ -62,7 +62,7 @@ public class TopicServlet extends HttpServlet {
 	 */
 	private void releaseTopic(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		
+		SessionService sessionService =new SessionService();
 		PrintWriter out = response.getWriter();
 		/*获得参数*/
 		String sname = request.getParameter("sname");
@@ -71,11 +71,13 @@ public class TopicServlet extends HttpServlet {
 		String tcontents = request.getParameter("tcontents");
 		/*传递参数*/
 		if(ts.addTopic(sname, uname, ttopic, tcontents)){
-			String newContents = ts.neatenSessionContent(uname, ttopic, tcontents);
-			out.print(newContents);			
-		}else{
-			out.print("false");
+			if(sessionService.addSessionStopiccount(sname)){
+				String newContents = ts.neatenSessionContent(uname, ttopic, tcontents);
+				out.print(newContents);	
+			}	
 		}
+		out.print("false");
+		
 		
 	}
 

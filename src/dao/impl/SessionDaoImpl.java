@@ -25,6 +25,8 @@ public class SessionDaoImpl implements SessionDao {
 			session = sqlSession.selectOne("Session.querySession",sname);
 		} catch (IOException e) {
 			return session;
+		}finally{
+			sqlSession.close();
 		}
 		return session;
 	}
@@ -36,6 +38,8 @@ public class SessionDaoImpl implements SessionDao {
 			result = sqlSession.selectOne("Session.querySessionIDByName",sname);
 		} catch (IOException e) {
 			return result;
+		}finally{
+			sqlSession.close();
 		}
 		return result;
 	}
@@ -48,6 +52,8 @@ public class SessionDaoImpl implements SessionDao {
 				sessionList = sqlSession.selectList("Session.querySessionByProfile",sprofile);
 			} catch (IOException e) {
 				return sessionList;
+			}finally{
+				sqlSession.close();
 			}
 		return sessionList;
 	}
@@ -60,6 +66,8 @@ public class SessionDaoImpl implements SessionDao {
 				sname = sqlSession.selectOne("Session.querySessionNameBySID",sid);
 			} catch (IOException e) {
 				return sname;
+			}finally{
+				sqlSession.close();
 			}
 		return sname;
 	}
@@ -69,10 +77,59 @@ public class SessionDaoImpl implements SessionDao {
 		int result = 0;
 		 try {
 				sqlSession  = dbAccess.getSqlSession();
-				result = sqlSession.update("Session.updateClickCount",sname);
+				result = sqlSession.update("Session.updateSessionClickCount",sname);
 				sqlSession.commit();
 			} catch (IOException e) {
 				return result;
+			}finally{
+				sqlSession.close();
+			}
+		return result;
+	}
+
+	@Override
+	public int addSessionStopiccount(String sname) {
+		int result = 0;
+		 try {
+				sqlSession  = dbAccess.getSqlSession();
+				result = sqlSession.update("Session.addSessionStopiccount",sname);
+				sqlSession.commit();
+			} catch (IOException e) {
+				return result;
+			}finally{
+				sqlSession.close();
+			}
+		return result;
+	}
+
+	@Override
+	public int subSessionStopiccount(String sname) {
+		int result = 0;
+		 try {
+			 if(querySessionStopicCount(sname)>0){
+				 sqlSession  = dbAccess.getSqlSession();
+				 result = sqlSession.update("Session.addSessionStopiccount",sname);
+				 sqlSession.commit();				 
+			 }
+			} catch (IOException e) {
+				return result;
+			}finally{
+				sqlSession.close();
+			}
+		return result;
+	}
+
+	@Override
+	public int querySessionStopicCount(String sname) {
+		int result = 0;
+		 try {
+				sqlSession  = dbAccess.getSqlSession();
+				result = sqlSession.selectOne("Session.querySessionStopicCount",sname);
+				
+			} catch (IOException e) {
+				return result;
+			}finally{
+				sqlSession.close();
 			}
 		return result;
 	}
