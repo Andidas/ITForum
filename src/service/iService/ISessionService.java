@@ -20,5 +20,7 @@ public interface ISessionService {
 	 * @return °æ¿é×é
 	 */
 	List<Session>querySessionByProfile(String sprofile);
+	
+	String querySessionNameBySID(int sid);
 }		
  

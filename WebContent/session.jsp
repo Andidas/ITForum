@@ -77,7 +77,7 @@
 							<div class="panel-heading">
 								<a href="javaScript:void(0)" class="TopicTName" title="题目">${topicList.ttopic}</a>
 							</div>
-							<div class="panel-body">
+							<div class="panel-body" title="内容">
 								${topicList.tcontents}
 							</div>
 							<div class="panel-footer clearfix">
@@ -138,13 +138,14 @@
 					height : 200,
 					tabsize : 2,
 					lang : 'zh-CN',
-					toolbar : [ [ 'style', [ 'style' ] ],
+					toolbar : [ //[ 'style', [ 'style' ] ],
 							[ 'font', [ 'bold', 'underline', 'clear' ] ],
-							[ 'fontname', [ 'fontname' ] ],
+							//[ 'fontname', [ 'fontname' ] ],
 							[ 'color', [ 'color' ] ],
-							[ 'para', [ 'paragraph' ] ],
+							//[ 'para', [ 'paragraph' ] ],
 							[ 'insert', [ 'link', 'picture' ] ],
-							[ 'view', [ 'fullscreen', 'codeview', 'help' ] ] ],
+							[ 'view', [ 'fullscreen'//, 'codeview', 'help' 
+							            ] ] ],
 					
 					callbacks: {  
 			            onImageUpload: function(files) { //the onImageUpload API  
@@ -197,6 +198,10 @@
 						$('#topicTitleText').val("");
 						$('#topicText').summernote('code', "");
 						$('#mainContent>ul').prepend(data);
+						/*topic的跳转*/
+						$('.TopicTName').click(function(){
+							location.href="Topic?op=toTopic&TopicTName="+$(this).html();
+						});
 								
 					}
 				});//end ajax
@@ -205,18 +210,8 @@
 		});//end #topicTextSubmit
 	});
 </script>
-
+<script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
 <script type="text/javascript">
-	$(function(){
-		/*session的跳转*/
-		$('.sessionName').click(function(){
-			location.href="Session?op=toSession&sessionName="+$(this).html();
-		});//end sessionName.click
-		/*topic的跳转*/
-		$('.TopicTName').click(function(){
-			location.href="Topic?op=toTopic&TopicTName="+$(this).html();
-		});
-	});
 	$(document).ready(function() {
 		/*关注*/
 		$("#follow").click(function() {

@@ -156,15 +156,12 @@
 		color: #848d95;
 	}
 	
-	.answer .disabled-link {
+	.answer .comments-link {
 		color: #848d95;
 		opacity: .6;
-		padding: 0 3px 2px;
-	}
-	
-	.answer .comments-link {
 		padding: 0 3px 2px 3px;
 	}
+	
 	
 
 	
@@ -207,192 +204,113 @@
 	strong {
 		font-weight: bold;
 }
-/*妤间腑妤煎洖澶�*/
-.lzl_editor_container_s {
-    padding-top: 13px;
-}
-.lzl_editor_container .edui-container {
-    position: relative;
-}
-.lzl_editor_container div.edui-editor-body {
-    border: 2px solid #d6dffa;
-}
-.lzl_editor_container .edui-editor-body {
-    overflow-y: auto;
-    overflow-x: hidden;
-    border: 1px solid #ccc;
-    border-left-color: #9a9a9a;
-    border-top-color: #9a9a9a;
-    background-color: #fff;
-}
-.lzl_editor_container .edui-editor-top,.lzl_editor_container .edui-editor-bottom {
-    font-size: 0;
-}
-.lzl_editor_container .edui-editor-body .edui-body-container {
-    outline: none;
-    padding: 0 0 0 10px;
-    word-wrap: break-word;
-    font-size: 14px;background-color: #fff;
-    overflow-x: hidden;
-    overflow-y: auto;
+
+.answercell{
+	 width:100%;
 }
 
-.lzl_editor_container .edui-editor-body .edui-body-container p {
-    margin: 5px 0;
+/*回复框*/
+#Demo{
+	height:150px;
 }
-.lzl_editor_container .edui_at_box {
-    position: absolute;
-    z-index: 3;
-    padding: 4px 0;
-    border: 1px solid #c1c6cc;
-    background-color: #fff;
-    white-space: nowrap;
-    line-height: 16px;
+#Demo .Input_Box {
+	width: 495px;
+	height: 153px;
+	border: 1px solid #ccc;
+	transition: border linear .2s, box-shadow linear .5s;
+	-moz-transition: border linear .2s, -moz-box-shadow linear .5s;
+	-webkit-transition: border linear .2s, -webkit-box-shadow linear .5s;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #fff;
+	overflow: hidden;
+	position: absolute;
+	-moz-box-shadow: 0 0 5px #ccc;
+	-webkit-box-shadow: 0 0 5px #ccc;
+	box-shadow: 0 0 5px #ccc;
 }
-
-
-.lzl_editor_container .edui_at_box .at_box_title {
-    padding-right: 10px;
-    padding-left: 7px;
-    color: #676767;
+#Demo .Input_Box>textarea {
+	width: 485px;
+	height: 111px;
+	padding: 5px;
+	outline: none;
+	border: 0px solid #fff;
+	resize: none;
+	font: 13px "微软雅黑", Arial, Helvetica, sans-serif;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
 }
-.lzl_editor_container ul,.lzl_editor_container li {
-    margin: 0;
-    padding: 0;
+#Demo .Input_Foot {
+	width: 100%;
+	height: 35px;
+	border-top: 1px solid #ccc;
+	background-color: #fff;
+	-moz-border-radius: 0 0 5px 5px;
+	-webkit-border-radius: 0 0 5px 5px;
+	border-radius: 0 0 5px 5px;
+	position: absolute;
 }
-
-.lzl_editor_container ul,.lzl_editor_container ol,.lzl_editor_container li {
-    list-style: none;
+#Demo .imgBtn {
+	float: left;
+	margin-top: 8px;
+	margin-left: 10px;
+	background-image: url(../img/imgs.png);
+	background-repeat: no-repeat;
+	background-position: 0 -13px;
+	height: 18px;
+	width: 20px;
+	cursor: pointer
 }
-.lzl_editor_container .edui-editor-msg {
-    font-size: 0;
-    line-height: 0;
-    overflow: hidden;
+#Demo .imgBtn:active {
+	margin-top: 9px;
 }
-
-.lzl_editor_container .wordlimit-holder {
-    position: absolute;
-    right: -2px;
-    top: -25px;
-    height: 22px;
-    background-color: #C6DFFA;
-    color: #6184AA;
-    font-size: 12px;
-    font-family: SimSun;
-    padding: 0 8px 3px;
+#Demo .imgBtn:hover {
+	background-position: 0 -31px
 }
-.lzl_editor_container .lzl_panel_error {
-    color: red;
+#Demo .postBtn {
+	float: right;
+	font: 13px "微软雅黑", Arial, Helvetica, sans-serif;
+	color: #808080;
+	padding: 9px 20px 7px 20px;
+	border-left: 1px solid #ccc;
+	cursor: pointer;
+	-moz-border-radius: 0 0 5px 0;
+	-webkit-border-radius: 0 0 5px 0;
+	border-radius: 0 0 5px 0;
 }
-.lzl_editor_container .lzl_panel_wrapper {
-  /*  width: 531px;*/
-    margin-top: 11px;
-    zoom: 1;
-        background-color: transparent;
-            border-collapse: collapse;
-    border-spacing: 0;
+#Demo .postBtn:hover {
+	color: #333;
+	background-color: #efefef;
 }
-.lzl_editor_container tbody {
-    display: table-row-group;
-    vertical-align: middle;
-    border-color: inherit;
+#Demo .postBtn:active {
+	padding: 10px 20px 6px 20px;
 }
-.lzl_editor_container .lzl_panel_wrapper td {
-    vertical-align: bottom;
+#Demo .faceDiv {
+	width: 496px;
+	height: 120px;
+	border-top: 1px solid #ccc;
+	position: absolute;
+	background-color: #fff;
+	-moz-border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+	border-radius: 5px 5px 0 0;
 }
-.lzl_editor_container .lzl_panel_btn {
-    line-height: 24px;
-    zoom: 1;
+#Demo .faceDiv>img {
+	border: 1px solid #ccc;
+	float: left;
+	margin-left: -1px;
+	margin-top: -1px;
+	position: relative;
+	width: 32px;
+	height: 32px;
+	padding: 3px 3px 3px 3px;
+	cursor: pointer;
 }
-.lzl_editor_container .lzl_panel_submit {
-    background: url(http://tb2.bdstatic.com/tb/static-ppb/img/pb_css_pic_a630a08.png) no-repeat -344px -7px;
+#Demo .faceDiv>img:hover {
+	background-color: #efefef;
 }
-.lzl_editor_container .lzl_panel_submit {
-    cursor: pointer;
-    float: right;
-    width: 51px;
-    height: 24px;
-    color: #FFF;
-    text-align: center;
-    background: url(http://tb2.bdstatic.com/tb/static-ppb/img/pb_css_pic_a630a08.png) no-repeat -344px -7px;
-}
-
-.lzl_editor_container .lzl_panel_smile {
-    cursor: pointer;
-    float: right;
-    width: 40px;
-    height: 24px;
-    margin-right: 6px;
-    z-index: 10;
-}
-.lzl_editor_container .lzl_insertsmiley_holder {
-    z-index: 11;
-    position: relative;
-    width: 33px;
-    height: 22px;
-    background: url(http://tb2.bdstatic.com/tb/static-pcommon/img/poster/insertsmiley_icon_711ec2d.png) no-repeat;
-    cursor: pointer;
-}
-.lzl_editor_container .lzl_edui_dialog_container {
-    display: none;
-    z-index: 1;
-    top: 29px;
-    left: -412px;
-    position: absolute;
-    background: #e5e5e5;
-    padding: 2px;
-}
-.lzl_editor_container .inde_edui_dropdown_menu {
-    border: 1px solid #bfbfbf;
-    background-color: #fff;
-}
-.lzl_editor_container .inde_edui_popup_caret {
-    top: -8px;
-    right: 53px;
-    position: absolute;
-    width: 21px;
-    height: 11px;
-    background: url(http://tb2.bdstatic.com/tb/static-pcommon/img/poster/caret_png8_aaf26a1.png) no-repeat 0 0;
-}
-
-.emotion_container {
-    width: 550px;
-    overflow: hidden;
-}
-.emotion_container .s_layer_content {
-    height: 272px;
-}
-.tbui_no_scroll_bar {
-    padding-right: 0;
-}
-.tbui_scroll_panel .tbui_panel_content {
-    overflow: hidden;
-}
-.emotion_container table.s_layer_table {
-    border: 0;
-}
-.emotion_container table.s_layer_table td {
-    vertical-align: middle;
-    border-color: #e3e3e3;
-}
-.emotion_container .s_face .img {
-    background: transparent url(//tb2.bdstatic.com/tb/editor/images/default/fFace.png?t=20140529&t=1505996172127) no-repeat scroll left top;
-    width: 30px;
-    height: 30px;
-}
-.tbui_scroll_panel .tbui_scroll_bar {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 10px;
-    background: #F2F2F2;
-}
-.tbui_scroll_panel .tbui_scroll_button {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 8px;
-    background: #FFF;
-    border: 1px solid #E0E0E0;
-    cursor: default;
+#Demo .faceDiv>img:active {
+	padding: 4px 3px 2px 3px;
 }

@@ -77,8 +77,8 @@ public interface UserDao {
 	int modifyPasswordByEmail(String email,String password);
 	 /**
 	  * 通过用户id查询用户名
-	 * @param sid
+	 * @param uid
 	 * @return
 	 */
-	String queryUserNameById(int sid);
+	String queryUserNameById(int uid);
 }

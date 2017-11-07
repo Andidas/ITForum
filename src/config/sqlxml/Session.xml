@@ -47,4 +47,11 @@
 	<select id="querySessionByProfile" parameterType="String" resultMap="SessionResult">
 		select * from `session` where sprofile=#{_parameter}
 	</select>
+	
+	<resultMap type="String" id="querySessionNameBySIDResult">		
+		<result column="sname" jdbcType="VARCHAR" property="sname" />		
+	</resultMap>
+	<select id="querySessionNameBySID" parameterType="INTEGER" resultMap="querySessionNameBySIDResult">
+		select sname from `session` where sid=#{_parameter}
+	</select>
 </mapper>

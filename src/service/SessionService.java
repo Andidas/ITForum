@@ -25,4 +25,12 @@ public class SessionService implements ISessionService {
 		
 		return sdi.querySessionByProfile(sprofile);
 	}
+
+	@Override
+	public String querySessionNameBySID(int sid) {
+		
+		return sdi.querySessionNameBySID(sid);
+	}
+
+	
 }

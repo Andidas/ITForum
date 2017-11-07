@@ -269,12 +269,5 @@
 
 		<a href="#" class="btn btn-link" id="return_top"></a>
 </body>
-	<script type="text/javascript">
-	 	/*session的跳转*/
-	 	$(function(){
-	 		$('.sessionName').click(function(){
-	 			location.href="Session?op=toSession&sessionName="+$(this).html();
-	 		});//end sessionName.click
-	 	});
-	</script>
+	<script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
 </html>

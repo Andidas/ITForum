@@ -9,6 +9,7 @@ import entity.Session;
  *
  */
 public interface SessionDao {
+	String querySessionNameBySID(int sid);
 	/**
 	 * 通过session名得到sid
 	 * @param sname

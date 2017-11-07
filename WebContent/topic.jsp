@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -31,8 +32,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="container">
 		<div class="row clearfix">
 			<div class="col-lg-12 page-header">
-				<h2 class="col-lg-12" title="题目">${nowActiveTopic.ttopic}</h2>
-				<a href="session.html" class="col-lg-12 pull-right" title="版块">-${nowActiveTopic.tsid}</a>
+				<h2 class="col-lg-12" title="题目">${nowActiveTopicView.topic.ttopic}</h2>
+				<a href="javaScript:void(0)" class="col-lg-12 pull-right" title="版块">-
+					<span class="sessionName">
+					${nowActiveTopicView.sessionName}
+					</span>
+				</a>
 			</div>
 			<div class="col-md-8  column">
 				<div class="answer" style="border-bottom: transparent;">
@@ -46,14 +51,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</td>
 								<td class="answercell">
 									<div class="post-text" >
-										${nowActiveTopic.tcontents}
+										${nowActiveTopicView.topic.tcontents}
 									</div>
 									<div class="fw">
 										<div class="post-signature">
 											<div class="user-info ">
 												<div class="user-action-time">
 													asked <span title="发帖时间"
-														class="relativetime">${nowActiveTopic.ttime}</span>
+														class="relativetime">${nowActiveTopicView.topic.ttime}</span>
 												</div>
 												<div class="user-gravatar32">
 													<a href="user.html">
@@ -61,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</a>
 												</div>
 												<div class="user-details">
-													<a href="javaScript:void(0)" title="作者">${nowActiveTopic.tuid}</a>
+													<a href="javaScript:void(0)" title="作者">${nowActiveTopicView.userName}</a>
 													<div class="-flair">
 														<span class="reputation-score" title="reputation score "
 															dir="ltr">1,993</span><span title="1 gold badge"><span
@@ -180,874 +185,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												</tbody>
 											</table>
 										</div>
-
-										<div id="comments-link-1671095" data-rep="50" data-reg="true">
-											<a class="js-add-link comments-link disabled-link "
-												title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add
-												a comment</a>
+										<div >
+											<a class="comments-link replyComment">回复</a>
 										</div>
-										<div
-											class="lzl_editor_container j_lzl_e_c lzl_editor_container_s">
-											<div class="edui-container">
-												<div class="edui-editor-body">
-													<div class="edui-editor-top"></div>
-													<div class="edui-editor-middle">
-														<div
-															class="editor_for_container editor_lzl_container edui-body-container"
-															id="j_editor_for_container" contenteditable="true"
-															style="width: 497px; min-height: 40px; z-index: 0;">
-															<p>
-																<br>
-															</p>
-														</div>
-														<div class="edui_at_box" style="display: none;">
-															<div class="at_box_title">请输入表情名称：</div>
-															<ul class="emotion_list"></ul>
-														</div>
-														<div class="edui_at_box" style="display: none;">
-															<div class="at_box_title">想用@提到谁？</div>
-															<ul></ul>
-														</div>
-													</div>
-													<div class="edui-editor-bottom"></div>
-													<div class="edui-editor-msg"></div>
-												</div>
-												<div class="wordlimit-holder" style="visibility: hidden;"></div>
-											</div>
-											<p class="lzl_panel_error" style="display: none;"></p>
-											<table class="lzl_panel_wrapper">
-												<tbody>
-													<tr>
-														<td style="width: 75%;">
-															<p style="color: #666;"></p>
-														</td>
-														<td style="width: 25%; position: relative">
-															<div class="lzl_panel_btn">
-																<span class="lzl_panel_submit j_lzl_p_sb">发表</span><span
-																	class="lzl_panel_smile j_lzl_p_sm"
-																	style="position: relative;">
-																	<div class="lzl_insertsmiley_holder">
-																	</div>
-																	</span>
-															</div>
-															<div class="lzl_edui_dialog_container"
-																style="display: block;">
-																<div class="inde_edui_dropdown_menu">
-																	<div class="j_emotion_container emotion_container">
-																		<div
-																			class="s_layer_content j_content ueditor_emotion_content">
-																			<div class="tbui_scroll_panel tbui_no_scroll_bar">
-																				<div
-																					class="tbui_panel_content j_panel_content clearfix"
-																					style="height: 277px;">
-																					<table class="s_layer_table" cellpadding="1"
-																						cellspacing="1" align="center"
-																						style="border-collapse: collapse;" border="1"
-																						bordercolor="#e3e3e3">
-																						<tbody>
-																							<tr>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="0" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="呵呵"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f01.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left 0px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="1" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="哈哈"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f02.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -30px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="2" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="吐舌"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f03.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -60px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="3" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="啊"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f04.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -90px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="4" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="酷"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f05.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -120px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="5" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="怒"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f06.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -150px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="6" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="开心"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f07.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -180px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="7" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="汗"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f08.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -210px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="8" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="泪"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f09.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -240px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="9" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="黑线"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f10.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -270px;">&nbsp;</a></td>
-																							</tr>
-																							<tr>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="10" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="鄙视"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f11.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -300px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="11" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="不高兴"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f12.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -330px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="12" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="真棒"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f13.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -360px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="13" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="钱"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f14.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -390px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="14" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="疑问"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f15.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -420px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="15" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="阴险"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f16.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -450px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="16" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="吐"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f17.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -480px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="17" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="咦"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f18.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -510px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="18" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="委屈"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f19.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -540px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="19" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="花心"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f20.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -570px;">&nbsp;</a></td>
-																							</tr>
-																							<tr>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="20" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="呼~"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f21.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -600px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="21" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="笑眼"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f22.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -630px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="22" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="冷"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f23.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -660px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="23" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="太开心"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f24.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -690px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="24" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="滑稽"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f25.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -720px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="25" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="勉强"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f26.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -750px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="26" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="狂汗"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f27.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -780px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="27" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="乖"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f28.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -810px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="28" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="睡觉"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f29.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -840px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="29" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="惊哭"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f30.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -870px;">&nbsp;</a></td>
-																							</tr>
-																							<tr>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="30" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="升起"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f31.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -900px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="31" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="惊讶"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f32.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -930px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="32" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="喷"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f33.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -960px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse; background-color: rgb(255, 255, 255);"
-																									data-value="33" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="爱心"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f34.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -990px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="34" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="心碎"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f35.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1020px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="35" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="玫瑰"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f36.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1050px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="36" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="礼物"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f37.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1080px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="37" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="彩虹"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f38.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1110px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="38" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="星星月亮"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f39.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1140px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="39" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="太阳"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f40.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1170px;">&nbsp;</a></td>
-																							</tr>
-																							<tr>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="40" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="钱币"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f41.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1200px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="41" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="灯泡"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f42.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1230px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="42" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="茶杯"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f43.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1260px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="43" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="蛋糕"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f44.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1290px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="44" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="音乐"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f45.png?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1320px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="45" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="haha"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f46.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1350px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="46" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="胜利"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f47.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1380px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="47" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="大拇指"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f48.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1410px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="48" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="弱"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f49.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1440px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="49" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="OK"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f50.png?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1470px;">&nbsp;</a></td>
-																							</tr>
-																							<tr>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="50" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="伤心"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f51.gif?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1500px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="51" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="加油"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f52.gif?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1530px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="52" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="必胜"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f53.gif?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1560px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="53" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="期待"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f54.gif?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1590px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="54" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="牛逼"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f55.gif?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1620px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="55" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="胜利"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f56.gif?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1650px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="56" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="跟丫死磕"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f57.gif?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1680px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="57" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="踢球"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f58.gif?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1710px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="58" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="面壁"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f59.gif?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1740px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="59" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="顶"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f60.gif?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1770px;">&nbsp;</a></td>
-																							</tr>
-																							<tr>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="60" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="巴西怒"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f61.gif?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1800px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="61" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="伴舞"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f62.gif?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1830px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="62" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="奔跑"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f63.gif?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1860px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="63" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="点赞手"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f64.gif?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1890px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="64" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="加油"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f65.gif?t=20140803"
-																									data-posflag="0"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1920px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="65" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="哭泣"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f66.gif?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1950px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="66" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="亮红牌"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f67.gif?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -1980px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="67" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="球迷"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f68.gif?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -2010px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="68" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="耶"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f69.gif?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -2040px;">&nbsp;</a></td>
-																								<td class="s_face j_emotion" border="1"
-																									width="54" height="54"
-																									style="border-collapse: collapse;"
-																									data-value="69" data-sname="face"
-																									data-type="normal" data-class="s_face"
-																									align="center" bgcolor="#FFFFFF"
-																									data-stype="img" title="转屁股"
-																									data-surl="http://tb2.bdstatic.com/tb/editor/images/face/i_f70.gif?t=20140803"
-																									data-posflag="1"><a class="img"
-																									href="javascript:void(0)"
-																									style="display: block; color: #000; font-size: 14px; text-decoration: none; background-position: left -2070px;">&nbsp;</a></td>
-																							</tr>
-																						</tbody>
-																					</table>
-																				</div>
-																				<div class="tbui_scroll_bar j_scroll_bar"
-																					style="display: none;">
-																					<div
-																						class="tbui_scroll_button j_scroll_button ui-draggable">&nbsp;</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<div class="inde_edui_popup_caret"></div>
-															</div>
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
+									
 									</td>
 								</tr>
 							</tbody>
@@ -1063,7 +204,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</div>
 									</td>
 									<td class="answercell">
-										<div class="post-text" >
+										<div class="post-text">
 											<p>Prefer the try statement. It's considered better style
 												and avoids race conditions.</p>
 											<p>Don't take my word for it. There's plenty of support
@@ -1078,10 +219,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</div>
 													<div class="user-gravatar32">
 														<a href="/users/5128/pkoch">
-															<div class="gravatar-wrapper-32">
 																<img src="img/17883626.jpg" alt="" width="32"
 																	height="32">
-															</div>
 														</a>
 													</div>
 													<div class="user-details">
@@ -1106,11 +245,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<tr>
 									<td class="votecell"></td>
 									<td>
+										<div class="comments ">
+											<table>
+												<tbody>
+													
 
-										<div id="comments-link-1671095" data-rep="50" data-reg="true">
-											<a class="js-add-link comments-link disabled-link "
-												title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add
-												a comment</a>
+												</tbody>
+											</table>
+										</div>
+
+										
+										<div>
+											<a class="comments-link replyComment">回复</a>
 										</div>
 									</td>
 								</tr>
@@ -1130,8 +276,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<p class="label-key">asked</p>
 								</td>
 								<td style="padding-left: 10px">
-									<p class="label-key" title="2009-07-30 15:36:42Z">
-										<b>8 years, 2 months ago</b>
+									<p class="label-key" title="生成时间">
+										<b>${nowActiveTopicView.topic.ttime}</b>
 									</p>
 								</td>
 							</tr>
@@ -1142,7 +288,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 								<td style="padding-left: 10px">
 									<p class="label-key">
-										<b>259,352 times</b>
+										<b>${nowActiveTopicView.topic.tclickcount}</b>
 									</p>
 								</td>
 							</tr>
@@ -1153,7 +299,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td style="padding-left: 10px">
 									<p class="label-key">
 										<b><a href="?lastactivity" class="lastactivity-link"
-											title="2017-07-28 00:37:31Z">2 months ago</a></b>
+											title="2017-07-28 00:37:31Z">${nowActiveTopicView.topic.tlastreplaytime}</a></b>
 									</p>
 								</td>
 							</tr>
@@ -1165,27 +311,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<h3 class="panel-title">相关</h3>
 					</div>
 					<div class="panel-body">
-						<ul class="">
-							<li><span class="label label-success col-xs-1">11</span> <a
-								href="#" class="col-xs-11"> This is fake right? "FACEBOOK
-									USER LOCATION FINDER"This is fake right? "FACEBOOK USER
-									LOCATION FINDER"</a></li>
-							<li><span class="label label-success col-xs-1">21</span> <a
-								href="#" class="col-xs-11"> This is fake right? "FACEBOOK
-									USER LOCATION FINDER"This is fake right? "FACEBOOK USER
-									LOCATION FINDER"</a></li>
-							<li><span class="label label-success col-xs-1">3</span> <a
-								href="#" class="col-xs-11"> This is fake right? "FACEBOOK
-									USER LOCATION FINDER"This is fake right? "FACEBOOK USER
-									LOCATION FINDER"</a></li>
-							<li><span class="label label-success col-xs-1">1</span> <a
-								href="#" class="col-xs-11"> This is fake right? "FACEBOOK
-									USER LOCATION FINDER"This is fake right? "FACEBOOK USER
-									LOCATION FINDER"</a></li>
-							<li><span class="label label-success col-xs-1">1</span> <a
-								href="#" class="col-xs-11"> This is fake right? "FACEBOOK
-									USER LOCATION FINDER"This is fake right? "FACEBOOK USER
-									LOCATION FINDER"</a></li>
+						<ul class=""> 
+							<c:forEach items="${nowActiveTopicView.sameTopic}" var="sametopic">
+								<li>
+									<span class="label label-success col-xs-1" title="有多少人回复">${sametopic.treplycount }</span>
+									<a href="javaScript:void(0)" class="col-xs-11 TopicTName">${sametopic.ttopic}</a>
+								</li>
+							</c:forEach>
 						</ul>
 					</div>
 				</div>
@@ -1195,4 +327,132 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<div style="height: 400px; width: 100px;"></div>
 </body>
+<script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
+<script type="text/javascript">
+$(document).ready(function(e) {
+	/*点击回复的时候跳出回复框*/
+	$('.replyComment').click(function(){
+		$('#Demo').siblings('a').show();
+		$('#Demo').remove();
+		var content = "<div id='Demo' style='text-align:center;display:none' >"
+	   				 +"<div class='Input_Box'>"
+			      	+"<textarea class='Input_text'></textarea>"
+			      	+"<div class='faceDiv'> </div>"
+			     	+ "<div class='Input_Foot'> <a class='imgBtn' href='javascript:void(0);'></a><a class='postBtn'>确定</a> </div>"
+			   		+"</div></div>";
+		$(this).parent("div").prepend(content);
+		$(this).hide();
+		ImgIputHandler.Init();
+		$('#Demo').show(500);
+	});
+   
+});
+var ImgIputHandler={
+	facePath:[
+	    {faceName:"微笑",facePath:"0_微笑.gif"},
+		{faceName:"撇嘴",facePath:"1_撇嘴.gif"},
+		{faceName:"色",facePath:"2_色.gif"},
+		{faceName:"发呆",facePath:"3_发呆.gif"},
+		{faceName:"得意",facePath:"4_得意.gif"},
+		{faceName:"流泪",facePath:"5_流泪.gif"},
+		{faceName:"害羞",facePath:"6_害羞.gif"},
+		{faceName:"闭嘴",facePath:"7_闭嘴.gif"},
+		{faceName:"大哭",facePath:"9_大哭.gif"},
+		{faceName:"尴尬",facePath:"10_尴尬.gif"},
+		{faceName:"发怒",facePath:"11_发怒.gif"},
+		{faceName:"调皮",facePath:"12_调皮.gif"},
+		{faceName:"龇牙",facePath:"13_龇牙.gif"},
+		{faceName:"惊讶",facePath:"14_惊讶.gif"},
+		{faceName:"难过",facePath:"15_难过.gif"},
+		{faceName:"酷",facePath:"16_酷.gif"},
+		{faceName:"冷汗",facePath:"17_冷汗.gif"},
+		{faceName:"抓狂",facePath:"18_抓狂.gif"},
+		{faceName:"吐",facePath:"19_吐.gif"},
+		{faceName:"偷笑",facePath:"20_偷笑.gif"},
+	    {faceName:"可爱",facePath:"21_可爱.gif"},
+		{faceName:"白眼",facePath:"22_白眼.gif"},
+		{faceName:"傲慢",facePath:"23_傲慢.gif"},
+		{faceName:"饥饿",facePath:"24_饥饿.gif"},
+		{faceName:"困",facePath:"25_困.gif"},
+		{faceName:"惊恐",facePath:"26_惊恐.gif"},
+		{faceName:"流汗",facePath:"27_流汗.gif"},
+		{faceName:"憨笑",facePath:"28_憨笑.gif"},
+		{faceName:"大兵",facePath:"29_大兵.gif"},
+		{faceName:"奋斗",facePath:"30_奋斗.gif"},
+		{faceName:"咒骂",facePath:"31_咒骂.gif"},
+		{faceName:"疑问",facePath:"32_疑问.gif"},
+		{faceName:"嘘",facePath:"33_嘘.gif"},
+		{faceName:"晕",facePath:"34_晕.gif"},
+		{faceName:"折磨",facePath:"35_折磨.gif"},
+		{faceName:"衰",facePath:"36_衰.gif"},
+		{faceName:"骷髅",facePath:"37_骷髅.gif"},
+		{faceName:"敲打",facePath:"38_敲打.gif"},
+		{faceName:"再见",facePath:"39_再见.gif"},
+		{faceName:"擦汗",facePath:"40_擦汗.gif"},
+		
+	
+	]
+	,
+	Init:function(){
+		var isShowImg=false;
+		$(".Input_text").focusout(function(){
+			$(this).parent().css("border-color", "#cccccc");
+            $(this).parent().css("box-shadow", "none");
+            $(this).parent().css("-moz-box-shadow", "none");
+            $(this).parent().css("-webkit-box-shadow", "none");
+		});
+		$(".Input_text").focus(function(){
+		$(this).parent().css("border-color", "rgba(19,105,172,.75)");
+        $(this).parent().css("box-shadow", "0 0 3px rgba(19,105,192,.5)");
+        $(this).parent().css("-moz-box-shadow", "0 0 3px rgba(241,39,232,.5)");
+        $(this).parent().css("-webkit-box-shadow", "0 0 3px rgba(19,105,252,3)");
+		});
+		$(".imgBtn").click(function(){
+			if(isShowImg==false){
+				isShowImg=true;
+			    $(this).parent().prev().animate({marginTop:"-117px"},300);
+				if($(".faceDiv").children().length==0){
+					for(var i=0;i<ImgIputHandler.facePath.length;i++){
+						$(".faceDiv").append("<img title=\""+ImgIputHandler.facePath[i].faceName+"\" src=\"img/face/"+ImgIputHandler.facePath[i].facePath+"\" />");
+					}
+					$(".faceDiv>img").click(function(){
+				 		isShowImg=false;
+			            $(this).parent().animate({marginTop:"0px"},300);
+						ImgIputHandler.insertAtCursor($(".Input_text")[0],"["+$(this).attr("title")+"]");
+						
+					});
+				}
+			}else{
+				isShowImg=false;
+			    $(this).parent().prev().animate({marginTop:"0px"},300);
+			}
+		});
+		$(".postBtn").click(function(){
+			alert($(".Input_text").val());
+		});
+	},
+	insertAtCursor:function(myField, myValue) {
+    if (document.selection) {
+        myField.focus();
+        sel = document.selection.createRange();
+        sel.text = myValue;
+        sel.select();
+    } else if (myField.selectionStart || myField.selectionStart == "0") {
+        var startPos = myField.selectionStart;
+        var endPos = myField.selectionEnd;
+        var restoreTop = myField.scrollTop;
+        myField.value = myField.value.substring(0, startPos) + myValue + myField.value.substring(endPos, myField.value.length);
+        if (restoreTop > 0) {
+            myField.scrollTop = restoreTop;
+        }
+        myField.focus();
+        myField.selectionStart = startPos + myValue.length;
+        myField.selectionEnd = startPos + myValue.length;
+    } else {
+        myField.value += myValue;
+        myField.focus();
+    }
+}
+}
+</script>
 </html>

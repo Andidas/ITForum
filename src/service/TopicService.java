@@ -40,6 +40,11 @@ public class TopicService implements ITopicService {
 		return result>0;
 	}
 
+	/**
+	 * 重新设置<p></p>里面的内容，把图片隐藏起来
+	 * @param tcontents
+	 * @return
+	 */
 	public String neatenSessionContentInit(String tcontents){
 		List<String> imgSrcs = getImageAndContent(tcontents);
 		/*重新设置<p></p>里面的内容，把图片隐藏起来*/
@@ -58,9 +63,13 @@ public class TopicService implements ITopicService {
 	public String neatenSessionContent(String uname, String ttopic,
 			String tcontents) {
 
-		String newContents = "<li><div class='col-xs-2'><div class='thumbsUp'><p title='回复条数'><span class='activeSpan'>0</span><span class='glyphicon glyphicon-comment'></span></p><p title='观看人数'><span class='activeSpan'>0</span><span class='glyphicon glyphicon glyphicon glyphicon-eye-open'></span></p></div></div><div class='panel col-xs-10'><div class='panel-heading'><a href='javaScript:void(0)'>"
+		String newContents = "<li><div class='col-xs-2'><div class='thumbsUp'>"
+				+"<p title='回复条数'><span class='activeSpan'>0</span><span class='glyphicon glyphicon-comment'>"
+				+"</span></p><p title='观看人数'><span class='activeSpan'>0</span>"
+				+"<span class='glyphicon glyphicon glyphicon glyphicon-eye-open'></span></p></div></div>"
+				+"<div class='panel col-xs-10'><div class='panel-heading'><a href='javaScript:void(0)'class='TopicTName' title='题目'>"
 				+ ttopic
-				+ "</a></div><div class='panel-body'>"
+				+ "</a></div><div class='panel-body' title='内容'>"
 				+  neatenSessionContentInit(tcontents)
 				+ "</div><div class='panel-footer clearfix'><div style='float: right'><span class='glyphicon glyphicon-user'></span><a href='user.jsp' title='作者' target='_blank'>"
 				+ uname

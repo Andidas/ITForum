@@ -65,5 +65,5 @@ public interface IUserService {
 	 * @param sid
 	 * @return
 	 */
-	public String queryUserNameById(int sid);
+	public String queryUserNameById(int uid);
 }

@@ -7,10 +7,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import entity.Topic;
+import entity.TopicView;
+import entity.User;
 import service.SessionService;
 import service.TopicService;
+import service.TopicViewService;
 
 public class TopicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -38,18 +42,20 @@ public class TopicServlet extends HttpServlet {
 	 */
 	private void toTopic(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
+		TopicViewService topicViewService = new TopicViewService();
 		PrintWriter out = response.getWriter();
 		//帖子名
 		String topicTName = request.getParameter("TopicTName");
-		//当前被选中的帖子
-		Topic Topic = ts.queryTopicOneByTopic(topicTName);
-		if(Topic==null){
+		//当前被选中的帖子de视图
+		TopicView topicView = topicViewService.getTopicViewService(topicTName);
+		if(topicView==null){
 			out.print("<script>alert('帖子不存在');history.back();</script>");
 		}else{
-			request.setAttribute("nowActiveTopic", Topic);
+			request.setAttribute("nowActiveTopicView", topicView);
 			request.getRequestDispatcher("topic.jsp").forward(request,response);
 		}
 	}
+	
 	/**
 	 * 发布topic，ajax
 	 */
