@@ -46,8 +46,8 @@
 			<div class="page-header col-md-9">
 				<h1>
 					<span id="sessionName">${nowActiveSessionView.session.sname}</span><a href="javaScript:void(0)" class="follow" id="follow"
-						style="display: none;"><span>关注</span></a> <a class="unfollow"
-						id="unfollow" href="javaScript:void(0)" style="">取消关注 </a> <small>关注:<span
+						style=""><span>关注</span></a> <a class="unfollow"
+						id="unfollow" href="javaScript:void(0)" style="display: none;">取消关注 </a> <small>关注:<span
 						title="目前关注人数">${nowActiveSessionView.follow}</span>提问:<span title="目前问题数">${nowActiveSessionView.session.stopiccount}</span>主题：<a
 						href="javaScript:void(0)" title="分类依据">${nowActiveSessionView.session.sprofile}</a></small>
 				</h1>

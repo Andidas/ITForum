@@ -31,11 +31,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="container">
 		<div class="row clearfix">
 			<div class="col-lg-12 page-header">
-				<h2 class="col-lg-12" title="题目">${nowActiveTopicView.topic.ttopic}</h2>
+				<input type="hidden" value="${nowActiveTopicView.topic.tid}" id="nowTopicTid"/> 
+				<h2 class="col-lg-12" title="题目" id="nowTopicName">${nowActiveTopicView.topic.ttopic}</h2>
 				<a href="javaScript:void(0)" class="col-lg-12 pull-right" title="版块">-
 					<span class="sessionName">
 					${nowActiveTopicView.sessionName}
 					</span>
+					<input type="hidden" value="${nowActiveTopicView.topic.tsid}" id="nowSessionID"/>
 				</a>
 			</div>
 			<div class="col-md-8  column">
@@ -87,8 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</tbody>
 					</table>
 				</div>
-				<div class="answers">
-					<ul id="Tabson" class="nav nav-tabs ">
+				<ul id="Tabson" class="nav nav-tabs ">
 						<li>
 							<h4>10tiao</h4>
 						</li>
@@ -98,7 +99,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							data-toggle="tab" aria-expanded="true">new</a></li>
 						<li class="pull-right"><a href="#All" data-toggle="tab"
 							aria-expanded="false">vote</a></li>
-					</ul>
+				</ul>
+				<div class="answers">
 					<div class="answer">
 						<table>
 							<tbody>
@@ -201,35 +203,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</div>
 									</td>
 									<td class="answercell">
-										<div class="post-text">
-											<p>Prefer the try statement. It's considered better style
-												and avoids race conditions.</p>
-											<p>Don't take my word for it. There's plenty of support
-												for this theory. Here's a couple:</p>
+										<div>
+											<p>Prefer the try statement. </p>
 										</div>
 										<div class="fw">
 											<div class="post-signature">
 												<div class="user-info ">
 													<div class="user-action-time">
-														answered <span title="2009-11-04 00:48:06Z"
-															class="relativetime">Nov 4 '09 at 0:48</span>
+														answered <span title="时间">Nov 4 '09 at 0:48</span>
 													</div>
 													<div class="user-gravatar32">
-														<a href="/users/5128/pkoch">
-																<img src="img/17883626.jpg" alt="" width="32"
-																	height="32">
+														<a href="javaScript:;">
+																<img src="img/17883626.jpg" width="32" height="32">
 														</a>
 													</div>
 													<div class="user-details">
-														<a href="/users/5128/pkoch">lwy</a>
-														<div class="-flair">
-															<span class="reputation-score" title="reputation score "
-																dir="ltr">1,993</span><span title="1 gold badge"><span
-																class="badge1"></span><span class="badgecount">1</span></span><span
-																title="13 silver badges"><span class="badge2"></span>
-																<span class="badgecount">13</span> </span><span
-																title="14 bronze badges"><span class="badge3"></span><span
-																class="badgecount">14</span></span>
+														<a href="javaScript:;">lwy</a>
+														<div>
+															<span title="被赞">1,993</span>
 														</div>
 													</div>
 												</div>
@@ -245,12 +236,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<div class="comments ">
 											<table>
 												<tbody>
-													
-
 												</tbody>
 											</table>
 										</div>
-
 										<div>
 											<a class="comments-link replyComment">回复</a>
 										</div>
@@ -262,6 +250,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 
 				<div id="summernoteReply" ></div>
+				<a class="btn btn-success" id="ReplyTopic">回复</a>
+				
 			</div>
 			<div class="col-md-4 column">
 				<div class="module question-stats">
@@ -326,9 +316,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
 <script src="dist/summernote.js"></script>
 <script src="dist/lang/summernote-zh-CN.js"></script>
+<!-- 回复帖子  -->
+<script type="text/javascript">
+	$(function(){
+		$('#ReplyTopic').click(function(){
+			var replyText = $('#summernoteReply').summernote('code');
+			var nowTopicTid = $('#nowTopicTid').val();
+			var nowSessionID = $('#nowSessionID').val();
+			var nowUserID = $('#nowUserID').val();
+			
+			if($('#nowUserName').html()==undefined){
+				alert('请登录');
+			}else if(replyText==""||replyText=="<p><br></p>"){
+				$('#summernoteReply').focus();
+				alert('请填写内容');
+			}else{
+				var param  = {
+					"op" : "ReplyTopic",
+					"nowTopicTid" :nowTopicTid,
+					"nowSessionID" :nowSessionID,
+					"nowUserID" :nowUserID,
+					"replyText" :replyText
+					}
+				$.post("Reply",param,function(data){
+					console.log(data);
+					if(data=="true"){
+						replyContent(replyText);
+					}else{
+						alert("回复失败");
+					}
+				});
+			}	
+		});//end #ReplyTopic
+	});
+	//回复内容
+	function replyContent(replyText){
+		var text = "<div class='answer'><table><tbody><tr><td class='votecell'><div class='vote'>"
+					+"<span class='date-dz-z pull-left' title='赞'>"
+					+"	<i class='date-dz-z-click-red'></i><i class='z-num'>0</i></span>"
+					+"</div></td><td class='answercell'><div>"
+					+ replyText
+					+"</div><div class='fw'><div class='post-signature'>"
+					+"<div class='user-info'><div class='user-action-time'>"
+					+"回复时间<span title='时间'>Nov 4 '09 at 0:48</span></div>"
+					+"<div class='user-gravatar32'><a href='javaScript:;'>"
+					+"<img src='img/17883626.jpg' width='32' height='32'>"
+					+"</a></div><div class='user-details'><a href='javaScript:;' title='回复人'>"
+					+ $('#nowUserName').html()
+					+"</a><div><span title='被赞'>1,993</span></div></div></div></div>"
+					+"</div></td></tr><tr><td class='votecell'></td>"
+					+"<td><div class='comments '>"
+					+"<table><tbody></tbody></table></div><div>"
+					+"<a class='comments-link replyComment'>回复</a>"
+					+"</div></td></tr></tbody></table></div></div>";
+		$('.answers').prepend(text);
+		alert(text);
+	}
+</script>
 <script type="text/javascript">
 $(document).ready(function(e) {
-	
+	//富文本框初始化
 	$('#summernoteReply').summernote(
 			{
 				height : 200,
@@ -394,6 +441,7 @@ $(document).ready(function(e) {
 	});
    
 });
+//回复框函数
 var ImgIputHandler={
 	facePath:[
 	    {faceName:"微笑",facePath:"0_微笑.gif"},

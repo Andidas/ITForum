@@ -45,6 +45,7 @@
     <mapper resource="config/sqlxml/Session.xml"/>
     <mapper resource="config/sqlxml/Topic.xml"/>
      <mapper resource="config/sqlxml/Follow.xml"/>
+     <mapper resource="config/sqlxml/Reply.xml"/>
   </mappers>
 
 </configuration>

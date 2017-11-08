@@ -49,4 +49,5 @@ public interface ITopicService {
 		 * @return
 		 */
 	Topic queryTopicOneByTopic(String ttopic);
+	
 }

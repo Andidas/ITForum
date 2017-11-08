@@ -70,13 +70,12 @@ public class TopicServlet extends HttpServlet {
 		String ttopic = request.getParameter("ttopic");
 		String tcontents = request.getParameter("tcontents");
 		/*´«µÝ²ÎÊý*/
-		if(ts.addTopic(sname, uname, ttopic, tcontents)){
-			if(sessionService.addSessionStopiccount(sname)){
-				String newContents = ts.neatenSessionContent(uname, ttopic, tcontents);
-				out.print(newContents);	
-			}	
+		if(ts.addTopic(sname, uname, ttopic, tcontents)&sessionService.addSessionStopiccount(sname)){		
+			String newContents = ts.neatenSessionContent(uname, ttopic, tcontents);
+			out.print(newContents);	
+		}else{
+			out.print("false");			
 		}
-		out.print("false");
 		
 		
 	}

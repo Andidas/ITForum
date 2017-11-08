@@ -106,6 +106,7 @@ public class TopicService implements ITopicService {
 	public boolean updateClickCount(String ttopic) {
 		return tdi.updateClickCount(ttopic)>0;
 	}
+
 	
 	
 	

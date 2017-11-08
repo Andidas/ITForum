@@ -103,8 +103,8 @@
 										class="caret"></strong>
 								</a>
 									<ul class="dropdown-menu ">
-										<li
-											class="dropdown-header header-nav-current-user css-truncate">
+										<li class="dropdown-header header-nav-current-user css-truncate">
+											<input type="hidden" value="${sessionScope.NowLoginUser.uid}" id="nowUserID"/>
 											欢迎您！ <strong class="css-truncate-target" id="nowUserName">${sessionScope.NowLoginUser.uname}</strong>
 										</li>
 										<li class="divider"></li>
