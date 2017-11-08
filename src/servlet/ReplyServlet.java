@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.ReplyService;
+import service.TopicService;
 
 
 
 public class ReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ReplyService replyService = new ReplyService();
+	
     public ReplyServlet() {
         super();
     }
@@ -39,7 +41,7 @@ public class ReplyServlet extends HttpServlet {
 		String replyText = request.getParameter("replyText");
 		System.out.println(nowTopicTid);
 		if(replyService.addReplyOne(nowTopicTid,nowSessionID,nowUserID,replyText)){
-			out.print("true");			
+			out.print("true");	
 		}else{
 			out.print("false");
 		}

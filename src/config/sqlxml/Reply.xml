@@ -29,5 +29,17 @@
 		delete from reply where rid = #{_parameter};
 	</delete>
 	
+	<resultMap type="entity.Reply" id="queryReplyListByRTIDResult">
+		<id column="rid" jdbcType="INTEGER" property="rid" />
+		<result column="rtid" jdbcType="INTEGER" property="rtid" />
+		<result column="rsid" jdbcType="INTEGER" property="rsid" />
+		<result column="ruid" jdbcType="INTEGER" property="ruid" />
+		<result column="rfavour" jdbcType="INTEGER" property="rfavour" />
+		<result column="rcontent" jdbcType="VARCHAR" property="rcontent" />
+		<result column="rtime" jdbcType="VARCHAR" property="rtime" />
+	</resultMap>
+	<select id="queryReplyListByRTID"  parameterType="INTEGER" resultMap="queryReplyListByRTIDResult">
+		select * from reply where rtid = #{_parameter};
+	</select>
 
 </mapper>

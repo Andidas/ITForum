@@ -107,6 +107,15 @@ public class TopicService implements ITopicService {
 		return tdi.updateClickCount(ttopic)>0;
 	}
 
+	@Override
+	public boolean updateReplyCountAdd(int tid,int ruid,String rtime) {
+		Topic topic = new Topic();
+		topic.setTid(tid);
+		topic.setTlastreplyuseid(ruid);
+		topic.setTlastreplaytime(rtime);
+		return tdi.updateReplyCountAdd(topic)>0;
+	}
+
 	
 	
 	

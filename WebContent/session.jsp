@@ -48,7 +48,7 @@
 					<span id="sessionName">${nowActiveSessionView.session.sname}</span><a href="javaScript:void(0)" class="follow" id="follow"
 						style=""><span>关注</span></a> <a class="unfollow"
 						id="unfollow" href="javaScript:void(0)" style="display: none;">取消关注 </a> <small>关注:<span
-						title="目前关注人数">${nowActiveSessionView.follow}</span>提问:<span title="目前问题数">${nowActiveSessionView.session.stopiccount}</span>主题：<a
+						title="目前关注人数" id="followCount">${nowActiveSessionView.follow}</span>提问:<span title="目前问题数">${nowActiveSessionView.session.stopiccount}</span>主题：<a
 						href="javaScript:void(0)" title="分类依据">${nowActiveSessionView.session.sprofile}</a></small>
 				</h1>
 				<p title="扼要描述">${nowActiveSessionView.session.sstatement}<a href="#" title="创建人" style="color:#888;">——<span>${nowActiveSessionView.sessionMaster}</span></a></p>
@@ -227,6 +227,10 @@
 					if(data=="true"){
 						$("#follow").hide();
 						$("#unfollow").show();
+						var num = $('#followCount').html();
+						num++;//关注人数自增
+						$('#followCount').html(num);
+						alert("关注成功");
 					}else{
 						alert("关注失败，服务器错误！");
 					}					
@@ -247,6 +251,10 @@
 					if(data=="true"){
 						$("#unfollow").hide();
 						$("#follow").show();
+						var num = $('#followCount').html();
+						num--;//关注人数自减
+						$('#followCount').html(num);
+						alert("取消关注成功");
 					}else{
 						alert("取消关注失败，服务器错误！");
 					}									

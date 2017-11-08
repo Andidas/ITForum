@@ -15,14 +15,16 @@ package entity;
  */
 public class Reply {
 	
-	public Reply(int rid, int rtid, int rsid, int ruid, int tfavour,
+	
+
+	public Reply(int rid, int rtid, int rsid, int ruid, int rfavour,
 			String rcontent, String rtime) {
 		super();
 		this.rid = rid;
 		this.rtid = rtid;
 		this.rsid = rsid;
 		this.ruid = ruid;
-		this.tfavour = tfavour;
+		this.rfavour = rfavour;
 		this.rcontent = rcontent;
 		this.rtime = rtime;
 	}
@@ -37,10 +39,14 @@ public class Reply {
 	private int rtid; // 回复主贴ID,外键(引用发贴表的TID)
 	private int rsid; // 所在版块ID,外键(引用版块表的SID)
 	private int ruid; // 发贴人ID,外键(引用用户表的UID)
-	private int tfavour; // 点赞数
+	private int rfavour; // 点赞数
 	private String rcontent; // 回贴内容
 	private String rtime; // 回贴时间
 	
+	
+
+	
+
 	public int getRid() {
 		return rid;
 	}
@@ -94,17 +100,19 @@ public class Reply {
 	@Override
 	public String toString() {
 		return "Reply [rid=" + rid + ", rtid=" + rtid + ", rsid=" + rsid
-				+ ", ruid=" + ruid + ", tfavour=" + tfavour + ", rcontent="
+				+ ", ruid=" + ruid + ", rfavour=" + rfavour + ", rcontent="
 				+ rcontent + ", rtime=" + rtime + "]";
 	}
 
-	public int getTfavour() {
-		return tfavour;
+	public int getRfavour() {
+		return rfavour;
 	}
 
-	public void setTfavour(int tfavour) {
-		this.tfavour = tfavour;
+	public void setRfavour(int rfavour) {
+		this.rfavour = rfavour;
 	}
+
+	
 
 
 

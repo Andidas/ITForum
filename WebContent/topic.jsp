@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<h4>10tiao</h4>
 						</li>
 						<li class="pull-right"><a href="#answers" data-toggle="tab"
-							aria-expanded="false"> oldest</a></li>
+							aria-expanded="false">oldest</a></li>
 						<li class="pull-right active"><a href="#questions"
 							data-toggle="tab" aria-expanded="true">new</a></li>
 						<li class="pull-right"><a href="#All" data-toggle="tab"
@@ -192,6 +192,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</tbody>
 						</table>
 					</div>
+				
+				<c:forEach items="${nowActiveTopicView.allReply}" var="replyList">
 					<div class="answer">
 						<table>
 							<tbody>
@@ -199,18 +201,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td class="votecell">
 										<div class="vote">
 											 <span class="date-dz-z pull-left" title="赞">
-    										<i class="date-dz-z-click-red"></i><i class="z-num">666</i></span>
+    										<i class="date-dz-z-click-red"></i><i class="z-num">${replyList.rfavour}</i></span>
 										</div>
 									</td>
 									<td class="answercell">
-										<div>
-											<p>Prefer the try statement. </p>
-										</div>
+										<div>${replyList.rcontent}</div>
 										<div class="fw">
 											<div class="post-signature">
 												<div class="user-info ">
 													<div class="user-action-time">
-														answered <span title="时间">Nov 4 '09 at 0:48</span>
+														answered <span title="时间">${replyList.rtime}</span>
 													</div>
 													<div class="user-gravatar32">
 														<a href="javaScript:;">
@@ -218,7 +218,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														</a>
 													</div>
 													<div class="user-details">
-														<a href="javaScript:;">lwy</a>
+														<a href="javaScript:;">${replyList.ruid}</a>
 														<div>
 															<span title="被赞">1,993</span>
 														</div>
@@ -247,6 +247,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</tbody>
 						</table>
 					</div>
+					
+					</c:forEach>
 				</div>
 
 				<div id="summernoteReply" ></div>
@@ -284,8 +286,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</td>
 								<td style="padding-left: 10px">
 									<p class="label-key">
-										<b><a href="?lastactivity" class="lastactivity-link"
-											title="2017-07-28 00:37:31Z">${nowActiveTopicView.topic.tlastreplaytime}</a></b>
+										<b><a class="lastactivity-link"
+											title="最后回复时间">${nowActiveTopicView.topic.tlastreplaytime}</a></b>
 									</p>
 								</td>
 							</tr>
@@ -340,10 +342,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 				$.post("Reply",param,function(data){
 					console.log(data);
-					if(data=="true"){
-						replyContent(replyText);
-					}else{
+					if(data=="false"){
 						alert("回复失败");
+					}else{
+						replyContent(replyText);
 					}
 				});
 			}	
@@ -358,7 +360,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					+ replyText
 					+"</div><div class='fw'><div class='post-signature'>"
 					+"<div class='user-info'><div class='user-action-time'>"
-					+"回复时间<span title='时间'>Nov 4 '09 at 0:48</span></div>"
+					+"answered <span title='时间'>Nov 4 '09 at 0:48</span></div>"
 					+"<div class='user-gravatar32'><a href='javaScript:;'>"
 					+"<img src='img/17883626.jpg' width='32' height='32'>"
 					+"</a></div><div class='user-details'><a href='javaScript:;' title='回复人'>"
@@ -370,7 +372,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					+"<a class='comments-link replyComment'>回复</a>"
 					+"</div></td></tr></tbody></table></div></div>";
 		$('.answers').prepend(text);
-		alert(text);
+		$('#summernoteReply').summernote('code','');
+		$('.date-dz-z').click(clickZan);
+		$('.replyComment').click(springReply);
+		alert('回帖成功');
 	}
 </script>
 <script type="text/javascript">
@@ -387,60 +392,63 @@ $(document).ready(function(e) {
 						[ 'insert', [ 'link' ] ],
 						[ 'view', [ 'fullscreen'] ] ]
 			});
-	//显示回复按钮
-	function showReply(){
-		$('#Demo').siblings('a').show();
-		$('#Demo').remove();
-	}
-	//添加回复
-	function addReply(obj,val){
-		var text = "<tr class='comment '>"
-						+"<td class='comment-actions'>"
-						+"<table><tbody><tr>"
-						+"<td class=' comment-score'><span title='条数'class='cool'>1</span></td>"
-						+"<td>&nbsp;</td></tr></tbody></table></td>"
-						+"<td class='comment-text'>"
-						+"<div style='display: block;' class='comment-body'>"
-						+"<span class='comment-copy'>"+val
-						+"</span> –&nbsp; <a "
-						+"href='javaScript:void(0)' title='用户'class='comment-user'>BlueTrin</a> <span"
-						+"class='comment-date' dir='ltr'><w class='comment-link'><span "
-						+"title='回复日期'>Sep 10 '15 at 9:09</span></w>"
-						+"</span></div></td></tr>";
-		obj.append(text);
-	}
+	
 	/*点击回复的时候跳出回复框*/
-	$('.replyComment').click(function(){
-		if($('#nowUserName').html()==undefined){
-			alert('请登录');
-		}else{
-			//去除原来已经存在的回复框
-			showReply();
-			var content = "<div id='Demo' style='text-align:center;display:none' >"
-		   				 +"<div class='Input_Box'>"
-				      	+"<textarea class='Input_text'></textarea>"
-				      	+"<div class='faceDiv'> </div>"
-				     	+ "<div class='Input_Foot'> <a class='imgBtn' href='javascript:void(0);'></a><a class='postBtn'>确定</a> </div>"
-				   		+"</div></div>";
-			$(this).parent("div").prepend(content);//添加回复框
-			$(this).hide();//隐藏回复按钮
-			ImgIputHandler.Init();//初始化回复框
-			$('#Demo').show(500);//回复框显示
-			//确定按钮点击事件
-			$(".postBtn").click(function(){
-				var val = $(".Input_text").val();
-				var obj = $('#Demo').parent("div").siblings(".comments");//回复所要添加的地方
-				if(val==""){
-					showReply();
-				}else{
-					addReply(obj,val);
-					showReply();					
-				}
-			});
-		}//end else
-	});
-   
+	$('.replyComment').click(springReply);
 });
+//添加回复
+function addReply(obj,val){
+	var text = "<tr class='comment '>"
+					+"<td class='comment-actions'>"
+					+"<table><tbody><tr>"
+					+"<td class=' comment-score'><span title='条数'class='cool'>1</span></td>"
+					+"<td>&nbsp;</td></tr></tbody></table></td>"
+					+"<td class='comment-text'>"
+					+"<div style='display: block;' class='comment-body'>"
+					+"<span class='comment-copy'>"+val
+					+"</span> –&nbsp; <a "
+					+"href='javaScript:void(0)' title='用户'class='comment-user'>"
+					+$('#nowUserName').html()
+					+"</a> <span class='comment-date' dir='ltr'><w class='comment-link'><span "
+					+"title='回复日期'>Sep 10 '15 at 9:09</span></w>"
+					+"</span></div></td></tr>";
+	obj.append(text);
+}
+//显示回复按钮
+function showReply(){
+	$('#Demo').siblings('a').show();
+	$('#Demo').remove();
+}
+/*点击回复的时候跳出回复框*/
+function springReply(){
+	if($('#nowUserName').html()==undefined){
+		alert('请登录');
+	}else{
+		//去除原来已经存在的回复框
+		showReply();
+		var content = "<div id='Demo' style='text-align:center;display:none' >"
+	   				 +"<div class='Input_Box'>"
+			      	+"<textarea class='Input_text'></textarea>"
+			      	+"<div class='faceDiv'> </div>"
+			     	+ "<div class='Input_Foot'> <a class='imgBtn' href='javascript:void(0);'></a><a class='postBtn'>确定</a> </div>"
+			   		+"</div></div>";
+		$(this).parent("div").prepend(content);//添加回复框
+		$(this).hide();//隐藏回复按钮
+		ImgIputHandler.Init();//初始化回复框
+		$('#Demo').show(500);//回复框显示
+		//确定按钮点击事件
+		$(".postBtn").click(function(){
+			var val = $(".Input_text").val();
+			var obj = $('#Demo').parent("div").siblings(".comments");//回复所要添加的地方
+			if(val==""){
+				showReply();
+			}else{
+				addReply(obj,val);
+				showReply();					
+			}
+		});
+	}//end else
+}
 //回复框函数
 var ImgIputHandler={
 	facePath:[
@@ -548,20 +556,26 @@ var ImgIputHandler={
 </script>
 <!--点赞-->
 <script type="text/javascript">
-	$('.date-dz-z').click(function(){
-		
-	 var zNum = $(this).find('.z-num').html();
-        if($(this).is('.date-dz-z-click')){
-            zNum--;
-            $(this).removeClass('date-dz-z-click red');
-            $(this).find('.z-num').html(zNum);
-            $(this).find('.date-dz-z-click-red').removeClass('red');
-        }else {
-            zNum++;
-            $(this).addClass('date-dz-z-click');
-            $(this).find('.z-num').html(zNum);
-            $(this).find('.date-dz-z-click-red').addClass('red');
-        }
-    })
+	function clickZan(){
+		if($('#nowUserName').html()==undefined){
+			alert('请登录');
+		}else{
+			var zNum = $(this).find('.z-num').html();
+	        if($(this).is('.date-dz-z-click')){
+	            zNum--;
+	            $(this).removeClass('date-dz-z-click red');
+	            $(this).find('.z-num').html(zNum);
+	            $(this).find('.date-dz-z-click-red').removeClass('red');
+	        }else {
+	            zNum++;
+	            $(this).addClass('date-dz-z-click');
+	            $(this).find('.z-num').html(zNum);
+	            $(this).find('.date-dz-z-click-red').addClass('red');
+	        }
+		}
+	}
+	$(function(){
+		$('.date-dz-z').click(clickZan);		
+	});
 </script>
 </html>

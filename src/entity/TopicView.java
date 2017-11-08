@@ -10,16 +10,19 @@ import java.util.List;
 	 * @param userName	//对应的user名
 	 * @param lastReplyUserName //最后一个回复的用户名
 	 * @param sameTopic  // 相同topic
+	 * @param allReply //该帖子的所有回帖
  */
 public class TopicView {
 	public TopicView(Topic topic, String sessionName, String userName,
-			String lastReplyUserName, List<Topic> sameTopic) {
+			String lastReplyUserName, List<Topic> sameTopic,
+			List<Reply> allReply) {
 		super();
 		this.topic = topic;
 		this.sessionName = sessionName;
 		this.userName = userName;
 		this.lastReplyUserName = lastReplyUserName;
 		this.sameTopic = sameTopic;
+		this.allReply = allReply;
 	}
 	public TopicView() {
 		super();
@@ -30,6 +33,7 @@ public class TopicView {
 	private String userName;
 	private String lastReplyUserName;
 	private List<Topic> sameTopic;
+	private List<Reply> allReply;
 	public Topic getTopic() {
 		return topic;
 	}
@@ -60,10 +64,18 @@ public class TopicView {
 	public void setSameTopic(List<Topic> sameTopic) {
 		this.sameTopic = sameTopic;
 	}
+	
+	public List<Reply> getAllReply() {
+		return allReply;
+	}
+	public void setAllReply(List<Reply> allReply) {
+		this.allReply = allReply;
+	}
 	@Override
 	public String toString() {
 		return "TopicView [topic=" + topic + ", sessionName=" + sessionName
 				+ ", userName=" + userName + ", lastReplyUserName="
-				+ lastReplyUserName + ", sameTopic=" + sameTopic + "]";
+				+ lastReplyUserName + ", sameTopic=" + sameTopic
+				+ ", allReply=" + allReply + "]";
 	}
 }

@@ -3,6 +3,7 @@ package dao.impl;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -48,6 +49,21 @@ public class ReplyDaoImpl implements ReplyDao {
 			if(sqlSession!=null)sqlSession.close();
 		}
 		return result;
+	}
+
+	@Override
+	public List<Reply> queryReplyListByRTID(int rtid) {
+		List<Reply> lists = null;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			lists= sqlSession.selectList("Reply.queryReplyListByRTID",rtid);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return lists;
+		}finally{
+			if(sqlSession!=null)sqlSession.close();
+		}
+		return lists;
 	}
 
 

@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import entity.Reply;
 
 /**
@@ -8,6 +10,12 @@ import entity.Reply;
  *
  */
 public interface ReplyDao {
+	/**
+	 * 查询该帖子的所有回帖
+	 * @param rtid
+	 * @return
+	 */
+	List<Reply> queryReplyListByRTID(int rtid);
 	/**
 	 * 删除单个帖子
 	 * @param rid

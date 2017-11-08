@@ -9,6 +9,12 @@ import entity.Topic;
  * 帖子接口
  */
 public interface ITopicService {
+	/** 
+	 * 发帖数加1,并且更新最后发帖人和发帖时间
+	 * @param 
+	 * @return
+	 */
+	boolean updateReplyCountAdd(int tid,int ruid,String rtime);
 	/**
 	 * 点击次数加1
 	 * @param ttopic

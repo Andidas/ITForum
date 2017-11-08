@@ -53,6 +53,7 @@ public class TopicServlet extends HttpServlet {
 		}else{
 			ts.updateClickCount(topicTName);
 			request.setAttribute("nowActiveTopicView", topicView);
+			System.out.println(topicView);
 			request.getRequestDispatcher("topic.jsp").forward(request,response);
 		}
 	}
@@ -72,6 +73,7 @@ public class TopicServlet extends HttpServlet {
 		/*´«µÝ²ÎÊý*/
 		if(ts.addTopic(sname, uname, ttopic, tcontents)&sessionService.addSessionStopiccount(sname)){		
 			String newContents = ts.neatenSessionContent(uname, ttopic, tcontents);
+		
 			out.print(newContents);	
 		}else{
 			out.print("false");			

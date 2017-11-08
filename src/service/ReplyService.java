@@ -2,6 +2,7 @@ package service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import dao.impl.ReplyDaoImpl;
 import entity.Reply;
@@ -9,6 +10,7 @@ import service.iService.IReplyService;
 
 public class ReplyService implements IReplyService {
 	private ReplyDaoImpl rdi = new ReplyDaoImpl();
+	private TopicService topicService = new TopicService();
 	@Override
 	public boolean deleteReplyOne(int rid) {
 		
@@ -30,8 +32,17 @@ public class ReplyService implements IReplyService {
 		reply.setRuid(ruid);
 		reply.setRtime(rtime);
 		reply.setRcontent(replyText);
-		
-		return rdi.addReplyOne(reply) > 0;
+		if(!topicService.updateReplyCountAdd(rtid,ruid,rtime)){
+			System.err.println("»ØÌûÊý¼Ó1Ê§°Ü");
+			return false;
+		}else{
+			return rdi.addReplyOne(reply) > 0;
+		}
+	}
+
+	@Override
+	public List<Reply> queryReplyListByRTID(int rtid) {
+		return rdi.queryReplyListByRTID(rtid);
 	}
 
 }

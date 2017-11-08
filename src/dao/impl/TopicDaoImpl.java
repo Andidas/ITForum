@@ -31,7 +31,7 @@ public class TopicDaoImpl implements TopicDao {
 		} catch (IOException e) {
 			return result;
 		}finally{
-			sqlSession.close();
+			if(sqlSession!=null)sqlSession.close();
 		}
 		return result;
 	}
@@ -46,7 +46,7 @@ public class TopicDaoImpl implements TopicDao {
 			e.printStackTrace();
 			return topics;
 		}finally{
-			sqlSession.close();
+			if(sqlSession!=null)sqlSession.close();
 		}
 		return topics;
 	}
@@ -61,7 +61,7 @@ public class TopicDaoImpl implements TopicDao {
 			e.printStackTrace();
 			return topic;
 		}finally{
-			sqlSession.close();
+			if(sqlSession!=null)sqlSession.close();
 		}
 		return topic;
 	}
@@ -77,7 +77,23 @@ public class TopicDaoImpl implements TopicDao {
 			e.printStackTrace();
 			return result;
 		}finally{
-			sqlSession.close();
+			if(sqlSession!=null)sqlSession.close();
+		}
+		return result;
+	}
+
+	@Override
+	public int updateReplyCountAdd(Topic topic) {
+		int result = 0 ;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			result = sqlSession.update("Topic.updateReplyCountAdd", topic);
+			sqlSession.commit();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return result;
+		}finally{
+			if(sqlSession!=null)sqlSession.close();
 		}
 		return result;
 	}
