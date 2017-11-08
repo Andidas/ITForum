@@ -1,13 +1,10 @@
 package dao.impl;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import utils.DBUtils;
 import dao.TopicDao;
 import db.DBAccess;
 import entity.Topic;

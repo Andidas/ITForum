@@ -45,7 +45,7 @@
 	</select>
 	
 	<select id="querySessionByProfile" parameterType="String" resultMap="SessionResult">
-		select * from `session` where sprofile=#{_parameter}
+		select sname,sstatement from `session` where sprofile=#{_parameter}
 	</select>
 	
 	<resultMap type="String" id="querySessionNameBySIDResult">		

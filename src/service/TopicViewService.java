@@ -21,6 +21,7 @@ public class TopicViewService {
 		TopicView topicView = new TopicView();
 		//当前被选中的帖子
 		Topic topic = topicService.queryTopicOneByTopic(topicTName);
+		
 		//版块名称
 		String sessionName = sessionService.querySessionNameBySID(topic.getTsid()); 
 		//用户名
@@ -29,6 +30,7 @@ public class TopicViewService {
 		String lastReplyUserName = userService.queryUserNameById(topic.getTlastreplyuseid());
 		//相同的topic
 		List<Topic> sameTopic = topicService.queryTopicListByTSID(topic.getTsid());
+		
 		List<Reply> allReply = replyService.queryReplyListByRTID(topic.getTid());
 		topicView.setTopic(topic);
 		topicView.setSessionName(sessionName);

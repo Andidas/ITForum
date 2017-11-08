@@ -7,11 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import entity.Topic;
 import entity.TopicView;
-import entity.User;
 import service.SessionService;
 import service.TopicService;
 import service.TopicViewService;
@@ -53,7 +49,7 @@ public class TopicServlet extends HttpServlet {
 		}else{
 			ts.updateClickCount(topicTName);
 			request.setAttribute("nowActiveTopicView", topicView);
-			System.out.println(topicView);
+			
 			request.getRequestDispatcher("topic.jsp").forward(request,response);
 		}
 	}

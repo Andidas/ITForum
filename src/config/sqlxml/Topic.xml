@@ -21,7 +21,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Topic">
-	<resultMap type="entity.Topic" id="TopicListResult">
+	<resultMap type="entity.Topic" id="TopicResult">
 		<id column="tid" jdbcType="INTEGER" property="tid" />
 		<result column="tsid" jdbcType="INTEGER" property="tsid" />
 		<result column="tuid" jdbcType="INTEGER" property="tuid" />
@@ -36,11 +36,12 @@
 		<result column="tlastreplaytime" jdbcType="VARCHAR" property="tlastreplaytime" />
 	</resultMap>
 	
-	<select id="queryTopicList" parameterType="INTEGER" resultMap="TopicListResult">
-		select * from topic where tsid = #{_parameter} order by ttime DESC
+	
+	<select id="queryTopicList" parameterType="INTEGER" resultMap="TopicResult">
+		select tid,treplycount,ttopic from topic where tsid = #{_parameter} order by ttime DESC
 	</select>
 	
-	<select id="queryTopicOneByTopic" parameterType="String" resultMap="TopicListResult">
+	<select id="queryTopicOneByTopic" parameterType="String" resultMap="TopicResult">
 		select * from topic where ttopic = #{_parameter}
 	</select>
 	<insert id="addTopic" parameterType="entity.Topic">

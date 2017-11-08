@@ -1,12 +1,7 @@
 package utils;
 
 import java.security.GeneralSecurityException;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Properties;
-import java.util.Random;
-import java.util.Set;
-
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;

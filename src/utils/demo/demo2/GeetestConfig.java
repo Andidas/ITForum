@@ -1,7 +1,5 @@
 package utils.demo.demo2;
 
-import javax.swing.text.StyledEditorKit.BoldAction;
-
 /**
  * GeetestWeb配置文件
  * 

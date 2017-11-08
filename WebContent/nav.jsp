@@ -38,6 +38,7 @@
 	color: white;
 }
 </style>
+<link rel="stylesheet" type="text/css" href="css/search-form.css">
 </head>
 <body>
 	<div class="clearfix">
@@ -57,35 +58,19 @@
 
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Link</a></li>
+					
 
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-								<li class="divider"></li>
-								<li><a href="#">One more separated link</a></li>
-							</ul></li>
-					</ul>
-
-					<form action="http://www.baidu.com/s"
-						class="navbar-form navbar-left" role="search">
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="search.."
-								autocomplete="off" maxlength="240" /> <span
-								class="input-group-btn">
-								<button class="btn btn-default btn-primary" type="button">
-									<span class="glyphicon glyphicon-search"></span>
-								</button>
-							</span>
-						</div>
-
-					</form>
+					<form onsubmit="submitFn(this, event);">
+			            <div class="search-wrapper">
+			                <div class="input-holder">
+			                    <input type="text" class="search-input" placeholder="Type to search" />
+			                    <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+			                </div>
+			                <span class="close" onclick="searchToggle(this, event);"></span>
+			                <div class="result-container">
+			                </div>
+			            </div>
+			       </form>
 
 					<div class="login">
 						<ul class="nav navbar-nav navbar-right">
@@ -131,4 +116,39 @@ $(document).ready(function(){
 		});
 	});
 </script>
+<!-- 搜索框 -->
+<script type="text/javascript">
+        function searchToggle(obj, evt){
+            var container = $(obj).closest('.search-wrapper');
+
+            if(!container.hasClass('active')){
+                  container.addClass('active');
+                  evt.preventDefault();
+            }
+            else if(container.hasClass('active') && $(obj).closest('.input-holder').length == 0){
+                  container.removeClass('active');
+                  // clear input
+                  container.find('.search-input').val('');
+                  // clear and hide result container when we press close
+                  container.find('.result-container').fadeOut(100, function(){$(this).empty();});
+            }
+        }
+
+        function submitFn(obj, evt){
+            value = $(obj).find('.search-input').val().trim();
+
+            _html = "Yup yup! Your search text sounds like this: ";
+            if(!value.length){
+                _html = "Yup yup! Add some text friend :D";
+            }
+            else{
+                _html += "<b>" + value + "</b>";
+            }
+
+            $(obj).find('.result-container').html('<span>' + _html + '</span>');
+            $(obj).find('.result-container').fadeIn(100);
+
+            evt.preventDefault();
+        }
+    </script>
 </html>

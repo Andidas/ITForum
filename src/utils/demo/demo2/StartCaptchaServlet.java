@@ -18,6 +18,11 @@ import utils.sdk.GeetestLib;
  */
 public class StartCaptchaServlet extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3009753813676804651L;
+
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 

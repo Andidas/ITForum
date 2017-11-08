@@ -3,24 +3,14 @@ package servlet;
 
 import java.io.IOException;
 
-
-
-
-
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entity.Session;
 import entity.SessionView;
-import entity.Topic;
 import service.SessionService;
 import service.SessionViewService;
-import service.TopicService;
-import service.UserService;
 
 public class SessionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -55,7 +45,7 @@ public class SessionServlet extends HttpServlet {
 		SessionViewService sessionViewService = new SessionViewService();
 		SessionView sessionView = sessionViewService.getSessionView(sessionName);
 		request.setAttribute("nowActiveSessionView", sessionView);
-		System.out.println(sessionView);
+		
 		request.getRequestDispatcher("session.jsp").forward(request, response);
 	}
 

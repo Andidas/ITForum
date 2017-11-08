@@ -20,6 +20,11 @@ import utils.sdk.GeetestLib;
  */
 public class VerifyLoginServlet extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3314970561764498978L;
+
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
