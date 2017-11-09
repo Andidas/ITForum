@@ -13,9 +13,11 @@ import java.util.List;
 	 * @param allReply //该帖子的所有回帖
  */
 public class TopicView {
+	
+	
 	public TopicView(Topic topic, String sessionName, String userName,
 			String lastReplyUserName, List<Topic> sameTopic,
-			List<Reply> allReply) {
+			PageMode<ReplyView> allReply) {
 		super();
 		this.topic = topic;
 		this.sessionName = sessionName;
@@ -33,7 +35,7 @@ public class TopicView {
 	private String userName;
 	private String lastReplyUserName;
 	private List<Topic> sameTopic;
-	private List<Reply> allReply;
+	private PageMode<ReplyView> allReply;
 	public Topic getTopic() {
 		return topic;
 	}
@@ -64,13 +66,6 @@ public class TopicView {
 	public void setSameTopic(List<Topic> sameTopic) {
 		this.sameTopic = sameTopic;
 	}
-	
-	public List<Reply> getAllReply() {
-		return allReply;
-	}
-	public void setAllReply(List<Reply> allReply) {
-		this.allReply = allReply;
-	}
 	@Override
 	public String toString() {
 		return "TopicView [topic=" + topic + ", sessionName=" + sessionName
@@ -78,4 +73,14 @@ public class TopicView {
 				+ lastReplyUserName + ", sameTopic=" + sameTopic
 				+ ", allReply=" + allReply + "]";
 	}
+	public PageMode<ReplyView> getAllReply() {
+		return allReply;
+	}
+	public void setAllReply(PageMode<ReplyView> allReply) {
+		this.allReply = allReply;
+	}
+	
+	
+	
+	
 }

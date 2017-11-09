@@ -2,7 +2,9 @@ package service;
 
 import java.util.List;
 
+import entity.PageMode;
 import entity.Reply;
+import entity.ReplyView;
 import entity.Topic;
 import entity.TopicView;
 
@@ -31,7 +33,7 @@ public class TopicViewService {
 		//ÏàÍ¬µÄtopic
 		List<Topic> sameTopic = topicService.queryTopicListByTSID(topic.getTsid());
 		
-		List<Reply> allReply = replyService.queryReplyListByRTID(topic.getTid());
+		PageMode<ReplyView> allReply = replyService.queryReplyViewPageMode(1,5,topic.getTid());
 		topicView.setTopic(topic);
 		topicView.setSessionName(sessionName);
 		topicView.setUserName(userName);

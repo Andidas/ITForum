@@ -1,12 +1,15 @@
 package dao.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
 import dao.TopicDao;
 import db.DBAccess;
+import entity.PageMode;
+import entity.PageParam;
 import entity.Topic;
 
 /**
@@ -19,80 +22,113 @@ public class TopicDaoImpl implements TopicDao {
 	private DBAccess dbAccess = new DBAccess();
 	@Override
 	public int addTopic(Topic topic) {
-		int result = 0;
 		try {
+			int result = 0;
 			sqlSession = dbAccess.getSqlSession();
 			result = sqlSession.insert("Topic.addTopic",topic);
-			sqlSession.commit();
-			
-		} catch (IOException e) {
+			sqlSession.commit();			
 			return result;
+		} catch (IOException e) {
+			e.printStackTrace();
 		}finally{
 			if(sqlSession!=null)sqlSession.close();
 		}
-		return result;
+		return 0;
+	}
+
+	//∑÷“≥≤‚ ‘
+	public PageMode<Topic> splitPage(PageParam page){
+		int start = (page.getPageno()-1)*page.getPagesize();
+		page.setPageno(start);
+		try {
+			PageMode<Topic> pm = new PageMode<Topic>();
+			List<Topic> pageData = new ArrayList<Topic>();
+			sqlSession = dbAccess.getSqlSession();
+			pageData = sqlSession.selectList("Topic.splitPage", page);
+			pm.setData(pageData);
+			pm.setPageParam(page);
+			pm.setTotalRecordCount(this.rowCount(page.getId()));
+			return pm;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			if(sqlSession!=null)sqlSession.close();
+		}
+		return null;
+	}
+	
+	public int rowCount(int id) {
+		try {
+			int num = 0;
+			sqlSession = dbAccess.getSqlSession();
+			num = sqlSession.selectOne("Topic.rowNum", id);
+			return num;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 	@Override
 	public List<Topic> queryTopicListByTSID(int tsid) {
-		List<Topic> topics = null;
 		try {
+			List<Topic> topics = null;
 			sqlSession = dbAccess.getSqlSession();
 			topics = sqlSession.selectList("Topic.queryTopicList", tsid);
+			return topics;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return topics;
 		}finally{
 			if(sqlSession!=null)sqlSession.close();
 		}
-		return topics;
+		return null;
 	}
 
 	@Override
 	public Topic queryTopicOneByTopic(String ttopic) {
-		Topic topic = null;
 		try {
+			Topic topic = null;
 			sqlSession = dbAccess.getSqlSession();
 			topic = sqlSession.selectOne("Topic.queryTopicOneByTopic", ttopic);
+			return topic;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return topic;
 		}finally{
 			if(sqlSession!=null)sqlSession.close();
 		}
-		return topic;
+		return null;
 	}
 
 	@Override
 	public int updateClickCount(String ttopic) {
-		int result =0;
 		try {
+			int result =0;
 			sqlSession = dbAccess.getSqlSession();
 			result = sqlSession.update("Topic.updateClickCount", ttopic);
 			sqlSession.commit();
+			return result;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return result;
 		}finally{
 			if(sqlSession!=null)sqlSession.close();
 		}
-		return result;
+		return 0;
 	}
 
 	@Override
 	public int updateReplyCountAdd(Topic topic) {
-		int result = 0 ;
 		try {
+			int result = 0 ;
 			sqlSession = dbAccess.getSqlSession();
 			result = sqlSession.update("Topic.updateReplyCountAdd", topic);
 			sqlSession.commit();
+			return result;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return result;
 		}finally{
 			if(sqlSession!=null)sqlSession.close();
 		}
-		return result;
+		return 0;
 	}
 
 }

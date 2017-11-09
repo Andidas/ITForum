@@ -2,12 +2,20 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import entity.PageMode;
+import entity.ReplyView;
 import entity.TopicView;
+import service.ReplyService;
 import service.SessionService;
 import service.TopicService;
 import service.TopicViewService;
@@ -15,7 +23,8 @@ import service.TopicViewService;
 public class TopicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	/*实例化业务类*/
-	TopicService ts = new TopicService();
+	private TopicService ts = new TopicService();
+	private ReplyService replyService = new ReplyService();
     public TopicServlet() {
         super();
     }
@@ -28,6 +37,8 @@ public class TopicServlet extends HttpServlet {
 			releaseTopic(request,response);
 		}else if(op.equals("toTopic")){
 			toTopic(request,response);
+		}else if(op.equals("findReplyByPage")){
+			findReplyByPage(request,response);
 		}
 		
 	}
@@ -44,16 +55,39 @@ public class TopicServlet extends HttpServlet {
 		String topicTName = request.getParameter("TopicTName");
 		//当前被选中的帖子de视图
 		TopicView topicView = topicViewService.getTopicView(topicTName);
+		
 		if(topicView==null){
 			out.print("<script>alert('帖子不存在');history.back();</script>");
 		}else{
 			ts.updateClickCount(topicTName);
 			request.setAttribute("nowActiveTopicView", topicView);
-			
+			request.setAttribute("ReplyPage", topicView.getAllReply());
 			request.getRequestDispatcher("topic.jsp").forward(request,response);
 		}
 	}
-	
+	private void findReplyByPage(HttpServletRequest request,
+			HttpServletResponse response)throws ServletException, IOException  {
+		PrintWriter out = response.getWriter();
+		int pageno=1;
+		String pagenoStr = request.getParameter("pageno");
+		if(pagenoStr!=null&&!"".equals(pagenoStr)){
+			pageno = Integer.parseInt(pagenoStr);
+		}
+		String nowTopicTid = request.getParameter("nowTopicTid");
+		PageMode<ReplyView> pm = replyService.queryReplyViewPageMode(pageno, 5, Integer.parseInt(nowTopicTid));
+		if(pm==null){
+			out.print("false");
+		}else{
+			List<ReplyView> replyViewList = pm.getData();
+			JSONArray ja = new JSONArray();
+			for(ReplyView rv : replyViewList){
+				//把java对象转化成json对象
+				JSONObject jo = JSONObject.fromObject(rv);
+				ja.add(jo);
+			}
+			out.print(ja);
+		}		
+	}
 	/**
 	 * 发布topic，ajax
 	 */

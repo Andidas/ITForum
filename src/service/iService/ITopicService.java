@@ -2,6 +2,8 @@ package service.iService;
 
 import java.util.List;
 
+import entity.PageMode;
+import entity.PageParam;
 import entity.Topic;
 
 /**
@@ -9,6 +11,7 @@ import entity.Topic;
  * 帖子接口
  */
 public interface ITopicService {
+	PageMode<Topic> splitPage(int pageno,int pagesize,int tsid);
 	/** 
 	 * 发帖数加1,并且更新最后发帖人和发帖时间
 	 * @param 

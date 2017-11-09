@@ -2,7 +2,10 @@ package dao;
 
 import java.util.List;
 
+import entity.PageMode;
+import entity.PageParam;
 import entity.Reply;
+import entity.ReplyView;
 
 /**
  * 跟帖的数据库处理操作的接口
@@ -11,11 +14,18 @@ import entity.Reply;
  */
 public interface ReplyDao {
 	/**
-	 * 查询该帖子的所有回帖
-	 * @param rtid
+	 * 符合条件的条数
+	 * @param topic的id
 	 * @return
 	 */
-	List<Reply> queryReplyListByRTID(int rtid);
+	int rowCount(int id);
+	/**
+	 * 回帖的视图列表
+	 * @param rtid 查询条件
+	 * @return
+	 */
+	PageMode<ReplyView> queryReplyViewListByRTID(PageParam pageParam);
+	
 	/**
 	 * 删除单个帖子
 	 * @param rid

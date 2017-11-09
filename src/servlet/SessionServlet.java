@@ -14,7 +14,8 @@ import service.SessionViewService;
 
 public class SessionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	SessionService ss = new SessionService();
+	private SessionService sessionService = new SessionService();
+	private SessionViewService sessionViewService = new SessionViewService();
     public SessionServlet() {
         super();
     }
@@ -36,16 +37,15 @@ public class SessionServlet extends HttpServlet {
 		//获得板块名
 		String sessionName = request.getParameter("sessionName");
 		
-	
-		if(ss.updateSessionClickCount(sessionName)){
-			System.out.println("session："+sessionName+" 点击次数加1");
+		if(sessionService.updateSessionClickCount(sessionName)){
+			System.err.println("session："+sessionName+" 点击次数加1");
 		}else{
-			System.out.println("session："+sessionName+" 点击次数加0");
+			System.err.println("session："+sessionName+" 点击次数加0");
 		}
-		SessionViewService sessionViewService = new SessionViewService();
+		//get session's view info
 		SessionView sessionView = sessionViewService.getSessionView(sessionName);
-		request.setAttribute("nowActiveSessionView", sessionView);
 		
+		request.setAttribute("nowActiveSessionView", sessionView);
 		request.getRequestDispatcher("session.jsp").forward(request, response);
 	}
 

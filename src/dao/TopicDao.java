@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import entity.PageMode;
+import entity.PageParam;
 import entity.Topic;
 /**
  * 主贴的数据库处理操作的接口
@@ -11,7 +13,18 @@ import entity.Topic;
 
 
 public interface TopicDao {
-	
+	/**
+	 * 用于分页
+	 * @param page
+	 * @return
+	 */
+	PageMode<Topic> splitPage(PageParam page);
+	/**
+	 * 有多少条记录
+	 * @param sid查询的session id
+	 * @return
+	 */
+	int rowCount(int sid);
 	/**
 	 * 点击次数加1
 	 * @param ttopic

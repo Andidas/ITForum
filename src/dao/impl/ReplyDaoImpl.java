@@ -1,13 +1,18 @@
 package dao.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
 import dao.ReplyDao;
 import db.DBAccess;
+import entity.PageMode;
+import entity.PageParam;
 import entity.Reply;
+import entity.ReplyView;
+import entity.Topic;
 
 /**
  * @author lwy
@@ -48,21 +53,41 @@ public class ReplyDaoImpl implements ReplyDao {
 		return result;
 	}
 
+	
+
 	@Override
-	public List<Reply> queryReplyListByRTID(int rtid) {
-		List<Reply> lists = null;
+	public PageMode<ReplyView> queryReplyViewListByRTID(PageParam pageParam) {
+		int start = (pageParam.getPageno()-1)*pageParam.getPagesize();
+		pageParam.setPageno(start);
 		try {
+			PageMode<ReplyView> pm = new PageMode<ReplyView>();
+			List<ReplyView> pageData = new ArrayList<ReplyView>();
+			
 			sqlSession = dbAccess.getSqlSession();
-			lists= sqlSession.selectList("Reply.queryReplyListByRTID",rtid);
+			pageData= sqlSession.selectList("Reply.queryReplyViewListByRTID",pageParam);
+			pm.setData(pageData);
+			pm.setPageParam(pageParam);
+			pm.setTotalRecordCount(this.rowCount(pageParam.getId()));
+			return pm;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return lists;
 		}finally{
 			if(sqlSession!=null)sqlSession.close();
 		}
-		return lists;
+		return null;
 	}
 
+	public int rowCount(int id) {
+		try {
+			int num = 0;
+			sqlSession = dbAccess.getSqlSession();
+			num = sqlSession.selectOne("Reply.ReplyrowNum", id);
+			return num;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
 
 

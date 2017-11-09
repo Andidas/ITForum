@@ -5,7 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import dao.impl.ReplyDaoImpl;
+import entity.PageMode;
+import entity.PageParam;
 import entity.Reply;
+import entity.ReplyView;
 import service.iService.IReplyService;
 
 public class ReplyService implements IReplyService {
@@ -33,16 +36,19 @@ public class ReplyService implements IReplyService {
 		reply.setRtime(rtime);
 		reply.setRcontent(replyText);
 		if(!topicService.updateReplyCountAdd(rtid,ruid,rtime)){
-			System.err.println("回帖数加1失败");
+			System.out.println("回帖数加1失败");
 			return false;
 		}else{
 			return rdi.addReplyOne(reply) > 0;
 		}
 	}
 
+	
+
 	@Override
-	public List<Reply> queryReplyListByRTID(int rtid) {
-		return rdi.queryReplyListByRTID(rtid);
+	public PageMode<ReplyView> queryReplyViewPageMode(int pageno, int pagesize,int tsid) {
+		PageParam pageParam = new PageParam(pageno, pagesize, tsid);
+		return rdi.queryReplyViewListByRTID(pageParam);
 	}
 
 }

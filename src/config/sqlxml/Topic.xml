@@ -41,6 +41,18 @@
 		select tid,treplycount,ttopic from topic where tsid = #{_parameter} order by ttime DESC
 	</select>
 	
+	<!-- 分页 -->
+	<select id="splitPage" parameterType="entity.PageParam" resultMap="TopicResult">
+		select * from topic where tsid = #{id} order by ttime DESC limit #{pageno},#{pagesize}
+	</select>
+	<resultMap type="INTEGER" id="rowNumResult">
+		<result column="num" jdbcType="INTEGER" property="num" />
+	</resultMap>
+	<select id="rowNum" parameterType="entity.PageParam" resultMap="rowNumResult">
+		select count(*) as num from topic where tsid = #{id}
+	</select>
+	<!-- end 分页 -->
+	
 	<select id="queryTopicOneByTopic" parameterType="String" resultMap="TopicResult">
 		select * from topic where ttopic = #{_parameter}
 	</select>

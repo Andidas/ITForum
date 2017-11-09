@@ -29,17 +29,27 @@
 		delete from reply where rid = #{_parameter};
 	</delete>
 	
-	<resultMap type="entity.Reply" id="queryReplyListByRTIDResult">
+	
+	<!-- 分页 -->
+	<resultMap type="entity.ReplyView" id="queryReplyViewListByRTIDResult">
 		<id column="rid" jdbcType="INTEGER" property="rid" />
-		<result column="rtid" jdbcType="INTEGER" property="rtid" />
-		<result column="rsid" jdbcType="INTEGER" property="rsid" />
-		<result column="ruid" jdbcType="INTEGER" property="ruid" />
+		<result column="uname" jdbcType="VARCHAR" property="uname" />
 		<result column="rfavour" jdbcType="INTEGER" property="rfavour" />
 		<result column="rcontent" jdbcType="VARCHAR" property="rcontent" />
 		<result column="rtime" jdbcType="VARCHAR" property="rtime" />
+		<result column="ustate" jdbcType="INTEGER" property="ustate" />
+		<result column="upoint" jdbcType="INTEGER" property="upoint" />
+		<result column="uissectioner" jdbcType="INTEGER" property="uissectioner" />
 	</resultMap>
-	<select id="queryReplyListByRTID"  parameterType="INTEGER" resultMap="queryReplyListByRTIDResult">
-		select * from reply where rtid = #{_parameter};
+	<select id="queryReplyViewListByRTID"  parameterType="entity.PageParam" resultMap="queryReplyViewListByRTIDResult">
+		select rid,u.uname,rfavour,rcontent,rtime,u.ustate,u.upoint,u.uissectioner from reply r,`user` u
+		where rtid = #{id} and r.ruid = u.uid order by r.rtime DESC limit #{pageno},#{pagesize}
 	</select>
-
+	<resultMap type="INTEGER" id="ReplyrowNumResult">
+		<result column="num" jdbcType="INTEGER" property="num" />
+	</resultMap>
+	<select id="ReplyrowNum" parameterType="entity.PageParam" resultMap="ReplyrowNumResult">
+		select count(*) as num from reply where rtid  = #{id}
+	</select>
+	<!-- end 分页 -->
 </mapper>

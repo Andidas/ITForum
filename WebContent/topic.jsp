@@ -101,99 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							aria-expanded="false">vote</a></li>
 				</ul>
 				<div class="answers">
-					<div class="answer">
-						<table>
-							<tbody>
-								<tr>
-									<td class="votecell">
-										<div class="vote">
-											 <span class="date-dz-z pull-left" title="赞">
-    										<i class="date-dz-z-click-red"></i><i class="z-num">666</i></span>
-										</div>
-									</td>
-									<td class="answercell">
-										<div class="post-text">
-											<p>Prefer the try statement. It's considered better style
-												and avoids race conditions.</p>
-											<p>Don't take my word for it. There's plenty of support
-												for this theory. Here's a couple:</p>
-										</div>
-										<div class="fw">
-											<div class="post-signature">
-												<div class="user-info ">
-													<div class="user-action-time">
-														answered <span title="2009-11-04 00:48:06Z"
-															class="relativetime">Nov 4 '09 at 0:48</span>
-													</div>
-													<div class="user-gravatar32">
-														<a href="/users/5128/pkoch">
-																<img src="img/17883626.jpg" alt="" width="32"
-																	height="32">
-														</a>
-													</div>
-													<div class="user-details">
-														<a href="/users/5128/pkoch">lwy</a>
-														<div class="-flair">
-															<span class="reputation-score" title="reputation score "
-																dir="ltr">1,993</span><span title="1 gold badge"><span
-																class="badge1"></span><span class="badgecount">1</span></span><span
-																title="13 silver badges"><span class="badge2"></span>
-																<span class="badgecount">13</span> </span><span
-																title="14 bronze badges"><span class="badge3"></span><span
-																class="badgecount">14</span></span>
-														</div>
-													</div>
-												</div>
-											</div>
-
-										</div>
-									</td>
-								</tr>
-
-								<tr>
-									<td class="votecell"></td>
-									<td>
-										<div class="comments ">
-											<table>
-												<tbody>
-
-													<tr class="comment ">
-														<td class="comment-actions">
-															<table>
-																<tbody>
-																	<tr>
-																		<td class=" comment-score"><span title="条数"class="cool">1</span></td>
-																		<td>&nbsp;</td>
-																	</tr>
-																</tbody>
-															</table>
-														</td>
-														<td class="comment-text">
-															<div style="display: block;" class="comment-body">
-																<span class="comment-copy">Please add better
-																	sources to support your statement.Please add better
-																	sources to support your statement.</span> –&nbsp; <a
-																	href="javaScript:void(0)" title="用户"class="comment-user">BlueTrin</a> <span
-																	class="comment-date" dir="ltr"><a class="comment-link"><span
-																		title="回复日期" class="relativetime-clean">Sep 10 '15 at 9:09</span></a>
-																		</span></div>
-														</td>
-													</tr>
-
-												</tbody>
-											</table>
-										</div>
-										<div >
-											<a class="comments-link replyComment">回复</a>
-										</div>
-									
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				
-				<c:forEach items="${nowActiveTopicView.allReply}" var="replyList">
+				<c:forEach items="${ReplyPage.data}" var="replyList">
 					<div class="answer">
 						<table>
 							<tbody>
@@ -218,9 +126,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														</a>
 													</div>
 													<div class="user-details">
-														<a href="javaScript:;">${replyList.ruid}</a>
+														<a href="javaScript:;">${replyList.uname}</a>
 														<div>
-															<span title="被赞">1,993</span>
+															<span title="状态">${replyList.ustate}</span>
+															<span title="积分">${replyList.upoint}</span>
+															<span title="版主">${replyList.uissectioner}</span>
 														</div>
 													</div>
 												</div>
@@ -250,7 +160,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 					</c:forEach>
 				</div>
-
+					
+				<div  id="pageForm">
+					<input type="hidden" name="pageno" id="pageno">
+					<a onclick="findPage(1)">&laquo;</a>  
+					<c:if test="${ReplyPage.pageParam.pageno>1 }">
+						<a onclick="findPage(${ReplyPage.pageParam.pageno-1})">&larr;</a>
+					</c:if>
+					<c:forEach begin="1" end="${ReplyPage.totalPageCount }" var="i" step="1">
+						<a onclick="findPage(${i})">${i }</a>
+					</c:forEach>
+					<c:if test="${ReplyPage.pageParam.pageno<ReplyPage.totalPageCount }">
+						<a onclick="findPage(${ReplyPage.pageParam.pageno+1})">&rarr;</a>
+					</c:if>
+					<a onclick="findPage(${ReplyPage.totalPageCount })" >&raquo;</a>
+					<input type="hidden" name="totalCount" id="totalCount" value="${ReplyPage.totalPageCount }">
+					<input id="topage" size="3"><a onclick="jump()">跳转</a>
+				</div>
+				
+				
 				<div id="summernoteReply" ></div>
 				<a class="btn btn-success" id="ReplyTopic">回复</a>
 				
@@ -318,6 +246,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
 <script src="dist/summernote.js"></script>
 <script src="dist/lang/summernote-zh-CN.js"></script>
+<!-- 回复的分页查询 -->
+<script type="text/javascript">
+	
+	function findPage(pageno){
+		var param ={
+			'op':'findReplyByPage',
+			'pageno':pageno,
+			'nowTopicTid':$('#nowTopicTid').val()
+		}
+		$.post("Topic",param,function(data){
+			if(data=="false"){
+				alert('分页查询失败');
+			}else{
+				
+				$('.answers').empty();
+				var replys = eval(data);
+				$.each(replys,function(i,reply){
+					var text = replyContent(reply);
+					$('.answers').append(text);
+				});
+				clickInit();
+			}
+		});
+	}
+	function jump(){
+		var pageno = document.getElementById("topage").value;
+		findPage(pageno);
+	}
+</script>
 <!-- 回复帖子  -->
 <script type="text/javascript">
 	$(function(){
@@ -345,58 +302,73 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					if(data=="false"){
 						alert("回复失败");
 					}else{
-						replyContent(replyText);
+						findPage(1);
+						$('#summernoteReply').summernote('code','');
+						alert('回帖成功');
 					}
 				});
 			}	
 		});//end #ReplyTopic
-	});
+		//富文本框初始化
+		$('#summernoteReply').summernote(
+				{
+					height : 200,
+					tabsize : 2,
+					lang : 'zh-CN',
+					toolbar : [ 
+							[ 'font', [ 'bold', 'underline', 'clear' ] ],
+							[ 'color', [ 'color' ] ],
+							[ 'insert', [ 'link' ] ],
+							[ 'view', [ 'fullscreen'] ] ]
+		});
+	});//end ready
+	//初始化赞和回复的点击事件
+	function clickInit(){
+		//移除事件
+		//添加事件
+		$('.date-dz-z').click(clickZan);
+		$('.replyComment').click(springReply);
+	}
 	//回复内容
-	function replyContent(replyText){
-		var text = "<div class='answer'><table><tbody><tr><td class='votecell'><div class='vote'>"
-					+"<span class='date-dz-z pull-left' title='赞'>"
-					+"	<i class='date-dz-z-click-red'></i><i class='z-num'>0</i></span>"
-					+"</div></td><td class='answercell'><div>"
-					+ replyText
+	function replyContent(reply){
+		var text = "<div class='answer'><table><tbody><input type='hidden' class='rid' value='"
+					+ reply.rid
+					+"'><tr><td class='votecell'><div class='vote'><span class='date-dz-z pull-left' title='赞'>"
+					+"	<i class='date-dz-z-click-red'></i><i class='z-num'>"
+					+ reply.rfavour
+					+"</i></span></div></td><td class='answercell'><div>"
+					+ reply.rcontent
 					+"</div><div class='fw'><div class='post-signature'>"
-					+"<div class='user-info'><div class='user-action-time'>"
-					+"answered <span title='时间'>Nov 4 '09 at 0:48</span></div>"
-					+"<div class='user-gravatar32'><a href='javaScript:;'>"
+					+"<div class='user-info'><div class='user-action-time'>answered <span title='时间'>"
+					+ reply.rtime
+					+"</span></div><div class='user-gravatar32'><a href='javaScript:;'>"
 					+"<img src='img/17883626.jpg' width='32' height='32'>"
 					+"</a></div><div class='user-details'><a href='javaScript:;' title='回复人'>"
-					+ $('#nowUserName').html()
-					+"</a><div><span title='被赞'>1,993</span></div></div></div></div>"
-					+"</div></td></tr><tr><td class='votecell'></td>"
+					+ reply.uname
+					+"</a><div><span title='状态'>"
+					+ reply.ustate
+					+"</span><span title='积分'>"
+					+ reply.upoint
+					+"</span><span title='版主'>"
+					+ reply.uissectioner
+					+"</span></div></div></div></div></div></td></tr><tr><td class='votecell'></td>"
 					+"<td><div class='comments '>"
 					+"<table><tbody></tbody></table></div><div>"
 					+"<a class='comments-link replyComment'>回复</a>"
 					+"</div></td></tr></tbody></table></div></div>";
-		$('.answers').prepend(text);
-		$('#summernoteReply').summernote('code','');
-		$('.date-dz-z').click(clickZan);
-		$('.replyComment').click(springReply);
-		alert('回帖成功');
+					
+		return text;
 	}
+	
 </script>
+
+<!-- 楼中楼回复 -->
 <script type="text/javascript">
 $(document).ready(function(e) {
-	//富文本框初始化
-	$('#summernoteReply').summernote(
-			{
-				height : 200,
-				tabsize : 2,
-				lang : 'zh-CN',
-				toolbar : [ 
-						[ 'font', [ 'bold', 'underline', 'clear' ] ],
-						[ 'color', [ 'color' ] ],
-						[ 'insert', [ 'link' ] ],
-						[ 'view', [ 'fullscreen'] ] ]
-			});
-	
 	/*点击回复的时候跳出回复框*/
 	$('.replyComment').click(springReply);
 });
-//添加回复
+//添加楼中楼回复
 function addReply(obj,val){
 	var text = "<tr class='comment '>"
 					+"<td class='comment-actions'>"
@@ -414,17 +386,17 @@ function addReply(obj,val){
 					+"</span></div></td></tr>";
 	obj.append(text);
 }
-//显示回复按钮
+//显示楼中楼回复按钮
 function showReply(){
 	$('#Demo').siblings('a').show();
 	$('#Demo').remove();
 }
-/*点击回复的时候跳出回复框*/
+/*点击楼中楼回复的时候跳出回复框*/
 function springReply(){
 	if($('#nowUserName').html()==undefined){
 		alert('请登录');
 	}else{
-		//去除原来已经存在的回复框
+		//去除原来已经存在的楼中楼回复框
 		showReply();
 		var content = "<div id='Demo' style='text-align:center;display:none' >"
 	   				 +"<div class='Input_Box'>"
@@ -449,7 +421,7 @@ function springReply(){
 		});
 	}//end else
 }
-//回复框函数
+//楼中楼回复框函数
 var ImgIputHandler={
 	facePath:[
 	    {faceName:"微笑",facePath:"0_微笑.gif"},

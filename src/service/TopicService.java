@@ -10,34 +10,33 @@ import java.util.regex.Pattern;
 import dao.impl.SessionDaoImpl;
 import dao.impl.TopicDaoImpl;
 import dao.impl.UserDaoImpl;
+import entity.PageMode;
+import entity.PageParam;
 import entity.Topic;
 import service.iService.ITopicService;
 
 public class TopicService implements ITopicService {
-	
-	TopicDaoImpl tdi = new TopicDaoImpl();
+	private UserDaoImpl udi = new UserDaoImpl();
+	private SessionDaoImpl sdi = new SessionDaoImpl();
+	private TopicDaoImpl tdi = new TopicDaoImpl();
 	@Override
 	public boolean addTopic(String sname, String uname, String ttopic,
 			String tcontents) {
 		
-		UserDaoImpl udi = new UserDaoImpl();
-		SessionDaoImpl sdi = new SessionDaoImpl();
-		
 		Topic topic = new Topic();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String ttime = df.format(new Date());//获取注册时间
-		
-		int tuid = udi.queryUserIDByName(uname);//得到用户id
+		//得到用户id
+		int tuid = udi.queryUserIDByName(uname);
 		topic.setTuid(tuid);
-		int tsid = sdi.querySessionIDByName(sname);//得到session的id
+		//得到session的id
+		int tsid = sdi.querySessionIDByName(sname);
 		topic.setTsid(tsid);
 		topic.setTtopic(ttopic);
 		topic.setTcontents(tcontents);
 		topic.setTtime(ttime);
 		
-		int result = tdi.addTopic(topic);
-		
-		return result>0;
+		return tdi.addTopic(topic)>0;
 	}
 
 	/**
@@ -114,6 +113,12 @@ public class TopicService implements ITopicService {
 		topic.setTlastreplyuseid(ruid);
 		topic.setTlastreplaytime(rtime);
 		return tdi.updateReplyCountAdd(topic)>0;
+	}
+
+	@Override
+	public PageMode<Topic> splitPage(int pageno, int pagesize,int tsid) {
+		PageParam pageParam = new PageParam(pageno, pagesize, tsid);
+		return tdi.splitPage(pageParam);
 	}
 
 	

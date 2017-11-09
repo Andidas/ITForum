@@ -2,15 +2,18 @@ package service.iService;
 
 import java.util.List;
 
+import entity.PageMode;
 import entity.Reply;
+import entity.ReplyView;
 
 public interface IReplyService {
 	/**
-	 * 查询该帖子的所有回帖
-	 * @param rtid
+	 * 查询该帖子的分页参数，包含所有回帖的视图
+	 * @param 
 	 * @return
 	 */
-	List<Reply> queryReplyListByRTID(int rtid);
+	PageMode<ReplyView> queryReplyViewPageMode(int pageno, int pagesize,int tsid);
+	
 	/**
 	 * 删除单个帖子
 	 * @param rid

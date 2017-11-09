@@ -61,7 +61,6 @@
 	
 	<update id="addSessionStopiccount" parameterType="String">
 		UPDATE `session` set stopiccount = stopiccount+1 where sname= #{_parameter};
-		
 	</update>
 	
 	<update id="subSessionStopiccount" parameterType="String">
