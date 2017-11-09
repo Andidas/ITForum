@@ -5,21 +5,31 @@ import java.util.Date;
 import java.util.List;
 
 import dao.impl.ReplyDaoImpl;
+import dao.impl.TopicDaoImpl;
 import entity.PageMode;
 import entity.PageParam;
 import entity.Reply;
 import entity.ReplyView;
+import entity.Topic;
 import service.iService.IReplyService;
 
 public class ReplyService implements IReplyService {
 	private ReplyDaoImpl rdi = new ReplyDaoImpl();
-	private TopicService topicService = new TopicService();
+
 	@Override
 	public boolean deleteReplyOne(int rid) {
-		
 		return rdi.deleteReplyOne(rid)>0;
 	}
-
+	
+	@Override
+	public boolean updateReplyCountAdd(int tid,int ruid,String rtime) {
+		TopicDaoImpl tdi = new TopicDaoImpl();
+		Topic topic = new Topic();
+		topic.setTid(tid);
+		topic.setTlastreplyuseid(ruid);
+		topic.setTlastreplaytime(rtime);
+		return tdi.updateReplyCountAdd(topic)>0;
+	}
 	@Override
 	public boolean addReplyOne(String nowTopicTid,String nowSessionID,String nowUserID,String replyText) {
 		
@@ -35,7 +45,7 @@ public class ReplyService implements IReplyService {
 		reply.setRuid(ruid);
 		reply.setRtime(rtime);
 		reply.setRcontent(replyText);
-		if(!topicService.updateReplyCountAdd(rtid,ruid,rtime)){
+		if(!updateReplyCountAdd(rtid,ruid,rtime)){
 			System.out.println("»ØÌûÊý¼Ó1Ê§°Ü");
 			return false;
 		}else{
@@ -45,10 +55,6 @@ public class ReplyService implements IReplyService {
 
 	
 
-	@Override
-	public PageMode<ReplyView> queryReplyViewPageMode(int pageno, int pagesize,int tsid) {
-		PageParam pageParam = new PageParam(pageno, pagesize, tsid);
-		return rdi.queryReplyViewListByRTID(pageParam);
-	}
+	
 
 }

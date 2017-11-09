@@ -16,6 +16,11 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+/**
+ * 上传文件
+ * @author lwy
+ *
+ */
 public class UploadFileTopicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    

@@ -11,6 +11,7 @@ import db.DBAccess;
 import entity.PageMode;
 import entity.PageParam;
 import entity.Topic;
+import entity.TopicView;
 
 /**
  * @author lwy
@@ -37,14 +38,16 @@ public class TopicDaoImpl implements TopicDao {
 	}
 
 	//∑÷“≥≤‚ ‘
-	public PageMode<Topic> splitPage(PageParam page){
+	public PageMode<TopicView> splitPage(PageParam page){
 		int start = (page.getPageno()-1)*page.getPagesize();
 		page.setPageno(start);
 		try {
-			PageMode<Topic> pm = new PageMode<Topic>();
-			List<Topic> pageData = new ArrayList<Topic>();
+			PageMode<TopicView> pm = new PageMode<TopicView>();
+			List<TopicView> pageData = new ArrayList<TopicView>();
+			
 			sqlSession = dbAccess.getSqlSession();
 			pageData = sqlSession.selectList("Topic.splitPage", page);
+			
 			pm.setData(pageData);
 			pm.setPageParam(page);
 			pm.setTotalRecordCount(this.rowCount(page.getId()));
@@ -70,11 +73,11 @@ public class TopicDaoImpl implements TopicDao {
 	}
 
 	@Override
-	public List<Topic> queryTopicListByTSID(int tsid) {
+	public List<Topic> querySameTopicListByTSID(int tsid) {
 		try {
 			List<Topic> topics = null;
 			sqlSession = dbAccess.getSqlSession();
-			topics = sqlSession.selectList("Topic.queryTopicList", tsid);
+			topics = sqlSession.selectList("Topic.querySameTopicList", tsid);
 			return topics;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -129,6 +132,20 @@ public class TopicDaoImpl implements TopicDao {
 			if(sqlSession!=null)sqlSession.close();
 		}
 		return 0;
+	}
+
+	public TopicView getTopicViewOne(String ttopic) {
+		try {
+			TopicView topicView = null;
+			sqlSession = dbAccess.getSqlSession();
+			topicView = sqlSession.selectOne("Topic.topicViewOne", ttopic);
+			return topicView;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			if(sqlSession!=null)sqlSession.close();
+		}
+		return null;
 	}
 
 }

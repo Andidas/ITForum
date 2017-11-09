@@ -65,6 +65,7 @@ public class ReplyDaoImpl implements ReplyDao {
 			
 			sqlSession = dbAccess.getSqlSession();
 			pageData= sqlSession.selectList("Reply.queryReplyViewListByRTID",pageParam);
+			
 			pm.setData(pageData);
 			pm.setPageParam(pageParam);
 			pm.setTotalRecordCount(this.rowCount(pageParam.getId()));

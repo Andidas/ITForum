@@ -4,20 +4,37 @@ import java.util.List;
 
 import entity.PageMode;
 import entity.PageParam;
+import entity.ReplyView;
 import entity.Topic;
+import entity.TopicView;
 
 /**
  * @author 刘伟艺
  * 帖子接口
  */
 public interface ITopicService {
-	PageMode<Topic> splitPage(int pageno,int pagesize,int tsid);
-	/** 
-	 * 发帖数加1,并且更新最后发帖人和发帖时间
+	/**
+	 * 查询该帖子的分页参数，包含所有回帖的视图
 	 * @param 
 	 * @return
 	 */
-	boolean updateReplyCountAdd(int tid,int ruid,String rtime);
+	PageMode<ReplyView> queryReplyViewPageMode(int pageno, int pagesize,int rtid);
+	/**
+	 * 得到单个topic view
+	 * @param topicTName
+	 * @param sid
+	 * @return
+	 */
+	TopicView getTopicViewOne(String topicTName,String sid);
+	/**
+	 * 得到topic的分页视图
+	 * @param pageno
+	 * @param pagesize
+	 * @param tsid
+	 * @return
+	 */
+	PageMode<TopicView> TopicSplitPage(int pageno,int pagesize,int tsid);
+	
 	/**
 	 * 点击次数加1
 	 * @param ttopic
@@ -51,7 +68,7 @@ public interface ITopicService {
 	 * @param tsid session的id
 	 * @return
 	 */
-	 List<Topic> queryTopicListByTSID(int tsid);
+	 List<Topic> querySameTopicListByTSID(int tsid);
 	 /**
 		 * 通过标题查询帖子
 		 * @param ttopic 帖子标题

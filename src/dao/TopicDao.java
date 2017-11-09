@@ -5,6 +5,7 @@ import java.util.List;
 import entity.PageMode;
 import entity.PageParam;
 import entity.Topic;
+import entity.TopicView;
 /**
  * 主贴的数据库处理操作的接口
  * @author lwy
@@ -14,11 +15,17 @@ import entity.Topic;
 
 public interface TopicDao {
 	/**
+	 * 查询单个topic view
+	 * @param ttopic
+	 * @return
+	 */
+	TopicView getTopicViewOne(String ttopic);
+	/**
 	 * 用于分页
 	 * @param page
 	 * @return
 	 */
-	PageMode<Topic> splitPage(PageParam page);
+	PageMode<TopicView> splitPage(PageParam page);
 	/**
 	 * 有多少条记录
 	 * @param sid查询的session id
@@ -42,7 +49,7 @@ public interface TopicDao {
 	 * 查询符合的主贴,过滤条件tsid
 	 * @return 主贴组
 	 */
-	List<Topic> queryTopicListByTSID(int tsid);
+	List<Topic> querySameTopicListByTSID(int tsid);
 	/**
 	 * 通过标题查询帖子
 	 * @param ttopic 帖子标题

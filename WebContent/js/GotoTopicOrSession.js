@@ -5,6 +5,6 @@ $(function(){
 		});//end sessionName.click
 		/*topic的跳转*/
 		$('.TopicTName').click(function(){
-			location.href="Topic?op=toTopic&TopicTName="+$(this).html();
+			location.href="Topic?op=toTopic&TopicTName="+$(this).html()+"&sessionSid="+$('#sessionSid').val();
 		});
 	});

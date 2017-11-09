@@ -45,6 +45,7 @@
 			</div>
 			<div class="page-header col-md-9">
 				<h1>
+					<input type="hidden" id ="sessionSid" value="${nowActiveSessionView.session.sid}">
 					<span id="sessionName">${nowActiveSessionView.session.sname}</span><a href="javaScript:void(0)" class="follow" id="follow"
 						style=""><span>关注</span></a> <a class="unfollow"
 						id="unfollow" href="javaScript:void(0)" style="display: none;">取消关注 </a> <small>关注:<span
@@ -62,35 +63,36 @@
 						<div class="col-xs-2">
 							<div class="thumbsUp">
 								<p title="回复条数">
-									<span class="activeSpan">${topicList.topic.treplycount}</span><span class="glyphicon glyphicon-comment"></span>
+									<span class="activeSpan">${topicList.treplycount}</span><span class="glyphicon glyphicon-comment"></span>
 								</p>
 								<!--  <p title="被赞数目">
 									<span class="activeSpan">2232</span><span class="glyphicon glyphicon glyphicon-thumbs-up"></span>
 								</p>-->
 								<p title="观看人数">
-									<span class="activeSpan">${topicList.topic.tclickcount}</span><span
+									<span class="activeSpan">${topicList.tclickcount}</span><span
 										class="glyphicon glyphicon glyphicon glyphicon-eye-open"></span>
 								</p>
 							</div>
 						</div>
 						<div class="panel col-xs-10">
 							<div class="panel-heading">
-								<a href="javaScript:void(0)" class="TopicTName" title="题目">${topicList.topic.ttopic}</a>
+								<input type="hidden" id="TopicTid" value="${topicList.tid}">
+								<a href="javaScript:void(0)" class="TopicTName" title="题目">${topicList.ttopic}</a>
 							</div>
 							<div class="panel-body" title="内容">
-								${topicList.topic.tcontents}
+								${topicList.tcontents}
 							</div>
 							<div class="panel-footer clearfix">
 								<div style="float: right">
 									<span class="glyphicon glyphicon-user"></span> <a
-										href="user.jsp" title="提问者" target="_blank">${topicList.userName}</a>
+										href="user.jsp" title="提问者" target="_blank">${topicList.uname}</a>
 								</div>
-								<c:if test="${topicList.topic.tlastreplyuseid !=0}">
+								<c:if test="${topicList.treplycount!=0}">
 									<div style="float: left">
 										<span class="glyphicon glyphicon glyphicon-comment"></span> <a
-											href="user.jsp" title="最后回复人" target="_blank">${topicList.lastReplyUserName}</a> <span
+											href="user.jsp" title="最后回复人" target="_blank">${topicList.lastreplyuser}</a> <span
 											class="glyphicon glyphicon-time"></span> <span class="time"
-											title="最后回复时间">${topicList.topic.tlastreplaytime}</span>
+											title="最后回复时间">${topicList.tlastreplaytime}</span>
 									</div>
 								</c:if>
 							</div>
@@ -200,7 +202,7 @@
 						$('#mainContent>ul').prepend(data);
 						/*topic的跳转*/
 						$('.TopicTName').click(function(){
-							location.href="Topic?op=toTopic&TopicTName="+$(this).html();
+							location.href="Topic?op=toTopic&TopicTName="+$(this).html()+"&sessionSid="+$('#sessionSid').val();
 						});
 								
 					}

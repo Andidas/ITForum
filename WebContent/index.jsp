@@ -26,7 +26,20 @@
 <link href="css/index.css" rel="stylesheet" />
 <link href="css/init.css" rel="stylesheet" />
 <style type="text/css">
-
+#mainContent .panel-body div{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    white-space: nowrap;
+}
+#mainContent .panel,#mainContent .panel-heading,#mainContent .panel-body,#mainContent .panel-footer{
+	margin-bottom:0;
+	padding-bottom:2px;
+	padding-top:2px;
+}
+#mainContent .panel-heading{
+	
+}
 </style>
 </head>
 <body data-spy="scroll" data-target="#myScrollspy" style="margin-top:30px;">
@@ -55,7 +68,7 @@
 								<div class="panel-heading">
 									<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">JavaScript</a>
 								</div>
-								<div id="collapseTwo" class="panel-collapse collapse">
+								<div id="collapseTwo" class="panel-collapse collapse in">
 									<div class="panel-body">
 										<a href="#">JavaScript</a><a href="#">JQuery</a><a href="#">AngularJS</a><a href="#">AngularJS2</a><a href="#">Vue.js</a><a href="#">React</a><a href="#">JQuery UI</a><a href="#">Node.js</a><a href="#">AJAX</a><a href="#">JSON</a><a href="#">HightCharts</a>
 										<a href="#">Google地图</a>
@@ -66,7 +79,7 @@
 								<div class="panel-heading">
 									<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">服务端</a>
 								</div>
-								<div id="collapseThree" class="panel-collapse collapse">
+								<div id="collapseThree" class="panel-collapse collapse ">
 									<div class="panel-body">
 										<a href="#">PHP</a><a href="#">JAVA</a><a href="#">Python</a><a href="#">Python3</a><a href="#">C</a><a href="#">C++</a><a href="#">JSP</a></div>
 								</div>
@@ -157,57 +170,30 @@
 						<li><a href="#edit" data-toggle="tab">Edit Profile &amp;
 								Settings</a></li>
 					</ul>
-					<ul class="content-text">
+					<ul class="content-text" id="mainContent">
+						<c:forEach items="${topicViewPageMode.data}" var="topic">
 						<li>
-							<div class="panel">
+							<div class="panel" >
 								<div class="panel-heading">
 									<h3 class="panel-title">
-										<a href="javaScript:void(0)" class="sessionName">JAVA</a>
+										<a href="javaScript:void(0)" class="sessionName">${topic.sname }</a>
 									</h3>
-									<a href="topic.jsp">题目sdf</a> <span
-										class="glyphicon glyphicon-log-out"></span> 22
+									
+									<a href="javaScript:;" class="TopicTName" onclick="topicjumg(${topic.tsid})">${topic.ttopic }</a>
+									 <span class="glyphicon glyphicon-comment" title="回帖数"></span> ${topic.treplycount}
 								</div>
 								<div class="panel-body">
-									<p>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，砸敌人的sdfasdfsdfds</p>
-									<ul style="width: 625px;">
-										<li><img src="img/骑行.jpg" class="img-responsive"></li>
-										<li><img src="img/骑行.jpg" class="img-responsive"></li>
-										<li><img src="img/骑行.jpg" class="img-responsive"></li>
-									</ul>
+									${topic.tcontents}									
 								</div>
 								<div class="panel-footer">
 									<span class="glyphicon glyphicon-user"></span> <a
-										href="user.jsp" title="主题作者" target="_blank"> 1900lwy</a> <span
-										class="glyphicon glyphicon-time"></span> <span class="time">10月
-										10日 00:22</span>
+										href="user.jsp" title="主题作者" target="_blank">${topic.uname}</a> <span
+										class="glyphicon glyphicon-time"></span>
+										 <span class="time" title="发帖时间">${topic.ttime}</span>
 								</div>
 							</div>
 						</li>
-						<li>
-							<div class="panel">
-								<div class="panel-heading ">
-									<h3 class="panel-title">
-										<a href="javaScript:void(0)" class="sessionName">JAVA</a>
-									</h3>
-									<a href="topic.jsp">题目sdf</a> <span
-										class="glyphicon glyphicon-log-in"></span>42
-								</div>
-								<div class="panel-body">
-									<p>用起来感觉一般般，也可能是我带投石车的都不是高武武将吧。总是砸到自己人，砸敌人的sdfasdfsdfds</p>
-									<ul style="width: 625px;">
-										<li><img src="img/哦.jpg"></li>
-										<li><img src="img/哦.jpg"></li>
-										<li><img src="img/哦.jpg"></li>
-									</ul>
-								</div>
-								<div class="panel-footer">
-									<span class="glyphicon glyphicon-user"></span> <a
-										href="user.jsp" title="主题作者" target="_blank"> 1900lwy</a> <span
-										class="glyphicon glyphicon-time"></span> <span class="time">10月
-										10日 00:22</span>
-								</div>
-							</div>
-						</li>
+						</c:forEach>
 					</ul>
 				</div>
 
@@ -269,5 +255,17 @@
 
 		<a href="#" class="btn btn-link" id="return_top"></a>
 </body>
-	<script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		/*session的跳转*/
+		$('.sessionName').click(function(){
+			location.href="Session?op=toSession&sessionName="+$(this).html();
+		});//end sessionName.click
+		
+	});
+	/*topic的跳转*/
+	function topicjumg(tsid){
+		location.href="Topic?op=toTopic&TopicTName="+$('.TopicTName').html()+"&sessionSid="+tsid;
+	}
+	</script>
 </html>

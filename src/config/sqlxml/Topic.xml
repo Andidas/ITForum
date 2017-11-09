@@ -37,13 +37,30 @@
 	</resultMap>
 	
 	
-	<select id="queryTopicList" parameterType="INTEGER" resultMap="TopicResult">
-		select tid,treplycount,ttopic from topic where tsid = #{_parameter} order by ttime DESC
+	<select id="querySameTopicList" parameterType="INTEGER" resultMap="TopicResult">
+		select tid,treplycount,ttopic from topic where tsid = #{_parameter} order by ttime DESC limit 0,10
 	</select>
 	
 	<!-- 分页 -->
-	<select id="splitPage" parameterType="entity.PageParam" resultMap="TopicResult">
-		select * from topic where tsid = #{id} order by ttime DESC limit #{pageno},#{pagesize}
+	<resultMap type="entity.TopicView" id="splitPageResult">
+		<id column="tid" jdbcType="INTEGER" property="tid" />
+		<result column="tsid" jdbcType="VARCHAR" property="tsid" />
+		<result column="sname" jdbcType="VARCHAR" property="sname" />
+		<result column="uname" jdbcType="VARCHAR" property="uname" />
+		<result column="treplycount" jdbcType="INTEGER" property="treplycount" />
+		<result column="ttopic" jdbcType="VARCHAR" property="ttopic" />
+		<result column="tcontents" jdbcType="VARCHAR" property="tcontents" />
+		<result column="ttime" jdbcType="VARCHAR" property="ttime" />
+		<result column="tclickcount" jdbcType="INTEGER" property="tclickcount" />
+		<result column="lastreplyuser" jdbcType="VARCHAR" property="lastreplyuser" />
+		<result column="tlastreplaytime" jdbcType="VARCHAR" property="tlastreplaytime" />
+	</resultMap>
+	<select id="splitPage" parameterType="entity.PageParam" resultMap="splitPageResult">
+		select tid,tsid,s.sname,u.uname,treplycount,ttopic,tcontents,ttime,tclickcount,u1.uname lastreplyuser,tlastreplaytime
+		from topic t,`session` s,`user` u,`user` u1 
+		where t.tsid = #{id} and t.tsid = s.sid and u.uid = t.tuid and t.tlastreplyuseid = u1.uid
+		order by t.ttime DESC
+		LIMIT #{pageno},#{pagesize}
 	</select>
 	<resultMap type="INTEGER" id="rowNumResult">
 		<result column="num" jdbcType="INTEGER" property="num" />
@@ -52,13 +69,19 @@
 		select count(*) as num from topic where tsid = #{id}
 	</select>
 	<!-- end 分页 -->
+	<!-- topicView -->
+	<select id="topicViewOne" parameterType="String" resultMap="splitPageResult">
+		select tid,tsid,s.sname,u.uname,treplycount,ttopic,tcontents,ttime,tclickcount,u1.uname lastreplyuser,tlastreplaytime
+		from topic t,`session` s,`user` u,`user` u1 
+		where t.ttopic = #{_parameter} and t.tsid = s.sid and u.uid = t.tuid and t.tlastreplyuseid = u1.uid
+	</select>
 	
 	<select id="queryTopicOneByTopic" parameterType="String" resultMap="TopicResult">
 		select * from topic where ttopic = #{_parameter}
 	</select>
 	<insert id="addTopic" parameterType="entity.Topic">
-		INSERT INTO topic(tsid,tuid,ttopic,tcontents,ttime)
-		VALUES(#{tsid},#{tuid},#{ttopic},#{tcontents},#{ttime})
+		INSERT INTO topic(tsid,tuid,ttopic,tcontents,ttime,tlastreplyuseid,tlastreplaytime)
+		VALUES(#{tsid},#{tuid},#{ttopic},#{tcontents},#{ttime},#{tlastreplyuseid},#{tlastreplaytime})
 	</insert>
 	<update id="updateClickCount" parameterType="String">
 		UPDATE topic set tclickcount = tclickcount+1 where ttopic= #{_parameter}

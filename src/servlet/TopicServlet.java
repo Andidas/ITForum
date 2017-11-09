@@ -18,13 +18,16 @@ import entity.TopicView;
 import service.ReplyService;
 import service.SessionService;
 import service.TopicService;
-import service.TopicViewService;
 
+/**
+ * topic
+ * @author lwy
+ *
+ */
 public class TopicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	/*实例化业务类*/
 	private TopicService ts = new TopicService();
-	private ReplyService replyService = new ReplyService();
     public TopicServlet() {
         super();
     }
@@ -49,12 +52,12 @@ public class TopicServlet extends HttpServlet {
 	 */
 	private void toTopic(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-		TopicViewService topicViewService = new TopicViewService();
 		PrintWriter out = response.getWriter();
 		//帖子名
 		String topicTName = request.getParameter("TopicTName");
+		String sid = request.getParameter("sessionSid");
 		//当前被选中的帖子de视图
-		TopicView topicView = topicViewService.getTopicView(topicTName);
+		TopicView topicView = ts.getTopicViewOne(topicTName,sid);
 		
 		if(topicView==null){
 			out.print("<script>alert('帖子不存在');history.back();</script>");
@@ -65,6 +68,9 @@ public class TopicServlet extends HttpServlet {
 			request.getRequestDispatcher("topic.jsp").forward(request,response);
 		}
 	}
+	/**
+	 * topic的回帖
+	 */
 	private void findReplyByPage(HttpServletRequest request,
 			HttpServletResponse response)throws ServletException, IOException  {
 		PrintWriter out = response.getWriter();
@@ -74,7 +80,7 @@ public class TopicServlet extends HttpServlet {
 			pageno = Integer.parseInt(pagenoStr);
 		}
 		String nowTopicTid = request.getParameter("nowTopicTid");
-		PageMode<ReplyView> pm = replyService.queryReplyViewPageMode(pageno, 5, Integer.parseInt(nowTopicTid));
+		PageMode<ReplyView> pm = ts.queryReplyViewPageMode(pageno, 5, Integer.parseInt(nowTopicTid));
 		if(pm==null){
 			out.print("false");
 		}else{

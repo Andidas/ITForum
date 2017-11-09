@@ -13,6 +13,11 @@ import service.ReplyService;
 
 
 
+/**
+ * Ìû×ÓµÄ»Ø¸´
+ * @author lwy
+ *
+ */
 public class ReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ReplyService replyService = new ReplyService();

@@ -7,18 +7,22 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import dao.impl.ReplyDaoImpl;
 import dao.impl.SessionDaoImpl;
 import dao.impl.TopicDaoImpl;
 import dao.impl.UserDaoImpl;
 import entity.PageMode;
 import entity.PageParam;
+import entity.ReplyView;
 import entity.Topic;
+import entity.TopicView;
 import service.iService.ITopicService;
 
 public class TopicService implements ITopicService {
 	private UserDaoImpl udi = new UserDaoImpl();
 	private SessionDaoImpl sdi = new SessionDaoImpl();
 	private TopicDaoImpl tdi = new TopicDaoImpl();
+	private ReplyDaoImpl rdi = new ReplyDaoImpl();
 	@Override
 	public boolean addTopic(String sname, String uname, String ttopic,
 			String tcontents) {
@@ -35,7 +39,8 @@ public class TopicService implements ITopicService {
 		topic.setTtopic(ttopic);
 		topic.setTcontents(tcontents);
 		topic.setTtime(ttime);
-		
+		topic.setTlastreplyuseid(tuid);
+		topic.setTlastreplaytime(ttime);
 		return tdi.addTopic(topic)>0;
 	}
 
@@ -53,7 +58,7 @@ public class TopicService implements ITopicService {
 		newContentsInit.append("</div>");
 		/*把图片加在后面*/
 		for(int i=0,j=0;i<imgSrcs.size()&j<3;i++,j++){
-			newContentsInit.append("<img "+imgSrcs.get(i)+" width='137px';height='137' >");
+			newContentsInit.append("<img "+imgSrcs.get(i)+" width='137px' height='137' >");
 		}
 		
 		return newContentsInit.toString();
@@ -90,9 +95,9 @@ public class TopicService implements ITopicService {
 	}
 
 	@Override
-	public List<Topic> queryTopicListByTSID(int tsid) {
+	public List<Topic> querySameTopicListByTSID(int tsid) {
 		List<Topic> topicList = null;
-		topicList = tdi.queryTopicListByTSID(tsid);
+		topicList = tdi.querySameTopicListByTSID(tsid);
 		return topicList;
 	}
 
@@ -106,22 +111,34 @@ public class TopicService implements ITopicService {
 		return tdi.updateClickCount(ttopic)>0;
 	}
 
-	@Override
-	public boolean updateReplyCountAdd(int tid,int ruid,String rtime) {
-		Topic topic = new Topic();
-		topic.setTid(tid);
-		topic.setTlastreplyuseid(ruid);
-		topic.setTlastreplaytime(rtime);
-		return tdi.updateReplyCountAdd(topic)>0;
-	}
+	
 
 	@Override
-	public PageMode<Topic> splitPage(int pageno, int pagesize,int tsid) {
+	public PageMode<TopicView> TopicSplitPage(int pageno, int pagesize,int tsid) {
 		PageParam pageParam = new PageParam(pageno, pagesize, tsid);
 		return tdi.splitPage(pageParam);
 	}
+	@Override
+	public TopicView getTopicViewOne(String topicTName,String sid) {
+    	 TopicView topicView = null;
+		 int sessionid = Integer.parseInt(sid);
+		 Topic topic = tdi.queryTopicOneByTopic(topicTName);
+		 //该topic的所有回帖
+		 PageMode<ReplyView> allReply = queryReplyViewPageMode(1, 5, topic.getTid());
+		 //和该topic相似的topics
+		 List<Topic> sameList = tdi.querySameTopicListByTSID(sessionid);
+		 
+		 topicView = tdi.getTopicViewOne(topicTName);
+		 topicView.setAllReply(allReply);	
+		 topicView.setSameTopic(sameList);
+		return topicView;
+	}
 
-	
+	@Override
+	public PageMode<ReplyView> queryReplyViewPageMode(int pageno, int pagesize,int rtid) {
+		PageParam pageParam = new PageParam(pageno, pagesize, rtid);
+		return rdi.queryReplyViewListByRTID(pageParam);
+	}
 	
 	
 

@@ -53,7 +53,7 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="index.jsp">ITFOURM</a>
+					<a class="navbar-brand" href="welcome">ITFOURM</a>
 				</div>
 
 				<div class="collapse navbar-collapse"

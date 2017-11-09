@@ -12,6 +12,11 @@ import entity.SessionView;
 import service.SessionService;
 import service.SessionViewService;
 
+/**
+ * session
+ * @author lwy
+ *
+ */
 public class SessionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private SessionService sessionService = new SessionService();

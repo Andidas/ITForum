@@ -7,12 +7,13 @@ import entity.Reply;
 import entity.ReplyView;
 
 public interface IReplyService {
-	/**
-	 * 查询该帖子的分页参数，包含所有回帖的视图
+	/** 
+	 * 发帖数加1,并且更新最后发帖人和发帖时间
 	 * @param 
 	 * @return
 	 */
-	PageMode<ReplyView> queryReplyViewPageMode(int pageno, int pagesize,int tsid);
+	boolean updateReplyCountAdd(int tid,int ruid,String rtime);
+	
 	
 	/**
 	 * 删除单个帖子

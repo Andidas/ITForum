@@ -1,11 +1,10 @@
 package service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import entity.PageMode;
 import entity.Session;
 import entity.SessionView;
-import entity.Topic;
 import entity.TopicView;
 
 /**
@@ -19,9 +18,8 @@ public class SessionViewService {
 	private TopicService topicService = new TopicService();
 	private UserService userService = new UserService();
 	private FollowService followService = new FollowService();
-	private TopicViewService topicViewService = new TopicViewService();
-	private List<Topic> topicList = null;
-	private List<TopicView> topicViewList = null;
+	
+	private PageMode<TopicView> topicViewPM = null;
 	private String sessionMaster = null;
 	private List<Session> sameSprofile =null;
 	private int follow = 0;
@@ -29,11 +27,13 @@ public class SessionViewService {
 		SessionView sessionView = new SessionView();
 		// 获得当前session的所有信息
 		Session session = sessionService.searchSession(sname);
+		
 		// 所有属于版块的topic
 		if(session!=null){
-			topicList = topicService.queryTopicListByTSID(session.getSid());
-			// 相应topic的topicView
-			topicViewList = getTopicViewList(topicList);
+			
+			topicViewPM = topicService.TopicSplitPage(1, 5, session.getSid());
+			
+			setTopicViewContents(topicViewPM.getData());
 			// 版块的作者
 			sessionMaster = userService.queryUserNameById(session.getSmasterid());
 			// 相似版块
@@ -42,7 +42,7 @@ public class SessionViewService {
 			follow = followService.queryFollowCountBySid(session.getSid());
 			
 			sessionView.setSession(session);
-			sessionView.setTopicViewList(topicViewList);
+			sessionView.setTopicViewList(topicViewPM.getData());
 			sessionView.setSessionMaster(sessionMaster);
 			sessionView.setSameSprofile(sameSprofile);
 			sessionView.setFollow(follow);
@@ -53,20 +53,13 @@ public class SessionViewService {
 		}
 		
 	}
-	private List<TopicView> getTopicViewList(List<Topic> topicList){
+	public void setTopicViewContents(List<TopicView> TopicViews){
 		
-		// 相应topic的topicView
-		List<TopicView> topicViewList = new ArrayList<TopicView>();
-		TopicView topicView = null;
-		for (int i = 0; i<topicList.size();i++) {
-			String topicTName = topicList.get(i).getTtopic();
-			topicView = topicViewService.getTopicView(topicTName);
+		for (int i = 0; i<TopicViews.size();i++) {	
 			//重新排列帖子的内容
-			String newcontents = topicService.neatenSessionContentInit(topicView.getTopic().getTcontents());
-			topicView.getTopic().setTcontents(newcontents);
-			
-			topicViewList.add(topicView);
+			String newcontents = topicService.neatenSessionContentInit(TopicViews.get(i).getTcontents());
+			TopicViews.get(i).setTcontents(newcontents);
 		}
-		return topicViewList;
+		
 	}
 }

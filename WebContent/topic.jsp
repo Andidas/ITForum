@@ -31,13 +31,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="container">
 		<div class="row clearfix">
 			<div class="col-lg-12 page-header">
-				<input type="hidden" value="${nowActiveTopicView.topic.tid}" id="nowTopicTid"/> 
-				<h2 class="col-lg-12" title="题目" id="nowTopicName">${nowActiveTopicView.topic.ttopic}</h2>
+				<input type="hidden" value="${nowActiveTopicView.tid}" id="nowTopicTid"/> 
+				<h2 class="col-lg-12" title="题目" id="nowTopicName">${nowActiveTopicView.ttopic}</h2>
 				<a href="javaScript:void(0)" class="col-lg-12 pull-right" title="版块">-
 					<span class="sessionName">
-					${nowActiveTopicView.sessionName}
+					${nowActiveTopicView.sname}
 					</span>
-					<input type="hidden" value="${nowActiveTopicView.topic.tsid}" id="nowSessionID"/>
+					<input type="hidden" value="${nowActiveTopicView.tsid}" id="sessionSid"/>
 				</a>
 			</div>
 			<div class="col-md-8  column">
@@ -53,14 +53,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</td>
 								<td class="answercell">
 									<div class="post-text" >
-										${nowActiveTopicView.topic.tcontents}
+										${nowActiveTopicView.tcontents}
 									</div>
 									<div class="fw">
-										<div class="post-signature">
+										<div class="post-signature" style="background-color:#eee;">
 											<div class="user-info ">
 												<div class="user-action-time">
 													asked <span title="发帖时间"
-														class="relativetime">${nowActiveTopicView.topic.ttime}</span>
+														class="relativetime">${nowActiveTopicView.ttime}</span>
 												</div>
 												<div class="user-gravatar32">
 													<a href="user.html">
@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</a>
 												</div>
 												<div class="user-details">
-													<a href="javaScript:void(0)" title="作者">${nowActiveTopicView.userName}</a>
+													<a href="javaScript:void(0)" title="作者">${nowActiveTopicView.uname}</a>
 													<div class="-flair">
 														<span class="reputation-score" title="reputation score "
 															dir="ltr">1,993</span><span title="1 gold badge"><span
@@ -193,7 +193,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</td>
 								<td style="padding-left: 10px">
 									<p class="label-key" title="生成时间">
-										<b>${nowActiveTopicView.topic.ttime}</b>
+										<b>${nowActiveTopicView.ttime}</b>
 									</p>
 								</td>
 							</tr>
@@ -204,7 +204,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 								<td style="padding-left: 10px">
 									<p class="label-key">
-										<b>${nowActiveTopicView.topic.tclickcount}</b>
+										<b>${nowActiveTopicView.tclickcount}</b>
 									</p>
 								</td>
 							</tr>
@@ -215,7 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td style="padding-left: 10px">
 									<p class="label-key">
 										<b><a class="lastactivity-link"
-											title="最后回复时间">${nowActiveTopicView.topic.tlastreplaytime}</a></b>
+											title="最后回复时间">${nowActiveTopicView.tlastreplaytime}</a></b>
 									</p>
 								</td>
 							</tr>
@@ -281,7 +281,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#ReplyTopic').click(function(){
 			var replyText = $('#summernoteReply').summernote('code');
 			var nowTopicTid = $('#nowTopicTid').val();
-			var nowSessionID = $('#nowSessionID').val();
+			var nowSessionID = $('#sessionSid').val();
 			var nowUserID = $('#nowUserID').val();
 			
 			if($('#nowUserName').html()==undefined){
@@ -302,8 +302,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					if(data=="false"){
 						alert("回复失败");
 					}else{
-						findPage(1);
 						$('#summernoteReply').summernote('code','');
+						location.reload();//重新加载本页面
 						alert('回帖成功');
 					}
 				});

@@ -10,20 +10,28 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-  	<servlet-name>ReplyServlet</servlet-name>
-  	<servlet-class>servlet.ReplyServlet</servlet-class>
+    <servlet-name>WelcomeServlet</servlet-name>
+    <servlet-class>servlet.WelcomeServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>ReplyServlet</servlet-name>
-  	<url-pattern>/Reply</url-pattern>
+    <servlet-name>WelcomeServlet</servlet-name>
+    <url-pattern>/welcome</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>FollowAndUnfollowServlet</servlet-name>
-  	<servlet-class>servlet.FollowAndUnfollowServlet</servlet-class>
+    <servlet-name>ReplyServlet</servlet-name>
+    <servlet-class>servlet.ReplyServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>FollowAndUnfollowServlet</servlet-name>
-  	<url-pattern>/FollowAndUnfollow</url-pattern>
+    <servlet-name>ReplyServlet</servlet-name>
+    <url-pattern>/Reply</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>FollowAndUnfollowServlet</servlet-name>
+    <servlet-class>servlet.FollowAndUnfollowServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FollowAndUnfollowServlet</servlet-name>
+    <url-pattern>/FollowAndUnfollow</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>TopicServlet</servlet-name>
@@ -33,7 +41,6 @@
     <servlet-name>TopicServlet</servlet-name>
     <url-pattern>/Topic</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>SessionServlet</servlet-name>
     <servlet-class>servlet.SessionServlet</servlet-class>
@@ -42,7 +49,6 @@
     <servlet-name>SessionServlet</servlet-name>
     <url-pattern>/Session</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>UploadFileTopicServlet</servlet-name>
     <servlet-class>servlet.UploadFileTopicServlet</servlet-class>
@@ -51,7 +57,6 @@
     <servlet-name>UploadFileTopicServlet</servlet-name>
     <url-pattern>/UploadFileTopic</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>UserServlet</servlet-name>
     <servlet-class>servlet.UserServlet</servlet-class>
@@ -60,7 +65,6 @@
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/UserServlet</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>AuthenticateServlet</servlet-name>
     <servlet-class>servlet.AuthenticateServlet</servlet-class>
@@ -69,7 +73,6 @@
     <servlet-name>AuthenticateServlet</servlet-name>
     <url-pattern>/AuthenticateServlet</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>StartCaptchaServlet2</display-name>
@@ -90,8 +93,6 @@
     <servlet-name>StartCaptchaServlet2</servlet-name>
     <url-pattern>/gt/register2</url-pattern>
   </servlet-mapping>
-  
-  
   <filter>
     <filter-name>EncodingFilter</filter-name>
     <filter-class>filter.EncodingFilter</filter-class>
@@ -100,6 +101,4 @@
     <filter-name>EncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  
-  
 </web-app>
