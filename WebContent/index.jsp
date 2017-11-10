@@ -177,9 +177,11 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">
 										<a href="javaScript:void(0)" class="sessionName">${topic.sname }</a>
+										<input type="hidden" class="sessionSid" value="${topic.tsid }">
 									</h3>
 									
-									<a href="javaScript:;" class="TopicTName" onclick="topicjumg(${topic.tsid})">${topic.ttopic }</a>
+									<a href="javaScript:;" class="topicTName" onclick="topicjumg(this,${topic.tsid})">${topic.ttopic }</a>
+									<input type="hidden" class="topicTid" value="${topic.tid }">
 									 <span class="glyphicon glyphicon-comment" title="回帖数"></span> ${topic.treplycount}
 								</div>
 								<div class="panel-body">
@@ -255,17 +257,5 @@
 
 		<a href="#" class="btn btn-link" id="return_top"></a>
 </body>
-	<script type="text/javascript">
-	$(function(){
-		/*session的跳转*/
-		$('.sessionName').click(function(){
-			location.href="Session?op=toSession&sessionName="+$(this).html();
-		});//end sessionName.click
-		
-	});
-	/*topic的跳转*/
-	function topicjumg(tsid){
-		location.href="Topic?op=toTopic&TopicTName="+$('.TopicTName').html()+"&sessionSid="+tsid;
-	}
-	</script>
+	<script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
 </html>

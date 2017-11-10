@@ -1,10 +1,5 @@
 package service.iService;
 
-import java.util.List;
-
-import entity.PageMode;
-import entity.Reply;
-import entity.ReplyView;
 
 public interface IReplyService {
 	/** 
@@ -13,15 +8,12 @@ public interface IReplyService {
 	 * @return
 	 */
 	boolean updateReplyCountAdd(int tid,int ruid,String rtime);
-	
-	
 	/**
 	 * 删除单个帖子
 	 * @param rid
 	 * @return
 	 */
 	boolean deleteReplyOne(int rid);
-	
 	/**
 	 * 添加单个
 	 * @param 

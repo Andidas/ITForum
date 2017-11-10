@@ -17,121 +17,107 @@ public class SessionDaoImpl implements SessionDao {
 	 private SqlSession sqlSession = null;
 	 private DBAccess dbAccess  = new DBAccess();
 
+	
 	@Override
-	public Session searchSession(String sname) {
-		Session session = null;
+	public Session searchSession(int sid) {
 		try {
+			Session session = null;
 			sqlSession  = dbAccess.getSqlSession();
-			session = sqlSession.selectOne("Session.querySession",sname);
-		} catch (IOException e) {
+			session = sqlSession.selectOne("Session.querySessionBySid",sid);
 			return session;
-		}finally{
-			sqlSession.close();
-		}
-		return session;
-	}
-
-	public int querySessionIDByName(String sname) {
-		int result =0;
-		try {
-			sqlSession  = dbAccess.getSqlSession();
-			result = sqlSession.selectOne("Session.querySessionIDByName",sname);
 		} catch (IOException e) {
-			return result;
+			e.printStackTrace();
 		}finally{
 			sqlSession.close();
 		}
-		return result;
+		return null;
+		
 	}
 
+
 	@Override
-	public List<Session> querySessionByProfile(String sprofile) {
-		 List<Session> sessionList = null;
+	public List<Session> querySameSession(Session session) {
 		 try {
+			 List<Session> sessionList = null;
 				sqlSession  = dbAccess.getSqlSession();
-				sessionList = sqlSession.selectList("Session.querySessionByProfile",sprofile);
-			} catch (IOException e) {
+				sessionList = sqlSession.selectList("Session.querySameSession",session);
 				return sessionList;
-			}finally{
-				sqlSession.close();
-			}
-		return sessionList;
-	}
-
-	@Override
-	public String querySessionNameBySID(int sid) {
-		String sname = null;
-		 try {
-				sqlSession  = dbAccess.getSqlSession();
-				sname = sqlSession.selectOne("Session.querySessionNameBySID",sid);
 			} catch (IOException e) {
-				return sname;
+				e.printStackTrace();
 			}finally{
 				sqlSession.close();
 			}
-		return sname;
+		return null;
 	}
 
+
+	
 	@Override
-	public int updateSessionClickCount(String sname) {
-		int result = 0;
-		 try {
+	public int updateSessionClickCount(int sid) {
+		try {
+			 int result = 0;
 				sqlSession  = dbAccess.getSqlSession();
-				result = sqlSession.update("Session.updateSessionClickCount",sname);
+				result = sqlSession.update("Session.updateSessionClickCountBySid",sid);
 				sqlSession.commit();
-			} catch (IOException e) {
 				return result;
+			} catch (IOException e) {
+				e.printStackTrace();
 			}finally{
 				sqlSession.close();
 			}
-		return result;
+		return 0;
 	}
-
 	@Override
-	public int addSessionStopiccount(String sname) {
-		int result = 0;
+	public int addSessionStopiccount(int sid) {
 		 try {
+			 int result = 0;
 				sqlSession  = dbAccess.getSqlSession();
-				result = sqlSession.update("Session.addSessionStopiccount",sname);
+				result = sqlSession.update("Session.addSessionStopiccount",sid);
 				sqlSession.commit();
-			} catch (IOException e) {
 				return result;
+			} catch (IOException e) {
+				e.printStackTrace();
 			}finally{
 				sqlSession.close();
 			}
-		return result;
+		return 0;
 	}
 
 	@Override
 	public int subSessionStopiccount(String sname) {
-		int result = 0;
 		 try {
+			 int result = 0;
 			 if(querySessionStopicCount(sname)>0){
 				 sqlSession  = dbAccess.getSqlSession();
 				 result = sqlSession.update("Session.addSessionStopiccount",sname);
 				 sqlSession.commit();				 
+				 return result;
 			 }
 			} catch (IOException e) {
-				return result;
+				e.printStackTrace();
 			}finally{
 				sqlSession.close();
 			}
-		return result;
+		return 0;
 	}
 
 	@Override
 	public int querySessionStopicCount(String sname) {
-		int result = 0;
 		 try {
+			 int result = 0;
 				sqlSession  = dbAccess.getSqlSession();
 				result = sqlSession.selectOne("Session.querySessionStopicCount",sname);
 				
-			} catch (IOException e) {
 				return result;
+			} catch (IOException e) {
+				e.printStackTrace();
 			}finally{
 				sqlSession.close();
 			}
-		return result;
+		return 0;
 	}
+
+	
+	
 
 }

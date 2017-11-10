@@ -18,6 +18,7 @@ import entity.TopicView;
 import service.ReplyService;
 import service.SessionService;
 import service.TopicService;
+import service.TopicViewService;
 
 /**
  * topic
@@ -28,6 +29,7 @@ public class TopicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	/*实例化业务类*/
 	private TopicService ts = new TopicService();
+	private TopicViewService tvs = new TopicViewService();
     public TopicServlet() {
         super();
     }
@@ -47,22 +49,20 @@ public class TopicServlet extends HttpServlet {
 	}
 	/**
 	 * 跳转到topic
-	 * @throws IOException 
-	 * @throws ServletException 
 	 */
 	private void toTopic(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		PrintWriter out = response.getWriter();
 		//帖子名
-		String topicTName = request.getParameter("TopicTName");
+		String topicTid = request.getParameter("topicTid");
 		String sid = request.getParameter("sessionSid");
 		//当前被选中的帖子de视图
-		TopicView topicView = ts.getTopicViewOne(topicTName,sid);
+		TopicView topicView = tvs.getTopicViewOne(topicTid,sid);
 		
 		if(topicView==null){
 			out.print("<script>alert('帖子不存在');history.back();</script>");
 		}else{
-			ts.updateClickCount(topicTName);
+			ts.updateClickCount(topicTid);
 			request.setAttribute("nowActiveTopicView", topicView);
 			request.setAttribute("ReplyPage", topicView.getAllReply());
 			request.getRequestDispatcher("topic.jsp").forward(request,response);
@@ -80,7 +80,7 @@ public class TopicServlet extends HttpServlet {
 			pageno = Integer.parseInt(pagenoStr);
 		}
 		String nowTopicTid = request.getParameter("nowTopicTid");
-		PageMode<ReplyView> pm = ts.queryReplyViewPageMode(pageno, 5, Integer.parseInt(nowTopicTid));
+		PageMode<ReplyView> pm = tvs.queryReplyViewPageMode(pageno, 5, Integer.parseInt(nowTopicTid));
 		if(pm==null){
 			out.print("false");
 		}else{
@@ -99,17 +99,15 @@ public class TopicServlet extends HttpServlet {
 	 */
 	private void releaseTopic(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		SessionService sessionService =new SessionService();
 		PrintWriter out = response.getWriter();
 		/*获得参数*/
-		String sname = request.getParameter("sname");
-		String uname = request.getParameter("uname");
+		String tsid = request.getParameter("tsid");
+		String tuid = request.getParameter("tuid");
 		String ttopic = request.getParameter("ttopic");
 		String tcontents = request.getParameter("tcontents");
 		/*传递参数*/
-		if(ts.addTopic(sname, uname, ttopic, tcontents)&sessionService.addSessionStopiccount(sname)){		
-			String newContents = ts.neatenSessionContent(uname, ttopic, tcontents);
-		
+		if(ts.addTopic(tsid, tuid, ttopic, tcontents)){		
+			String newContents = tvs.neatenSessionContentInit(tcontents);
 			out.print(newContents);	
 		}else{
 			out.print("false");			

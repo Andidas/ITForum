@@ -88,11 +88,11 @@ public class TopicDaoImpl implements TopicDao {
 	}
 
 	@Override
-	public Topic queryTopicOneByTopic(String ttopic) {
+	public Topic queryTopicOneByTopic(int tid) {
 		try {
 			Topic topic = null;
 			sqlSession = dbAccess.getSqlSession();
-			topic = sqlSession.selectOne("Topic.queryTopicOneByTopic", ttopic);
+			topic = sqlSession.selectOne("Topic.queryTopicOneByTopic", tid);
 			return topic;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -103,11 +103,11 @@ public class TopicDaoImpl implements TopicDao {
 	}
 
 	@Override
-	public int updateClickCount(String ttopic) {
+	public int updateClickCount(int tid) {
 		try {
 			int result =0;
 			sqlSession = dbAccess.getSqlSession();
-			result = sqlSession.update("Topic.updateClickCount", ttopic);
+			result = sqlSession.update("Topic.updateClickCount", tid);
 			sqlSession.commit();
 			return result;
 		} catch (IOException e) {
@@ -134,11 +134,11 @@ public class TopicDaoImpl implements TopicDao {
 		return 0;
 	}
 
-	public TopicView getTopicViewOne(String ttopic) {
+	public TopicView getTopicViewOne(int tid) {
 		try {
 			TopicView topicView = null;
 			sqlSession = dbAccess.getSqlSession();
-			topicView = sqlSession.selectOne("Topic.topicViewOne", ttopic);
+			topicView = sqlSession.selectOne("Topic.topicViewOne", tid);
 			return topicView;
 		} catch (IOException e) {
 			e.printStackTrace();

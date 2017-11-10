@@ -63,7 +63,7 @@
 	.answer a {
 		color: #07C;
 		text-decoration: none;
-		cursor: pointer;
+		cursor: pointer; cursor: -ms-pointer;
 	}
 	
 	.user-info .user-gravatar32+.user-details {
@@ -261,7 +261,8 @@
 	background-position: 0 -13px;
 	height: 18px;
 	width: 20px;
-	cursor: pointer
+	cursor: pointer ;
+	cursor: -ms-pointer;
 }
 #Demo .imgBtn:active {
 	margin-top: 9px;
@@ -276,6 +277,7 @@
 	padding: 9px 20px 7px 20px;
 	border-left: 1px solid #ccc;
 	cursor: pointer;
+	 cursor: -ms-pointer;
 	-moz-border-radius: 0 0 5px 0;
 	-webkit-border-radius: 0 0 5px 0;
 	border-radius: 0 0 5px 0;
@@ -307,6 +309,7 @@
 	height: 32px;
 	padding: 3px 3px 3px 3px;
 	cursor: pointer;
+	 cursor: -ms-pointer;
 }
 #Demo .faceDiv>img:hover {
 	background-color: #efefef;
@@ -340,3 +343,8 @@
     color: #b83b44;
 }
 .pull-left{float: left !important;}
+#nowTopicName{
+	cursor: pointer;
+	cursor: -ms-pointer;
+}
+

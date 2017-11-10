@@ -36,22 +36,18 @@ public class SessionServlet extends HttpServlet {
 	}
 
 	private void toSession(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-
-		
-		//获得板块名
-		String sessionName = request.getParameter("sessionName");
-		
-		if(sessionService.updateSessionClickCount(sessionName)){
-			System.err.println("session："+sessionName+" 点击次数加1");
+			HttpServletResponse response)throws ServletException, IOException{
+		String sid = request.getParameter("SessionSid");
+		if(sessionService.updateSessionClickCount(sid)){
+			System.out.println("sessionsid："+sid+" 点击次数加1");
 		}else{
-			System.err.println("session："+sessionName+" 点击次数加0");
+			System.out.println("sessionsid："+sid+" 点击次数加0");
 		}
-		//get session's view info
-		SessionView sessionView = sessionViewService.getSessionView(sessionName);
+		SessionView sessionView = sessionViewService.getSessionView(sid);
 		
 		request.setAttribute("nowActiveSessionView", sessionView);
 		request.getRequestDispatcher("session.jsp").forward(request, response);
 	}
 
+	
 }

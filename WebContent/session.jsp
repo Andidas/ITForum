@@ -45,12 +45,16 @@
 			</div>
 			<div class="page-header col-md-9">
 				<h1>
-					<input type="hidden" id ="sessionSid" value="${nowActiveSessionView.session.sid}">
-					<span id="sessionName">${nowActiveSessionView.session.sname}</span><a href="javaScript:void(0)" class="follow" id="follow"
-						style=""><span>关注</span></a> <a class="unfollow"
-						id="unfollow" href="javaScript:void(0)" style="display: none;">取消关注 </a> <small>关注:<span
-						title="目前关注人数" id="followCount">${nowActiveSessionView.follow}</span>提问:<span title="目前问题数">${nowActiveSessionView.session.stopiccount}</span>主题：<a
-						href="javaScript:void(0)" title="分类依据">${nowActiveSessionView.session.sprofile}</a></small>
+					<span id="sessionName" class="sessionName">${nowActiveSessionView.session.sname}</span>
+					<input type="hidden" id ="sessionSid" class="sessionSid" value="${nowActiveSessionView.session.sid}">
+					
+					<a href="javaScript:void(0)" class="follow" id="follow" style=""><span>关注</span></a>
+					<a class="unfollow" id="unfollow" href="javaScript:void(0)" style="display: none;">取消关注 </a>
+					 <small>
+					 	关注:<span title="目前关注人数" id="followCount">${nowActiveSessionView.follow}</span>
+					 	提问:<span title="目前问题数">${nowActiveSessionView.session.stopiccount}</span>
+						 主题：<a href="javaScript:void(0)" title="分类依据">${nowActiveSessionView.session.sprofile}</a>
+					 </small>
 				</h1>
 				<p title="扼要描述">${nowActiveSessionView.session.sstatement}<a href="#" title="创建人" style="color:#888;">——<span>${nowActiveSessionView.sessionMaster}</span></a></p>
 			</div>
@@ -76,8 +80,8 @@
 						</div>
 						<div class="panel col-xs-10">
 							<div class="panel-heading">
-								<input type="hidden" id="TopicTid" value="${topicList.tid}">
 								<a href="javaScript:void(0)" class="TopicTName" title="题目">${topicList.ttopic}</a>
+								<input type="hidden" class="topicTid" value="${topicList.tid}">
 							</div>
 							<div class="panel-body" title="内容">
 								${topicList.tcontents}
@@ -118,7 +122,9 @@
 				<div class="panel-body">
 					<ul>
 					<c:forEach items="${nowActiveSessionView.sameSprofile}" var="session">
-						<li><a href="javaScript:void(0)" class="sessionName">${session.sname }</a></li>
+						<li><a href="javaScript:void(0)" class="sessionName">${session.sname }</a>
+							<input type="hidden" value="${session.sid}" class="sessionSid">
+						</li>
 					</c:forEach>
 					</ul>
 				</div>
@@ -129,26 +135,23 @@
 	</div>
 	
 </body>
-<script src="dist/summernote.js"></script>
-<script src="dist/lang/summernote-zh-CN.js"></script>
-<!-- 中文-->
+<script src="dist/summernote.js" type="text/javascript"></script>
+<script src="dist/lang/summernote-zh-CN.js" type="text/javascript"></script>
+<script src="js/GotoTopicOrSession.js" type="text/javascript"></script>
+<!-- 富文本框，发布帖子 -->
 <script>
-	/*发布帖子，输入框初始化*/
+	/*富文本框初始化*/
 	$(function() {
 		$('#topicText').summernote(
 				{
 					height : 200,
 					tabsize : 2,
 					lang : 'zh-CN',
-					toolbar : [ //[ 'style', [ 'style' ] ],
+					toolbar : [ 
 							[ 'font', [ 'bold', 'underline', 'clear' ] ],
-							//[ 'fontname', [ 'fontname' ] ],
 							[ 'color', [ 'color' ] ],
-							//[ 'para', [ 'paragraph' ] ],
 							[ 'insert', [ 'link', 'picture' ] ],
-							[ 'view', [ 'fullscreen'//, 'codeview', 'help' 
-							            ] ] ],
-					
+							[ 'view', [ 'fullscreen' ] ] ],
 					callbacks: {  
 			            onImageUpload: function(files) { //the onImageUpload API  
 			                img = sendFile(files[0]);  
@@ -158,8 +161,7 @@
 		/*把图片存在服务器*/
 		function sendFile(file) {  
 		    data = new FormData();  
-		    data.append("file", file);  
-		    //console.log(data.get("file"));  
+		    data.append("file", file);   
 		    $.ajax({  
 		        type: "POST",  
 		        url: "UploadFileTopic",  
@@ -172,15 +174,15 @@
 		        }  
 		    });//end ajax
 		}  
-	});//end 输入框初始化
+	});//end 富文本框初始化
 	$(function(){
 		/*帖子提交*/
 		$('#topicTextSubmit').click(function(){
 			var sessionText = $('#topicText').summernote('code');
 			var titleText = $('#topicTitleText').val();
-			var sessionName = $('#sessionName').html();
 			var nowUserName = $('#nowUserName').html();
-			
+			var sessionSid = $('#sessionSid').val();//当前session的id
+			var nowUserUid = $('#nowUserID').val();
 			if(nowUserName==undefined){
 				alert('请登录');
 			}else if(titleText==""){
@@ -190,29 +192,22 @@
 				$('#topicText').focus();
 				alert('请填写内容');
 			}else{
-				console.log('titleText:'+titleText+' sessionText'+sessionText+' sessionname:'+sessionName+' username:'+nowUserName);
 				$.ajax({
 					type : "post",
 					url : "Topic",
-					data:{"op":"releaseTopic","ttopic":titleText,"tcontents":sessionText,"sname":sessionName,"uname":nowUserName},
+					data:{"op":"releaseTopic","ttopic":titleText,"tcontents":sessionText,"tsid":sessionSid,"tuid":nowUserUid},
 					success:function(data){
-						//console.log(data);
-						$('#topicTitleText').val("");
-						$('#topicText').summernote('code', "");
-						$('#mainContent>ul').prepend(data);
-						/*topic的跳转*/
-						$('.TopicTName').click(function(){
-							location.href="Topic?op=toTopic&TopicTName="+$(this).html()+"&sessionSid="+$('#sessionSid').val();
-						});
-								
+						alert('发帖成功');
+						location.reload();//重新加载本页面
 					}
 				});//end ajax
 			}
 
 		});//end #topicTextSubmit
 	});
+	
 </script>
-<script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
+<!-- 关注和取消关注 -->
 <script type="text/javascript">
 	$(document).ready(function() {
 		/*关注*/

@@ -11,10 +11,10 @@ import entity.Session;
 public interface SessionDao {
 	/**
 	 * 帖子数加1
-	 * @param sname
+	 * @param sid
 	 * @return 大于0成功
 	 */
-	int addSessionStopiccount(String sname);
+	int addSessionStopiccount(int sid);
 	/**
 	 * 帖子数减1
 	 * @param sname
@@ -27,34 +27,27 @@ public interface SessionDao {
 	 * @return 返回帖子的数目
 	 */
 	int querySessionStopicCount(String sname);
+	
 	/**
 	 * 点击次数加1
 	 * @param sname
 	 * @return 大于0成功
 	 */
-	int updateSessionClickCount(String sname);
-	/**
-	 * 通过sid查找sname
-	 * @param sid
-	 * @return 
-	 */
-	String querySessionNameBySID(int sid);
-	/**
-	 * 通过session名得到sid
-	 * @param sname
-	 * @return sid
-	 */
-	int querySessionIDByName(String sname);
+	int updateSessionClickCount(int sid);
+
 	
 	/**
 	 * 查询单个版块
-	 * @param sname 要查询的版块name
+	 * @param sid 要查询的版块sid
 	 * @return 查询到得一个版块Session(all)
 	 */
-	Session searchSession(String sname);
+	Session searchSession(int sid);
 	/**
-	 * 查询符合的版块组，条件sprofile
+	 * 查询符合的相似版块组，条件sprofile 和sid
+	 * 不包括传进来的session本身
 	 * @return 版块组
 	 */
-	List<Session> querySessionByProfile(String sprofile);
+	List<Session> querySameSession(Session session);
+	
+	
 }

@@ -13,16 +13,17 @@ import service.iService.ISessionService;
 public class SessionService implements ISessionService {
 	SessionDaoImpl sdi = new SessionDaoImpl();
 
+	
 	@Override
-	public Session searchSession(String sname) {
+	public Session searchSession(int sid) {
 		Session session = null;
-		session = sdi.searchSession(sname);
+		session = sdi.searchSession(sid);
 		return session;
 	}
 
 	@Override
-	public List<Session> querySessionByProfile(String sprofile) {
-		return sdi.querySessionByProfile(sprofile);
+	public List<Session> querySameSession(Session session) {
+		return sdi.querySameSession(session);
 	}
 
 	@Override
@@ -30,16 +31,6 @@ public class SessionService implements ISessionService {
 		return sdi.querySessionNameBySID(sid);
 	}
 
-	@Override
-	public boolean updateSessionClickCount(String sname) {
-		return sdi.updateSessionClickCount(sname)>0;
-	}
-
-	@Override
-	public boolean addSessionStopiccount(String sname) {
-		
-		return sdi.addSessionStopiccount(sname)>0;
-	}
 
 	@Override
 	public boolean subSessionStopiccount(String sname) {
@@ -50,6 +41,11 @@ public class SessionService implements ISessionService {
 	public int querySessionStopicCount(String sname) {
 		
 		return sdi.querySessionStopicCount(sname);
+	}
+	@Override
+	public boolean updateSessionClickCount(String sid) {
+		int sessionId = Integer.parseInt(sid);
+		return sdi.updateSessionClickCount(sessionId)>0;
 	}
 
 	

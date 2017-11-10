@@ -69,22 +69,23 @@
 		select count(*) as num from topic where tsid = #{id}
 	</select>
 	<!-- end 分页 -->
+	
 	<!-- topicView -->
-	<select id="topicViewOne" parameterType="String" resultMap="splitPageResult">
-		select tid,tsid,s.sname,u.uname,treplycount,ttopic,tcontents,ttime,tclickcount,u1.uname lastreplyuser,tlastreplaytime
+	<select id="topicViewOne" parameterType="INTEGER" resultMap="splitPageResult">
+		select distinct tid,tsid,s.sname,u.uname,treplycount,ttopic,tcontents,ttime,tclickcount,u1.uname lastreplyuser,tlastreplaytime
 		from topic t,`session` s,`user` u,`user` u1 
-		where t.ttopic = #{_parameter} and t.tsid = s.sid and u.uid = t.tuid and t.tlastreplyuseid = u1.uid
+		where t.tid = #{_parameter} and t.tsid = s.sid and u.uid = t.tuid and t.tlastreplyuseid = u1.uid
 	</select>
 	
-	<select id="queryTopicOneByTopic" parameterType="String" resultMap="TopicResult">
-		select * from topic where ttopic = #{_parameter}
+	<select id="queryTopicOneByTopic" parameterType="INTEGER" resultMap="TopicResult">
+		select * from topic where tid = #{_parameter}
 	</select>
 	<insert id="addTopic" parameterType="entity.Topic">
 		INSERT INTO topic(tsid,tuid,ttopic,tcontents,ttime,tlastreplyuseid,tlastreplaytime)
 		VALUES(#{tsid},#{tuid},#{ttopic},#{tcontents},#{ttime},#{tlastreplyuseid},#{tlastreplaytime})
 	</insert>
-	<update id="updateClickCount" parameterType="String">
-		UPDATE topic set tclickcount = tclickcount+1 where ttopic= #{_parameter}
+	<update id="updateClickCount" parameterType="INTEGER">
+		UPDATE topic set tclickcount = tclickcount+1 where tid= #{_parameter}
 	</update>
 	
 	<!-- 回帖数加1，并且更新回帖数 -->

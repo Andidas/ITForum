@@ -21,14 +21,6 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Session">
-
-	<resultMap type="INTEGER" id="SessionIDResult">
-		<id column="sid" jdbcType="INTEGER" property="sid" />
-	</resultMap>
-	
-	<select id="querySessionIDByName" parameterType="String" resultMap="SessionIDResult">
-		select sid from session where sname = #{_parameter}
-	</select>
 	
 	<resultMap type="entity.Session" id="SessionResult">
 		<id column="sid" jdbcType="INTEGER" property="sid" />
@@ -40,27 +32,25 @@
 		<result column="sclickcount" jdbcType="INTEGER" property="sclickcount" />
 		<result column="spicture" jdbcType="VARCHAR" property="spicture" />
 	</resultMap>
-	<select id="querySession" parameterType="String" resultMap="SessionResult">
-		select * from `session` where sname=#{_parameter}
+	<!-- 单个session -->
+	<select id="querySessionBySid" parameterType="INTEGER" resultMap="SessionResult">
+		select * from `session` where sid=#{_parameter}
 	</select>
 	
-	<select id="querySessionByProfile" parameterType="String" resultMap="SessionResult">
-		select sname,sstatement from `session` where sprofile=#{_parameter}
+	<!-- 相似版块，5条信息 -->
+	<select id="querySameSession" parameterType="entity.Session" resultMap="SessionResult">
+		select sid,sname,sstatement from `session` where sprofile=#{sprofile} and sid &lt;&gt; #{sid}
+		order by sclickcount DESC
+		limit 0,5
 	</select>
 	
-	<resultMap type="String" id="querySessionNameBySIDResult">		
-		<result column="sname" jdbcType="VARCHAR" property="sname" />		
-	</resultMap>
-	<select id="querySessionNameBySID" parameterType="INTEGER" resultMap="querySessionNameBySIDResult">
-		select sname from `session` where sid=#{_parameter}
-	</select>
 	
-	<update id="updateSessionClickCount" parameterType="String">
-		UPDATE `session` set sclickcount = sclickcount+1 where sname= #{_parameter}
+	<update id="updateSessionClickCountBySid" parameterType="INTEGER">
+		UPDATE `session` set sclickcount = sclickcount+1 where sid= #{_parameter}
 	</update>
 	
-	<update id="addSessionStopiccount" parameterType="String">
-		UPDATE `session` set stopiccount = stopiccount+1 where sname= #{_parameter};
+	<update id="addSessionStopiccount" parameterType="INTEGER">
+		UPDATE `session` set stopiccount = stopiccount+1 where sid= #{_parameter};
 	</update>
 	
 	<update id="subSessionStopiccount" parameterType="String">

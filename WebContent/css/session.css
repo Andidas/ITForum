@@ -165,4 +165,6 @@
 	position: relative;
     top: 7px;
 	display: inline-block;
+	cursor: pointer;
+	 cursor: -ms-pointer;
 }

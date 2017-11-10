@@ -1,7 +1,6 @@
 package dao;
 
 import java.util.List;
-import java.util.Vector;
 
 
 
@@ -24,12 +23,7 @@ public interface UserDao {
 	 * @return 返回被增加的条数，如果不大于0则表示失败
 	 */
 	int addUser(User user);
-	/**
-	 * 删除用户
-	 * @param uemail 用户的email
-	 * @return 返回被删除的条数，如果不大于0则表示失败
-	 */
-	int delUser(String uemail);
+	
 	/**
 	 * 修改用户
 	 * @param user 要修改的用户
@@ -47,18 +41,6 @@ public interface UserDao {
 	 * @return 用户组
 	 */
 	List<User> queryUserList();
-	/**
-	 * 查询所有的用户
-	 * @return 用户组
-	 */
-	Vector<Vector<Object>> getUserData();
-	
-	/**
-	 * 用于表格的头
-	 * @return
-	 */
-	Vector<String> getTitles();
-	
 	
 	/**
 	 * 检查用户是否存在

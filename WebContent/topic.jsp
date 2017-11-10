@@ -24,20 +24,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="css/init.css" rel="stylesheet" />
 		<link href="css/topic.css" rel="stylesheet" />
 		<link href="dist/summernote.css" rel="stylesheet" />
-		
 </head>
 <body>
 <jsp:include page="nav.jsp" flush="true"></jsp:include>
 	<div class="container">
 		<div class="row clearfix">
 			<div class="col-lg-12 page-header">
-				<input type="hidden" value="${nowActiveTopicView.tid}" id="nowTopicTid"/> 
-				<h2 class="col-lg-12" title="题目" id="nowTopicName">${nowActiveTopicView.ttopic}</h2>
+				<h2 class="col-lg-12" title="题目"  >
+				<span class="TopicTName" id="nowTopicName">${nowActiveTopicView.ttopic}</span>
+				<input type="hidden" value="${nowActiveTopicView.tid}" id="nowTopicTid" class="topicTid"/> 
+				</h2>
 				<a href="javaScript:void(0)" class="col-lg-12 pull-right" title="版块">-
-					<span class="sessionName">
-					${nowActiveTopicView.sname}
-					</span>
-					<input type="hidden" value="${nowActiveTopicView.tsid}" id="sessionSid"/>
+					<span class="sessionName">${nowActiveTopicView.sname}</span>
+					<input type="hidden" value="${nowActiveTopicView.tsid}" class="sessionSid" id="sessionSid"/>
 				</a>
 			</div>
 			<div class="col-md-8  column">
@@ -231,7 +230,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<c:forEach items="${nowActiveTopicView.sameTopic}" var="sametopic">
 								<li>
 									<span class="label label-success col-xs-1" title="有多少人回复">${sametopic.treplycount }</span>
-									<a href="javaScript:void(0)" class="col-xs-11 TopicTName">${sametopic.ttopic}</a>
+									<a href="javaScript:void(0)" class="col-xs-11" onclick="topicjumg(this,${nowActiveTopicView.tsid})">${sametopic.ttopic}</a>
+									<input type="hidden" class="topicTid" value="${sametopic.tid}">
 								</li>
 							</c:forEach>
 						</ul>
@@ -241,7 +241,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 
-	<div style="height: 400px; width: 100px;"></div>
+	
 </body>
 <script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
 <script src="dist/summernote.js"></script>
@@ -302,9 +302,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					if(data=="false"){
 						alert("回复失败");
 					}else{
-						$('#summernoteReply').summernote('code','');
-						location.reload();//重新加载本页面
 						alert('回帖成功');
+						location.reload();//重新加载本页面
 					}
 				});
 			}	

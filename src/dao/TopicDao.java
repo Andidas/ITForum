@@ -16,10 +16,10 @@ import entity.TopicView;
 public interface TopicDao {
 	/**
 	 * 查询单个topic view
-	 * @param ttopic
+	 * @param tid
 	 * @return
 	 */
-	TopicView getTopicViewOne(String ttopic);
+	TopicView getTopicViewOne(int tid);
 	/**
 	 * 用于分页
 	 * @param page
@@ -34,10 +34,10 @@ public interface TopicDao {
 	int rowCount(int sid);
 	/**
 	 * 点击次数加1
-	 * @param ttopic
+	 * @param tid
 	 * @return
 	 */
-	int updateClickCount(String ttopic);
+	int updateClickCount(int tid);
 	/**
 	 * 增加主贴
 	 * @param Topic 要增加的主贴 (tsid,tuid,ttopic,tcontents,ttime)
@@ -52,10 +52,10 @@ public interface TopicDao {
 	List<Topic> querySameTopicListByTSID(int tsid);
 	/**
 	 * 通过标题查询帖子
-	 * @param ttopic 帖子标题
+	 * @param tid 帖子id
 	 * @return
 	 */
-	Topic queryTopicOneByTopic(String ttopic);
+	Topic queryTopicOneByTopic(int tid);
 	
 	/**
 	 * 回帖数加1

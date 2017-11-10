@@ -9,12 +9,7 @@ import entity.Session;
  * session版块接口
  */
 public interface ISessionService {
-	/**
-	 * 帖子数加1
-	 * @param sname
-	 * @return 成功,返回true
-	 */
-	boolean addSessionStopiccount(String sname);
+	
 	/**
 	 * 帖子数减1
 	 * @param sname
@@ -29,15 +24,15 @@ public interface ISessionService {
 	int querySessionStopicCount(String sname);
 	/**
 	 * 查询整个板块的信息
-	 * @param sname 板块的名字
+	 * @param sid 板块的id
 	 * @return session
 	 */
-	Session searchSession(String sname);
+	Session searchSession(int sid);
 	/**
 	 * 查询符合的版块组，条件sprofile
 	 * @return 版块组
 	 */
-	List<Session>querySessionByProfile(String sprofile);
+	List<Session>querySameSession(Session session);
 	
 	/**
 	 * 通过sid查找sname
@@ -47,9 +42,10 @@ public interface ISessionService {
 	String querySessionNameBySID(int sid);
 	/**
 	 * 点击次数加1
-	 * @param sname
+	 * @param sid
 	 * @return
 	 */
-	boolean updateSessionClickCount(String sname);
+	boolean updateSessionClickCount(String sid);
+	
 }		
  

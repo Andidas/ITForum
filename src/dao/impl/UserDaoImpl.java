@@ -36,12 +36,6 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public int delUser(String uemail) {
-		String sql="delete from user where uemail = ?";
-		return DBUtils.doUpdate(sql, uemail);
-	}
-
-	@Override
 	public int modifyUser(User user) {
 		int result = 0;
 		try {
@@ -73,15 +67,6 @@ public class UserDaoImpl implements UserDao {
 		 return user;
 	}
 
-	@Override
-	public Vector<Vector<Object>> getUserData() {
-		return null;
-	}
-
-	@Override
-	public Vector<String> getTitles() {
-		return null;
-	}
 
 	@Override
 	public List<User> queryUserList() {

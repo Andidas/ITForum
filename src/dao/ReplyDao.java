@@ -1,7 +1,5 @@
 package dao;
 
-import java.util.List;
-
 import entity.PageMode;
 import entity.PageParam;
 import entity.Reply;
