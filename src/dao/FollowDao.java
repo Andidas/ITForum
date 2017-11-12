@@ -8,7 +8,7 @@ public interface FollowDao {
 	 * @param sid
 	 * @return
 	 */
-	int queryFollowCountBySid(int sid);
+	int queryFollowCount(int sid);
 	/**
 	 * 添加follow
 	 * @param follow
@@ -24,7 +24,7 @@ public interface FollowDao {
 	/**
 	 * 通过 uid 和sid 查询fid
 	 * @param follow
-	 * @return fid
+	 * @return fid 
 	 */
 	public abstract int queryFollowID(Follow follow);
 }

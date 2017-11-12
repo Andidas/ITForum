@@ -3,12 +3,19 @@ package dao;
 import java.util.List;
 
 import entity.Session;
+import entity.viewEntity.SessionView;
 /**
  * 版块的数据库处理操作的接口
  * @author lwy
  *
  */
 public interface SessionDao {
+	/**
+	 * 查询session view
+	 * @param sid
+	 * @return
+	 */
+	SessionView querySessionView(int sid);
 	/**
 	 * 帖子数加1
 	 * @param sid

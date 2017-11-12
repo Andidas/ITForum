@@ -36,33 +36,33 @@
 		<div class="row-fluid clearfix" id="sessionHead">
 
 			<div class="col-md-3" style="width: 230px">
-				<c:if test="${empty nowActiveSessionView.session.spicture}">
+				<c:if test="${empty nowActiveSessionView.spicture}">
 					<img src="img/photo.jpg" />
 				</c:if>
-				<c:if test="${not empty nowActiveSessionView.session.spicture}">
+				<c:if test="${not empty nowActiveSessionView.spicture}">
 					<img src="${nowActiveSession.spicture}" />
 				</c:if>
 			</div>
 			<div class="page-header col-md-9">
 				<h1>
-					<span id="sessionName" class="sessionName">${nowActiveSessionView.session.sname}</span>
-					<input type="hidden" id ="sessionSid" class="sessionSid" value="${nowActiveSessionView.session.sid}">
+					<span id="sessionName" class="sessionName">${nowActiveSessionView.sname}</span>
+					<input type="hidden" id ="sessionSid" class="sessionSid" value="${nowActiveSessionView.sid}">
 					
 					<a href="javaScript:void(0)" class="follow" id="follow" style=""><span>关注</span></a>
 					<a class="unfollow" id="unfollow" href="javaScript:void(0)" style="display: none;">取消关注 </a>
 					 <small>
 					 	关注:<span title="目前关注人数" id="followCount">${nowActiveSessionView.follow}</span>
-					 	提问:<span title="目前问题数">${nowActiveSessionView.session.stopiccount}</span>
-						 主题：<a href="javaScript:void(0)" title="分类依据">${nowActiveSessionView.session.sprofile}</a>
+					 	提问:<span title="目前问题数">${nowActiveSessionView.stopiccount}</span>
+						 主题：<a href="javaScript:void(0)" title="分类依据">${nowActiveSessionView.sprofile}</a>
 					 </small>
 				</h1>
-				<p title="扼要描述">${nowActiveSessionView.session.sstatement}<a href="#" title="创建人" style="color:#888;">——<span>${nowActiveSessionView.sessionMaster}</span></a></p>
+				<p title="扼要描述">${nowActiveSessionView.sstatement}<a href="#" title="创建人" style="color:#888;">——<span>${nowActiveSessionView.uname}</span></a></p>
 			</div>
 		</div>
 		<div class="col-md-8" id="mainContent">
-			<ul class="content-text">
+			<ul class="content-text" >
 	
-				<c:forEach items="${nowActiveSessionView.topicViewList}" var="topicList">
+				<c:forEach items="${nowActiveSessionView.topicViewPM.data}" var="topicList">
 					<li class="clearfix">
 						<div class="col-xs-2">
 							<div class="thumbsUp">
@@ -104,6 +104,24 @@
 					</li>
 				</c:forEach>
 			</ul>
+			
+			<div id="pageForm">
+					<input type="hidden" name="pageno" id="pageno">
+					<a onclick="findPage(1)">&laquo;</a>  
+					<c:if test="${sessionPage.pageParam.pageno>1 }">
+						<a onclick="findPage(${sessionPage.pageParam.pageno-1})">&larr;</a>
+					</c:if>
+					<c:forEach begin="1" end="${sessionPage.totalPageCount }" var="i" step="1">
+						<a onclick="findPage(${i})">${i }</a>
+					</c:forEach>
+					<c:if test="${sessionPage.pageParam.pageno<sessionPage.totalPageCount }">
+						<a onclick="findPage(${sessionPage.pageParam.pageno+1})">&rarr;</a>
+					</c:if>
+					<a onclick="findPage(${sessionPage.totalPageCount })" >&raquo;</a>
+					<input type="hidden" name="totalCount" id="totalCount" value="${sessionPage.totalPageCount }">
+					<input id="topage" size="3"><a onclick="jump()">跳转</a>
+			</div>
+			
 			<div class="col-xs-10 col-xs-offset-2" id="releaseTopic">
 				<div id="topicTitle" class="topicTitle">
 					<input type="text" id="topicTitleText" placeholder="请输入题目"/>
@@ -124,6 +142,8 @@
 					<c:forEach items="${nowActiveSessionView.sameSprofile}" var="session">
 						<li><a href="javaScript:void(0)" class="sessionName">${session.sname }</a>
 							<input type="hidden" value="${session.sid}" class="sessionSid">
+							<br>
+							<span>${session.sstatement}</span>
 						</li>
 					</c:forEach>
 					</ul>
@@ -138,6 +158,66 @@
 <script src="dist/summernote.js" type="text/javascript"></script>
 <script src="dist/lang/summernote-zh-CN.js" type="text/javascript"></script>
 <script src="js/GotoTopicOrSession.js" type="text/javascript"></script>
+<!-- 回复的分页查询 -->
+<script type="text/javascript">
+	
+	function findPage(pageno){
+		var param ={
+			'op':'findTopicByPage',
+			'pageno':pageno,
+			'sessionSid':$('#sessionSid').val()
+		}
+		$.post("Session",param,function(data){
+			if(data=="false"){
+				alert('分页查询失败');
+			}else{
+				
+				$('.content-text').empty();
+				var topics = eval(data);
+				$.each(topics,function(i,topic){
+					var text = topicContent(topic);
+					$('.content-text').append(text);
+				});
+				//TopicTName function is exist in GotoTopicOrSession.js
+				$('.TopicTName').click(TopicTName);
+			}
+		});
+	}
+	function jump(){
+		var pageno = document.getElementById("topage").value;
+		findPage(pageno);
+	}
+	function topicContent(topic){
+		var text = "<li class='clearfix'><div class='col-xs-2'><div class='thumbsUp'><p title='回复条数'>"
+							+"<span class='activeSpan'>"
+							+topic.treplycount
+						+"	</span><span class='glyphicon glyphicon-comment'></span>"
+						+"</p><p title='观看人数'><span class='activeSpan'>"
+						+topic.tclickcount
+						+"</span><span class='glyphicon glyphicon glyphicon glyphicon-eye-open'></span></p></div>"
+				+"</div><div class='panel col-xs-10'><div class='panel-heading'>"
+						+"<a href='javaScript:void(0)' class='TopicTName' title='题目'>"
+						+topic.ttopic
+						+"</a><input type='hidden' class='topicTid' value='"
+						+topic.tid
+						+"'></div><div class='panel-body' title='内容'>"
+					+topic.tcontents
+					+"</div><div class='panel-footer clearfix'><div style='float: right'>"
+					+"<span class='glyphicon glyphicon-user'></span> "
+				+"	<a href='user.jsp' title='提问者' target='_blank'>"
+					+topic.uname
+					+"</a></div><c:if test='"
+					+topic.treplycount!=0
+					+"'><div style='float: left'><span class='glyphicon glyphicon glyphicon-comment'></span>"
+					+"<a href='user.jsp' title='最后回复人' target='_blank'>"
+					+topic.lastreplyuser
+				+	"</a> <span class='glyphicon glyphicon-time'></span>"
+				+	"<span class='time' title='最后回复时间'>"
+				+	topic.tlastreplaytime
+				+	"</span></div></c:if></div></div></li>";
+		return text;
+	}
+</script>
 <!-- 富文本框，发布帖子 -->
 <script>
 	/*富文本框初始化*/
@@ -217,8 +297,8 @@
 			}else{
 				var param = {
 						"op":"follow",
-						"sessionName":$('#sessionName').html(),
-						"userName" : $('#nowUserName').html()
+						"sessionSid":$('#sessionSid').val(),
+						"nowUserID" : $('#nowUserID').val()
 					}
 				$.post("FollowAndUnfollow",param,function(data){
 					if(data=="true"){
@@ -241,8 +321,8 @@
 			}else{
 				var param = {
 						"op" :"unfollow",
-						"sessionName":$('#sessionName').html(),
-						"userName" : $('#nowUserName').html()
+						"sessionSid":$('#sessionSid').val(),
+						"nowUserID" : $('#nowUserID').val()
 					}
 				$.post("FollowAndUnfollow",param,function(data){
 					if(data=="true"){

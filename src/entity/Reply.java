@@ -35,13 +35,13 @@ public class Reply {
 
 	
 
-	private int rid; // 跟贴表ID
-	private int rtid; // 回复主贴ID,外键(引用发贴表的TID)
-	private int rsid; // 所在版块ID,外键(引用版块表的SID)
-	private int ruid; // 发贴人ID,外键(引用用户表的UID)
-	private int rfavour; // 点赞数
-	private String rcontent; // 回贴内容
-	private String rtime; // 回贴时间
+	protected int rid; // 跟贴表ID
+	protected int rtid; // 回复主贴ID,外键(引用发贴表的TID)
+	protected int rsid; // 所在版块ID,外键(引用版块表的SID)
+	protected int ruid; // 发贴人ID,外键(引用用户表的UID)
+	protected int rfavour; // 点赞数
+	protected String rcontent; // 回贴内容
+	protected String rtime; // 回贴时间
 	
 	
 

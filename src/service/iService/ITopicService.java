@@ -2,11 +2,8 @@ package service.iService;
 
 import java.util.List;
 
-import entity.PageMode;
-import entity.PageParam;
-import entity.ReplyView;
+import net.sf.json.JSONArray;
 import entity.Topic;
-import entity.TopicView;
 
 /**
  * @author ¡ıŒ∞“’
@@ -39,5 +36,6 @@ public interface ITopicService {
 	  * @return
 	  */
 	Topic queryTopicOneByTopic(int tid);
+	
 	
 }

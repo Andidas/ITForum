@@ -27,6 +27,14 @@
 		<result column="uissectioner" jdbcType="INTEGER" property="uissectioner" />
 	</resultMap>
 	
+	<!-- 查找用户id -->
+	<resultMap type="INTEGER" id="queryUserIDByNameResult">
+		<id column="uid" jdbcType="INTEGER" property="uid" />
+	</resultMap>
+	<select id="queryUserIDByName" parameterType="String" resultMap="queryUserIDByNameResult">
+		select uid from user where uname = #{_parameter}
+	</select>
+	
 	<select id="queryUserList" resultMap="UserResult">
 		select
 		uid,uname,upassword,uemail,uregdate,ubirthady,usex,uhead,usatement,ustate,upoint,uissectioner
@@ -35,13 +43,6 @@
 
 	<select id="queryUser" parameterType="String" resultMap="UserResult">
 		select * from user where uemail = #{_parameter}
-	</select>
-	
-	<resultMap type="INTEGER" id="queryUserIDByNameResult">
-		<id column="uid" jdbcType="INTEGER" property="uid" />
-	</resultMap>
-	<select id="queryUserIDByName" parameterType="String" resultMap="queryUserIDByNameResult">
-		select uid from user where uname = #{_parameter}
 	</select>
 
 	<select id="checkUser" parameterType="entity.User" resultMap="UserResult">
@@ -87,10 +88,5 @@
     uemail = #{uemail,jdbcType=VARCHAR}
   </update>
   
-  	<resultMap type="String" id="queryUserNameByIdResult">
-		<result column="uname" jdbcType="VARCHAR" property="uname" />
-	</resultMap>
-	<select id="queryUserNameById" parameterType="INTEGER" resultMap="queryUserNameByIdResult">
-		select uname from user where uid = #{_parameter}
-	</select>
+  	
 </mapper>

@@ -3,7 +3,6 @@ package service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import dao.impl.SessionDaoImpl;
 import dao.impl.TopicDaoImpl;
 import entity.Topic;
@@ -29,10 +28,7 @@ public class TopicService implements ITopicService {
 			return tdi.addTopic(topic)>0;
 		}else {
 			return false;
-		}
-		
-		
-		
+		}	
 	}
 
 	@Override
@@ -52,7 +48,7 @@ public class TopicService implements ITopicService {
 		int tid = Integer.parseInt(id);
 		return tdi.updateClickCount(tid)>0;
 	}
-
+	
 	
 
 	

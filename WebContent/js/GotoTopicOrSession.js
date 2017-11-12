@@ -1,19 +1,19 @@
 $(function() {
 	/* session的跳转 */
-	$('.sessionName').click(
-			function() {
-				location.href = "Session?op=toSession&SessionSid="
-						+ $(this).siblings('.sessionSid').val();
-			});// end sessionName.click
+	$('.sessionName').click(sessionName);
 	/* topic的跳转 */
-	$('.TopicTName').click(
-			function() {
-				location.href = "Topic?op=toTopic&topicTid="
-						+ $(this).siblings('.topicTid').val() + "&sessionSid="
-						+ $('#sessionSid').val();
-			});
+	$('.TopicTName').click(TopicTName);
 	
 });
+function sessionName() {
+	location.href = "Session?op=toSession&SessionSid="
+			+ $(this).siblings('.sessionSid').val();
+}
+function TopicTName() {
+	location.href = "Topic?op=toTopic&topicTid="
+			+ $(this).siblings('.topicTid').val() + "&sessionSid="
+			+ $('#sessionSid').val();
+}
 /*主页的topic跳转*/
 function topicjumg(obj,tsid) {
 			location.href = "Topic?op=toTopic&topicTid="

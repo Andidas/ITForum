@@ -32,14 +32,14 @@ public class Session {
 		super();
 	}
 
-	private int sid; // 版块ID
-	private String sname; // 版块名称
-	private int smasterid; // 版主ID,外键(引用用户表的UID)
-	private String sprofile; // 版块主题
-	private String sstatement; // 本版留言
-	private int stopiccount; // 发贴数
-	private int sclickcount; // 点击率
-	private String spicture; //版块头像
+	protected int sid; // 版块ID
+	protected String sname; // 版块名称
+	protected int smasterid; // 版主ID,外键(引用用户表的UID)
+	protected String sprofile; // 版块主题
+	protected String sstatement; // 本版留言
+	protected int stopiccount; // 发贴数
+	protected int sclickcount; // 点击率
+	protected String spicture; //版块头像
 	
 	public int getSid() {
 		return sid;

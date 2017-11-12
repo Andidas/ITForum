@@ -11,29 +11,33 @@ public class FollowService implements IFollowService {
 	UserDaoImpl udi = new UserDaoImpl();
 	SessionDaoImpl sdi = new SessionDaoImpl();
 	@Override
-	public boolean addFollow(String uname, String sname) {
+	public boolean addFollow(String userid, String sessionid) {
 		Follow follow = new Follow();
-		int uid = udi.queryUserIDByName(uname);
-		int sid = sdi.querySessionIDByName(sname);
+		int uid = Integer.parseInt(userid);
+		int sid = Integer.parseInt(sessionid);
 		follow.setUid(uid);
 		follow.setSid(sid);
 		return fdi.addFollow(follow) > 0;
 	}
 
 	@Override
-	public boolean deleteFollow(String uname,String sname) {
-		int uid = udi.queryUserIDByName(uname);
-		int sid = sdi.querySessionIDByName(sname);
+	public boolean deleteFollow(String userid,String sessionid) {
+		int uid = Integer.parseInt(userid);
+		int sid = Integer.parseInt(sessionid);
 		Follow follow = new Follow();
 		follow.setUid(uid);
 		follow.setSid(sid);
 		int fid = fdi.queryFollowID(follow);
-		return fdi.deleteFollow(fid)>0;
+		if(fid>0){
+			return fdi.deleteFollow(fid)>0;			
+		}else{
+			return false;
+		}
 	}
 
 	@Override
-	public int queryFollowCountBySid(int sid) {
-		return fdi.queryFollowCountBySid(sid);
+	public int queryFollowCount(int sid) {
+		return fdi.queryFollowCount(sid);
 	}
 
 }

@@ -60,10 +60,5 @@ public interface IUserService {
 	 * @return
 	 */
 	public boolean modifyPasswordByEmail(String email, String password) ;
-	/**
-	 * 通过用户id查询用户名
-	 * @param sid
-	 * @return
-	 */
-	public String queryUserNameById(int uid);
+	
 }

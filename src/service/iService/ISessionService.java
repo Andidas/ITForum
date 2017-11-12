@@ -3,12 +3,15 @@ package service.iService;
 import java.util.List;
 
 import entity.Session;
+import entity.viewEntity.SessionView;
 
 /**
  * @author 刘伟艺
  * session版块接口
  */
 public interface ISessionService {
+	
+	
 	
 	/**
 	 * 帖子数减1
@@ -30,16 +33,14 @@ public interface ISessionService {
 	Session searchSession(int sid);
 	/**
 	 * 查询符合的版块组，条件sprofile
+	 * @param sprofile // session 主题，分类依据
+	 * @param sid 
 	 * @return 版块组
 	 */
-	List<Session>querySameSession(Session session);
 	
-	/**
-	 * 通过sid查找sname
-	 * @param sid
-	 * @return
-	 */
-	String querySessionNameBySID(int sid);
+	List<Session>querySameSession(String sprofile,int sid);
+	
+	
 	/**
 	 * 点击次数加1
 	 * @param sid

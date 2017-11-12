@@ -10,7 +10,7 @@ public interface IFollowService {
 	 * @param sid
 	 * @return
 	 */
-	int queryFollowCountBySid(int sid);
+	int queryFollowCount(int sid);
 	/**
 	 * @param uname
 	 * @param sname

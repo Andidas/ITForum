@@ -160,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</c:forEach>
 				</div>
 					
-				<div  id="pageForm">
+				<div id="pageForm">
 					<input type="hidden" name="pageno" id="pageno">
 					<a onclick="findPage(1)">&laquo;</a>  
 					<c:if test="${ReplyPage.pageParam.pageno>1 }">

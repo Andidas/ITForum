@@ -1,6 +1,9 @@
-package entity;
+package entity.viewEntity;
 
 import java.util.List;
+
+import entity.PageMode;
+import entity.Topic;
 
 /**
  * @author lwy
@@ -19,9 +22,8 @@ import java.util.List;
  * @param sameTopic 相同的topic
  * @param allReply 该topic的所有reply视图
  */
-public class TopicView {
-	
-	
+public class TopicView extends Topic{
+
 	public TopicView(int tid, int tsid, String sname, String uname,
 			int treplycount, String ttopic, String tcontents, String ttime,
 			int tclickcount, String lastreplyuser, String tlastreplaytime,

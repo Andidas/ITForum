@@ -2,21 +2,16 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSON;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import entity.PageMode;
-import entity.ReplyView;
-import entity.TopicView;
-import service.ReplyService;
-import service.SessionService;
+import entity.viewEntity.ReplyView;
+import entity.viewEntity.TopicView;
+import service.JsonService;
 import service.TopicService;
 import service.TopicViewService;
 
@@ -27,9 +22,14 @@ import service.TopicViewService;
  */
 public class TopicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	/**
+	 * 每页数据条数
+	 */
+	private static final int PAGESIZE =5; 
 	/*实例化业务类*/
 	private TopicService ts = new TopicService();
 	private TopicViewService tvs = new TopicViewService();
+	private JsonService js = new JsonService();
     public TopicServlet() {
         super();
     }
@@ -52,15 +52,14 @@ public class TopicServlet extends HttpServlet {
 	 */
 	private void toTopic(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-		PrintWriter out = response.getWriter();
-		//帖子名
+		
 		String topicTid = request.getParameter("topicTid");
 		String sid = request.getParameter("sessionSid");
-		//当前被选中的帖子de视图
+		
 		TopicView topicView = tvs.getTopicViewOne(topicTid,sid);
 		
 		if(topicView==null){
-			out.print("<script>alert('帖子不存在');history.back();</script>");
+			response.getWriter().print("<script>alert('帖子不存在');history.back();</script>");
 		}else{
 			ts.updateClickCount(topicTid);
 			request.setAttribute("nowActiveTopicView", topicView);
@@ -69,31 +68,26 @@ public class TopicServlet extends HttpServlet {
 		}
 	}
 	/**
-	 * topic的回帖
+	 * topic的回帖分页
 	 */
 	private void findReplyByPage(HttpServletRequest request,
 			HttpServletResponse response)throws ServletException, IOException  {
 		PrintWriter out = response.getWriter();
-		int pageno=1;
+		int pageno=1; //页数
+		
 		String pagenoStr = request.getParameter("pageno");
 		if(pagenoStr!=null&&!"".equals(pagenoStr)){
 			pageno = Integer.parseInt(pagenoStr);
 		}
 		String nowTopicTid = request.getParameter("nowTopicTid");
-		PageMode<ReplyView> pm = tvs.queryReplyViewPageMode(pageno, 5, Integer.parseInt(nowTopicTid));
+		PageMode<ReplyView> pm = tvs.queryReplyViewPageMode(pageno, PAGESIZE, Integer.parseInt(nowTopicTid));
 		if(pm==null){
 			out.print("false");
 		}else{
-			List<ReplyView> replyViewList = pm.getData();
-			JSONArray ja = new JSONArray();
-			for(ReplyView rv : replyViewList){
-				//把java对象转化成json对象
-				JSONObject jo = JSONObject.fromObject(rv);
-				ja.add(jo);
-			}
-			out.print(ja);
+			out.print(js.toJSONArray(pm.getData()));
 		}		
 	}
+	
 	/**
 	 * 发布topic，ajax
 	 */

@@ -57,10 +57,5 @@ public interface UserDao {
 	 * @return
 	 */
 	int modifyPasswordByEmail(String email,String password);
-	 /**
-	  * 通过用户id查询用户名
-	 * @param uid
-	 * @return
-	 */
-	String queryUserNameById(int uid);
+	
 }

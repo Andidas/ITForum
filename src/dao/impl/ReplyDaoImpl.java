@@ -11,8 +11,7 @@ import db.DBAccess;
 import entity.PageMode;
 import entity.PageParam;
 import entity.Reply;
-import entity.ReplyView;
-import entity.Topic;
+import entity.viewEntity.ReplyView;
 
 /**
  * @author lwy
@@ -56,7 +55,7 @@ public class ReplyDaoImpl implements ReplyDao {
 	
 
 	@Override
-	public PageMode<ReplyView> queryReplyViewListByRTID(PageParam pageParam) {
+	public PageMode<ReplyView> queryReplyViewList(PageParam pageParam) {
 		int start = (pageParam.getPageno()-1)*pageParam.getPagesize();
 		pageParam.setPageno(start);
 		try {
@@ -64,7 +63,7 @@ public class ReplyDaoImpl implements ReplyDao {
 			List<ReplyView> pageData = new ArrayList<ReplyView>();
 			
 			sqlSession = dbAccess.getSqlSession();
-			pageData= sqlSession.selectList("Reply.queryReplyViewListByRTID",pageParam);
+			pageData= sqlSession.selectList("Reply.queryReplyViewList",pageParam);
 			
 			pm.setData(pageData);
 			pm.setPageParam(pageParam);

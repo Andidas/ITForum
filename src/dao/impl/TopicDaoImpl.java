@@ -11,7 +11,7 @@ import db.DBAccess;
 import entity.PageMode;
 import entity.PageParam;
 import entity.Topic;
-import entity.TopicView;
+import entity.viewEntity.TopicView;
 
 /**
  * @author lwy

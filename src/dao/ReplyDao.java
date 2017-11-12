@@ -3,7 +3,7 @@ package dao;
 import entity.PageMode;
 import entity.PageParam;
 import entity.Reply;
-import entity.ReplyView;
+import entity.viewEntity.ReplyView;
 
 /**
  * 跟帖的数据库处理操作的接口
@@ -18,11 +18,11 @@ public interface ReplyDao {
 	 */
 	int rowCount(int id);
 	/**
-	 * 回帖的视图列表
+	 * 回帖的分页视图列表
 	 * @param rtid 查询条件
 	 * @return
 	 */
-	PageMode<ReplyView> queryReplyViewListByRTID(PageParam pageParam);
+	PageMode<ReplyView> queryReplyViewList(PageParam pageParam);
 	
 	/**
 	 * 删除单个帖子

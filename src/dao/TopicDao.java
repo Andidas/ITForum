@@ -5,7 +5,7 @@ import java.util.List;
 import entity.PageMode;
 import entity.PageParam;
 import entity.Topic;
-import entity.TopicView;
+import entity.viewEntity.TopicView;
 /**
  * 主贴的数据库处理操作的接口
  * @author lwy

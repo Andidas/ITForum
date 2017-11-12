@@ -4,6 +4,7 @@ import java.util.List;
 
 import dao.impl.SessionDaoImpl;
 import entity.Session;
+import entity.viewEntity.SessionView;
 import service.iService.ISessionService;
 
 /**
@@ -22,15 +23,11 @@ public class SessionService implements ISessionService {
 	}
 
 	@Override
-	public List<Session> querySameSession(Session session) {
+	public List<Session> querySameSession(String sprofile,int sid) {
+		Session session = new Session();
+		session.setSprofile(sprofile);session.setSid(sid);
 		return sdi.querySameSession(session);
 	}
-
-	@Override
-	public String querySessionNameBySID(int sid) {
-		return sdi.querySessionNameBySID(sid);
-	}
-
 
 	@Override
 	public boolean subSessionStopiccount(String sname) {
@@ -47,6 +44,8 @@ public class SessionService implements ISessionService {
 		int sessionId = Integer.parseInt(sid);
 		return sdi.updateSessionClickCount(sessionId)>0;
 	}
+
+	
 
 	
 }

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import dao.SessionDao;
 import db.DBAccess;
 import entity.Session;
+import entity.viewEntity.SessionView;
 
 /**
  * @author lwy
@@ -115,6 +116,23 @@ public class SessionDaoImpl implements SessionDao {
 				sqlSession.close();
 			}
 		return 0;
+	}
+
+
+	@Override
+	public SessionView querySessionView(int sid) {
+		try {
+			SessionView sessionView = new SessionView();
+				sqlSession  = dbAccess.getSqlSession();
+				sessionView = sqlSession.selectOne("Session.querySessionView",sid);
+				
+				return sessionView;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				sqlSession.close();
+			}
+		return null;
 	}
 
 	

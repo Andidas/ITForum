@@ -35,10 +35,10 @@ public class FollowAndUnfollowServlet extends HttpServlet {
 	}
 	private void sessionFollow(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		String sname = request.getParameter("sessionName");
-		String uname = request.getParameter("userName");
+		String sid = request.getParameter("sessionSid");
+		String uid = request.getParameter("nowUserID");
 		PrintWriter out = response.getWriter();
-		if(fs.addFollow(uname,sname)){
+		if(fs.addFollow(uid,sid)){
 			out.print("true");
 		}else{
 			out.print("false");
@@ -47,11 +47,11 @@ public class FollowAndUnfollowServlet extends HttpServlet {
 	}
 	private void sessionUnfollow(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		String sname = request.getParameter("sessionName");
-		String uname = request.getParameter("userName");
+		String sid = request.getParameter("sessionSid");
+		String uid = request.getParameter("nowUserID");
 		
 		PrintWriter out = response.getWriter();
-		if(fs.deleteFollow(uname,sname)){
+		if(fs.deleteFollow(uid,sid)){
 			out.print("true");
 		}else{
 			out.print("false");

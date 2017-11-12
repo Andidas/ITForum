@@ -31,18 +31,21 @@
 	
 	
 	<!-- 分页 -->
-	<resultMap type="entity.ReplyView" id="queryReplyViewListByRTIDResult">
+	<resultMap type="entity.viewEntity.ReplyView" id="queryReplyViewListResult">
 		<id column="rid" jdbcType="INTEGER" property="rid" />
-		<result column="uname" jdbcType="VARCHAR" property="uname" />
+		<result column="rtid" jdbcType="INTEGER" property="rtid" />
+		<result column="rsid" jdbcType="INTEGER" property="rsid" />
+		<result column="ruid" jdbcType="INTEGER" property="ruid" />
 		<result column="rfavour" jdbcType="INTEGER" property="rfavour" />
 		<result column="rcontent" jdbcType="VARCHAR" property="rcontent" />
 		<result column="rtime" jdbcType="VARCHAR" property="rtime" />
+		<result column="uname" jdbcType="VARCHAR" property="uname" />
 		<result column="ustate" jdbcType="INTEGER" property="ustate" />
 		<result column="upoint" jdbcType="INTEGER" property="upoint" />
 		<result column="uissectioner" jdbcType="INTEGER" property="uissectioner" />
 	</resultMap>
-	<select id="queryReplyViewListByRTID"  parameterType="entity.PageParam" resultMap="queryReplyViewListByRTIDResult">
-		select rid,u.uname,rfavour,rcontent,rtime,u.ustate,u.upoint,u.uissectioner from reply r,`user` u
+	<select id="queryReplyViewList"  parameterType="entity.PageParam" resultMap="queryReplyViewListResult">
+		select r.*,u.uname,u.ustate,u.upoint,u.uissectioner from reply r,`user` u
 		where rtid = #{id} and r.ruid = u.uid order by r.rtime DESC limit #{pageno},#{pagesize}
 	</select>
 	<resultMap type="INTEGER" id="ReplyrowNumResult">

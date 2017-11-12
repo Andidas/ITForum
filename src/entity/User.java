@@ -39,9 +39,8 @@ public class User implements Cloneable{
 	}
 	public User() {
 		super();
-		// TODO 自动生成的构造函数存根
 	}
-	//克隆借口实现
+	//克隆接口实现
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 			return super.clone();

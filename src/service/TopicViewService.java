@@ -10,40 +10,19 @@ import dao.impl.TopicDaoImpl;
 import service.iService.ITopicViewService;
 import entity.PageMode;
 import entity.PageParam;
-import entity.ReplyView;
+import entity.viewEntity.ReplyView;
 import entity.Topic;
-import entity.TopicView;
+import entity.viewEntity.TopicView;
 
 public class TopicViewService implements ITopicViewService {
 	private ReplyDaoImpl rdi = new ReplyDaoImpl();
 	private TopicDaoImpl tdi = new TopicDaoImpl();
-	@Override
-	public String neatenSessionContent(String uname, String ttopic,
-			String tcontents) {
-
-		String newContents = "<li><div class='col-xs-2'><div class='thumbsUp'>"
-				+"<p title='回复条数'><span class='activeSpan'>0</span><span class='glyphicon glyphicon-comment'>"
-				+"</span></p><p title='观看人数'><span class='activeSpan'>0</span>"
-				+"<span class='glyphicon glyphicon glyphicon glyphicon-eye-open'></span></p></div></div>"
-				+"<div class='panel col-xs-10'><div class='panel-heading'><a href='javaScript:void(0)'class='TopicTName' title='题目'>"
-				+ ttopic
-				+ "</a></div><div class='panel-body' title='内容'>"
-				+  neatenSessionContentInit(tcontents)
-				+ "</div><div class='panel-footer clearfix'><div style='float: right'><span class='glyphicon glyphicon-user'></span><a href='user.jsp' title='作者' target='_blank'>"
-				+ uname
-				+ "</a></div></div></div></li>";
-				
-		
-		return newContents;
-	}
-	/**
-	 * 重新设置<p></p>里面的内容，把图片隐藏起来
-	 */
+	
+	
 	@Override
 	public String neatenSessionContentInit(String tcontents){
 		List<String> imgSrcs = getImageAndContent(tcontents);
-		/*重新设置<p></p>里面的内容，把图片隐藏起来*/
-		
+		//重新设置<p></p>里面的内容，把图片隐藏起来
 		StringBuilder newContentsInit =new StringBuilder("<div>");
 		newContentsInit.append(tcontents.replaceAll("style=", "styleOld=").replaceAll("<img ", "<img style='display:none;' ").replaceAll("<p>", "").replaceAll("</p>","").replaceAll("<br>",""));
 		newContentsInit.append("</div>");
@@ -54,9 +33,10 @@ public class TopicViewService implements ITopicViewService {
 		
 		return newContentsInit.toString();
 	}
-	/*获得图像的src*/
-	private List<String> getImageAndContent(String tcontents){
-		 List<String> imgSrc = new ArrayList<String>();//图像的src
+	
+	@Override
+	public List<String> getImageAndContent(String tcontents){
+		 List<String> imgSrc = new ArrayList<String>();
 		 String regex = "src=\"\\S*\"";//图像的正则
 		 Pattern p = Pattern.compile(regex);
 	     Matcher m = p.matcher(tcontents); // 获取 matcher 对象
@@ -89,7 +69,7 @@ public class TopicViewService implements ITopicViewService {
 	@Override
 	public PageMode<ReplyView> queryReplyViewPageMode(int pageno, int pagesize,int rtid) {
 		PageParam pageParam = new PageParam(pageno, pagesize, rtid);
-		return rdi.queryReplyViewListByRTID(pageParam);
+		return rdi.queryReplyViewList(pageParam);
 	}
 	
 

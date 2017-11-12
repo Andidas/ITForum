@@ -13,53 +13,53 @@ public class FollowDaoImpl implements FollowDao {
 	 private DBAccess dbAccess  = new DBAccess();
 	@Override
 	public int addFollow(Follow follow) {
-		int result =0;
 		try {
+			int result =0;
 			sqlSession = dbAccess.getSqlSession();
 			result = sqlSession.insert("Follow.addFollow",follow);
 			sqlSession.commit();
+			return result;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return result;
 		}finally{
 			sqlSession.close();
 		}
-		return result;
+		return 0;
 	}
 
 	@Override
 	public int deleteFollow(int fid) {
-		int result =0;
 		try {
+			int result =0;
 			sqlSession = dbAccess.getSqlSession();
 			result = sqlSession.delete("Follow.deleteFollow",fid);
 			sqlSession.commit();
+			return result;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return result;
 		}finally{
 			sqlSession.close();
 		}
-		return result;
+		return 0;
 	}
 
 	@Override
 	public int queryFollowID(Follow follow) {
-		int result =0;
 		try {
+			int result =0;
 			sqlSession = dbAccess.getSqlSession();
 			result = sqlSession.selectOne("Follow.queryFollowID",follow);
+			return result;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return result;
 		}finally{
 			sqlSession.close();
 		}
-		return result;
+		return 0;
 	}
 
 	@Override
-	public int queryFollowCountBySid(int sid) {
+	public int queryFollowCount(int sid) {
 		int result =0;
 		try {
 			sqlSession = dbAccess.getSqlSession();
