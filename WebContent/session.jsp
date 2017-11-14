@@ -30,7 +30,7 @@
 <style type="text/css">
 </style>
 </head>
-<body>
+<body >
 	<jsp:include page="nav.jsp" flush="true" />
 	<div class="clearfix container" id="content">
 		<div class="row-fluid clearfix" id="sessionHead">
@@ -62,7 +62,7 @@
 		<div class="col-md-8" id="mainContent">
 			<ul class="content-text" >
 	
-				<c:forEach items="${nowActiveSessionView.topicViewPM.data}" var="topicList">
+				<c:forEach items="${nowActiveSessionView.topicViewPM.data}" var="topicList" >
 					<li class="clearfix">
 						<div class="col-xs-2">
 							<div class="thumbsUp">
@@ -105,22 +105,7 @@
 				</c:forEach>
 			</ul>
 			
-			<div id="pageForm">
-					<input type="hidden" name="pageno" id="pageno">
-					<a onclick="findPage(1)">&laquo;</a>  
-					<c:if test="${sessionPage.pageParam.pageno>1 }">
-						<a onclick="findPage(${sessionPage.pageParam.pageno-1})">&larr;</a>
-					</c:if>
-					<c:forEach begin="1" end="${sessionPage.totalPageCount }" var="i" step="1">
-						<a onclick="findPage(${i})">${i }</a>
-					</c:forEach>
-					<c:if test="${sessionPage.pageParam.pageno<sessionPage.totalPageCount }">
-						<a onclick="findPage(${sessionPage.pageParam.pageno+1})">&rarr;</a>
-					</c:if>
-					<a onclick="findPage(${sessionPage.totalPageCount })" >&raquo;</a>
-					<input type="hidden" name="totalCount" id="totalCount" value="${sessionPage.totalPageCount }">
-					<input id="topage" size="3"><a onclick="jump()">跳转</a>
-			</div>
+			<ul class="paginate" id="paginate"></ul>			
 			
 			<div class="col-xs-10 col-xs-offset-2" id="releaseTopic">
 				<div id="topicTitle" class="topicTitle">
@@ -155,11 +140,21 @@
 	</div>
 	
 </body>
-<script src="dist/summernote.js" type="text/javascript"></script>
-<script src="dist/lang/summernote-zh-CN.js" type="text/javascript"></script>
-<script src="js/GotoTopicOrSession.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
+<script src="dist/summernote.js"></script>
+<script src="dist/lang/summernote-zh-CN.js"></script>
+<script type="text/javascript" src="js/jqPaginator.js"></script>
 <!-- 回复的分页查询 -->
 <script type="text/javascript">
+	/*$.jqPaginator('#paginate', {
+	    totalPages: ${sessionPage.totalPageCount},
+	    visiblePages: ${sessionPage.pageParam.pagesize},
+	    currentPage: 1,
+	    onPageChange: function (num, type) {
+	        findPage(num);
+	    }
+	});*/
+	
 	
 	function findPage(pageno){
 		var param ={
@@ -183,10 +178,7 @@
 			}
 		});
 	}
-	function jump(){
-		var pageno = document.getElementById("topage").value;
-		findPage(pageno);
-	}
+	
 	function topicContent(topic){
 		var text = "<li class='clearfix'><div class='col-xs-2'><div class='thumbsUp'><p title='回复条数'>"
 							+"<span class='activeSpan'>"
@@ -219,7 +211,7 @@
 	}
 </script>
 <!-- 富文本框，发布帖子 -->
-<script>
+<script type="text/javascript">
 	/*富文本框初始化*/
 	$(function() {
 		$('#topicText').summernote(
@@ -338,6 +330,14 @@
 				});//end post
 			}
 		});
-	});//end ready function
+	});//end ready 
 </script>
+<!-- 图片放大器 -->
+<script src="./js/postbird-img-glass.js"></script>
+ <script>
+        PostbirdImgGlass.init({
+            domSelector:"#mainContent img",
+            animation:true
+        });
+    </script>
 </html>

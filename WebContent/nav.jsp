@@ -37,6 +37,20 @@
 	background-color: #0366D6;
 	color: white;
 }
+#return_top {
+	position: fixed;
+	bottom: 100px;
+	right: 55px;
+	width: 45px;
+	height: 45px;
+	background: url(img/aside_float_bar_z_9bec013.png);
+	display: none;
+}
+
+#return_top:hover {
+	background-position: 109px 99px;
+}
+
 </style>
 <link rel="stylesheet" type="text/css" href="css/search-form.css">
 </head>
@@ -108,7 +122,24 @@
 			</div>
 		</nav>
 	</div>
+	<a href="javaScript:;" class="btn btn-link" id="return_top"></a>
 </body>
+<script type="text/javascript">
+ $(window).scroll(function(){
+   var sc=$(window).scrollTop();
+   var rwidth=$(window).width()
+   if(sc>0){
+    $("#return_top").css("display","block");
+    $("#return_top").css("left",(rwidth-100)+"px")
+   }else{
+   $("#return_top").css("display","none");
+   }
+ })
+ $("#return_top").click(function(){
+   var sc=$(window).scrollTop();
+   $('body,html').animate({scrollTop:0},500);
+ })
+</script>
 <script type="text/javascript">
 $(document).ready(function(){
 		$("#exitEmail").click(function(){

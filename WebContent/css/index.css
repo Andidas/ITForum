@@ -3,18 +3,6 @@
 
 
 
-#return_top {
-	position: fixed;
-	bottom: 100px;
-	right: 100px;
-	width: 45px;
-	height: 45px;
-	background: url(../img/aside_float_bar_z_9bec013.png);
-}
-
-#return_top:hover {
-	background-position: 109px 99px;
-}
 
 #content .row {
 	margin-top: 50px;

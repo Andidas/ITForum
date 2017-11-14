@@ -4,7 +4,7 @@
 	margin-top: 70px;
 }
 /*帖子内容*/
-#mainContent li {
+#mainContent .content-text li {
 	float: left;
 	width:100%;
 }

@@ -41,6 +41,7 @@
 	
 }
 </style>
+
 </head>
 <body data-spy="scroll" data-target="#myScrollspy" style="margin-top:30px;">
 	<jsp:include page="nav.jsp" flush="true"></jsp:include>
@@ -197,6 +198,7 @@
 						</li>
 						</c:forEach>
 					</ul>
+					
 				</div>
 
 				<div class="col-lg-3" id="content-right">
@@ -255,7 +257,15 @@
 			</div>
 		</div>
 
-		<a href="#" class="btn btn-link" id="return_top"></a>
+		
 </body>
-	<script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
+<script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
+<!-- 图片放大器 -->
+<script src="./js/postbird-img-glass.js"></script>
+ <script>
+        PostbirdImgGlass.init({
+            domSelector:"#mainContent img",
+            animation:true
+        });
+    </script>
 </html>

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import entity.PageMode;
 import entity.viewEntity.ReplyView;
 import entity.viewEntity.TopicView;
@@ -84,7 +86,9 @@ public class TopicServlet extends HttpServlet {
 		if(pm==null){
 			out.print("false");
 		}else{
-			out.print(js.toJSONArray(pm.getData()));
+			JSONArray ja = js.toJSONArray(pm.getData());
+			
+			out.print(ja);
 		}		
 	}
 	

@@ -33,8 +33,8 @@ public class TestTopic {
 	@Test
 	public void getImageAndContent(){
 		String input = "<p>À∆∫ı’“µΩ¥ÌŒÛ¡À<img src=\"files/ITForum.jpg\" data-filename=\"image name\" style=\"width: 180px;\"></p>";
-	    List<String> src = new TopicService().getImageAndContent(input);
-		System.out.println(src);
+	   // List<String> src = new TopicService().getImageAndContent(input);
+		//System.out.println(src);
 	}
 	@Test
 	public void RegexMatches()

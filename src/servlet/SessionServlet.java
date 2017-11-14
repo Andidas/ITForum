@@ -55,6 +55,7 @@ public class SessionServlet extends HttpServlet {
 			System.out.println("sessionsid："+sid+" 点击次数加0");
 		}
 		SessionView sessionView = sessionViewService.querySessionView(sid);
+		
 		if(sessionView==null){
 			response.getWriter().print("<script>alert('版块不存在');history.back();</script>");
 		}else{

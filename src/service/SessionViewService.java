@@ -26,9 +26,7 @@ public class SessionViewService implements ISessionViewService{
 	
 	@Override
 	public void setTopicViewContents(List<TopicView> TopicViews){
-		
 		for (int i = 0; i<TopicViews.size();i++) {	
-			
 			String newcontents = topicViewService.neatenSessionContentInit(TopicViews.get(i).getTcontents());
 			TopicViews.get(i).setTcontents(newcontents);
 		}
@@ -41,11 +39,12 @@ public class SessionViewService implements ISessionViewService{
 		int sessionId = Integer.parseInt(sid);
 		SessionView sessionView =sdi.querySessionView(sessionId);
 		
-		PageMode<TopicView> topicViewPM = topicViewService.TopicSplitPage(PAGENO, PAGESIZE, sessionView.getSid());
+		PageMode<TopicView> topicViewPM = topicViewService.TopicSplitPage(PAGENO, PAGESIZE, sessionId);
 		setTopicViewContents(topicViewPM.getData());
+		 
 		
-		List<Session> sameSprofile  = sessionService.querySameSession(sessionView.getSprofile(),sessionView.getSid());
-		int follow = followService.queryFollowCount(sessionView.getSid());
+		List<Session> sameSprofile  = sessionService.querySameSession(sessionView.getSprofile(),sessionId);
+		int follow = followService.queryFollowCount(sessionId);
 		sessionView.setTopicViewPM(topicViewPM);
 		sessionView.setSameSprofile(sameSprofile);
 		sessionView.setFollow(follow);

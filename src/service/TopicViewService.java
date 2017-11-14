@@ -17,7 +17,8 @@ import entity.viewEntity.TopicView;
 public class TopicViewService implements ITopicViewService {
 	private ReplyDaoImpl rdi = new ReplyDaoImpl();
 	private TopicDaoImpl tdi = new TopicDaoImpl();
-	
+	private final static int PAGENO = 1;//第几页
+	private final static int PAGESIZE =5;//每页条数
 	
 	@Override
 	public String neatenSessionContentInit(String tcontents){
@@ -55,9 +56,8 @@ public class TopicViewService implements ITopicViewService {
 		int tid = Integer.parseInt(id);
     	 TopicView topicView = null;
 		 int sessionid = Integer.parseInt(sid);
-		 Topic topic = tdi.queryTopicOneByTopic(tid);
 		 //该topic的所有回帖
-		 PageMode<ReplyView> allReply = queryReplyViewPageMode(1, 5, topic.getTid());
+		 PageMode<ReplyView> allReply = queryReplyViewPageMode(PAGENO, PAGESIZE, tid);
 		 //和该topic相似的topics
 		 List<Topic> sameList = tdi.querySameTopicListByTSID(sessionid);
 		 

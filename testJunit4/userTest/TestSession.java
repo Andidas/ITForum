@@ -9,7 +9,7 @@ public class TestSession {
 	@Test
 	public void test() {
 		SessionService ss = new SessionService();
-		System.out.println(ss.searchSession("JAVA"));
+		//System.out.println(ss.searchSession("JAVA"));
 	}
 
 }

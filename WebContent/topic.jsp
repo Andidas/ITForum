@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="css/topic.css" rel="stylesheet" />
 		<link href="dist/summernote.css" rel="stylesheet" />
 </head>
-<body>
+<body >
 <jsp:include page="nav.jsp" flush="true"></jsp:include>
 	<div class="container">
 		<div class="row clearfix">
@@ -159,25 +159,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 					</c:forEach>
 				</div>
-					
-				<div id="pageForm">
-					<input type="hidden" name="pageno" id="pageno">
-					<a onclick="findPage(1)">&laquo;</a>  
-					<c:if test="${ReplyPage.pageParam.pageno>1 }">
-						<a onclick="findPage(${ReplyPage.pageParam.pageno-1})">&larr;</a>
-					</c:if>
-					<c:forEach begin="1" end="${ReplyPage.totalPageCount }" var="i" step="1">
-						<a onclick="findPage(${i})">${i }</a>
-					</c:forEach>
-					<c:if test="${ReplyPage.pageParam.pageno<ReplyPage.totalPageCount }">
-						<a onclick="findPage(${ReplyPage.pageParam.pageno+1})">&rarr;</a>
-					</c:if>
-					<a onclick="findPage(${ReplyPage.totalPageCount })" >&raquo;</a>
-					<input type="hidden" name="totalCount" id="totalCount" value="${ReplyPage.totalPageCount }">
-					<input id="topage" size="3"><a onclick="jump()">跳转</a>
-				</div>
 				
-				
+   				<ul class="pagination" id="pagination"></ul>
+   				
 				<div id="summernoteReply" ></div>
 				<a class="btn btn-success" id="ReplyTopic">回复</a>
 				
@@ -246,9 +230,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
 <script src="dist/summernote.js"></script>
 <script src="dist/lang/summernote-zh-CN.js"></script>
+<script type="text/javascript" src="js/jqPaginator.js"></script>
+
 <!-- 回复的分页查询 -->
 <script type="text/javascript">
-	
+	$.jqPaginator('#pagination', {
+	    //totalPages: ${ReplyPage.totalPageCount},
+	   // visiblePages: ${ReplyPage.pageParam.pagesize},
+	   totalPages: 11,
+	    visiblePages:5,
+	    currentPage: 1,
+	    onPageChange: function (num, type) {
+	        findPage(num);
+	       
+	    }
+	});
 	function findPage(pageno){
 		var param ={
 			'op':'findReplyByPage',
@@ -259,9 +255,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(data=="false"){
 				alert('分页查询失败');
 			}else{
-				
 				$('.answers').empty();
-				var replys = eval(data);
+				var replys = JSON.parse(data);
 				$.each(replys,function(i,reply){
 					var text = replyContent(reply);
 					$('.answers').append(text);
@@ -270,10 +265,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		});
 	}
-	function jump(){
-		var pageno = document.getElementById("topage").value;
-		findPage(pageno);
-	}
+	
 </script>
 <!-- 回复帖子  -->
 <script type="text/javascript">
@@ -548,5 +540,10 @@ var ImgIputHandler={
 	$(function(){
 		$('.date-dz-z').click(clickZan);		
 	});
+	
+</script>
+<!-- 图片放大器 -->
+<script>
+   
 </script>
 </html>
