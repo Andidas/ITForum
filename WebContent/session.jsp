@@ -60,11 +60,11 @@
 			</div>
 		</div>
 		<div class="col-md-8" id="mainContent">
-			<ul class="content-text" >
+			<ul class="content-text clearfix" >
 	
 				<c:forEach items="${nowActiveSessionView.topicViewPM.data}" var="topicList" >
-					<li class="clearfix">
-						<div class="col-xs-2">
+					<li class="clearfix ">
+						<div class="col-xs-1">
 							<div class="thumbsUp">
 								<p title="回复条数">
 									<span class="activeSpan">${topicList.treplycount}</span><span class="glyphicon glyphicon-comment"></span>
@@ -78,7 +78,7 @@
 								</p>
 							</div>
 						</div>
-						<div class="panel col-xs-10">
+						<div class="panel col-xs-11">
 							<div class="panel-heading">
 								<a href="javaScript:void(0)" class="TopicTName" title="题目">${topicList.ttopic}</a>
 								<input type="hidden" class="topicTid" value="${topicList.tid}">
@@ -107,7 +107,7 @@
 			
 			<ul class="paginate" id="paginate"></ul>			
 			
-			<div class="col-xs-10 col-xs-offset-2" id="releaseTopic">
+			<div class="col-xs-12" id="releaseTopic">
 				<div id="topicTitle" class="topicTitle">
 					<input type="text" id="topicTitleText" placeholder="请输入题目"/>
 				</div>
@@ -117,7 +117,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-4" style="padding-left:0;">
 			<div class="panel " id="HotQuestion">
 				<div class="panel-heading">
 					<h3 class="panel-title">相关session</h3>

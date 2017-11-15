@@ -4,7 +4,6 @@ import java.util.List;
 
 import dao.impl.SessionDaoImpl;
 import entity.Session;
-import entity.viewEntity.SessionView;
 import service.iService.ISessionService;
 
 /**

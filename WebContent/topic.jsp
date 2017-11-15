@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*"
-	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" deferredSyntaxAllowedAsLiteral="false"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -39,6 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input type="hidden" value="${nowActiveTopicView.tsid}" class="sessionSid" id="sessionSid"/>
 				</a>
 			</div>
+			
 			<div class="col-md-8  column">
 				<div class="answer" style="border-bottom: transparent;">
 					<table>
@@ -214,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<c:forEach items="${nowActiveTopicView.sameTopic}" var="sametopic">
 								<li>
 									<span class="label label-success col-xs-1" title="有多少人回复">${sametopic.treplycount }</span>
-									<a href="javaScript:void(0)" class="col-xs-11" onclick="topicjumg(this,${nowActiveTopicView.tsid})">${sametopic.ttopic}</a>
+									<a href="javaScript:;" class="col-xs-11" onclick="topicjumg(this,${nowActiveTopicView.tsid})">${sametopic.ttopic}</a>
 									<input type="hidden" class="topicTid" value="${sametopic.tid}">
 								</li>
 							</c:forEach>
@@ -225,7 +227,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 
-	
 </body>
 <script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
 <script src="dist/summernote.js"></script>
