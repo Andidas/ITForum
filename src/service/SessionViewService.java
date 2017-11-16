@@ -3,7 +3,9 @@ package service;
 import java.util.List;
 
 import service.iService.ISessionViewService;
-import dao.impl.SessionDaoImpl;
+import dao.SessionDao;
+import dao.factory.DaoFactory;
+import dao.factory.DaoFactory.EnumDaoFactory;
 import entity.PageMode;
 import entity.Session;
 import entity.viewEntity.TopicView;
@@ -16,7 +18,7 @@ import entity.viewEntity.SessionView;
  *
  */
 public class SessionViewService implements ISessionViewService{
-	private SessionDaoImpl sdi = new SessionDaoImpl();
+	private SessionDao sessionDao = DaoFactory.getInstance(EnumDaoFactory.SESSION).getSessionDao();
 	private final static int PAGENO = 1;//第几页
 	private final static int PAGESIZE =5;//每页条数
 	
@@ -37,7 +39,7 @@ public class SessionViewService implements ISessionViewService{
 		if(sid==null||sid.equals(""))return null;
 		
 		int sessionId = Integer.parseInt(sid);
-		SessionView sessionView =sdi.querySessionView(sessionId);
+		SessionView sessionView =sessionDao.querySessionView(sessionId);
 		
 		PageMode<TopicView> topicViewPM = topicViewService.TopicSplitPage(PAGENO, PAGESIZE, sessionId);
 		setTopicViewContents(topicViewPM.getData());

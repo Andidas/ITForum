@@ -5,7 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 import service.iService.IUserService;
-import dao.impl.UserDaoImpl;
+import dao.UserDao;
+import dao.factory.DaoFactory;
+import dao.factory.DaoFactory.EnumDaoFactory;
 import entity.User;
 
 /**
@@ -14,16 +16,16 @@ import entity.User;
  */
 public class UserService implements IUserService{
 
-	UserDaoImpl udi = new UserDaoImpl();
+	UserDao userDao = DaoFactory.getInstance(EnumDaoFactory.USER).getUserDao();
 	
 	public List<User> queryUserList() {
-		return udi.queryUserList();
+		return userDao.queryUserList();
 	}
 	public User queryUser(String email) {
-		return udi.queryUser(email);
+		return userDao.queryUser(email);
 	}
 	public boolean checkUser(String email, String password) {
-		return udi.checkUser(email, password);
+		return userDao.checkUser(email, password);
 	}
 	public User modifyUser(User u,String uname,String uhead,String uemail,String usex,String ubirthady,String usatement){
 		User user = null;
@@ -38,7 +40,7 @@ public class UserService implements IUserService{
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
-		if(udi.modifyUser(user)>0){
+		if(userDao.modifyUser(user)>0){
 			return user;			
 		}
 		return null;
@@ -53,7 +55,7 @@ public class UserService implements IUserService{
 			user.setUemail(email);
 			user.setUpassword(password);
 			user.setUregdate(regdateTime);
-			if(udi.addUser(user)>0){
+			if(userDao.addUser(user)>0){
 				result = 4;
 			}else{
 				result = 2;
@@ -67,13 +69,13 @@ public class UserService implements IUserService{
 	@Override
 	public boolean modifyPasswordByEmail(String email, String password) {
 		int result = 0;
-		result = udi.modifyPasswordByEmail(email, password);
+		result = userDao.modifyPasswordByEmail(email, password);
 		
 		return result > 0;
 	}
 	@Override
 	public boolean isNameExist(String uname) {
-		return udi.queryUserIDByName(uname)>0;
+		return userDao.queryUserIDByName(uname)>0;
 	}
 	
 	

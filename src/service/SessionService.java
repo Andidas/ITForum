@@ -2,7 +2,9 @@ package service;
 
 import java.util.List;
 
-import dao.impl.SessionDaoImpl;
+import dao.SessionDao;
+import dao.factory.DaoFactory;
+import dao.factory.DaoFactory.EnumDaoFactory;
 import entity.Session;
 import service.iService.ISessionService;
 
@@ -11,13 +13,13 @@ import service.iService.ISessionService;
  * session°æ¿é
  */
 public class SessionService implements ISessionService {
-	SessionDaoImpl sdi = new SessionDaoImpl();
+	SessionDao sessionDao = DaoFactory.getInstance(EnumDaoFactory.SESSION).getSessionDao();
 
 	
 	@Override
 	public Session searchSession(int sid) {
 		Session session = null;
-		session = sdi.searchSession(sid);
+		session = sessionDao.searchSession(sid);
 		return session;
 	}
 
@@ -25,23 +27,23 @@ public class SessionService implements ISessionService {
 	public List<Session> querySameSession(String sprofile,int sid) {
 		Session session = new Session();
 		session.setSprofile(sprofile);session.setSid(sid);
-		return sdi.querySameSession(session);
+		return sessionDao.querySameSession(session);
 	}
 
 	@Override
 	public boolean subSessionStopiccount(String sname) {
-		return sdi.subSessionStopiccount(sname)>0;
+		return sessionDao.subSessionStopiccount(sname)>0;
 	}
 
 	@Override
 	public int querySessionStopicCount(String sname) {
 		
-		return sdi.querySessionStopicCount(sname);
+		return sessionDao.querySessionStopicCount(sname);
 	}
 	@Override
 	public boolean updateSessionClickCount(String sid) {
 		int sessionId = Integer.parseInt(sid);
-		return sdi.updateSessionClickCount(sessionId)>0;
+		return sessionDao.updateSessionClickCount(sessionId)>0;
 	}
 
 	

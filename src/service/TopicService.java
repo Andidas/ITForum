@@ -3,14 +3,17 @@ package service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import dao.impl.SessionDaoImpl;
-import dao.impl.TopicDaoImpl;
-import entity.Topic;
+
 import service.iService.ITopicService;
+import dao.SessionDao;
+import dao.TopicDao;
+import dao.factory.DaoFactory;
+import dao.factory.DaoFactory.EnumDaoFactory;
+import entity.Topic;
 
 public class TopicService implements ITopicService {
-	private TopicDaoImpl tdi = new TopicDaoImpl();
-	private SessionDaoImpl sdi = new SessionDaoImpl();
+	private TopicDao topicDao = DaoFactory.getInstance(EnumDaoFactory.TOPIC).getTopicDao();
+	private SessionDao sessionDao = DaoFactory.getInstance(EnumDaoFactory.SESSION).getSessionDao();
 	
 	@Override
 	public boolean addTopic(String tsid, String tuid, String ttopic,
@@ -24,8 +27,8 @@ public class TopicService implements ITopicService {
 		int sid = Integer.parseInt(tsid);
 		//Éú³Étopic
 		Topic topic = new Topic(0,sid,uid,0,null,ttopic,tcontents,ttime,0,0,uid,ttime);
-		if(sdi.addSessionStopiccount(sid)>0){
-			return tdi.addTopic(topic)>0;
+		if(sessionDao.addSessionStopiccount(sid)>0){
+			return topicDao.addTopic(topic)>0;
 		}else {
 			return false;
 		}	
@@ -34,19 +37,19 @@ public class TopicService implements ITopicService {
 	@Override
 	public List<Topic> querySameTopicListByTSID(int tsid) {
 		List<Topic> topicList = null;
-		topicList = tdi.querySameTopicListByTSID(tsid);
+		topicList = topicDao.querySameTopicListByTSID(tsid);
 		return topicList;
 	}
 
 	@Override
 	public Topic queryTopicOneByTopic(int tid) {
-		return tdi.queryTopicOneByTopic(tid);
+		return topicDao.queryTopicOneByTopic(tid);
 	}
 
 	@Override
 	public boolean updateClickCount(String id) {
 		int tid = Integer.parseInt(id);
-		return tdi.updateClickCount(tid)>0;
+		return topicDao.updateClickCount(tid)>0;
 	}
 	
 	

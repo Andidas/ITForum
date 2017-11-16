@@ -5,18 +5,20 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import dao.impl.ReplyDaoImpl;
-import dao.impl.TopicDaoImpl;
 import service.iService.ITopicViewService;
+import dao.ReplyDao;
+import dao.TopicDao;
+import dao.factory.DaoFactory;
+import dao.factory.DaoFactory.EnumDaoFactory;
 import entity.PageMode;
 import entity.PageParam;
-import entity.viewEntity.ReplyView;
 import entity.Topic;
+import entity.viewEntity.ReplyView;
 import entity.viewEntity.TopicView;
 
 public class TopicViewService implements ITopicViewService {
-	private ReplyDaoImpl rdi = new ReplyDaoImpl();
-	private TopicDaoImpl tdi = new TopicDaoImpl();
+	private ReplyDao replyDao = DaoFactory.getInstance(EnumDaoFactory.REPLY).getReplyDao();
+	private TopicDao topicDao = DaoFactory.getInstance(EnumDaoFactory.TOPIC).getTopicDao();
 	private final static int PAGENO = 1;//第几页
 	private final static int PAGESIZE =5;//每页条数
 	
@@ -49,7 +51,7 @@ public class TopicViewService implements ITopicViewService {
 	@Override
 	public PageMode<TopicView> TopicSplitPage(int pageno, int pagesize,int tsid) {
 		PageParam pageParam = new PageParam(pageno, pagesize, tsid);
-		return tdi.splitPage(pageParam);
+		return topicDao.splitPage(pageParam);
 	}
 	@Override
 	public TopicView getTopicViewOne(String id,String sid) {
@@ -59,9 +61,9 @@ public class TopicViewService implements ITopicViewService {
 		 //该topic的所有回帖
 		 PageMode<ReplyView> allReply = queryReplyViewPageMode(PAGENO, PAGESIZE, tid);
 		 //和该topic相似的topics
-		 List<Topic> sameList = tdi.querySameTopicListByTSID(sessionid);
+		 List<Topic> sameList = topicDao.querySameTopicListByTSID(sessionid);
 		 
-		 topicView = tdi.getTopicViewOne(tid);
+		 topicView = topicDao.getTopicViewOne(tid);
 		 topicView.setAllReply(allReply);	
 		 topicView.setSameTopic(sameList);
 		return topicView;
@@ -69,7 +71,7 @@ public class TopicViewService implements ITopicViewService {
 	@Override
 	public PageMode<ReplyView> queryReplyViewPageMode(int pageno, int pagesize,int rtid) {
 		PageParam pageParam = new PageParam(pageno, pagesize, rtid);
-		return rdi.queryReplyViewList(pageParam);
+		return replyDao.queryReplyViewList(pageParam);
 	}
 	
 

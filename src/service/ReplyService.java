@@ -2,6 +2,10 @@ package service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import dao.ReplyDao;
+import dao.factory.DaoFactory;
+import dao.factory.DaoFactory.EnumDaoFactory;
 import dao.impl.ReplyDaoImpl;
 import dao.impl.TopicDaoImpl;
 import entity.Reply;
@@ -9,11 +13,11 @@ import entity.Topic;
 import service.iService.IReplyService;
 
 public class ReplyService implements IReplyService {
-	private ReplyDaoImpl rdi = new ReplyDaoImpl();
+	private ReplyDao replyDao = DaoFactory.getInstance(EnumDaoFactory.REPLY).getReplyDao();
 
 	@Override
 	public boolean deleteReplyOne(int rid) {
-		return rdi.deleteReplyOne(rid)>0;
+		return replyDao.deleteReplyOne(rid)>0;
 	}
 	
 	@Override
@@ -44,7 +48,7 @@ public class ReplyService implements IReplyService {
 			System.out.println("»ØÌûÊý¼Ó1Ê§°Ü");
 			return false;
 		}else{
-			return rdi.addReplyOne(reply) > 0;
+			return replyDao.addReplyOne(reply) > 0;
 		}
 	}
 

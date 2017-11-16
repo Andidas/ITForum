@@ -1,15 +1,13 @@
 package service;
 
-import dao.impl.FollowDaoImpl;
-import dao.impl.SessionDaoImpl;
-import dao.impl.UserDaoImpl;
+import dao.FollowDao;
+import dao.factory.DaoFactory;
+import dao.factory.DaoFactory.EnumDaoFactory;
 import entity.Follow;
 import service.iService.IFollowService;
 
 public class FollowService implements IFollowService {
-	FollowDaoImpl fdi = new FollowDaoImpl();
-	UserDaoImpl udi = new UserDaoImpl();
-	SessionDaoImpl sdi = new SessionDaoImpl();
+	private FollowDao followDao = DaoFactory.getInstance(EnumDaoFactory.FOLLOW).getFollowDao();
 	@Override
 	public boolean addFollow(String userid, String sessionid) {
 		Follow follow = new Follow();
@@ -17,7 +15,7 @@ public class FollowService implements IFollowService {
 		int sid = Integer.parseInt(sessionid);
 		follow.setUid(uid);
 		follow.setSid(sid);
-		return fdi.addFollow(follow) > 0;
+		return followDao.addFollow(follow) > 0;
 	}
 
 	@Override
@@ -27,9 +25,9 @@ public class FollowService implements IFollowService {
 		Follow follow = new Follow();
 		follow.setUid(uid);
 		follow.setSid(sid);
-		int fid = fdi.queryFollowID(follow);
+		int fid = followDao.queryFollowID(follow);
 		if(fid>0){
-			return fdi.deleteFollow(fid)>0;			
+			return followDao.deleteFollow(fid)>0;			
 		}else{
 			return false;
 		}
@@ -37,7 +35,7 @@ public class FollowService implements IFollowService {
 
 	@Override
 	public int queryFollowCount(int sid) {
-		return fdi.queryFollowCount(sid);
+		return followDao.queryFollowCount(sid);
 	}
 
 }
