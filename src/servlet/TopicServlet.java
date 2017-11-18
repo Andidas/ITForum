@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import entity.PageMode;
 import entity.viewEntity.ReplyView;
 import entity.viewEntity.TopicView;
 import service.JsonService;
 import service.TopicService;
 import service.TopicViewService;
+import utils.ConstantsData;
 
 /**
  * topic
@@ -24,10 +24,7 @@ import service.TopicViewService;
  */
 public class TopicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 每页数据条数
-	 */
-	private static final int PAGESIZE =5; 
+	 
 	/*实例化业务类*/
 	private TopicService ts = new TopicService();
 	private TopicViewService tvs = new TopicViewService();
@@ -75,14 +72,14 @@ public class TopicServlet extends HttpServlet {
 	private void findReplyByPage(HttpServletRequest request,
 			HttpServletResponse response)throws ServletException, IOException  {
 		PrintWriter out = response.getWriter();
-		int pageno=1; //页数
+		int pageno=ConstantsData.PAGENO; //页数
 		
 		String pagenoStr = request.getParameter("pageno");
 		if(pagenoStr!=null&&!"".equals(pagenoStr)){
 			pageno = Integer.parseInt(pagenoStr);
 		}
 		String nowTopicTid = request.getParameter("nowTopicTid");
-		PageMode<ReplyView> pm = tvs.queryReplyViewPageMode(pageno, PAGESIZE, Integer.parseInt(nowTopicTid));
+		PageMode<ReplyView> pm = tvs.queryReplyViewPageMode(pageno, ConstantsData.PAGESIZE, Integer.parseInt(nowTopicTid));
 		if(pm==null){
 			out.print("false");
 		}else{

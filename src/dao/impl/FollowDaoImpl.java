@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.apache.ibatis.session.SqlSession;
 
 import dao.FollowDao;
-import db.DBAccess;
+import utils.db.DBAccess;
 import entity.Follow;
 
 public class FollowDaoImpl implements FollowDao {

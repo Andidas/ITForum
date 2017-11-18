@@ -11,6 +11,18 @@ import entity.viewEntity.SessionView;
  */
 public interface SessionDao {
 	/**
+	 * 查找session的id
+	 * @param sname
+	 * @return
+	 */
+	int querySessionID(String sname);
+	/**
+	 * 增加一个session
+	 * @param session
+	 * @return
+	 */
+	int insertSession(Session session);
+	/**
 	 * 查询session view
 	 * @param sid
 	 * @return

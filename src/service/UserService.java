@@ -5,9 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 import service.iService.IUserService;
+import utils.ConstantsData.EnumDaoFactory;
 import dao.UserDao;
 import dao.factory.DaoFactory;
-import dao.factory.DaoFactory.EnumDaoFactory;
 import entity.User;
 
 /**

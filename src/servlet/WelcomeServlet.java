@@ -12,11 +12,11 @@ import entity.viewEntity.TopicView;
 import service.SessionViewService;
 import service.TopicService;
 import service.TopicViewService;
+import utils.ConstantsData;
 
 public class WelcomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final static int PAGENO = 1;//第几页
-	private final static int PAGESIZE =5;//每页条数
+	
     TopicService topicService = new TopicService();
     TopicViewService topicviewService = new TopicViewService();
     SessionViewService svs = new SessionViewService();
@@ -30,7 +30,7 @@ public class WelcomeServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int sid = 9;
-		PageMode<TopicView> topicViewPageMode = topicviewService.TopicSplitPage(PAGENO,PAGESIZE,sid);
+		PageMode<TopicView> topicViewPageMode = topicviewService.TopicSplitPage(ConstantsData.PAGENO,ConstantsData.PAGESIZE,sid);
 		
 		svs.setTopicViewContents(topicViewPageMode.getData());
 		request.setAttribute("topicViewPageMode", topicViewPageMode);

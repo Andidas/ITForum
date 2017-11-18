@@ -3,14 +3,13 @@ package service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import service.iService.IReplyService;
+import utils.ConstantsData.EnumDaoFactory;
 import dao.ReplyDao;
 import dao.factory.DaoFactory;
-import dao.factory.DaoFactory.EnumDaoFactory;
-import dao.impl.ReplyDaoImpl;
 import dao.impl.TopicDaoImpl;
 import entity.Reply;
 import entity.Topic;
-import service.iService.IReplyService;
 
 public class ReplyService implements IReplyService {
 	private ReplyDao replyDao = DaoFactory.getInstance(EnumDaoFactory.REPLY).getReplyDao();

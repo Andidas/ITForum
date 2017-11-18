@@ -37,10 +37,10 @@
 
 			<div class="col-md-3" style="width: 230px">
 				<c:if test="${empty nowActiveSessionView.spicture}">
-					<img src="img/photo.jpg" />
+					<img src="img/ITForum.jpg" />
 				</c:if>
 				<c:if test="${not empty nowActiveSessionView.spicture}">
-					<img src="${nowActiveSession.spicture}" />
+					<img src="files/${nowActiveSessionView.spicture}" />
 				</c:if>
 			</div>
 			<div class="page-header col-md-9">

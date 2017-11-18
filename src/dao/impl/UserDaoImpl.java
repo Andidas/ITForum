@@ -3,13 +3,10 @@ package dao.impl;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
-
 import org.apache.ibatis.session.SqlSession;
 
-import utils.DBUtils;
 import dao.UserDao;
-import db.DBAccess;
+import utils.db.DBAccess;
 import entity.User;
 
 /**

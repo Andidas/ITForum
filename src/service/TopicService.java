@@ -5,10 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import service.iService.ITopicService;
+import utils.ConstantsData.EnumDaoFactory;
 import dao.SessionDao;
 import dao.TopicDao;
 import dao.factory.DaoFactory;
-import dao.factory.DaoFactory.EnumDaoFactory;
 import entity.Topic;
 
 public class TopicService implements ITopicService {

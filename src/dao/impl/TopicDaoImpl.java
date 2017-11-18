@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import dao.TopicDao;
-import db.DBAccess;
+import utils.db.DBAccess;
 import entity.PageMode;
 import entity.PageParam;
 import entity.Topic;

@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import dao.SessionDao;
-import db.DBAccess;
+import utils.db.DBAccess;
 import entity.Session;
 import entity.viewEntity.SessionView;
 
@@ -149,6 +149,40 @@ public class SessionDaoImpl implements SessionDao {
 				sqlSession.close();
 			}
 		return null;
+	}
+
+
+	@Override
+	public int insertSession(Session session) {
+		 try {
+			 int result = 0;
+				sqlSession  = dbAccess.getSqlSession();
+				result = sqlSession.insert("Session.insertSession",session);
+				sqlSession.commit();
+				return result;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				sqlSession.close();
+			}
+		return 0;
+	}
+
+
+	@Override
+	public int querySessionID(String sname) {
+		 try {
+			 int result = 0;
+				sqlSession  = dbAccess.getSqlSession();
+				result = sqlSession.selectOne("Session.querySessionID",sname);
+				
+				return result;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				sqlSession.close();
+			}
+		return 0;
 	}
 
 	

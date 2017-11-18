@@ -3,13 +3,18 @@ package service.iService;
 import java.util.List;
 
 import entity.Session;
-import entity.viewEntity.SessionView;
 
 /**
  * @author 刘伟艺
  * session版块接口
  */
 public interface ISessionService {
+	/**
+	 * 查找session
+	 * @param sname
+	 * @return
+	 */
+	int querySessionID(String sname);
 	
 	/**
 	 * 通过搜索栏查询到的内容
@@ -57,6 +62,17 @@ public interface ISessionService {
 	 * @return
 	 */
 	boolean updateSessionClickCount(String sid);
+	/**
+	 * 新增session
+	 * @param sname
+	 * @param smasterid
+	 * @param sprofile
+	 * @param sstatement
+	 * @param spicture
+	 * @return
+	 */
+	boolean addSession(String sname, int smasterid, String sprofile,
+			String sstatement, String spicture);
 	
 }		
  

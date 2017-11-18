@@ -2,11 +2,11 @@ package service;
 
 import java.util.List;
 
+import service.iService.ISessionService;
+import utils.ConstantsData.EnumDaoFactory;
 import dao.SessionDao;
 import dao.factory.DaoFactory;
-import dao.factory.DaoFactory.EnumDaoFactory;
 import entity.Session;
-import service.iService.ISessionService;
 
 /**
  * @author ¡ıŒ∞“’
@@ -60,6 +60,20 @@ public class SessionService implements ISessionService {
 	public List<Session> searchSession(String searchText) {
 		String Text = searchText.substring(1,searchText.length()-1);
 		return sessionDao.searchSession(Text);
+	}
+	@Override
+	public boolean addSession(String sname, int smasterid, String sprofile,
+			String sstatement, String spicture) {
+		Session session = new Session();
+		session.setSname(sname);
+		session.setSmasterid(smasterid);
+		session.setSprofile(sprofile);session.setSstatement(sstatement);
+		session.setSpicture(spicture);
+		return sessionDao.insertSession(session)>0;
+	}
+	@Override
+	public int querySessionID(String sname) {
+		return sessionDao.querySessionID(sname);
 	}
 
 	

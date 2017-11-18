@@ -2,9 +2,9 @@ package service;
 
 import dao.FollowDao;
 import dao.factory.DaoFactory;
-import dao.factory.DaoFactory.EnumDaoFactory;
 import entity.Follow;
 import service.iService.IFollowService;
+import utils.ConstantsData.EnumDaoFactory;
 
 public class FollowService implements IFollowService {
 	private FollowDao followDao = DaoFactory.getInstance(EnumDaoFactory.FOLLOW).getFollowDao();

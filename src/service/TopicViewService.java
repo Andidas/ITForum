@@ -6,10 +6,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import service.iService.ITopicViewService;
+import utils.ConstantsData.EnumDaoFactory;
 import dao.ReplyDao;
 import dao.TopicDao;
 import dao.factory.DaoFactory;
-import dao.factory.DaoFactory.EnumDaoFactory;
 import entity.PageMode;
 import entity.PageParam;
 import entity.Topic;

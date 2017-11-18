@@ -41,9 +41,13 @@
 					<c:forEach items="${topics}" var="topic">
 
 						<tr>
-							<td>${topic.ttopic }</td>
+							<td>
+							
+							<a href="javaScript:;" class="topicTName" onclick="topicjumg(this,${topic.tsid})">${topic.ttopic }</a>
+							<input type="hidden" class="topicTid" value="${topic.tid }">
+						
+							</td>
 							<td>${topic.tcontents }</td>
-
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -62,7 +66,10 @@
 					<c:forEach items="${sessions}" var="session">
 						<tr>
 							<td>${session.sprofile }</td>
-							<td>${session.sname }</td>
+							<td>
+							<a href="javaScript:;" class="sessionName">${session.sname }</a>
+							<input type="hidden" class="sessionSid" value="${session.sid }">
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -71,13 +78,14 @@
 	</div>
 
 </body>
+<script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$('#newSession').click(function(){
 			if($('#nowUserName').html()==undefined){
 				alert('请登录');
 			}else{
-				location.href="newSession.jsp"
+				location.href="Session?op=toNewSession"
 			}
 		});
 	});

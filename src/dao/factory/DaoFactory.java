@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import utils.ConstantsData.EnumDaoFactory;
 import dao.FollowDao;
 import dao.ReplyDao;
 import dao.SessionDao;
@@ -106,16 +107,5 @@ public class DaoFactory {
 	private static UserDao userDao = null;
 	private static SessionDao sessionDao = null;
 
-	/**
-	 * dao的工厂枚举
-	 * @author lwy
-	 * @param FOLLOW -> FollowDao接口实例
-	 * @param REPLY -> ReplyDao
-	 * @param SESSION -> SessionDao
-	 * @param TOPIC -> TopicDao
-	 * @param USER -> UserDao
-	 */
-	public enum EnumDaoFactory {
-		FOLLOW, REPLY, SESSION, TOPIC, USER;
-	}
+	
 }
