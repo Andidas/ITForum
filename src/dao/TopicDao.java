@@ -14,6 +14,13 @@ import entity.viewEntity.TopicView;
 
 
 public interface TopicDao {
+	
+	/**
+	 * 搜索帖子，由题目和内容
+	 * @param text
+	 * @return
+	 */
+	List<Topic> searchTopicAndContents(String text);
 	/**
 	 * 查询单个topic view
 	 * @param tid

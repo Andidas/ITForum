@@ -11,8 +11,18 @@ import entity.viewEntity.SessionView;
  */
 public interface ISessionService {
 	
-	
-	
+	/**
+	 * 通过搜索栏查询到的内容
+	 * @param searchText
+	 * @return
+	 */
+	List<Session> searchSession(String searchText);
+	/**
+	 * 是否是查询session
+	 * @param text
+	 * @return
+	 */
+	public boolean isSearchSession(String text);
 	/**
 	 * 帖子数减1
 	 * @param sname

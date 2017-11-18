@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID">
   <display-name>ITForum</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+  
+  
+  <!-- 搜索框 -->
+  <servlet>
+    <servlet-name>SearchServlet</servlet-name>
+    <servlet-class>servlet.SearchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/Search</url-pattern>
+  </servlet-mapping>
+  <!-- 首页  -->
   <servlet>
     <servlet-name>WelcomeServlet</servlet-name>
     <servlet-class>servlet.WelcomeServlet</servlet-class>
@@ -17,6 +21,7 @@
     <servlet-name>WelcomeServlet</servlet-name>
     <url-pattern>/welcome</url-pattern>
   </servlet-mapping>
+  <!-- 回帖 -->
   <servlet>
     <servlet-name>ReplyServlet</servlet-name>
     <servlet-class>servlet.ReplyServlet</servlet-class>
@@ -25,6 +30,7 @@
     <servlet-name>ReplyServlet</servlet-name>
     <url-pattern>/Reply</url-pattern>
   </servlet-mapping>
+  <!-- 关注，取消关注 -->
   <servlet>
     <servlet-name>FollowAndUnfollowServlet</servlet-name>
     <servlet-class>servlet.FollowAndUnfollowServlet</servlet-class>
@@ -33,6 +39,7 @@
     <servlet-name>FollowAndUnfollowServlet</servlet-name>
     <url-pattern>/FollowAndUnfollow</url-pattern>
   </servlet-mapping>
+  <!-- 帖子 -->
   <servlet>
     <servlet-name>TopicServlet</servlet-name>
     <servlet-class>servlet.TopicServlet</servlet-class>
@@ -41,6 +48,7 @@
     <servlet-name>TopicServlet</servlet-name>
     <url-pattern>/Topic</url-pattern>
   </servlet-mapping>
+  <!-- 版块 -->
   <servlet>
     <servlet-name>SessionServlet</servlet-name>
     <servlet-class>servlet.SessionServlet</servlet-class>
@@ -49,6 +57,7 @@
     <servlet-name>SessionServlet</servlet-name>
     <url-pattern>/Session</url-pattern>
   </servlet-mapping>
+  <!-- 上传文件 -->
   <servlet>
     <servlet-name>UploadFileTopicServlet</servlet-name>
     <servlet-class>servlet.UploadFileTopicServlet</servlet-class>
@@ -57,6 +66,7 @@
     <servlet-name>UploadFileTopicServlet</servlet-name>
     <url-pattern>/UploadFileTopic</url-pattern>
   </servlet-mapping>
+  <!-- 用户 -->
   <servlet>
     <servlet-name>UserServlet</servlet-name>
     <servlet-class>servlet.UserServlet</servlet-class>
@@ -65,6 +75,7 @@
     <servlet-name>UserServlet</servlet-name>
     <url-pattern>/UserServlet</url-pattern>
   </servlet-mapping>
+  <!-- 验证码 -->
   <servlet>
     <servlet-name>AuthenticateServlet</servlet-name>
     <servlet-class>servlet.AuthenticateServlet</servlet-class>
@@ -93,6 +104,7 @@
     <servlet-name>StartCaptchaServlet2</servlet-name>
     <url-pattern>/gt/register2</url-pattern>
   </servlet-mapping>
+  <!-- 过滤器 -->
   <filter>
     <filter-name>EncodingFilter</filter-name>
     <filter-class>filter.EncodingFilter</filter-class>

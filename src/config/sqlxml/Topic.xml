@@ -21,6 +21,13 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Topic">
+
+
+	<!-- 搜索框 -->
+	<select id="searchTopicAndContents" parameterType="STRING" resultMap="TopicResult">
+		select * from topic where ttopic like CONCAT(CONCAT('%', #{_parameter}), '%') or tcontents like CONCAT(CONCAT('%', #{_parameter}), '%');
+	</select>
+	
 	<resultMap type="entity.Topic" id="TopicResult">
 		<id column="tid" jdbcType="INTEGER" property="tid" />
 		<result column="tsid" jdbcType="INTEGER" property="tsid" />

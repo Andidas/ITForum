@@ -55,6 +55,14 @@ public interface SessionDao {
 	 * @return 版块组
 	 */
 	List<Session> querySameSession(Session session);
+	/**
+	 * 通过搜索栏查找session
+	 * @param searchText
+	 * @return
+	 */
+	List<Session> searchSession(String searchText);
+	
+
 	
 	
 }

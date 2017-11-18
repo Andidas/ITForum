@@ -21,7 +21,10 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Session">
-	
+	<!-- 通过搜索栏查找session -->
+	<select id="searchSession" parameterType="STRING" resultMap="SessionResult">
+	select * from session where sname like CONCAT(CONCAT('%', #{_parameter}), '%')
+	</select>
 	<resultMap type="entity.Session" id="SessionResult">
 		<id column="sid" jdbcType="INTEGER" property="sid" />
 		<result column="sname" jdbcType="VARCHAR" property="sname" />

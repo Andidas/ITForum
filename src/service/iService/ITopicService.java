@@ -2,7 +2,6 @@ package service.iService;
 
 import java.util.List;
 
-import net.sf.json.JSONArray;
 import entity.Topic;
 
 /**
@@ -10,6 +9,7 @@ import entity.Topic;
  * 帖子接口
  */
 public interface ITopicService {
+	List<Topic> searchTopicAndContents(String text);
 	/**
 	 * 点击次数加1
 	 */

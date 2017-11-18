@@ -15,7 +15,18 @@ import service.iService.ISessionService;
 public class SessionService implements ISessionService {
 	SessionDao sessionDao = DaoFactory.getInstance(EnumDaoFactory.SESSION).getSessionDao();
 
-	
+	@Override
+	public boolean isSearchSession(String text){
+		if(!text.equals("")&&text.length()>2){
+			char [] t = text.toCharArray();
+			int first = t[0];
+			int last = t[t.length-1];
+			if(first==91&&last==93){
+				return true;
+			}
+		}
+		return false;
+	}
 	@Override
 	public Session searchSession(int sid) {
 		Session session = null;
@@ -44,6 +55,11 @@ public class SessionService implements ISessionService {
 	public boolean updateSessionClickCount(String sid) {
 		int sessionId = Integer.parseInt(sid);
 		return sessionDao.updateSessionClickCount(sessionId)>0;
+	}
+	@Override
+	public List<Session> searchSession(String searchText) {
+		String Text = searchText.substring(1,searchText.length()-1);
+		return sessionDao.searchSession(Text);
 	}
 
 	

@@ -148,4 +148,19 @@ public class TopicDaoImpl implements TopicDao {
 		return null;
 	}
 
+	@Override
+	public List<Topic> searchTopicAndContents(String text) {
+		try {
+			List<Topic> topics = null;
+			sqlSession = dbAccess.getSqlSession();
+			topics = sqlSession.selectList("Topic.searchTopicAndContents", text);
+			return topics;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			if(sqlSession!=null)sqlSession.close();
+		}
+		return null;
+	}
+
 }

@@ -135,6 +135,22 @@ public class SessionDaoImpl implements SessionDao {
 		return null;
 	}
 
+
+	@Override
+	public List<Session> searchSession(String searchText) {
+		 try {
+			 List<Session> sessionList = null;
+				sqlSession  = dbAccess.getSqlSession();
+				sessionList = sqlSession.selectList("Session.searchSession",searchText);
+				return sessionList;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				sqlSession.close();
+			}
+		return null;
+	}
+
 	
 	
 

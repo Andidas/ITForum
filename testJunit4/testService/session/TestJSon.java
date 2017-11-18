@@ -1,4 +1,4 @@
-package testjson;
+package testService.session;
 
 import static org.junit.Assert.*;
 

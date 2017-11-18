@@ -51,6 +51,11 @@ public class TopicService implements ITopicService {
 		int tid = Integer.parseInt(id);
 		return topicDao.updateClickCount(tid)>0;
 	}
+
+	@Override
+	public List<Topic> searchTopicAndContents(String text) {
+		return topicDao.searchTopicAndContents(text);
+	}
 	
 	
 

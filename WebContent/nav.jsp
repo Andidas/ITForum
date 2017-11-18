@@ -72,8 +72,6 @@
 
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
-					
-
 					<form onsubmit="submitFn(this, event);">
 			            <div class="search-wrapper">
 			                <div class="input-holder">
@@ -81,8 +79,7 @@
 			                    <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
 			                </div>
 			                <span class="close" onclick="searchToggle(this, event);"></span>
-			                <div class="result-container">
-			                </div>
+			                
 			            </div>
 			       </form>
 
@@ -167,18 +164,13 @@ $(document).ready(function(){
 
         function submitFn(obj, evt){
             value = $(obj).find('.search-input').val().trim();
-
-            _html = "Yup yup! Your search text sounds like this: ";
             if(!value.length){
-                _html = "Yup yup! Add some text friend :D";
+                alert('请输入内容');
+                $(obj).focus();
+            }else{
+            	console.log(123);
+            	location.href="Search?value="+value;
             }
-            else{
-                _html += "<b>" + value + "</b>";
-            }
-
-            $(obj).find('.result-container').html('<span>' + _html + '</span>');
-            $(obj).find('.result-container').fadeIn(100);
-
             evt.preventDefault();
         }
     </script>
