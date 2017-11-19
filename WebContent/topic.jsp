@@ -21,38 +21,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 <title>主贴</title>
-		
-		<link href="css/init.css" rel="stylesheet" />
-		<link href="css/topic.css" rel="stylesheet" />
-		<link href="dist/summernote.css" rel="stylesheet" />
+<!-- 提示框 -->
+<link rel="stylesheet" href="css/zebra_tooltips.css" type="text/css"> 
+<!-- 初始化 -->
+<link href="css/init.css" rel="stylesheet" />
+<!--  -->
+<link href="css/topic.css" rel="stylesheet" />
+<!-- 富文本框 -->
+<link href="dist/summernote.css" rel="stylesheet" />
 </head>
 <body >
 <jsp:include page="nav.jsp" flush="true"></jsp:include>
 	<div class="container">
 		<div class="row clearfix">
 			<div class="col-lg-12 page-header">
-				<h2 class="col-lg-12" title="题目"  >
+				<h2 class="col-lg-12">
 				<span class="TopicTName" id="nowTopicName">${nowActiveTopicView.ttopic}</span>
 				<input type="hidden" value="${nowActiveTopicView.tid}" id="nowTopicTid" class="topicTid"/> 
 				</h2>
-				<a href="javaScript:void(0)" class="col-lg-12 pull-right" title="版块">-
+				<a href="javaScript:void(0)" class="col-lg-12 pull-right" >-
 					<span class="sessionName">${nowActiveTopicView.sname}</span>
 					<input type="hidden" value="${nowActiveTopicView.tsid}" class="sessionSid" id="sessionSid"/>
 				</a>
 			</div>
 			
 			<div class="col-md-8  column">
-				<div class="answer" style="border-bottom: transparent;">
+				<div class="answer" style="border-bottom: transparent;" id="questionMain">
 					<table>
 						<tbody>
 							<tr>
 								<td class="votecell">
 									<div class="vote">
-										 <span class="date-dz-z pull-left" title="赞">
+										 <span class="date-dz-z pull-left zebra_tips1" title="点赞，可以加该贴的排名">
     										<i class="date-dz-z-click-red"></i><i class="z-num">666</i></span>
 									</div>
 								</td>
-								<td class="answercell">
+								<td class="answercell" >
 									<div class="post-text" >
 										${nowActiveTopicView.tcontents}
 									</div>
@@ -60,8 +64,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<div class="post-signature" style="background-color:#eee;">
 											<div class="user-info ">
 												<div class="user-action-time">
-													asked <span title="发帖时间"
-														class="relativetime">${nowActiveTopicView.ttime}</span>
+													asked <span title="发帖时间:${nowActiveTopicView.ttime}"
+														class="relativetime zebra_tips1">${nowActiveTopicView.ttime}</span>
 												</div>
 												<div class="user-gravatar32">
 													<a href="user.html">
@@ -69,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</a>
 												</div>
 												<div class="user-details">
-													<a href="javaScript:void(0)" title="作者">${nowActiveTopicView.uname}</a>
+													<a href="javaScript:void(0)" title="发帖人:${nowActiveTopicView.uname}" class="zebra_tips1">${nowActiveTopicView.uname}</a>
 													<div class="-flair">
 														<span class="reputation-score" title="reputation score "
 															dir="ltr">1,993</span><span title="1 gold badge"><span
@@ -109,8 +113,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<tr>
 									<td class="votecell">
 										<div class="vote">
-											 <span class="date-dz-z pull-left" title="赞">
-    										<i class="date-dz-z-click-red"></i><i class="z-num">${replyList.rfavour}</i></span>
+											 <span class="date-dz-z pull-left">
+    										<i class="date-dz-z-click-red zebra_tips1"  title="点赞，可以加该贴的排名"></i><i class="z-num">${replyList.rfavour}</i></span>
 										</div>
 									</td>
 									<td class="answercell">
@@ -119,7 +123,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<div class="post-signature">
 												<div class="user-info ">
 													<div class="user-action-time">
-														answered <span title="时间">${replyList.rtime}</span>
+														answered <span title="回复时间:${replyList.rtime}" class="zebra_tips1">${replyList.rtime}</span>
 													</div>
 													<div class="user-gravatar32">
 														<a href="javaScript:;">
@@ -127,11 +131,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														</a>
 													</div>
 													<div class="user-details">
-														<a href="javaScript:;">${replyList.uname}</a>
+														<a href="javaScript:;" title="回帖人:${replyList.uname}" class="zebra_tips1">${replyList.uname}</a>
 														<div>
-															<span title="状态">${replyList.ustate}</span>
-															<span title="积分">${replyList.upoint}</span>
-															<span title="版主">${replyList.uissectioner}</span>
+															<span title="用户当前状态:${replyList.ustate}" class="zebra_tips1">${replyList.ustate}</span>
+															<span title="用户当前积分:${replyList.upoint}" class="zebra_tips1">${replyList.upoint}</span>
+															<span title="用户是否是版主:${replyList.uissectioner}" class="zebra_tips1">${replyList.uissectioner}</span>
 														</div>
 													</div>
 												</div>
@@ -162,7 +166,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</c:forEach>
 				</div>
 				
-   				<ul class="pagination" id="pagination"></ul>
+   				<!-- <ul class="pagination" id="pagination"></ul> -->
    				
 				<div id="summernoteReply" ></div>
 				<a class="btn btn-success" id="ReplyTopic">回复</a>
@@ -177,7 +181,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<p class="label-key">asked</p>
 								</td>
 								<td style="padding-left: 10px">
-									<p class="label-key" title="生成时间">
+									<p class="label-key zebra_tips1" title="发帖时间:${nowActiveTopicView.ttime}">
 										<b>${nowActiveTopicView.ttime}</b>
 									</p>
 								</td>
@@ -188,8 +192,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</td>
 
 								<td style="padding-left: 10px">
-									<p class="label-key">
-										<b>${nowActiveTopicView.tclickcount}</b>
+									<p class="label-key " >
+										<b class="zebra_tips1" title="观看人数:${nowActiveTopicView.tclickcount}">${nowActiveTopicView.tclickcount}</b>
 									</p>
 								</td>
 							</tr>
@@ -199,8 +203,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</td>
 								<td style="padding-left: 10px">
 									<p class="label-key">
-										<b><a class="lastactivity-link"
-											title="最后回复时间">${nowActiveTopicView.tlastreplaytime}</a></b>
+										<b><a class="lastactivity-link zebra_tips1"
+											title="最后回复时间:${nowActiveTopicView.tlastreplaytime}">${nowActiveTopicView.tlastreplaytime}</a></b>
 									</p>
 								</td>
 							</tr>
@@ -215,7 +219,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<ul class=""> 
 							<c:forEach items="${nowActiveTopicView.sameTopic}" var="sametopic">
 								<li>
-									<span class="label label-success col-xs-1" title="有多少人回复">${sametopic.treplycount }</span>
+									<span class="label label-success col-xs-1 zebra_tips1" title="回复人数:${sametopic.treplycount }">${sametopic.treplycount }</span>
 									<a href="javaScript:;" class="col-xs-11" onclick="topicjumg(this,${nowActiveTopicView.tsid})">${sametopic.ttopic}</a>
 									<input type="hidden" class="topicTid" value="${sametopic.tid}">
 								</li>
@@ -228,14 +232,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 
 </body>
+<!-- 页面跳转 -->
 <script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
+<!-- 富文本框 -->
 <script src="dist/summernote.js"></script>
 <script src="dist/lang/summernote-zh-CN.js"></script>
+<!-- 分页 -->
 <script type="text/javascript" src="js/jqPaginator.js"></script>
 
 <!-- 回复的分页查询 -->
 <script type="text/javascript">
-	$.jqPaginator('#pagination', {
+	/*$.jqPaginator('#pagination', {
 	    //totalPages: ${ReplyPage.totalPageCount},
 	   // visiblePages: ${ReplyPage.pageParam.pagesize},
 	   totalPages: 11,
@@ -245,7 +252,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        findPage(num);
 	       
 	    }
-	});
+	});*/
 	function findPage(pageno){
 		var param ={
 			'op':'findReplyByPage',
@@ -325,23 +332,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function replyContent(reply){
 		var text = "<div class='answer'><table><tbody><input type='hidden' class='rid' value='"
 					+ reply.rid
-					+"'><tr><td class='votecell'><div class='vote'><span class='date-dz-z pull-left' title='赞'>"
+					+"'><tr><td class='votecell'><div class='vote'><span class='date-dz-z pull-left zebra_tips1' title='点赞，可以加该贴的排名'>"
 					+"	<i class='date-dz-z-click-red'></i><i class='z-num'>"
 					+ reply.rfavour
 					+"</i></span></div></td><td class='answercell'><div>"
 					+ reply.rcontent
 					+"</div><div class='fw'><div class='post-signature'>"
-					+"<div class='user-info'><div class='user-action-time'>answered <span title='时间'>"
+					+"<div class='user-info'><div class='user-action-time'>answered <span title='回复时间:"+reply.rtime
+					+"' class='zebra_tips1'>"
 					+ reply.rtime
 					+"</span></div><div class='user-gravatar32'><a href='javaScript:;'>"
 					+"<img src='img/17883626.jpg' width='32' height='32'>"
-					+"</a></div><div class='user-details'><a href='javaScript:;' title='回复人'>"
+					+"</a></div><div class='user-details'><a href='javaScript:;' title='回帖人:"+reply.uname+"' class='zebra_tips1'>"
 					+ reply.uname
-					+"</a><div><span title='状态'>"
+					+"</a><div><span title='用户当前状态:"+reply.ustate+"' class='zebra_tips1'>"
 					+ reply.ustate
-					+"</span><span title='积分'>"
+					+"</span><span title='用户当前积分:"+reply.upoint+"' class='zebra_tips1'>"
 					+ reply.upoint
-					+"</span><span title='版主'>"
+					+"</span><span title='用户是否是版主:"+reply.uissectioner+"' class='zebra_tips1'>"
 					+ reply.uissectioner
 					+"</span></div></div></div></div></div></td></tr><tr><td class='votecell'></td>"
 					+"<td><div class='comments '>"
@@ -365,16 +373,16 @@ function addReply(obj,val){
 	var text = "<tr class='comment '>"
 					+"<td class='comment-actions'>"
 					+"<table><tbody><tr>"
-					+"<td class=' comment-score'><span title='条数'class='cool'>1</span></td>"
+					+"<td class=' comment-score'><span class='cool'>1</span></td>"
 					+"<td>&nbsp;</td></tr></tbody></table></td>"
 					+"<td class='comment-text'>"
 					+"<div style='display: block;' class='comment-body'>"
 					+"<span class='comment-copy'>"+val
 					+"</span> –&nbsp; <a "
-					+"href='javaScript:void(0)' title='用户'class='comment-user'>"
+					+"href='javaScript:void(0)' title='用户'class='comment-user zebra_tips1'>"
 					+$('#nowUserName').html()
 					+"</a> <span class='comment-date' dir='ltr'><w class='comment-link'><span "
-					+"title='回复日期'>Sep 10 '15 at 9:09</span></w>"
+					+"title='回复日期' class='zebra_tips1'>Sep 10 '15 at 9:09</span></w>"
 					+"</span></div></td></tr>";
 	obj.append(text);
 }
@@ -543,8 +551,6 @@ var ImgIputHandler={
 	});
 	
 </script>
-<!-- 图片放大器 -->
-<script>
-   
-</script>
+<!-- 提示框 -->
+<script type="text/javascript" src="js/zebra_tooltips.js"></script> 
 </html>

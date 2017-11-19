@@ -1,13 +1,9 @@
 /config/
 /dao/
-/db/
 /entity/
 /factory/
 /filter/
 /service/
 /servlet/
-/sessionservice/
-/testjson/
-/userTest/
-/utils/
 /testService/
+/utils/

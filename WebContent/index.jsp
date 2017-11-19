@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -22,6 +23,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 <title>首页</title>
+<!-- 提示框 -->
+<link rel="stylesheet" href="css/zebra_tooltips.css" type="text/css"> 
 
 <link href="css/index.css" rel="stylesheet" />
 <link href="css/init.css" rel="stylesheet" />
@@ -180,19 +183,19 @@
 										<a href="javaScript:void(0)" class="sessionName">${topic.sname }</a>
 										<input type="hidden" class="sessionSid" value="${topic.tsid }">
 									</h3>
-									
-									<a href="javaScript:;" class="topicTName" onclick="topicjumg(this,${topic.tsid})">${topic.ttopic }</a>
+								
+									<a href="javaScript:;" class="topicTName " onclick="topicjumg(this,${topic.tsid})" >${topic.ttopic }</a>
 									<input type="hidden" class="topicTid" value="${topic.tid }">
-									 <span class="glyphicon glyphicon-comment" title="回帖数"></span> ${topic.treplycount}
+									<span class="glyphicon glyphicon-comment zebra_tips1" title="回帖数"></span> ${topic.treplycount}
 								</div>
 								<div class="panel-body">
 									${topic.tcontents}									
 								</div>
 								<div class="panel-footer">
-									<span class="glyphicon glyphicon-user"></span> <a
-										href="user.jsp" title="主题作者" target="_blank">${topic.uname}</a> <span
-										class="glyphicon glyphicon-time"></span>
-										 <span class="time" title="发帖时间">${topic.ttime}</span>
+									<span class="glyphicon glyphicon-user "></span>
+									<a href="user.jsp" title="主题作者" target="_blank" class="zebra_tips1">${topic.uname}</a> 
+									<span class="glyphicon glyphicon-time " ></span>
+									<span class="time zebra_tips1" title="发帖时间">${topic.ttime}</span>
 								</div>
 							</div>
 						</li>
@@ -259,6 +262,9 @@
 
 		
 </body>
+<!-- 提示框 -->
+<script type="text/javascript" src="js/zebra_tooltips.js"></script> 
+<!-- 页面跳转 -->
 <script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
 <!-- 图片放大器 -->
 <script src="./js/postbird-img-glass.js"></script>
@@ -267,5 +273,5 @@
             domSelector:"#mainContent img",
             animation:true
         });
-    </script>
+  </script>
 </html>

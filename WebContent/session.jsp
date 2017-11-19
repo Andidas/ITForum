@@ -27,8 +27,8 @@
 <link href="css/init.css" rel="stylesheet" />
 <link href="css/session.css" rel="stylesheet" />
 <link href="dist/summernote.css" rel="stylesheet" />
-<style type="text/css">
-</style>
+<!-- 提示框 -->
+<link rel="stylesheet" href="css/zebra_tooltips.css" type="text/css"> 
 </head>
 <body >
 	<jsp:include page="nav.jsp" flush="true" />
@@ -48,15 +48,15 @@
 					<span id="sessionName" class="sessionName">${nowActiveSessionView.sname}</span>
 					<input type="hidden" id ="sessionSid" class="sessionSid" value="${nowActiveSessionView.sid}">
 					
-					<a href="javaScript:void(0)" class="follow" id="follow" style=""><span>关注</span></a>
+					<a href="javaScript:void(0)" class="follow" id="follow" ><span>关注</span></a>
 					<a class="unfollow" id="unfollow" href="javaScript:void(0)" style="display: none;">取消关注 </a>
 					 <small>
-					 	关注:<span title="目前关注人数" id="followCount">${nowActiveSessionView.follow}</span>
-					 	提问:<span title="目前问题数">${nowActiveSessionView.stopiccount}</span>
-						 主题：<a href="javaScript:void(0)" title="分类依据">${nowActiveSessionView.sprofile}</a>
+					 	关注:<span title="目前关注人数:${nowActiveSessionView.follow}" id="followCount" class="zebra_tips1">${nowActiveSessionView.follow}</span>
+					 	提问:<span title="目前发帖数:${nowActiveSessionView.stopiccount}" class="zebra_tips1">${nowActiveSessionView.stopiccount}</span>
+						 主题：<a href="javaScript:void(0)" title="分类依据:${nowActiveSessionView.sprofile}" class="zebra_tips1">${nowActiveSessionView.sprofile}</a>
 					 </small>
 				</h1>
-				<p title="扼要描述">${nowActiveSessionView.sstatement}<a href="#" title="创建人" style="color:#888;">——<span>${nowActiveSessionView.uname}</span></a></p>
+				<p >${nowActiveSessionView.sstatement}<a href="javaScript:;" title="创建人:${nowActiveSessionView.uname}" class="zebra_tips1" style="color:#888;">——<span>${nowActiveSessionView.uname}</span></a></p>
 			</div>
 		</div>
 		<div class="col-md-8" id="mainContent">
@@ -66,13 +66,13 @@
 					<li class="clearfix ">
 						<div class="col-xs-1">
 							<div class="thumbsUp">
-								<p title="回复条数">
+								<p title="回复条数:${topicList.treplycount}" class="zebra_tips1">
 									<span class="activeSpan">${topicList.treplycount}</span><span class="glyphicon glyphicon-comment"></span>
 								</p>
-								<!--  <p title="被赞数目">
+								<!--  <p title="被赞数目" class="zebra_tips1">
 									<span class="activeSpan">2232</span><span class="glyphicon glyphicon glyphicon-thumbs-up"></span>
 								</p>-->
-								<p title="观看人数">
+								<p title="观看人数:${topicList.tclickcount}" class="zebra_tips1">
 									<span class="activeSpan">${topicList.tclickcount}</span><span
 										class="glyphicon glyphicon glyphicon glyphicon-eye-open"></span>
 								</p>
@@ -80,23 +80,23 @@
 						</div>
 						<div class="panel col-xs-11">
 							<div class="panel-heading">
-								<a href="javaScript:void(0)" class="TopicTName" title="题目">${topicList.ttopic}</a>
+								<a href="javaScript:void(0)" class="TopicTName" >${topicList.ttopic}</a>
 								<input type="hidden" class="topicTid" value="${topicList.tid}">
 							</div>
-							<div class="panel-body" title="内容">
+							<div class="panel-body" >
 								${topicList.tcontents}
 							</div>
 							<div class="panel-footer clearfix">
 								<div style="float: right">
-									<span class="glyphicon glyphicon-user"></span> <a
-										href="user.jsp" title="提问者" target="_blank">${topicList.uname}</a>
+									<span class="glyphicon glyphicon-user"></span> 
+									<a href="user.jsp" title="谁发了这个贴:${topicList.uname}" target="_blank" class="zebra_tips1">${topicList.uname}</a>
 								</div>
 								<c:if test="${topicList.treplycount!=0}">
 									<div style="float: left">
-										<span class="glyphicon glyphicon glyphicon-comment"></span> <a
-											href="user.jsp" title="最后回复人" target="_blank">${topicList.lastreplyuser}</a> <span
-											class="glyphicon glyphicon-time"></span> <span class="time"
-											title="最后回复时间">${topicList.tlastreplaytime}</span>
+										<span class="glyphicon glyphicon glyphicon-comment"></span> 
+										<a href="user.jsp" title="最后回复这个帖子的人:${topicList.lastreplyuser}" target="_blank" class="zebra_tips1">${topicList.lastreplyuser}</a> 
+										<span class="glyphicon glyphicon-time"></span> 
+										<span class="time zebra_tips1" title="最后一次回复这个帖子的时间:${topicList.tlastreplaytime}" >${topicList.tlastreplaytime}</span>
 									</div>
 								</c:if>
 							</div>
@@ -105,7 +105,7 @@
 				</c:forEach>
 			</ul>
 			
-			<ul class="paginate" id="paginate"></ul>			
+			<!-- <ul class="paginate" id="paginate"></ul> -->			
 			
 			<div class="col-xs-12" id="releaseTopic">
 				<div id="topicTitle" class="topicTitle">
@@ -140,9 +140,14 @@
 	</div>
 	
 </body>
+<!-- 提示框 -->
+<script type="text/javascript" src="js/zebra_tooltips.js"></script> 
+<!-- 页面跳转 -->
 <script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
+<!-- 富文本框 -->
 <script src="dist/summernote.js"></script>
 <script src="dist/lang/summernote-zh-CN.js"></script>
+<!-- 分页 -->
 <script type="text/javascript" src="js/jqPaginator.js"></script>
 <!-- 回复的分页查询 -->
 <script type="text/javascript">
@@ -180,33 +185,32 @@
 	}
 	
 	function topicContent(topic){
-		var text = "<li class='clearfix'><div class='col-xs-2'><div class='thumbsUp'><p title='回复条数'>"
-							+"<span class='activeSpan'>"
-							+topic.treplycount
-						+"	</span><span class='glyphicon glyphicon-comment'></span>"
-						+"</p><p title='观看人数'><span class='activeSpan'>"
-						+topic.tclickcount
-						+"</span><span class='glyphicon glyphicon glyphicon glyphicon-eye-open'></span></p></div>"
-				+"</div><div class='panel col-xs-10'><div class='panel-heading'>"
-						+"<a href='javaScript:void(0)' class='TopicTName' title='题目'>"
-						+topic.ttopic
-						+"</a><input type='hidden' class='topicTid' value='"
+		
+	var text = "<li class='clearfix'><div class='col-xs-2'><div class='thumbsUp'><p title='回复条数' class='zebra_tips1'>"
+				+ "<span class='activeSpan'>"
+				+ topic.treplycount
+				+ "	</span><span class='glyphicon glyphicon-comment'></span>"
+				+ "</p><p title='观看人数:"+topic.tclickcount+"' class='zebra_tips1'><span class='activeSpan'>"
+				+ topic.tclickcount
+				+ "</span><span class='glyphicon glyphicon glyphicon glyphicon-eye-open'></span></p></div>"
+				+ "</div><div class='panel col-xs-10'><div class='panel-heading'>"
+				+ "<a href='javaScript:void(0)' class='TopicTName'>"
+				+ topic.ttopic
+				+ "</a><input type='hidden' class='topicTid' value='"
 						+topic.tid
-						+"'></div><div class='panel-body' title='内容'>"
-					+topic.tcontents
-					+"</div><div class='panel-footer clearfix'><div style='float: right'>"
-					+"<span class='glyphicon glyphicon-user'></span> "
-				+"	<a href='user.jsp' title='提问者' target='_blank'>"
-					+topic.uname
-					+"</a></div><c:if test='"
-					+topic.treplycount!=0
-					+"'><div style='float: left'><span class='glyphicon glyphicon glyphicon-comment'></span>"
-					+"<a href='user.jsp' title='最后回复人' target='_blank'>"
-					+topic.lastreplyuser
-				+	"</a> <span class='glyphicon glyphicon-time'></span>"
-				+	"<span class='time' title='最后回复时间'>"
-				+	topic.tlastreplaytime
-				+	"</span></div></c:if></div></div></li>";
+						+"'></div><div class='panel-body'>"
+				+ topic.tcontents
+				+ "</div><div class='panel-footer clearfix'><div style='float: right'>"
+				+ "<span class='glyphicon glyphicon-user'></span> "
+				+ "	<a href='user.jsp' title='谁发了这个贴:"+topic.uname+"' target='_blank' class='zebra_tips1'>"
+				+ topic.uname + "</a></div><c:if test='" + topic.treplycount != 0
+				+ "'><div style='float: left'><span class='glyphicon glyphicon glyphicon-comment'></span>"
+				+ "<a href='user.jsp' title='最后回复这个帖子的人:"+topic.lastreplyuser+"' target='_blank' class='zebra_tips1'>"
+				+ topic.lastreplyuser
+				+ "</a> <span class='glyphicon glyphicon-time'></span>"
+				+ "<span class='time zebra_tips1' title='最后一次回复这个帖子的时间:"+topic.tlastreplaytime+"'>"
+				+ topic.tlastreplaytime
+				+ "</span></div></c:if></div></div></li>";
 		return text;
 	}
 </script>

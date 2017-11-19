@@ -46,6 +46,7 @@ body {
 	margin: 0 auto;
 	margin-bottom: 23px;
 	width: 200px;
+	position: relative;
 }
 
 .inp>input {
@@ -54,6 +55,7 @@ body {
 	width: 200px;
 	margin: 0 auto;
 	transition: all 0.3s ease-in-out;
+	
 }
 .inp>input:hover,.ensureEmail>input:hover{
 	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2), 0 3px 5px 0 rgba(0,0,0,0.19);
@@ -151,11 +153,29 @@ body {
 }
 
 #registered-content small {
-	color: orangered;
+	color: #fff;
+	border-radius: 5px;
+	padding:4px;
 	font-size: 12px;
-	float:left;
+	position: absolute;
+	right: -170px;
+    top: 0px;
+    max-width:150px;
+    display:block;
+    
+    background-color: rgb(196, 0, 0);
+    color: rgb(255, 255, 255);
 }
-
+.triangle-left {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-right: 10px solid red;
+    border-bottom: 5px solid transparent;
+    position: absolute;
+    left:-10px;
+    top:5px;
+}
 .hidden {
 	display: none;
 }
@@ -170,6 +190,7 @@ body {
     margin: 0 auto;
     margin-bottom: 23px;
     width: 204px;
+    position: relative;
 }
 .ensureEmail>input,.ensureEmail>a{
 	    text-align: center;
