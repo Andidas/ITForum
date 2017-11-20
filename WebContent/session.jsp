@@ -61,7 +61,20 @@
 		</div>
 		<div class="col-md-8" id="mainContent">
 			<ul class="content-text clearfix" >
-	
+				<c:if test="${empty nowActiveSessionView.topicViewPM.data}">
+					<div class="row clearfix">
+						<div class="col-md-12 column">
+							<div class="jumbotron">
+								<h2>
+									您好， 暂时无人发帖~
+								</h2>
+								<small>
+									您将成为第一个发帖人！<a href="javaScript:;" class="toReleaseTopic">发帖</a>
+								</small>
+							</div>
+						</div>
+					</div>
+				</c:if>
 				<c:forEach items="${nowActiveSessionView.topicViewPM.data}" var="topicList" >
 					<li class="clearfix ">
 						<div class="col-xs-1">
@@ -124,6 +137,12 @@
 				</div>
 				<div class="panel-body">
 					<ul>
+					<c:if test="${empty nowActiveSessionView.sameSprofile}">
+						<li>
+							无相关的版块
+							<a href="Session?op=toNewSession">赶快来成为版主吧？</a>
+						</li>
+					</c:if>
 					<c:forEach items="${nowActiveSessionView.sameSprofile}" var="session">
 						<li><a href="javaScript:void(0)" class="sessionName">${session.sname }</a>
 							<input type="hidden" value="${session.sid}" class="sessionSid">
@@ -140,6 +159,20 @@
 	</div>
 	
 </body>
+<!-- 跳到发布帖子的位置 -->
+<script type="text/javascript"> 
+	$(function(){
+		$('.toReleaseTopic').click(function(){
+			var myHref = location.href;
+			if(myHref.indexOf('#releaseTopic')>0){
+				myHref = myHref.replace('#releaseTopic','');
+				location.href = myHref + '#releaseTopic';
+			}else{
+				location.href = myHref + '#releaseTopic';
+			}
+		});
+	});
+</script>
 <!-- 提示框 -->
 <script type="text/javascript" src="js/zebra_tooltips.js"></script> 
 <!-- 页面跳转 -->

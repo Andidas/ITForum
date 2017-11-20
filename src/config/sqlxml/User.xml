@@ -32,7 +32,7 @@
 		<id column="uid" jdbcType="INTEGER" property="uid" />
 	</resultMap>
 	<select id="queryUserIDByName" parameterType="String" resultMap="queryUserIDByNameResult">
-		select uid from user where uname = #{_parameter}
+		select count(uid) uid from user where uname = #{_parameter}
 	</select>
 	
 	<select id="queryUserList" resultMap="UserResult">

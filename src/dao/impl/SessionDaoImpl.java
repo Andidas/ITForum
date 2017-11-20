@@ -185,6 +185,38 @@ public class SessionDaoImpl implements SessionDao {
 		return 0;
 	}
 
+
+	@Override
+	public List<String> queryAllProfile() {
+		 try {
+			 List<String> profiles = null;
+				sqlSession  = dbAccess.getSqlSession();
+				profiles = sqlSession.selectList("Session.queryAllProfile");
+				return profiles;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				sqlSession.close();
+			}
+		return null;
+	}
+
+
+	@Override
+	public List<Session> queryAllSessionByProfile(String sprofile) {
+		try {
+			 List<Session> sessionList = null;
+				sqlSession  = dbAccess.getSqlSession();
+				sessionList = sqlSession.selectList("Session.queryAllSessionByProfile",sprofile);
+				return sessionList;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				sqlSession.close();
+			}
+		return null;
+	}
+
 	
 	
 

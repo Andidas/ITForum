@@ -163,4 +163,19 @@ public class TopicDaoImpl implements TopicDao {
 		return null;
 	}
 
+	@Override
+	public List<Topic> queryHotsTopicList() {
+		try {
+			List<Topic> topics = null;
+			sqlSession = dbAccess.getSqlSession();
+			topics = sqlSession.selectList("Topic.queryHotsTopicList");
+			return topics;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			if(sqlSession!=null)sqlSession.close();
+		}
+		return null;
+	}
+
 }

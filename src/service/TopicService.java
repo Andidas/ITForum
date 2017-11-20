@@ -56,6 +56,11 @@ public class TopicService implements ITopicService {
 	public List<Topic> searchTopicAndContents(String text) {
 		return topicDao.searchTopicAndContents(text);
 	}
+
+	@Override
+	public List<Topic> queryHotsTopicList() {
+		return topicDao.queryHotsTopicList();
+	}
 	
 	
 

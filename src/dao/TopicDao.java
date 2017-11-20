@@ -14,7 +14,11 @@ import entity.viewEntity.TopicView;
 
 
 public interface TopicDao {
-	
+	/**
+	 * 查询回帖数最多的topic
+	 * @return
+	 */
+	List<Topic> queryHotsTopicList();
 	/**
 	 * 搜索帖子，由题目和内容
 	 * @param text

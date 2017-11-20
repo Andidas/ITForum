@@ -75,6 +75,16 @@ public class SessionService implements ISessionService {
 	public int querySessionID(String sname) {
 		return sessionDao.querySessionID(sname);
 	}
+	@Override
+	public List<String> queryAllProfile() {
+		
+		return sessionDao.queryAllProfile();
+	}
+	@Override
+	public List<Session> queryAllSessionByProfile(String sprofile) {
+		
+		return sessionDao.queryAllSessionByProfile(sprofile);
+	}
 
 	
 

@@ -9,6 +9,16 @@ import entity.Topic;
  * 帖子接口
  */
 public interface ITopicService {
+	/**
+	 * 查询回帖数最多的topic
+	 * @return
+	 */
+	List<Topic> queryHotsTopicList();
+	/**
+	 * 模糊查询，题目和内容
+	 * @param text
+	 * @return
+	 */
 	List<Topic> searchTopicAndContents(String text);
 	/**
 	 * 点击次数加1

@@ -20,3 +20,7 @@ function topicjumg(obj,tsid) {
 					+ $(obj).siblings('.topicTid').val() + "&sessionSid="
 					+ tsid;
 		}
+/*主页的session跳转,用户左侧的导航条*/
+function tosessionjump(tsid){
+	location.href = "Session?op=toSession&SessionSid=" + tsid;
+}

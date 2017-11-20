@@ -58,66 +58,17 @@
 								<span class="glyphicon glyphicon-th-list"></span>
 								</div>
 							</div>
-							<div class="panel">
-								<div class="panel-heading">
-									<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">HTML/CSS</a>
-								</div>
-								<div id="collapseOne" class="panel-collapse collapse">
-									<div class="panel-body">
-										<a href="#">HTML</a><a href="#">HTML5</a><a href="#">CSS</a><a href="#">CSS3</a><a href="#">Bootstrap</a><a href="#">Font&emsp;Awesome</a><a href="#">Foundation</a>
+							<c:forEach items="${welcomeProfiles}" var="profiles" varStatus="xh">
+								<div class="panel">
+									<div class="panel-heading">
+										<a data-toggle="collapse" data-parent="#accordion" href="#${xh.count}" class="profilesNav" >${profiles}</a>
+									</div>
+									<div id="${xh.count}" class="panel-collapse collapse ">
+										<div class="panel-body" style="display: none;">
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="panel">
-								<div class="panel-heading">
-									<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">JavaScript</a>
-								</div>
-								<div id="collapseTwo" class="panel-collapse collapse in">
-									<div class="panel-body">
-										<a href="#">JavaScript</a><a href="#">JQuery</a><a href="#">AngularJS</a><a href="#">AngularJS2</a><a href="#">Vue.js</a><a href="#">React</a><a href="#">JQuery UI</a><a href="#">Node.js</a><a href="#">AJAX</a><a href="#">JSON</a><a href="#">HightCharts</a>
-										<a href="#">Google地图</a>
-									</div>
-								</div>
-							</div>
-							<div class="panel">
-								<div class="panel-heading">
-									<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">服务端</a>
-								</div>
-								<div id="collapseThree" class="panel-collapse collapse ">
-									<div class="panel-body">
-										<a href="#">PHP</a><a href="#">JAVA</a><a href="#">Python</a><a href="#">Python3</a><a href="#">C</a><a href="#">C++</a><a href="#">JSP</a></div>
-								</div>
-							</div>
-							<div class="panel">
-								<div class="panel-heading">
-									<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">HTML/CSS</a>
-								</div>
-								<div id="collapseOne" class="panel-collapse collapse">
-									<div class="panel-body">
-										<a href="#">HTML</a><a href="#">HTML5</a><a href="#">CSS</a><a href="#">CSS3</a><a href="#">Bootstrap</a><a href="#">Font&emsp;Awesome</a><a href="#">Foundation</a>
-									</div>
-								</div>
-							</div>
-							<div class="panel">
-								<div class="panel-heading">
-									<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">JavaScript</a>
-								</div>
-								<div id="collapseTwo" class="panel-collapse collapse">
-									<div class="panel-body">
-										<a href="#">JavaScript</a><a href="#">JQuery</a><a href="#">AngularJS</a><a href="#">AngularJS2</a><a href="#">Vue.js</a><a href="#">React</a><a href="#">JQuery UI</a><a href="#">Node.js</a><a href="#">AJAX</a><a href="#">JSON</a><a href="#">HightCharts</a>
-										<a href="#">Google地图</a>
-									</div>
-								</div>
-							</div>
-							<div class="panel">
-								<div class="panel-heading">
-									<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">服务端</a>
-								</div>
-								<div id="collapseThree" class="panel-collapse collapse">
-									<div class="panel-body">
-										<a href="#">PHP</a><a href="#">JAVA</a><a href="#">Python</a><a href="#">Python3</a><a href="#">C</a><a href="#">C++</a><a href="#">JSP</a></div>
-								</div>
-							</div>
+							</c:forEach>
 							<div class="panel-group-footer">
 							</div>
 						</div>
@@ -233,26 +184,13 @@
 						</div>
 						<div class="panel-body">
 							<ul class="">
-								<li><span class="label label-success col-xs-1">1</span> <a
-									href="#" class="col-xs-11"> This is fake right? "FACEBOOK
-										USER LOCATION FINDER"This is fake right? "FACEBOOK USER
-										LOCATION FINDER"</a></li>
-								<li><span class="label label-success col-xs-1">1</span> <a
-									href="#" class="col-xs-11"> This is fake right? "FACEBOOK
-										USER LOCATION FINDER"This is fake right? "FACEBOOK USER
-										LOCATION FINDER"</a></li>
-								<li><span class="label label-success col-xs-1">1</span> <a
-									href="#" class="col-xs-11"> This is fake right? "FACEBOOK
-										USER LOCATION FINDER"This is fake right? "FACEBOOK USER
-										LOCATION FINDER"</a></li>
-								<li><span class="label label-success col-xs-1">1</span> <a
-									href="#" class="col-xs-11"> This is fake right? "FACEBOOK
-										USER LOCATION FINDER"This is fake right? "FACEBOOK USER
-										LOCATION FINDER"</a></li>
-								<li><span class="label label-success col-xs-1">1</span> <a
-									href="#" class="col-xs-11"> This is fake right? "FACEBOOK
-										USER LOCATION FINDER"This is fake right? "FACEBOOK USER
-										LOCATION FINDER"</a></li>
+								<c:forEach items="${HotsTopics }" var="topic">
+								
+								<li><span class="label label-success col-xs-1" >${topic.treplycount}</span>
+									<a href="javaScript:;" class="col-xs-11" onclick="topicjumg(this,${topic.tsid})">${topic.ttopic }</a>
+									<input type="hidden" class="topicTid" value="${topic.tid}"> 
+								</li>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
@@ -262,6 +200,34 @@
 
 		
 </body>
+<!--  -->
+<script type="text/javascript">
+	$(function(){
+		$('.profilesNav').click(function(){
+			var obj = $(this).attr('href');
+			var panelbody = $(obj).find('.panel-body');
+			var profile = $(this).html();
+			console.log(profile);
+			var param ={
+					'profile':profile,
+					'op':'getSnameAndSid'
+					}
+			$.post('welcome',param,function(data){
+				if(data == 'false'){
+					alert('获取失败');
+				}else{
+					var sessions = JSON.parse(data);
+					panelbody.empty();
+					$.each(sessions,function(i,session){
+						panelbody.append("<a href='javaScript:;' onclick='tosessionjump("+session.sid+")'>"+session.sname+"</a>");
+					});
+					panelbody.show(300);
+				}
+			});
+		});
+		
+	});
+</script>
 <!-- 提示框 -->
 <script type="text/javascript" src="js/zebra_tooltips.js"></script> 
 <!-- 页面跳转 -->

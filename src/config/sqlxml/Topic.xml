@@ -43,7 +43,11 @@
 		<result column="tlastreplaytime" jdbcType="VARCHAR" property="tlastreplaytime" />
 	</resultMap>
 	
-	
+	<!-- 查询回帖数比较多的帖子 -->
+	<select id="queryHotsTopicList" resultMap="TopicResult">
+		select tid,tsid,ttopic,treplycount from topic order by treplycount desc limit 0,10
+	</select>
+	<!-- 查询相似topic -->
 	<select id="querySameTopicList" parameterType="INTEGER" resultMap="TopicResult">
 		select tid,treplycount,ttopic from topic where tsid = #{_parameter} order by ttime DESC limit 0,10
 	</select>

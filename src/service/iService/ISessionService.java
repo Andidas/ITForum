@@ -10,6 +10,17 @@ import entity.Session;
  */
 public interface ISessionService {
 	/**
+	 * 查询属于同一类的session
+	 * @param sprofile
+	 * @return
+	 */
+	List<Session>queryAllSessionByProfile(String sprofile);
+	/**
+	 * 查询所有的session分类profile
+	 * @return
+	 */
+	List<String> queryAllProfile();
+	/**
 	 * 查找session
 	 * @param sname
 	 * @return

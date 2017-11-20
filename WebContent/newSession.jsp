@@ -43,6 +43,22 @@
 					</div>
 				</div>
 				<div class="col-md-8">
+					
+					<div class="form-group clearfix">
+							<div class="col-md-4" >
+								<label for="sessionSprofile">类别</label>
+								<select  class="form-control" name="sessionSprofile" id="sessionSprofile">
+									<c:forEach items="${AllSessionProfiles}" var="profile">
+										<option value="${profile}">${profile}</option>
+									</c:forEach>
+									<option value="other">其他</option>
+								</select>
+							</div>
+							<div class="col-md-5 " id="otherDiv" style="display: none;">
+								<label for="otherSprofile">其他</label>
+								<input type="text" class="form-control" id="otherSprofile" name="otherSprofile"/>	
+							</div>						
+					</div>
 					<div class="col-md-9" >
 						<label for="sessionName">版名</label>
 						<input type="text" class="form-control" id="sessionName" name="sessionName" onkeyup='textAreaChange(this)' onkeydown='textAreaChange(this)'/>
@@ -50,21 +66,6 @@
 							<em style='color: red'>50</em>/<span>50</span>
 						</div>
 					</div>
-					<div class="form-group clearfix">
-							<div class="col-md-4" >
-								<label for="sessionSprofile">类别</label>
-								<select  class="form-control" name="sessionSprofile" id="sessionSprofile">
-									<option value="后端">后端</option>
-									<option value="HTML/CSS">HTML/CSS</option>
-									<option value="JavaScript">JavaScript</option>
-								</select>
-							</div>
-							<div class="col-md-5 ">
-								<label for="otherSprofile">其他</label>
-								<input type="text" class="form-control" id="otherSprofile" name="otherSprofile"/>	
-							</div>						
-					</div>
-
 					<div class="form-group col-md-12">
 						<label for="sessionBio">简介</label>
 						<textarea class='form-control' id="sessionBio" name="sessionBio"
@@ -75,18 +76,13 @@
 						</div>
 					</div>
 					<div class="form-group col-md-12">
-					<button type="submit" class="btn btn-default" id="newSessionSubmit">Submit</button>
+					<a class="btn btn-default" id="newSessionSubmit">Submit</a>
 						</div>
 				</div>
 			</form>
 		</div>
 	</div>
-	<a href="#" class="zebra_tips1" title="Zebra_Tooltips is a lightweight (around 5KB minified, 1.6KB gzipped) tooltip jQuery plugin for creating simple, but smart and visually attractive tooltips, featuring nice transitions and offering a wide range of configuration options.">鼠标移动到这里查看效果</a>.
-		<a href="#" class="zebra_tips3" title="Appearance can be easily customized both through JavaScript and/or CSS. Also, tooltips can be aligned left, center or right relative to the parent element.">condimentum</a>.
-		<a href="#" class="zebra_tips2" title="Hello! I am aligned to the left of the element. Also, my width is different.">sdfdfsdfd</a>.
-		<a href="#" class="zebra_tips4" title="Hello! I am aligned to the left of the element. Also, my width is different.">left</a>.
-		<a href="#" class="zebra_tips5" title="Hello! I am aligned to the right of the element. Also, my width is different.">right</a>.
-		
+
 </body>
 <!-- 提示框 -->
 <script type="text/javascript" src="js/zebra_tooltips.js"></script> 
@@ -95,7 +91,37 @@
 <script type="text/javascript">
 	$(function(){
 		textAreaChange($("#sessionBio"));
+		$('#sessionSprofile').change(function(){
+			if($(this).val()=='other'){
+				$('#otherDiv').show();
+				console.log($('#otherDiv'));
+			}else{
+				$('#otherDiv').hide();
+			}
+		});
 	});
 </script>
-
+<!-- 校验提交 -->
+<script type="text/javascript">
+	$(function(){
+		$('#newSessionSubmit').click(function(){
+		
+			var reg=/^\s+$/;
+			if($('#nowUserName').html()==undefined){
+				alert('请登录');
+			}else if($('#sessionSprofile').val()=='other'&&(reg.test($("#otherSprofile").val())||$('#otherSprofile').val()=="")){
+				$("#otherSprofile").focus();
+					alert('请输入类型!');
+			}else if(reg.test($("#sessionName").val())||$('#sessionName').val()==""){
+				$('#sessionName').focus();
+				alert('请输入版名!');
+			}else if(reg.test($("#sessionBio").val())||$('#sessionBio').val()==""){
+				$('#sessionBio').focus();
+				alert('请输入简短的描述！');
+			}else{
+				//$('#newSessionForm').submit();
+			}
+		});
+	});
+</script>
 </html>

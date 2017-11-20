@@ -3,6 +3,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -66,7 +67,10 @@ public class SessionServlet extends HttpServlet {
 	private void toNewSession(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		//1、跳转到提交页面前先添加令牌
-		request.getSession().setAttribute("token", System.currentTimeMillis()+"");
+		HttpSession session = request.getSession();
+		session.setAttribute("token", System.currentTimeMillis()+"");
+		List<String> profiles= sessionService.queryAllProfile();
+		session.setAttribute("AllSessionProfiles",profiles);
 		response.sendRedirect("newSession.jsp");
 		
 	}
@@ -89,6 +93,9 @@ public class SessionServlet extends HttpServlet {
 			String spicture = f.getFileName();
 			String sname = smRequest.getParameter("sessionName");
 			String sprofile = smRequest.getParameter("sessionSprofile");
+			if(sprofile.equals("other")){
+				sprofile = smRequest.getParameter("otherSprofile");
+			}
 			String sstatement = smRequest.getParameter("sessionBio");
 			int smasterid = ((User)session.getAttribute("NowLoginUser")).getUid();
 			if(!sessionService.addSession(sname,smasterid,sprofile,sstatement,spicture)){

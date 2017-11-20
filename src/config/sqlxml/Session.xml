@@ -21,6 +21,13 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Session">
+	<!-- 查询所有的分类类型 -->
+	<resultMap type="String" id="queryAllProfileResult">
+		<id column="sprofile" jdbcType="VARCHAR" property="sprofile" />
+	</resultMap>
+	<select id="queryAllProfile" resultMap="queryAllProfileResult">
+		select DISTINCT sprofile from session 
+	</select>
 	<!-- 判断session name是否存在 -->
 	<resultMap type="INTEGER" id="querySessionIDResult">
 		<id column="sid" jdbcType="INTEGER" property="sid" />
@@ -51,11 +58,16 @@
 		select * from `session` where sid=#{_parameter}
 	</select>
 	
+	
 	<!-- 相似版块，5条信息 -->
 	<select id="querySameSession" parameterType="entity.Session" resultMap="SessionResult">
 		select sid,sname,sstatement from `session` where sprofile=#{sprofile} and sid &lt;&gt; #{sid}
 		order by sclickcount DESC
 		limit 0,5
+	</select>
+	<!--相似版块，所有信息 -->
+	<select id="queryAllSessionByProfile" parameterType="String" resultMap="SessionResult">
+		select sid,sname from `session` where sprofile =#{_parameter}
 	</select>
 	<!-- session视图 -->
 	<resultMap type="entity.viewEntity.SessionView" id="querySessionViewResult">

@@ -160,8 +160,9 @@ body {
 	position: absolute;
 	right: -170px;
     top: 0px;
-    max-width:150px;
-    display:block;
+    
+    width:150px;
+    
     
     background-color: rgb(196, 0, 0);
     color: rgb(255, 255, 255);

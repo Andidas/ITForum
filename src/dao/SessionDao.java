@@ -11,6 +11,11 @@ import entity.viewEntity.SessionView;
  */
 public interface SessionDao {
 	/**
+	 * 查询所有的session分类profile
+	 * @return
+	 */
+	List <String>queryAllProfile();
+	/**
 	 * 查找session的id
 	 * @param sname
 	 * @return
@@ -67,6 +72,13 @@ public interface SessionDao {
 	 * @return 版块组
 	 */
 	List<Session> querySameSession(Session session);
+	
+	/**
+	 * 查询属于同一类的session
+	 * @param sprofile
+	 * @return
+	 */
+	List<Session> queryAllSessionByProfile(String sprofile);
 	/**
 	 * 通过搜索栏查找session
 	 * @param searchText

@@ -26,4 +26,8 @@ public class TestSessionService {
 		assertFalse(ss.isSearchSession(""));
 		assertFalse(ss.isSearchSession("[]"));
 	}
+	@Test
+	public void queryAllProfile(){
+		System.out.println(ss.queryAllProfile());
+	}
 }

@@ -19,7 +19,7 @@
 <meta charset="UTF-8">
 <title></title>
 <link href="css/login.css" rel="stylesheet" />
-<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.0.0.js"></script>
 <style type="text/css">
 body {
 	font: normal 15px/1.5 Arial, Helvetica, Free Sans, sans-serif;
@@ -171,10 +171,9 @@ body {
 						$("#rname").siblings("small").show(300);
 					}else{
 						$("#rname").siblings("small").hide();
-						$("#rname").siblings("small").html('中文、字母、数字或下划线的组合');
+						$("#rname").siblings("small").html("中文、字母、数字或下划线的组合<span class='triangle-left'></span>");
 					}
 				});
-				//$("#rname").siblings("small").fadeOut(300);
 			}
 		});
 		/*验证密码*/

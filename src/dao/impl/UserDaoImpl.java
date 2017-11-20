@@ -19,41 +19,44 @@ public class UserDaoImpl implements UserDao {
 	 private DBAccess dbAccess  = new DBAccess();
 	@Override
 	public int addUser(User user) {
-		int result = 0;
 		try {
+			int result = 0;
 			sqlSession = dbAccess.getSqlSession();
 			result = sqlSession.insert("User.addUser",user);
 			sqlSession.commit();
+			return result;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}finally{
 			if(sqlSession!=null){sqlSession.close();}
 			}
-		return result;
+		return 0;
 	}
 
 	@Override
 	public int modifyUser(User user) {
-		int result = 0;
 		try {
+			int result = 0;
 			sqlSession = dbAccess.getSqlSession();
 			result = sqlSession.update("User.updateUser",user);
 			sqlSession.commit();
+			return result;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}finally{
 			sqlSession.close();
 		}
 		
-		return result;
+		return 0;
 	}
 
 	@Override
 	public User queryUser(String uemail) {	
-		 User user = null;
 		 try {
+			 User user = null;
 			sqlSession = dbAccess.getSqlSession();
 			user = sqlSession.selectOne("User.queryUser",uemail);
+			return user;
 		 } catch (IOException e) {
 			e.printStackTrace();
 		}finally{
@@ -61,24 +64,24 @@ public class UserDaoImpl implements UserDao {
 				sqlSession.close();
 				}
 			}
-		 return user;
+		 return null;
 	}
 
 
 	@Override
 	public List<User> queryUserList() {
-		List<User> userList = new ArrayList<User>();
 		try {
+			List<User> userList = new ArrayList<User>();
 			sqlSession =dbAccess.getSqlSession();
 			userList = sqlSession.selectList("User.queryUserList");
 			
+			return userList;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}finally{
 			if(sqlSession!=null){sqlSession.close();}
 			}
-		
-		return userList;
+		return null;
 	}
 
 	@Override
@@ -103,34 +106,36 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public int modifyPasswordByEmail(String email, String password) {
-		int result = 0;
 		try {
+			int result = 0;
 			sqlSession =dbAccess.getSqlSession();
 			User user = new User();
 			user.setUemail(email);
 			user.setUpassword(password);
 			result = sqlSession.update("User.updateUserPasswordByEmail",user);
 			sqlSession.commit();
+			return result;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}finally{
 			sqlSession.close();
 		}
-		return result;
+		return 0;
 	}
 
 	@Override
 	public int queryUserIDByName(String uname) {
-		int result = 0;
 		try {
+			int result = 0;
 			sqlSession = dbAccess.getSqlSession();
 			result = sqlSession.selectOne("User.queryUserIDByName", uname);
-		} catch (IOException e) {
 			return result;
+		} catch (IOException e) {
+			e.printStackTrace();
 		}finally{
 			sqlSession.close();
 		}
-		return result;
+		return 0;
 	}
 	
 	
