@@ -56,7 +56,7 @@
 						 主题：<a href="javaScript:void(0)" title="分类依据:${nowActiveSessionView.sprofile}" class="zebra_tips1">${nowActiveSessionView.sprofile}</a>
 					 </small>
 				</h1>
-				<p >${nowActiveSessionView.sstatement}<a href="javaScript:;" title="创建人:${nowActiveSessionView.uname}" class="zebra_tips1" style="color:#888;">——<span>${nowActiveSessionView.uname}</span></a></p>
+				<p >${nowActiveSessionView.sstatement}<a href="javaScript:;" title="创建人:${nowActiveSessionView.uname}" class="zebra_tips1" style="color:#888;" onclick="touserjump(${nowActiveSessionView.smasterid})">——<span>${nowActiveSessionView.uname}</span></a></p>
 			</div>
 		</div>
 		<div class="col-md-8" id="mainContent">
@@ -102,12 +102,12 @@
 							<div class="panel-footer clearfix">
 								<div style="float: right">
 									<span class="glyphicon glyphicon-user"></span> 
-									<a href="user.jsp" title="谁发了这个贴:${topicList.uname}" target="_blank" class="zebra_tips1">${topicList.uname}</a>
+									<a href="javaScript:;" title="谁发了这个贴:${topicList.uname}" target="_blank" class="zebra_tips1" onclick="touserjump(${topicList.tuid})">${topicList.uname}</a>
 								</div>
 								<c:if test="${topicList.treplycount!=0}">
 									<div style="float: left">
 										<span class="glyphicon glyphicon glyphicon-comment"></span> 
-										<a href="user.jsp" title="最后回复这个帖子的人:${topicList.lastreplyuser}" target="_blank" class="zebra_tips1">${topicList.lastreplyuser}</a> 
+										<a href="javaScript:;" title="最后回复这个帖子的人:${topicList.lastreplyuser}" target="_blank" class="zebra_tips1" onclick="touserjump(${topicList.tlastreplyuseid})">${topicList.lastreplyuser}</a> 
 										<span class="glyphicon glyphicon-time"></span> 
 										<span class="time zebra_tips1" title="最后一次回复这个帖子的时间:${topicList.tlastreplaytime}" >${topicList.tlastreplaytime}</span>
 									</div>

@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</a>
 												</div>
 												<div class="user-details">
-													<a href="javaScript:void(0)" title="发帖人:${nowActiveTopicView.uname}" class="zebra_tips1">${nowActiveTopicView.uname}</a>
+													<a href="javaScript:;" title="发帖人:${nowActiveTopicView.uname}" class="zebra_tips1" onclick="touserjump(${nowActiveTopicView.tuid})">${nowActiveTopicView.uname}</a>
 													<div class="-flair">
 														<span class="reputation-score" title="reputation score "
 															dir="ltr">1,993</span><span title="1 gold badge"><span
@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							aria-expanded="false">vote</a></li>
 				</ul>
 				<div class="answers">
-				<c:forEach items="${ReplyPage.data}" var="replyList">
+				<c:forEach items="${ReplyPage.data}" var="reply">
 					<div class="answer">
 						<table>
 							<tbody>
@@ -114,16 +114,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td class="votecell">
 										<div class="vote">
 											 <span class="date-dz-z pull-left">
-    										<i class="date-dz-z-click-red zebra_tips1"  title="点赞，可以加该贴的排名"></i><i class="z-num">${replyList.rfavour}</i></span>
+    										<i class="date-dz-z-click-red zebra_tips1"  title="点赞，可以加该贴的排名"></i><i class="z-num">${reply.rfavour}</i></span>
 										</div>
 									</td>
 									<td class="answercell">
-										<div>${replyList.rcontent}</div>
+										<div>${reply.rcontent}</div>
 										<div class="fw">
 											<div class="post-signature">
 												<div class="user-info ">
 													<div class="user-action-time">
-														answered <span title="回复时间:${replyList.rtime}" class="zebra_tips1">${replyList.rtime}</span>
+														answered <span title="回复时间:${reply.rtime}" class="zebra_tips1">${reply.rtime}</span>
 													</div>
 													<div class="user-gravatar32">
 														<a href="javaScript:;">
@@ -131,11 +131,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														</a>
 													</div>
 													<div class="user-details">
-														<a href="javaScript:;" title="回帖人:${replyList.uname}" class="zebra_tips1">${replyList.uname}</a>
+														<a href="javaScript:;" title="回帖人:${reply.uname}" class="zebra_tips1" onclick="touserjump(${reply.ruid})">${reply.uname}</a>
 														<div>
-															<span title="用户当前状态:${replyList.ustate}" class="zebra_tips1">${replyList.ustate}</span>
-															<span title="用户当前积分:${replyList.upoint}" class="zebra_tips1">${replyList.upoint}</span>
-															<span title="用户是否是版主:${replyList.uissectioner}" class="zebra_tips1">${replyList.uissectioner}</span>
+															<span title="用户当前状态:${reply.ustate}" class="zebra_tips1">${reply.ustate}</span>
+															<span title="用户当前积分:${reply.upoint}" class="zebra_tips1">${reply.upoint}</span>
+															<span title="用户是否是版主:${reply.uissectioner}" class="zebra_tips1">${reply.uissectioner}</span>
 														</div>
 													</div>
 												</div>

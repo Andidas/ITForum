@@ -77,6 +77,11 @@ public class UserService implements IUserService{
 	public boolean isNameExist(String uname) {
 		return userDao.queryUserIDByName(uname)>0;
 	}
+	@Override
+	public User queryUserOne(String uid) {
+		int id = Integer.parseInt(uid);
+		return userDao.queryUserOne(id);
+	}
 	
 	
 }

@@ -137,6 +137,23 @@ public class UserDaoImpl implements UserDao {
 		}
 		return 0;
 	}
+
+	@Override
+	public User queryUserOne(int uid) {
+		try {
+			 User user = null;
+			sqlSession = dbAccess.getSqlSession();
+			user = sqlSession.selectOne("User.queryUserOne",uid);
+			return user;
+		 } catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			if(sqlSession!=null){
+				sqlSession.close();
+				}
+			}
+		 return null;
+	}
 	
 	
 

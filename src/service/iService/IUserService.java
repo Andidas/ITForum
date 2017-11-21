@@ -16,7 +16,7 @@ public interface IUserService {
 	 * @return
 	 */
 	public User queryUser(String email) ;
-	
+	public User queryUserOne(String uid);
 	/**
 	 * 检查用户是否存在
 	 * @param email

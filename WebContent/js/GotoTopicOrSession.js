@@ -14,6 +14,9 @@ function TopicTName() {
 			+ $(this).siblings('.topicTid').val() + "&sessionSid="
 			+ $('#sessionSid').val();
 }
+function touserjump(uid){
+	location.href ="UserServlet?op=toUserInfo&uid="+uid;	
+	}
 /*主页的topic跳转*/
 function topicjumg(obj,tsid) {
 			location.href = "Topic?op=toTopic&topicTid="

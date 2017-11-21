@@ -144,8 +144,8 @@
 								</div>
 								<div class="panel-footer">
 									<span class="glyphicon glyphicon-user "></span>
-									<a href="user.jsp" title="主题作者" target="_blank" class="zebra_tips1">${topic.uname}</a> 
-									<span class="glyphicon glyphicon-time " ></span>
+									<a href="javaScript:;" title="主题作者" target="_blank" class="zebra_tips1" onclick="touserjump(${topic.tuid})">${topic.uname}</a> 
+									<span class="glyphicon glyphicon-time"></span>
 									<span class="time zebra_tips1" title="发帖时间">${topic.ttime}</span>
 								</div>
 							</div>
@@ -178,22 +178,23 @@
 							</div>
 						</div>
 					</div>
-					<div class="panel panel-default" id="HotQuestion">
-						<div class="panel-heading">
-							<h3 class="panel-title">热议</h3>
-						</div>
-						<div class="panel-body">
-							<ul class="">
-								<c:forEach items="${HotsTopics }" var="topic">
-								
-								<li><span class="label label-success col-xs-1" >${topic.treplycount}</span>
-									<a href="javaScript:;" class="col-xs-11" onclick="topicjumg(this,${topic.tsid})">${topic.ttopic }</a>
-									<input type="hidden" class="topicTid" value="${topic.tid}"> 
-								</li>
-								</c:forEach>
-							</ul>
-						</div>
+					<div class="panel " id="HotQuestion">
+					<div class="panel-heading">
+						<h3 class="panel-title">热议</h3>
 					</div>
+					<div class="panel-body">
+						<ul class=""> 
+							<c:forEach items="${HotsTopics }" var="topic">
+							
+							<li>
+								<span class="label label-success col-xs-2 zebra_tips1" title="回复人数:${topic.treplycount }">${topic.treplycount }</span>
+								<a href="javaScript:;" class="col-xs-10" onclick="topicjumg(this,${topic.tsid})">${topic.ttopic}</a>
+								<input type="hidden" class="topicTid" value="${topic.tid}">
+							</li>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
 				</div>
 			</div>
 		</div>

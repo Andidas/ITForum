@@ -11,6 +11,7 @@ import entity.User;
  *
  */
 public interface UserDao {
+	
 	/**
 	 * 通过用户名查找用户id
 	 * @param uname
@@ -36,6 +37,7 @@ public interface UserDao {
 	 * @return 查询到得一个用户user(all)
 	 */
 	User queryUser(String uemail);
+	User queryUserOne(int uid);
 	/**
 	 * 查询所有的用户
 	 * @return 用户组

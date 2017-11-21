@@ -56,7 +56,17 @@ public class UserServlet extends HttpServlet {
 			modifyPassword(request, response);
 		} else if(op.equals("isNameExist")){
 			isNameExist(request, response);
+		}else if(op.equals("toUserInfo")){
+			toUserInfo(request,response);
 		}
+	}
+
+	private void toUserInfo(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String uid = request.getParameter("uid");
+		User user = userService.queryUserOne(uid);
+		request.setAttribute("queryUserInfo", user);
+		request.getRequestDispatcher("user.jsp").forward(request, response);
 	}
 
 	/**

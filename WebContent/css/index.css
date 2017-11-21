@@ -1,21 +1,17 @@
 @CHARSET "UTF-8";
 /* Custom Styles */
 
-
-
-
 #content .row {
 	margin-top: 50px;
 }
 
 #HotQuestion .panel-body a {
 	text-decoration: none;
-	font-size: 12px;
+	
 }
 
 #HotQuestion .panel-body li {
-	display: inline-block;
-	margin-bottom: 10px;
+	
 }
 
 #content .col-xs-7 >ul:nth-child(1) {
