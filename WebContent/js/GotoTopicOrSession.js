@@ -27,3 +27,15 @@ function topicjumg(obj,tsid) {
 function tosessionjump(tsid){
 	location.href = "Session?op=toSession&SessionSid=" + tsid;
 }
+
+//跳到指定的位置,str='#',那么就是跳到顶部
+function jumpEveryWhere(str){
+	var myHref = location.href;
+	var locate = myHref.indexOf(str);
+	if(locate>0){
+		myHref = myHref.substring(0,locate);
+		location.href = myHref + str;
+	}else{
+		location.href = myHref + str;
+	}
+}

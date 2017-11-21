@@ -51,7 +51,6 @@ public class WelcomeServlet extends HttpServlet {
 		PageMode<TopicView> topicViewPageMode = topicviewService.TopicSplitPage(ConstantsData.PAGENO,ConstantsData.PAGESIZE,sid);
 		List<String> profiles = sessionService.queryAllProfile();
 		List<Topic> topics = topicService.queryHotsTopicList();
-		svs.setTopicViewContents(topicViewPageMode.getData());
 		request.setAttribute("HotsTopics", topics);
 		request.setAttribute("welcomeProfiles", profiles);
 		request.setAttribute("topicViewPageMode", topicViewPageMode);

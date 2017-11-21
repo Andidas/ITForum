@@ -153,6 +153,11 @@
 						</c:forEach>
 					</ul>
 					
+					<ul class="pagination" id="pagination"></ul>
+	   				<input type="hidden" id="indextotalPageCount" value="${topicViewPageMode.totalPageCount}">
+	   				<input type="hidden" id="indexpagesize" value="${topicViewPageMode.pageParam.pagesize}">	
+						
+						
 				</div>
 
 				<div class="col-lg-3" id="content-right">
@@ -201,7 +206,44 @@
 
 		
 </body>
-<!--  -->
+<!-- 分页 -->
+<script type="text/javascript" src="js/jqPaginator.js"></script>
+<!-- 回复的分页查询 -->
+<script type="text/javascript">
+	var ipc = parseInt($('#indextotalPageCount').val());
+	var ips =parseInt($('#indexpagesize').val());
+	
+	$.jqPaginator('#pagination', {
+	    totalPages:ipc ,
+	    visiblePages: ips,
+	    currentPage: 1,
+	    onPageChange: function (num, type) {
+	        findPage(num);
+	    }
+	});
+	function findPage(pageno){
+		var param ={
+			'op':'findReplyByPage',
+			'pageno':pageno,
+			'nowTopicTid':$('#nowTopicTid').val()
+		}
+		$.post("Topic",param,function(data){
+			if(data=="false"){
+				alert('分页查询失败');
+			}else{
+				$('.answers').empty();
+				var replys = JSON.parse(data);
+				$.each(replys,function(i,reply){
+					var text = replyContent(reply);
+					$('.answers').append(text);
+				});
+				clickInit();
+			}
+		});
+	}
+	
+</script>
+<!-- 左边导航栏 -->
 <script type="text/javascript">
 	$(function(){
 		$('.profilesNav').click(function(){

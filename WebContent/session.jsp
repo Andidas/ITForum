@@ -59,8 +59,8 @@
 				<p >${nowActiveSessionView.sstatement}<a href="javaScript:;" title="创建人:${nowActiveSessionView.uname}" class="zebra_tips1" style="color:#888;" onclick="touserjump(${nowActiveSessionView.smasterid})">——<span>${nowActiveSessionView.uname}</span></a></p>
 			</div>
 		</div>
+			
 		<div class="col-md-8" id="mainContent">
-			<ul class="content-text clearfix" >
 				<c:if test="${empty nowActiveSessionView.topicViewPM.data}">
 					<div class="row clearfix">
 						<div class="col-md-12 column">
@@ -69,12 +69,14 @@
 									您好， 暂时无人发帖~
 								</h2>
 								<small>
-									您将成为第一个发帖人！<a href="javaScript:;" class="toReleaseTopic">发帖</a>
+									您将成为第一个发帖人！<a href="javaScript:;" onclick="jumpEveryWhere('#releaseTopic')">发帖</a>
 								</small>
 							</div>
 						</div>
 					</div>
 				</c:if>
+			<ul class="content-text clearfix" >
+				
 				<c:forEach items="${nowActiveSessionView.topicViewPM.data}" var="topicList" >
 					<li class="clearfix ">
 						<div class="col-xs-1">
@@ -118,8 +120,10 @@
 				</c:forEach>
 			</ul>
 			
-			<!-- <ul class="paginate" id="paginate"></ul> -->			
-			
+			<ul class="pagination" id="pagination"></ul>
+			<input type="hidden" id="SessiontotalPageCount" value="${nowActiveSessionView.topicViewPM.totalPageCount}">
+   			<input type="hidden" id="Sessionpagesize" value="${nowActiveSessionView.topicViewPM.pageParam.pagesize }">
+	
 			<div class="col-xs-12" id="releaseTopic">
 				<div id="topicTitle" class="topicTitle">
 					<input type="text" id="topicTitleText" placeholder="请输入题目"/>
@@ -130,6 +134,7 @@
 				</div>
 			</div>
 		</div>
+				
 		<div class="col-md-4" style="padding-left:0;">
 			<div class="panel " id="HotQuestion">
 				<div class="panel-heading">
@@ -158,21 +163,8 @@
 	
 	</div>
 	
+			
 </body>
-<!-- 跳到发布帖子的位置 -->
-<script type="text/javascript"> 
-	$(function(){
-		$('.toReleaseTopic').click(function(){
-			var myHref = location.href;
-			if(myHref.indexOf('#releaseTopic')>0){
-				myHref = myHref.replace('#releaseTopic','');
-				location.href = myHref + '#releaseTopic';
-			}else{
-				location.href = myHref + '#releaseTopic';
-			}
-		});
-	});
-</script>
 <!-- 提示框 -->
 <script type="text/javascript" src="js/zebra_tooltips.js"></script> 
 <!-- 页面跳转 -->
@@ -184,68 +176,121 @@
 <script type="text/javascript" src="js/jqPaginator.js"></script>
 <!-- 回复的分页查询 -->
 <script type="text/javascript">
-	/*$.jqPaginator('#paginate', {
-	    totalPages: ${sessionPage.totalPageCount},
-	    visiblePages: ${sessionPage.pageParam.pagesize},
-	    currentPage: 1,
-	    onPageChange: function (num, type) {
-	        findPage(num);
-	    }
-	});*/
-	
-	
-	function findPage(pageno){
-		var param ={
-			'op':'findTopicByPage',
-			'pageno':pageno,
-			'sessionSid':$('#sessionSid').val()
+var spc = parseInt($('#SessiontotalPageCount').val());
+var spp = parseInt($('#Sessionpagesize').val());
+
+$.jqPaginator('#pagination', {
+    totalPages: spc,
+    visiblePages:spp,
+    currentPage: 1,
+    onPageChange: function (num, type) {
+        findPage(num);
+    }
+});
+function findPage(pageno){
+	var param ={
+		'op':'findTopicByPage',
+		'pageno':pageno,
+		'sessionSid':$('#sessionSid').val()
+	}
+	$.post("Session",param,function(data){
+		if(data=="false"){
+			alert('分页查询失败');
+		}else{
+			
+			$('.content-text').empty();
+			var topics = eval(data);
+			$.each(topics,function(i,topic){
+				var Mytext = topicContent(topic);
+				$('.content-text').append(Mytext);
+			});
+			//TopicTName function is exist in GotoTopicOrSession.js
+			$('.TopicTName').click(TopicTName);
+			//图片放大器
+			PostbirdImgGlass.init({
+	            domSelector:"#mainContent img",
+	            animation:true
+	        });
+			//提示框初始化
+			new $.Zebra_Tooltips($('.zebra_tips6'),{
+				'position': 'right'
+			});
+			new $.Zebra_Tooltips($('.zebra_tips7'),{
+				'position': 'left'
+			});
+			jumpEveryWhere('#');
 		}
-		$.post("Session",param,function(data){
-			if(data=="false"){
-				alert('分页查询失败');
-			}else{
-				
-				$('.content-text').empty();
-				var topics = eval(data);
-				$.each(topics,function(i,topic){
-					var text = topicContent(topic);
-					$('.content-text').append(text);
-				});
-				//TopicTName function is exist in GotoTopicOrSession.js
-				$('.TopicTName').click(TopicTName);
-			}
-		});
+	});
+}
+//得到图像数组'<img ...>,<img ...>,<img ...>'
+function getImageSrc(content){
+	var contentCopy = content;
+	var totalImg;
+	if(contentCopy.match(eval("/<img/ig"))){
+		totalImg= contentCopy.match(eval("/<img/ig")).length;//一共有几张图
+	}else{
+		totalImg=0;
 	}
-	
-	function topicContent(topic){
-		
-	var text = "<li class='clearfix'><div class='col-xs-2'><div class='thumbsUp'><p title='回复条数' class='zebra_tips1'>"
-				+ "<span class='activeSpan'>"
-				+ topic.treplycount
-				+ "	</span><span class='glyphicon glyphicon-comment'></span>"
-				+ "</p><p title='观看人数:"+topic.tclickcount+"' class='zebra_tips1'><span class='activeSpan'>"
-				+ topic.tclickcount
-				+ "</span><span class='glyphicon glyphicon glyphicon glyphicon-eye-open'></span></p></div>"
-				+ "</div><div class='panel col-xs-10'><div class='panel-heading'>"
-				+ "<a href='javaScript:void(0)' class='TopicTName'>"
-				+ topic.ttopic
-				+ "</a><input type='hidden' class='topicTid' value='"
-						+topic.tid
-						+"'></div><div class='panel-body'>"
-				+ topic.tcontents
-				+ "</div><div class='panel-footer clearfix'><div style='float: right'>"
-				+ "<span class='glyphicon glyphicon-user'></span> "
-				+ "	<a href='user.jsp' title='谁发了这个贴:"+topic.uname+"' target='_blank' class='zebra_tips1'>"
-				+ topic.uname + "</a></div><c:if test='" + topic.treplycount != 0
-				+ "'><div style='float: left'><span class='glyphicon glyphicon glyphicon-comment'></span>"
-				+ "<a href='user.jsp' title='最后回复这个帖子的人:"+topic.lastreplyuser+"' target='_blank' class='zebra_tips1'>"
-				+ topic.lastreplyuser
-				+ "</a> <span class='glyphicon glyphicon-time'></span>"
-				+ "<span class='time zebra_tips1' title='最后一次回复这个帖子的时间:"+topic.tlastreplaytime+"'>"
-				+ topic.tlastreplaytime
-				+ "</span></div></c:if></div></div></li>";
-		return text;
+	var myimg=new Array();//数组对象
+	for(var i=0;i<totalImg;i++){
+		var begin = contentCopy.indexOf('<img');
+		var end = contentCopy.substring(begin).indexOf('>') + begin +1;
+		myimg[i] = contentCopy.substring(begin,end);
+		contentCopy = contentCopy.substring(end);
+		//console.log(' '+i+":"+myimg[i]);
 	}
+	return myimg;
+}
+//得到内容，不包含图片
+function getMainContents(imgs,content){
+	var contentCopy = content;
+	for(var i =0;i<imgs.length;i++){
+		contentCopy = contentCopy.replace(imgs[i],'');
+	}
+	//console.log('main contents:'+contentCopy);
+	return contentCopy;
+}
+//把图片和文字整合在一起
+function neatenContent(imgs,content){
+	var lastContent = '<div style="max-height:60px;" title="简略内容,请点击题目进入主贴!" class="zebra_tips7">'+content+'</div><div>';
+	for(var i =0;i<imgs.length;i++){
+		lastContent = lastContent+imgs[i].replace('style','styleOld').replace('<img','<img width="137" height="137"');
+	}
+	lastContent =lastContent+'</div>';
+	//console.log(lastContent);
+	return lastContent;
+}
+function topicContent(topic){
+var myimgs = getImageSrc(topic.tcontents);
+var mainContents = getMainContents(myimgs,topic.tcontents);
+var contents = neatenContent(myimgs,mainContents)
+var text = "<li class='clearfix'><div class='col-xs-2'><div class='thumbsUp'><p title='回复条数' class='zebra_tips6'>"
+			+ "<span class='activeSpan'>"
+			+ topic.treplycount
+			+ "	</span><span class='glyphicon glyphicon-comment'></span>"
+			+ "</p><p title='观看人数:"+topic.tclickcount+"' class='zebra_tips6'><span class='activeSpan'>"
+			+ topic.tclickcount
+			+ "</span><span class='glyphicon glyphicon glyphicon glyphicon-eye-open'></span></p></div>"
+			+ "</div><div class='panel col-xs-10'><div class='panel-heading'>"
+			+ "<a href='javaScript:void(0)' class='TopicTName'>"
+			+ topic.ttopic
+			+ "</a><input type='hidden' class='topicTid' value='"
+					+topic.tid
+					+"'></div><div class='panel-body'>"
+			+ contents
+			+ "</div><div class='panel-footer clearfix'><div style='float: right'>"
+			+ "<span class='glyphicon glyphicon-user'></span> "
+			+ "	<a href='javaScript:;' title='谁发了这个贴:"+topic.uname+"' target='_blank' class='zebra_tips6' onclick='touserjump("+topic.tuid+")'>"
+			+ topic.uname + "</a></div><c:if test='" + topic.treplycount != 0
+			+ "'><div style='float: left'><span class='glyphicon glyphicon glyphicon-comment'></span>"
+			+ "<a href='javaScript:;' title='最后回复这个帖子的人:"+topic.lastreplyuser+"' target='_blank' class='zebra_tips6'>"
+			+ topic.lastreplyuser
+			+ "</a> <span class='glyphicon glyphicon-time'></span>"
+			+ "<span class='time zebra_tips6' title='最后一次回复这个帖子的时间:"+topic.tlastreplaytime+"'>"
+			+ topic.tlastreplaytime
+			+ "</span></div></c:if></div></div></li>";
+	return text;
+}
 </script>
 <!-- 富文本框，发布帖子 -->
 <script type="text/javascript">
@@ -306,8 +351,12 @@
 					url : "Topic",
 					data:{"op":"releaseTopic","ttopic":titleText,"tcontents":sessionText,"tsid":sessionSid,"tuid":nowUserUid},
 					success:function(data){
-						alert('发帖成功');
+						if(data=="false"){
+							alert('发帖失败');
+						}else{
+							alert('发帖成功');
 						location.reload();//重新加载本页面
+						}
 					}
 				});//end ajax
 			}
@@ -371,10 +420,5 @@
 </script>
 <!-- 图片放大器 -->
 <script src="./js/postbird-img-glass.js"></script>
- <script>
-        PostbirdImgGlass.init({
-            domSelector:"#mainContent img",
-            animation:true
-        });
-    </script>
+
 </html>

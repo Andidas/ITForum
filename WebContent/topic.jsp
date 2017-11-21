@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			
 			<div class="col-md-8  column">
-				<div class="answer" style="border-bottom: transparent;" id="questionMain">
+				<div class="answer" id="questionMain">
 					<table>
 						<tbody>
 							<tr>
@@ -166,7 +166,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</c:forEach>
 				</div>
 				
-   				<!-- <ul class="pagination" id="pagination"></ul> -->
+   				<ul class="pagination" id="pagination"></ul>
+   				<input type="hidden" id="ReplytotalPageCount" value="${ReplyPage.totalPageCount}">
+   				<input type="hidden" id="Replypagesize" value="${ReplyPage.pageParam.pagesize}">
    				
 				<div id="summernoteReply" ></div>
 				<a class="btn btn-success" id="ReplyTopic">回复</a>
@@ -239,20 +241,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="dist/lang/summernote-zh-CN.js"></script>
 <!-- 分页 -->
 <script type="text/javascript" src="js/jqPaginator.js"></script>
-
 <!-- 回复的分页查询 -->
 <script type="text/javascript">
-	/*$.jqPaginator('#pagination', {
-	    //totalPages: ${ReplyPage.totalPageCount},
-	   // visiblePages: ${ReplyPage.pageParam.pagesize},
-	   totalPages: 11,
-	    visiblePages:5,
+	var rpc = parseInt($('#ReplytotalPageCount').val());
+	var rps =parseInt($('#Replypagesize').val());
+	
+	$.jqPaginator('#pagination', {
+	    totalPages:rpc ,
+	    visiblePages: rps,
 	    currentPage: 1,
 	    onPageChange: function (num, type) {
 	        findPage(num);
-	       
 	    }
-	});*/
+	});
 	function findPage(pageno){
 		var param ={
 			'op':'findReplyByPage',
@@ -270,6 +271,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$('.answers').append(text);
 				});
 				clickInit();
+				jumpEveryWhere("#Tabson");
 			}
 		});
 	}

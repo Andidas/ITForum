@@ -102,8 +102,7 @@ public class TopicServlet extends HttpServlet {
 		String tcontents = request.getParameter("tcontents");
 		/*´«µÝ²ÎÊý*/
 		if(ts.addTopic(tsid, tuid, ttopic, tcontents)){		
-			String newContents = tvs.neatenSessionContentInit(tcontents);
-			out.print(newContents);	
+			out.print("true");	
 		}else{
 			out.print("false");			
 		}
