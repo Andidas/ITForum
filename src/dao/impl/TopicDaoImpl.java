@@ -38,6 +38,7 @@ public class TopicDaoImpl implements TopicDao {
 	}
 
 	//∑÷“≥≤‚ ‘
+	@Override
 	public PageMode<TopicView> splitPage(PageParam page){
 		int start = (page.getPageno()-1)*page.getPagesize();
 		page.setPageno(start);
@@ -60,6 +61,7 @@ public class TopicDaoImpl implements TopicDao {
 		return null;
 	}
 	
+	@Override
 	public int rowCount(int id) {
 		try {
 			int num = 0;

@@ -72,15 +72,25 @@
 	<select id="splitPage" parameterType="entity.PageParam" resultMap="splitPageResult">
 		select t.*,s.sname,u.uname,u1.uname lastreplyuser
 		from topic t,`session` s,`user` u,`user` u1 
-		where t.tsid = #{id} and t.tsid = s.sid and u.uid = t.tuid and t.tlastreplyuseid = u1.uid
+		<where>
+			t.tsid = s.sid and u.uid = t.tuid and t.tlastreplyuseid = u1.uid 
+			<if test="id != 0">
+	    		 and t.tsid = #{id}
+	    	</if>
+		</where>
 		order by t.ttime DESC
 		LIMIT #{pageno},#{pagesize}
 	</select>
 	<resultMap type="INTEGER" id="rowNumResult">
 		<result column="num" jdbcType="INTEGER" property="num" />
 	</resultMap>
-	<select id="rowNum" parameterType="entity.PageParam" resultMap="rowNumResult">
-		select count(*) as num from topic where tsid = #{id}
+	<select id="rowNum" parameterType="INTEGER" resultMap="rowNumResult">
+	    		select count(*) as num from topic 
+	    	<if test="_parameter != 0">
+	    		<where>
+	    		tsid = #{_parameter}
+	    		</where>
+	    	</if>
 	</select>
 	<!-- end 分页 -->
 	

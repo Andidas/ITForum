@@ -7,13 +7,33 @@
 
 #HotQuestion .panel-body a {
 	text-decoration: none;
+}
+#mainContent .panel{
+	position: relative;
 	
 }
-
-#HotQuestion .panel-body li {
-	
+#mainContent .panel-heading,#mainContent .panel-body{
+	padding:0px;
+}
+#mainContent .panel-heading{
+	width:80%;
+}
+#mainContent .panel-body{
+	background:rgba(231, 231, 231, 0.55);
+	border-bottom:1px solid #e7e7e7;
+	width:80%;
 }
 
+#mainContent .author{
+	position: absolute;
+	top:5px;
+	right:5px;
+}
+#mainContent .lastRelpy{
+	position: absolute;
+	top:30px;
+	right:5px;
+}
 #content .col-xs-7 >ul:nth-child(1) {
 	margin-bottom: 30px;
 }
@@ -23,10 +43,7 @@
 }
 
 #content-center .content-text p {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	margin-top: -15px;
+	margin:0;
 }
 
 #content-center .content-text ul>li {
@@ -34,8 +51,7 @@
 }
 
 #content-center .content-text img {
-	width: 190px;
-	height: 180px;
+	
 	margin-right: 13px;
 }
 
@@ -63,6 +79,7 @@
 #accordion .panel-body{
 	background:aliceblue;
 }
+
 #accordion .panel a{
 	text-decoration: none;
 	display: block;

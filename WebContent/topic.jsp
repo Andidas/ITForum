@@ -271,11 +271,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$('.answers').append(text);
 				});
 				clickInit();
-				jumpEveryWhere("#Tabson");
+				jumpEveryWhere("#");
 			}
 		});
 	}
-	
+	//初始化赞和回复的点击事件
+	function clickInit(){
+		//移除事件
+		//添加事件
+		$('.date-dz-z').click(clickZan);
+		$('.replyComment').click(springReply);
+		//提示框
+		new $.Zebra_Tooltips($('.zebra_tips2'));
+	}
+	//回复内容
+	function replyContent(reply){
+		var text = "<div class='answer'><table><tbody><input type='hidden' class='rid' value='"
+					+ reply.rid
+					+"'><tr><td class='votecell'><div class='vote'><span class='date-dz-z pull-left zebra_tips2' title='点赞，可以加该贴的排名'>"
+					+"	<i class='date-dz-z-click-red'></i><i class='z-num'>"
+					+ reply.rfavour
+					+"</i></span></div></td><td class='answercell'><div>"
+					+ reply.rcontent
+					+"</div><div class='fw'><div class='post-signature'>"
+					+"<div class='user-info'><div class='user-action-time'>answered <span title='回复时间:"+reply.rtime
+					+"' class='zebra_tips2'>"
+					+ reply.rtime
+					+"</span></div><div class='user-gravatar32'><a href='javaScript:;'>"
+					+"<img src='img/17883626.jpg' width='32' height='32'>"
+					+"</a></div><div class='user-details'><a href='javaScript:;' title='回帖人:"+reply.uname+"' class='zebra_tips2'>"
+					+ reply.uname
+					+"</a><div><span title='用户当前状态:"+reply.ustate+"' class='zebra_tips2'>"
+					+ reply.ustate
+					+"</span><span title='用户当前积分:"+reply.upoint+"' class='zebra_tips2'>"
+					+ reply.upoint
+					+"</span><span title='用户是否是版主:"+reply.uissectioner+"' class='zebra_tips2'>"
+					+ reply.uissectioner
+					+"</span></div></div></div></div></div></td></tr><tr><td class='votecell'></td>"
+					+"<td><div class='comments '>"
+					+"<table><tbody></tbody></table></div><div>"
+					+"<a class='comments-link replyComment'>回复</a>"
+					+"</div></td></tr></tbody></table></div></div>";
+					
+		return text;
+	}
 </script>
 <!-- 回复帖子  -->
 <script type="text/javascript">
@@ -323,45 +362,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							[ 'view', [ 'fullscreen'] ] ]
 		});
 	});//end ready
-	//初始化赞和回复的点击事件
-	function clickInit(){
-		//移除事件
-		//添加事件
-		$('.date-dz-z').click(clickZan);
-		$('.replyComment').click(springReply);
-	}
-	//回复内容
-	function replyContent(reply){
-		var text = "<div class='answer'><table><tbody><input type='hidden' class='rid' value='"
-					+ reply.rid
-					+"'><tr><td class='votecell'><div class='vote'><span class='date-dz-z pull-left zebra_tips1' title='点赞，可以加该贴的排名'>"
-					+"	<i class='date-dz-z-click-red'></i><i class='z-num'>"
-					+ reply.rfavour
-					+"</i></span></div></td><td class='answercell'><div>"
-					+ reply.rcontent
-					+"</div><div class='fw'><div class='post-signature'>"
-					+"<div class='user-info'><div class='user-action-time'>answered <span title='回复时间:"+reply.rtime
-					+"' class='zebra_tips1'>"
-					+ reply.rtime
-					+"</span></div><div class='user-gravatar32'><a href='javaScript:;'>"
-					+"<img src='img/17883626.jpg' width='32' height='32'>"
-					+"</a></div><div class='user-details'><a href='javaScript:;' title='回帖人:"+reply.uname+"' class='zebra_tips1'>"
-					+ reply.uname
-					+"</a><div><span title='用户当前状态:"+reply.ustate+"' class='zebra_tips1'>"
-					+ reply.ustate
-					+"</span><span title='用户当前积分:"+reply.upoint+"' class='zebra_tips1'>"
-					+ reply.upoint
-					+"</span><span title='用户是否是版主:"+reply.uissectioner+"' class='zebra_tips1'>"
-					+ reply.uissectioner
-					+"</span></div></div></div></div></div></td></tr><tr><td class='votecell'></td>"
-					+"<td><div class='comments '>"
-					+"<table><tbody></tbody></table></div><div>"
-					+"<a class='comments-link replyComment'>回复</a>"
-					+"</div></td></tr></tbody></table></div></div>";
-					
-		return text;
-	}
-	
 </script>
 
 <!-- 楼中楼回复 -->
@@ -381,10 +381,10 @@ function addReply(obj,val){
 					+"<div style='display: block;' class='comment-body'>"
 					+"<span class='comment-copy'>"+val
 					+"</span> –&nbsp; <a "
-					+"href='javaScript:void(0)' title='用户'class='comment-user zebra_tips1'>"
+					+"href='javaScript:void(0)' title='用户'class='comment-user zebra_tips2'>"
 					+$('#nowUserName').html()
 					+"</a> <span class='comment-date' dir='ltr'><w class='comment-link'><span "
-					+"title='回复日期' class='zebra_tips1'>Sep 10 '15 at 9:09</span></w>"
+					+"title='回复日期' class='zebra_tips2'>Sep 10 '15 at 9:09</span></w>"
 					+"</span></div></td></tr>";
 	obj.append(text);
 }

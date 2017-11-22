@@ -1,5 +1,7 @@
 package servlet;
 
+
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -9,25 +11,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.TopicDao;
+import dao.factory.DaoFactory;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import service.JsonService;
 import service.SessionService;
-import service.SessionViewService;
 import service.TopicService;
 import service.TopicViewService;
 import utils.ConstantsData;
+import utils.ConstantsData.EnumDaoFactory;
 import entity.PageMode;
+import entity.PageParam;
 import entity.Session;
 import entity.Topic;
 import entity.viewEntity.TopicView;
 
 public class WelcomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-    TopicService topicService = new TopicService();
-    TopicViewService topicviewService = new TopicViewService();
-    SessionViewService svs = new SessionViewService();
-    SessionService sessionService = new SessionService();
+	private TopicViewService topicViewService;
+	private TopicService topicService = new TopicService();
+	private TopicViewService topicviewService = new TopicViewService();
+	private SessionService sessionService = new SessionService();
+	private JsonService js = new JsonService();
+	private TopicDao topicDao = DaoFactory.getInstance(EnumDaoFactory.TOPIC).getTopicDao();
+
     public WelcomeServlet() {
         super();
     }
@@ -43,18 +51,19 @@ public class WelcomeServlet extends HttpServlet {
 			main(request,response);
 		}else if(op.equals("getSnameAndSid")){
 			getSnameAndSid(request,response);
+		}else if(op.equals("findTopicByPage")){
+			findTopicByPage(request,response);
 		}
 	}
 
 	private void main(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int sid = 9;
-		PageMode<TopicView> topicViewPageMode = topicviewService.TopicSplitPage(ConstantsData.PAGENO,ConstantsData.PAGESIZE,sid);
+		
+		PageMode<TopicView> topicViewPageMode = topicviewService.TopicSplitPage(ConstantsData.PAGENO,ConstantsData.PAGESIZE);
 		List<String> profiles = sessionService.queryAllProfile();
 		List<Topic> topics = topicService.queryHotsTopicList();
 		request.setAttribute("HotsTopics", topics);
 		request.setAttribute("welcomeProfiles", profiles);
 		request.setAttribute("topicViewPageMode", topicViewPageMode);
-		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 		
 	}
@@ -76,5 +85,24 @@ public class WelcomeServlet extends HttpServlet {
 		}
 			
 	}
-
+	private void findTopicByPage(HttpServletRequest request,
+			HttpServletResponse response)throws ServletException, IOException  {
+		PrintWriter out = response.getWriter();
+		int pageno=ConstantsData.PAGENO; //Ò³Êý
+		
+		String pagenoStr = request.getParameter("pageno");
+		if(pagenoStr!=null&&!"".equals(pagenoStr)){
+			pageno = Integer.parseInt(pagenoStr);
+		}
+		
+		PageMode<TopicView> pm = new TopicViewService().TopicSplitPage(pageno, ConstantsData.PAGESIZE);
+		
+		if(pm==null){
+			out.print("false");
+		}else{
+			out.print(js.toJSONArray(pm.getData()));
+		}		
+	}
 }
+
+

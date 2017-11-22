@@ -23,5 +23,6 @@ public interface ITopicViewService {
 	 * @return
 	 */
 	PageMode<TopicView> TopicSplitPage(int pageno,int pagesize,int tsid);
+	PageMode<TopicView> TopicSplitPage(int pageno, int pagesize);
 
 }

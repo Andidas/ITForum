@@ -8,6 +8,11 @@ package entity;
 public class PageParam {
 	
 	
+	public PageParam(int pageno, int pagesize) {
+		super();
+		this.pageno = pageno;
+		this.pagesize = pagesize;
+	}
 	public PageParam(int pageno, int pagesize, int id) {
 		super();
 		this.pageno = pageno;

@@ -51,7 +51,7 @@ public interface TopicDao {
 	int updateClickCount(int tid);
 	/**
 	 * 增加主贴
-	 * @param Topic 要增加的主贴 (tsid,tuid,ttopic,tcontents,ttime)
+	 * @param Topic 要增加的主贴 (tsid,tidy,ttopic,tcontents,ttime)
 	 * @return 返回被增加的条数，如果不大于0则表示失败
 	 */
 	int addTopic(Topic topic);

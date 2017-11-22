@@ -174,7 +174,7 @@
 <script src="dist/lang/summernote-zh-CN.js"></script>
 <!-- 分页 -->
 <script type="text/javascript" src="js/jqPaginator.js"></script>
-<!-- 回复的分页查询 -->
+<script type="text/javascript" src="js/indexSpiltPage.js"></script>
 <script type="text/javascript">
 var spc = parseInt($('#SessiontotalPageCount').val());
 var spp = parseInt($('#Sessionpagesize').val());
@@ -204,66 +204,29 @@ function findPage(pageno){
 				var Mytext = topicContent(topic);
 				$('.content-text').append(Mytext);
 			});
-			//TopicTName function is exist in GotoTopicOrSession.js
-			$('.TopicTName').click(TopicTName);
-			//图片放大器
-			PostbirdImgGlass.init({
-	            domSelector:"#mainContent img",
-	            animation:true
-	        });
-			//提示框初始化
-			new $.Zebra_Tooltips($('.zebra_tips6'),{
-				'position': 'right'
-			});
-			new $.Zebra_Tooltips($('.zebra_tips7'),{
-				'position': 'left'
-			});
-			jumpEveryWhere('#');
+			clickInit();
 		}
 	});
 }
-//得到图像数组'<img ...>,<img ...>,<img ...>'
-function getImageSrc(content){
-	var contentCopy = content;
-	var totalImg;
-	if(contentCopy.match(eval("/<img/ig"))){
-		totalImg= contentCopy.match(eval("/<img/ig")).length;//一共有几张图
-	}else{
-		totalImg=0;
-	}
-	var myimg=new Array();//数组对象
-	for(var i=0;i<totalImg;i++){
-		var begin = contentCopy.indexOf('<img');
-		var end = contentCopy.substring(begin).indexOf('>') + begin +1;
-		myimg[i] = contentCopy.substring(begin,end);
-		contentCopy = contentCopy.substring(end);
-		//console.log(' '+i+":"+myimg[i]);
-	}
-	return myimg;
-}
-//得到内容，不包含图片
-function getMainContents(imgs,content){
-	var contentCopy = content;
-	for(var i =0;i<imgs.length;i++){
-		contentCopy = contentCopy.replace(imgs[i],'');
-	}
-	//console.log('main contents:'+contentCopy);
-	return contentCopy;
-}
-//把图片和文字整合在一起
-function neatenContent(imgs,content){
-	var lastContent = '<div style="max-height:60px;" title="简略内容,请点击题目进入主贴!" class="zebra_tips7">'+content+'</div><div>';
-	for(var i =0;i<imgs.length;i++){
-		lastContent = lastContent+imgs[i].replace('style','styleOld').replace('<img','<img width="137" height="137"');
-	}
-	lastContent =lastContent+'</div>';
-	//console.log(lastContent);
-	return lastContent;
-}
+
 function topicContent(topic){
 var myimgs = getImageSrc(topic.tcontents);
 var mainContents = getMainContents(myimgs,topic.tcontents);
 var contents = neatenContent(myimgs,mainContents)
+var lastReply;
+if(topic.treplycount!=0){
+	lastReply = "<div style='float: left'><span class='glyphicon glyphicon glyphicon-comment'></span>"
+		+ "<a href='javaScript:;' title='最后回复这个帖子的人:"+topic.lastreplyuser+"' target='_blank' class='zebra_tips6'> "
+		+ topic.lastreplyuser
+		+ "</a> <span class='glyphicon glyphicon-time'></span>"
+		+ "<span class='time zebra_tips6' title='最后一次回复这个帖子的时间:"+topic.tlastreplaytime+"'>"
+		+ topic.tlastreplaytime
+		+ "</span></div>"
+		+"</div></div></li>";
+}else {
+	lastReply="";
+}
+
 var text = "<li class='clearfix'><div class='col-xs-2'><div class='thumbsUp'><p title='回复条数' class='zebra_tips6'>"
 			+ "<span class='activeSpan'>"
 			+ topic.treplycount
@@ -281,14 +244,9 @@ var text = "<li class='clearfix'><div class='col-xs-2'><div class='thumbsUp'><p 
 			+ "</div><div class='panel-footer clearfix'><div style='float: right'>"
 			+ "<span class='glyphicon glyphicon-user'></span> "
 			+ "	<a href='javaScript:;' title='谁发了这个贴:"+topic.uname+"' target='_blank' class='zebra_tips6' onclick='touserjump("+topic.tuid+")'>"
-			+ topic.uname + "</a></div><c:if test='" + topic.treplycount != 0
-			+ "'><div style='float: left'><span class='glyphicon glyphicon glyphicon-comment'></span>"
-			+ "<a href='javaScript:;' title='最后回复这个帖子的人:"+topic.lastreplyuser+"' target='_blank' class='zebra_tips6'>"
-			+ topic.lastreplyuser
-			+ "</a> <span class='glyphicon glyphicon-time'></span>"
-			+ "<span class='time zebra_tips6' title='最后一次回复这个帖子的时间:"+topic.tlastreplaytime+"'>"
-			+ topic.tlastreplaytime
-			+ "</span></div></c:if></div></div></li>";
+			+ topic.uname 
+			+ "</a></div>"
+			+ lastReply;
 	return text;
 }
 </script>

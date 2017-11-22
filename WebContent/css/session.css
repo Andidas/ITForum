@@ -7,7 +7,9 @@
 #mainContent .content-text{
 	margin:0;
 }
-
+#mainContent .content-text img{
+	margin-right:15px;
+}
 #mainContent .content-text li {
 	border-bottom:2px solid #dddddd;
 	float: left;

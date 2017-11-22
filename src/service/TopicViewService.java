@@ -1,7 +1,9 @@
 package service;
 
 import java.util.List;
+
 import service.iService.ITopicViewService;
+import utils.ConstantsData;
 import utils.ConstantsData.EnumDaoFactory;
 import dao.ReplyDao;
 import dao.TopicDao;
@@ -15,14 +17,15 @@ import entity.viewEntity.TopicView;
 public class TopicViewService implements ITopicViewService {
 	private ReplyDao replyDao = DaoFactory.getInstance(EnumDaoFactory.REPLY).getReplyDao();
 	private TopicDao topicDao = DaoFactory.getInstance(EnumDaoFactory.TOPIC).getTopicDao();
-	private final static int PAGENO = 1;//第几页
-	private final static int PAGESIZE =5;//每页条数
-	
-	
 
 	@Override
 	public PageMode<TopicView> TopicSplitPage(int pageno, int pagesize,int tsid) {
 		PageParam pageParam = new PageParam(pageno, pagesize, tsid);
+		return topicDao.splitPage(pageParam);
+	}
+	@Override
+	public PageMode<TopicView> TopicSplitPage(int pageno, int pagesize) {
+		PageParam pageParam = new PageParam(pageno, pagesize);
 		return topicDao.splitPage(pageParam);
 	}
 	@Override
@@ -31,7 +34,7 @@ public class TopicViewService implements ITopicViewService {
     	 TopicView topicView = null;
 		 int sessionid = Integer.parseInt(sid);
 		 //该topic的所有回帖
-		 PageMode<ReplyView> allReply = queryReplyViewPageMode(PAGENO, PAGESIZE, tid);
+		 PageMode<ReplyView> allReply = queryReplyViewPageMode(ConstantsData.PAGENO, ConstantsData.PAGESIZE, tid);
 		 //和该topic相似的topics
 		 List<Topic> sameList = topicDao.querySameTopicListByTSID(sessionid);
 		 

@@ -126,31 +126,7 @@
 								Settings</a></li>
 					</ul>
 					<ul class="content-text" id="mainContent">
-						<c:forEach items="${topicViewPageMode.data}" var="topic">
-						<li>
-							<div class="panel" >
-								<div class="panel-heading">
-									<h3 class="panel-title">
-										<a href="javaScript:void(0)" class="sessionName">${topic.sname }</a>
-										<input type="hidden" class="sessionSid" value="${topic.tsid }">
-									</h3>
-								
-									<a href="javaScript:;" class="topicTName " onclick="topicjumg(this,${topic.tsid})" >${topic.ttopic }</a>
-									<input type="hidden" class="topicTid" value="${topic.tid }">
-									<span class="glyphicon glyphicon-comment zebra_tips1" title="回帖数"></span> ${topic.treplycount}
-								</div>
-								<div class="panel-body">
-									${topic.tcontents}									
-								</div>
-								<div class="panel-footer">
-									<span class="glyphicon glyphicon-user "></span>
-									<a href="javaScript:;" title="主题作者" target="_blank" class="zebra_tips1" onclick="touserjump(${topic.tuid})">${topic.uname}</a> 
-									<span class="glyphicon glyphicon-time"></span>
-									<span class="time zebra_tips1" title="发帖时间">${topic.ttime}</span>
-								</div>
-							</div>
-						</li>
-						</c:forEach>
+						<!-- 内容 -->
 					</ul>
 					
 					<ul class="pagination" id="pagination"></ul>
@@ -208,40 +184,89 @@
 </body>
 <!-- 分页 -->
 <script type="text/javascript" src="js/jqPaginator.js"></script>
-<!-- 回复的分页查询 -->
+<script type="text/javascript" src="js/indexSpiltPage.js"></script>
 <script type="text/javascript">
-	var ipc = parseInt($('#indextotalPageCount').val());
-	var ips =parseInt($('#indexpagesize').val());
-	
-	$.jqPaginator('#pagination', {
-	    totalPages:ipc ,
-	    visiblePages: ips,
-	    currentPage: 1,
-	    onPageChange: function (num, type) {
-	        findPage(num);
-	    }
-	});
-	function findPage(pageno){
-		var param ={
-			'op':'findReplyByPage',
-			'pageno':pageno,
-			'nowTopicTid':$('#nowTopicTid').val()
+var ipc = parseInt($('#indextotalPageCount').val());
+var ips = parseInt($('#indexpagesize').val());
+
+$.jqPaginator('#pagination', {
+	totalPages : ipc,
+	visiblePages : ips,
+	currentPage : 1,
+	onPageChange : function(num, type) {
+		findPage(num);
+	}
+});
+function findPage(pageno) {
+	var param = {
+		'op' : 'findTopicByPage',
+		'pageno' : pageno,
+	}
+	$.post("welcome", param, function(data) {
+		
+		if (data == "false") {
+			alert('分页查询失败');
+		} else {
+			$('#mainContent').empty();
+			var topics = JSON.parse(data);
+			$.each(topics, function(i, topic) {
+				console.log(topic);
+				var text = topicContent(topic);
+
+				$('#mainContent').append(text);
+			});
+			clickInit();
+			$('.sessionName').click(sessionName);
+			new $.Zebra_Tooltips($('.zebra_tips1'));
 		}
-		$.post("Topic",param,function(data){
-			if(data=="false"){
-				alert('分页查询失败');
-			}else{
-				$('.answers').empty();
-				var replys = JSON.parse(data);
-				$.each(replys,function(i,reply){
-					var text = replyContent(reply);
-					$('.answers').append(text);
-				});
-				clickInit();
-			}
-		});
+	});
+}
+function topicContent(topic){
+	var myimgs = getImageSrc(topic.tcontents);
+	var mainContents = getMainContents(myimgs,topic.tcontents);
+	var contents = neatenContent(myimgs,mainContents)
+	var lastReply;
+	if(topic.treplycount!=0){
+		lastReply = '<div class="lastRelpy"><a href="javaScript:;" title="最后回帖人:'
+			+topic.lastreplyuser
+			+'<br>回复时间:'
+			+topic.tlastreplaytime
+			+'" target="_blank" class="zebra_tips1" onclick="touserjump('
+			+topic.tlastreplyuseid
+			+')"><span class="glyphicon glyphicon-comment"></span> '
+			+topic.lastreplyuser
+			+'</span></div>';
+	}else{
+		lastReply=" ";
 	}
 	
+	var text ='<li><div class="panel" ><div class="panel-heading">'
+		+'<a href="javaScript:void(0)" class="sessionName zebra_tips1" style="color:black;margin-right:15px;" title="版块:'
+		+topic.sname
+			+'">'
+			+topic.sname
+			+'</a><input type="hidden" class="sessionSid" value="'
+			+topic.tsid 
+			+'"><a href="javaScript:;" class="topicTName " onclick="topicjumg(this,'
+			+topic.tsid
+			+')" >'
+			+topic.ttopic 
+			+'</a><input type="hidden" class="topicTid" value="'
+			+topic.tid 
+			+'"></div><div class="panel-body">'
+			+contents	
+			+'</div><div class="author">'
+			+'<a href="javaScript:;" title="发帖人:'
+			+topic.uname
+			+'" target="_blank" class="zebra_tips1" onclick="touserjump('
+			+topic.tuid
+			+')"><span class="glyphicon glyphicon-user "></span> '
+			+topic.uname
+			+'</a></span></div>'
+			+lastReply
+			+'</div></li>';
+		return text;
+	}
 </script>
 <!-- 左边导航栏 -->
 <script type="text/javascript">
