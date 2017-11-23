@@ -56,18 +56,14 @@ public class UserServlet extends HttpServlet {
 			modifyPassword(request, response);
 		} else if(op.equals("isNameExist")){
 			isNameExist(request, response);
-		}else if(op.equals("toUserInfo")){
-			toUserInfo(request,response);
+		}else if(op.equals("loginAtAjxa")){
+			loginAtAjxa(request,response);
 		}
 	}
 
-	private void toUserInfo(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		String uid = request.getParameter("uid");
-		User user = userService.queryUserOne(uid);
-		request.setAttribute("queryUserInfo", user);
-		request.getRequestDispatcher("user.jsp").forward(request, response);
-	}
+	
+
+	
 
 	/**
 	 * 用户名是否存在
@@ -212,7 +208,21 @@ public class UserServlet extends HttpServlet {
 			response.sendRedirect("loginAndRegister.jsp");
 		}
 	}
-
+	private void loginAtAjxa(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String email = request.getParameter("email");//邮箱
+		String password = request.getParameter("password");//密码
+		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
+		if (userService.checkUser(email, password)) {
+			User user = userService.queryUser(email);
+			session.setAttribute("NowLoginUser", user);
+			out.print("true");
+		}else{
+			session.setAttribute("NowLoginUser", null);
+			out.print("false");
+		}
+	}
 	/**
 	 * 退出用户
 	 */

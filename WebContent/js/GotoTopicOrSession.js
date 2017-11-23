@@ -14,8 +14,9 @@ function TopicTName() {
 			+ $(this).siblings('.topicTid').val() + "&sessionSid="
 			+ $('#sessionSid').val();
 }
+/*跳到用户信息界面*/
 function touserjump(uid){
-	location.href ="UserServlet?op=toUserInfo&uid="+uid;	
+	location.href ="UserInFo?op=toUserInfo&uid="+uid;	
 	}
 /*主页的topic跳转*/
 function topicjumg(obj,tsid) {
@@ -41,5 +42,6 @@ function jumpEveryWhere(str){
 }
 //跳转到信息中心
 function toInfoCenterjump(uid){
-	location.href ="UserInFo?op=toInfoCenter&uid="+uid;	
+	//location.href ="UserInFo?op=toInfoCenter&uid="+uid;	
+	open("UserInFo?op=toInfoCenter&uid="+uid);
 }

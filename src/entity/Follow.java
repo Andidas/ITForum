@@ -8,6 +8,11 @@ package entity;
  */
 public class Follow {
 	
+	public Follow(int uid, int sid) {
+		super();
+		this.uid = uid;
+		this.sid = sid;
+	}
 	public Follow(int fid, int uid, int sid) {
 		super();
 		this.fid = fid;

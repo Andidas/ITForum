@@ -38,4 +38,12 @@ public class FollowService implements IFollowService {
 		return followDao.queryFollowCount(sid);
 	}
 
+	@Override
+	public boolean isBeFollow(String uid, String sid) {
+		int uuid = Integer.parseInt(uid);
+		int ssid = Integer.parseInt(sid);
+		Follow follow = new Follow(uuid,ssid);
+		return followDao.isBeFollow(follow)>0;
+	}
+
 }

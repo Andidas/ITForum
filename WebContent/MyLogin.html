@@ -1,3 +1,4 @@
+<%@page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
 <!-- begin -->
 <div id="login">
     <div class="wrapper">
-            <form action="UserServlet?op=login" method="post" class="container offset1 loginform">
+            <form action="" method="post" class=" loginform" id="FormLogin">
                 <div id="owl-login">
                     <div class="hand"></div>
                     <div class="hand hand-r"></div>
@@ -24,22 +25,20 @@
                     <div class="control-group">
                         <div class="controls">
                             <label for="email" class="control-label fa fa-envelope"></label>
-                            <input id="email" type="email" name="email" placeholder="Email" tabindex="1" autofocus="autofocus" class="form-control input-medium">
+                            <input id="email" type="email" name="email" placeholder="邮箱" tabindex="1" autofocus="autofocus" class="form-control input-medium">
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="controls">
                             <label for="password" class="control-label fa fa-asterisk"></label>
-                            <input id="password" type="password" name="password" placeholder="Password" tabindex="2" class="form-control input-medium">
-                
+                            <input id="password" type="password" name="password" placeholder="密码" tabindex="2" class="form-control input-medium">               
                         </div>
                     </div>
-
                 </div>
                 <div class="form-actions">
-                 <input type="checkbox" name="rememberMe" value="yes" id="rememberMe" />记住我
-                <a href="#" tabindex="5" class="btn pull-left btn-link text-muted">忘记密码?</a>
-                    <button type="submit" tabindex="4" class="btn btn-primary">登录</button>
+                 <input type="hidden" name="rememberMe" value="yes" id="rememberMe" />
+                <a href="forgetPassword.jsp" tabindex="5" class="btn pull-left btn-link text-muted" >忘记密码?</a>
+                    <a type="submit" tabindex="4" class="btn btn-primary" id="Mylogin">登录</a>
                 </div>
             </form>
         </div>
@@ -51,6 +50,32 @@
         }).blur(function() {
             $('#owl-login').removeClass('password');
         });
+        /*表单提交*/
+		$("#Mylogin").click(function() {
+			if($("#email").val()==""){
+				alert("请输入邮箱");
+				$("#email").focus();
+			}else if($("#password").val()==""){
+				alert("请输入密码");
+				$("#password").focus();
+			}else{
+				//UserServlet?op=loginAtAjxa
+				var param = {
+					'op':'loginAtAjxa',
+					'email':$("#email").val(),
+					'password':$("#password").val()
+				}
+				$.post('UserServlet',param,function(data){
+					if(data=="false"){
+						alert("登录失败");
+					}else{
+						location.reload();
+					}
+				});
+								
+			}
+		});
+        
     });
     </script>
 </div>

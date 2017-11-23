@@ -31,6 +31,25 @@ public class FollowAndUnfollowServlet extends HttpServlet {
 			sessionFollow(request,response);
 		}else if(op.equals("unfollow")){
 			sessionUnfollow(request,response);
+		}else if(op.equals("isBeFollow")){
+			isBeFollow(request,response);
+		}
+	}
+	/**
+	 * ÊÇ·ñ±»¹Ø×¢
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	private void isBeFollow(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		PrintWriter out = response.getWriter();
+		String uid = request.getParameter("uid");
+		String sid = request.getParameter("sid");
+		if(fs.isBeFollow(uid, sid)){
+			out.print("true");
+		}else{
+			out.print("false");
 		}
 	}
 	private void sessionFollow(HttpServletRequest request,

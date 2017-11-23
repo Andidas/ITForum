@@ -49,8 +49,10 @@
 					<span id="sessionName" class="sessionName">${nowActiveSessionView.sname}</span>
 					<input type="hidden" id ="sessionSid" class="sessionSid" value="${nowActiveSessionView.sid}">
 					
-					<a href="javaScript:void(0)" class="follow" id="follow" ><span>关注</span></a>
+					
+					<a href="javaScript:void(0)" class="follow" id="follow" style="display: none;"><span>关注</span></a>
 					<a class="unfollow" id="unfollow" href="javaScript:void(0)" style="display: none;">取消关注 </a>
+					
 					 <small>
 					 	关注:<span title="目前关注人数:${nowActiveSessionView.follow}" id="followCount" class="zebra_tips1">${nowActiveSessionView.follow}</span>
 					 	提问:<span title="目前发帖数:${nowActiveSessionView.stopiccount}" class="zebra_tips1">${nowActiveSessionView.stopiccount}</span>
@@ -77,48 +79,7 @@
 					</div>
 				</c:if>
 			<ul class="content-text clearfix" >
-				
-				<c:forEach items="${nowActiveSessionView.topicViewPM.data}" var="topicList" >
-					<li class="clearfix ">
-						<div class="col-xs-1">
-							<div class="thumbsUp">
-								<p title="回复条数:${topicList.treplycount}" class="zebra_tips1">
-									<span class="activeSpan">${topicList.treplycount}</span><span class="glyphicon glyphicon-comment"></span>
-								</p>
-								<!--  <p title="被赞数目" class="zebra_tips1">
-									<span class="activeSpan">2232</span><span class="glyphicon glyphicon glyphicon-thumbs-up"></span>
-								</p>-->
-								<p title="观看人数:${topicList.tclickcount}" class="zebra_tips1">
-									<span class="activeSpan">${topicList.tclickcount}</span><span
-										class="glyphicon glyphicon glyphicon glyphicon-eye-open"></span>
-								</p>
-							</div>
-						</div>
-						<div class="panel col-xs-11">
-							<div class="panel-heading">
-								<a href="javaScript:void(0)" class="TopicTName" >${topicList.ttopic}</a>
-								<input type="hidden" class="topicTid" value="${topicList.tid}">
-							</div>
-							<div class="panel-body" >
-								${topicList.tcontents}
-							</div>
-							<div class="panel-footer clearfix">
-								<div style="float: right">
-									<span class="glyphicon glyphicon-user"></span> 
-									<a href="javaScript:;" title="谁发了这个贴:${topicList.uname}" target="_blank" class="zebra_tips1" onclick="touserjump(${topicList.tuid})">${topicList.uname}</a>
-								</div>
-								<c:if test="${topicList.treplycount!=0}">
-									<div style="float: left">
-										<span class="glyphicon glyphicon glyphicon-comment"></span> 
-										<a href="javaScript:;" title="最后回复这个帖子的人:${topicList.lastreplyuser}" target="_blank" class="zebra_tips1" onclick="touserjump(${topicList.tlastreplyuseid})">${topicList.lastreplyuser}</a> 
-										<span class="glyphicon glyphicon-time"></span> 
-										<span class="time zebra_tips1" title="最后一次回复这个帖子的时间:${topicList.tlastreplaytime}" >${topicList.tlastreplaytime}</span>
-									</div>
-								</c:if>
-							</div>
-						</div>
-					</li>
-				</c:forEach>
+				<!-- 内容 -->
 			</ul>
 			
 			<ul class="pagination" id="pagination"></ul>
@@ -327,7 +288,39 @@ var text = "<li class='clearfix'><div class='col-xs-1'><div class='thumbsUp'><p 
 </script>
 <!-- 关注和取消关注 -->
 <script type="text/javascript">
+//是否被关注 
+function isBeFollow(uid){
+	if(uid==undefined){
+		showfollow();
+	}else{
+		var param={
+				'op':'isBeFollow',
+				'uid':uid,
+				'sid':$('#sessionSid').val()
+		}
+		$.post('FollowAndUnfollow',param,function(data){
+			if(data=="false"){
+				showfollow();
+			}else{
+				showunfollow();
+			}
+		});
+	}
+}
+//显示关注
+function showfollow(){
+	$("#follow").show();
+	$("#unfollow").hide();
+}
+//显示取消关注
+function showunfollow(){
+	$("#follow").hide();
+	$("#unfollow").show();
+}
 	$(document).ready(function() {
+		
+		isBeFollow($('#nowUserID').val());
+		
 		/*关注*/
 		$("#follow").click(function() {
 			if($('#nowUserName').html()==undefined){
@@ -340,8 +333,7 @@ var text = "<li class='clearfix'><div class='col-xs-1'><div class='thumbsUp'><p 
 					}
 				$.post("FollowAndUnfollow",param,function(data){
 					if(data=="true"){
-						$("#follow").hide();
-						$("#unfollow").show();
+						showunfollow();
 						var num = $('#followCount').html();
 						num++;//关注人数自增
 						$('#followCount').html(num);
@@ -364,8 +356,7 @@ var text = "<li class='clearfix'><div class='col-xs-1'><div class='thumbsUp'><p 
 					}
 				$.post("FollowAndUnfollow",param,function(data){
 					if(data=="true"){
-						$("#unfollow").hide();
-						$("#follow").show();
+						showfollow();
 						var num = $('#followCount').html();
 						num--;//关注人数自减
 						$('#followCount').html(num);

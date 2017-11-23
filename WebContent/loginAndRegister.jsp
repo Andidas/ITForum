@@ -88,15 +88,7 @@ body {
 
 
 </body>
- <script>
-    $(function() {
-        $('#FormLogin #inputPassword').focus(function() {
-            $('#owl-login').addClass('password');
-        }).blur(function() {
-            $('#owl-login').removeClass('password');
-        });
-    });
-    </script>
+
 <script type="text/javascript">
 	/*发送邮箱验证，ajax*/
 	$(document).ready(function(){

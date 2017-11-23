@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li class="active"><a href="#profile" data-toggle="tab">
 							Profile</a></li>
 					<li><a href="#activity" data-toggle="tab">Activity</a></li>
-					<c:if test="${not empty NowLoginUser }">
+					<c:if test="${queryUserInfo.uid==NowLoginUser.uid}">
 					<li><a href="#edit" data-toggle="tab">编辑</a></li>
 					</c:if>
 				</ul>
@@ -48,9 +48,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="col-sidebar col-lg-3">
 							<div id="avatar-card" class="avatar-card">
 								<div class="avatar">
-									<a href="https://stackoverflow.com/users/2970947/elliott-frisch">
+									<a href="javascript:;">
 										<div class="gravatar-wrapper-164">
-											<img src="https://i.stack.imgur.com/HAq55.png?s=328&amp;g=1"
+											<img  src="<c:if test="${not empty queryUserInfo.uhead}"><%=basePath%>files/${queryUserInfo.uhead}</c:if><c:if test="${empty queryUserInfo.uhead}"><%=basePath%>files/ITForum.jpg</c:if>"									
 												alt="" width="164" height="164" class="avatar-user">
 										</div>
 									</a>
@@ -59,45 +59,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									131,472 <span class="label-uppercase">reputation</span>
 								</div>
 
-								<div class="g-row _gutters ai-start fl-none -row-first">
-									<div class="g-col g-row g-center badge1-alternate"
-										title="12 gold badges">
-										<span class="g-col fl-none -badge badge1"></span> <span
-											class="g-col g-center -total">12</span>
+								<div class="g-row _gutters ai-start fl-none -row-first ">
+									<div class="g-col g-row g-center badge1-alternate" title="用户状态:">
+										<span class="g-col fl-none -badge badge1"></span> 
+										<span class="g-col g-center -total">${queryUserInfo.ustate}</span>
 									</div>
 
-									<div class="g-col g-row g-center badge2-alternate"
-										title="69 silver badges">
-										<span class="g-col fl-none -badge badge2"></span> <span
-											class="g-col g-center -total">69</span>
+									<div class="g-col g-row g-center badge2-alternate " title="用户积分:">
+										<span class="g-col fl-none -badge badge2"></span> 
+										<span class="g-col g-center -total">${queryUserInfo.upoint}</span>
 									</div>
 
-									<div class="g-col g-row g-center badge3-alternate"
-										title="138 bronze badges">
+									<div class="g-col g-row g-center badge3-alternate zebra_tips1"
+										title="拥有${queryUserInfo.uissectioner}个版块<br><a href=''>申请版主?</a>">
 										<span class="g-col fl-none -badge badge3"></span> <span
-											class="g-col g-center -total">138</span>
+											class="g-col g-center -total">${queryUserInfo.uissectioner}</span>
 									</div>
 
 								</div>
-
 							</div>
 						</div>
 						<div class="col-lg-9">
 							<div class="col-left col-md-7 about">
-								<h2 class="user-card-name">Elliott Frisch</h2>
-								<div class="current-position">Big Data Engineer</div>
+								<h2 class="user-card-name">个人简介</h2>
+								<c:if test="${empty queryUserInfo.usatement}">
+								<div class="current-position"><br><br><br>该用户很懒人,什么都没留下~</div>
+								</c:if>
 								<div class="bio">
-									<h1>SOreadytohelp</h1>
-									<p>Just a Software Engineer working with Big Data in the
-										greater Atlanta, GA area.</p>
-									<p>All opinions and views expressed are entirely my own.</p>
-									<p>Just a Software Engineer working with Big Data in the
-										greater Atlanta, GA area.</p>
-									<p>All opinions and views expressed are entirely my own.</p>
-
-									<hr>
+								<br>
+								<c:if test="${not empty queryUserInfo.usatement}">
+									${queryUserInfo.usatement}
+								</c:if>
 								</div>
-
 							</div>
 							<div class="col-right col-md-5">
 								<div class="user-links">
@@ -118,35 +111,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 									<div class="user-link">
 										<ul class="list-unstyled">
-											<li><svg aria-hidden="true"
-													class="svg-icon iconLocation" width="18" height="18"
-													viewBox="0 0 18 18">
-													<path
-														d="M8.1 17.7S2 9.9 2 6.38A6.44 6.44 0 0 1 8.5 0C12.09 0 15 2.86 15 6.38 15 9.91 8.9 17.7 8.9 17.7c-.22.29-.58.29-.8 0zm.4-8.45a2.75 2.75 0 1 0 0-5.5 2.75 2.75 0 0 0 0 5.5z"></path></svg>
-												Atlanta, GA</li>
-											<li><svg aria-hidden="true" class="svg-icon iconLink"
-													width="18" height="18" viewBox="0 0 18 18">
-													<path
-														d="M2.9 9c0-1.16.94-2.1 2.1-2.1h3V5H5a4 4 0 1 0 0 8h3v-1.9H5A2.1 2.1 0 0 1 2.9 9zM13 5h-3v1.9h3a2.1 2.1 0 1 1 0 4.2h-3V13h3a4 4 0 1 0 0-8zm-7 5h6V8H6v2z"></path></svg>
-												<a href="http://www.frischcode.com" rel="me noreferrer"
-												class="url">frischcode.com</a></li>
-											<li><svg aria-hidden="true" class="svg-icon iconHistory"
-													width="19" height="18" viewBox="0 0 19 18">
-													<path
-														d="M3 9a8 8 0 1 1 3.73 6.77L8.2 14.3A6 6 0 1 0 5 9l3.01-.01-4 4-4-4h3zm7-4h1.01L11 9.36l3.22 2.1-.6.93L10 10V5z"></path></svg>
-												Member for <span title="2013-11-09 01:20:44Z">3
-													years, 11 months</span></li>
-											<li><svg aria-hidden="true" class="svg-icon iconEye"
-													width="18" height="18" viewBox="0 0 18 18">
-													<path
-														d="M9.06 3C4 3 1 9 1 9s3 6 8.06 6C14 15 17 9 17 9s-3-6-7.94-6zM9 13a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm2-4a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2z"></path></svg>
-												11,727 profile views</li>
-											<li><svg aria-hidden="true" class="svg-icon iconClock"
-													width="18" height="18" viewBox="0 0 18 18">
-													<path
-														d="M9 17A8 8 0 1 1 9 1a8 8 0 0 1 0 16zm0-2A6 6 0 1 0 9 3a6 6 0 0 0 0 12zM8 5h1.01L9 9.36l3.22 2.1-.6.93L8 10V5z"></path></svg>
-												Last seen <span title="2017-10-23 02:04:28Z"
-												class="relativetime">3 mins ago</span></li>
+											<li><svg aria-hidden="true" class="svg-icon iconLocation" width="18" height="18" viewBox="0 0 18 18">
+												<path d="M8.1 17.7S2 9.9 2 6.38A6.44 6.44 0 0 1 8.5 0C12.09 0 15 2.86 15 6.38 15 9.91 8.9 17.7 8.9 17.7c-.22.29-.58.29-.8 0zm.4-8.45a2.75 2.75 0 1 0 0-5.5 2.75 2.75 0 0 0 0 5.5z"></path></svg>
+												Atlanta, GA
+											</li>
+											<li><svg aria-hidden="true" class="svg-icon iconLink" width="18" height="18" viewBox="0 0 18 18">
+												<path d="M2.9 9c0-1.16.94-2.1 2.1-2.1h3V5H5a4 4 0 1 0 0 8h3v-1.9H5A2.1 2.1 0 0 1 2.9 9zM13 5h-3v1.9h3a2.1 2.1 0 1 1 0 4.2h-3V13h3a4 4 0 1 0 0-8zm-7 5h6V8H6v2z"></path></svg>
+												<a href="http://www.frischcode.com" rel="me noreferrer" class="url">
+												frischcode.com
+												</a>
+											</li>
+											<li><svg aria-hidden="true" class="svg-icon iconHistory" width="19" height="18" viewBox="0 0 19 18">
+												<path d="M3 9a8 8 0 1 1 3.73 6.77L8.2 14.3A6 6 0 1 0 5 9l3.01-.01-4 4-4-4h3zm7-4h1.01L11 9.36l3.22 2.1-.6.93L10 10V5z"></path></svg>
+												Member for 
+												<span title="2013-11-09 01:20:44Z">
+												3 years, 11 months
+												</span>
+											</li>
+											<li><svg aria-hidden="true" class="svg-icon iconEye" width="18" height="18" viewBox="0 0 18 18">
+												<path 	d="M9.06 3C4 3 1 9 1 9s3 6 8.06 6C14 15 17 9 17 9s-3-6-7.94-6zM9 13a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm2-4a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2z"></path></svg>
+												11,727 profile views
+												</li>
+											<li><svg aria-hidden="true" class="svg-icon iconClock"width="18" height="18" viewBox="0 0 18 18">
+												<path d="M9 17A8 8 0 1 1 9 1a8 8 0 0 1 0 16zm0-2A6 6 0 1 0 9 3a6 6 0 0 0 0 12zM8 5h1.01L9 9.36l3.22 2.1-.6.93L8 10V5z"></path></svg>
+												Last seen 
+												<span title="2017-10-23 02:04:28Z" class="relativetime">
+												3 mins ago
+												</span>
+											</li>
 										</ul>
 									</div>
 
@@ -160,23 +152,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<h4 id="h-interesting-tags">Favorite Tags</h4>
 								<a id="edit-interesting">edit</a>
 								<div>
-									<a href="#" class="label label-danger labeltag" title="java"
-										rel="tag">java<span class="glyphicon glyphicon-remove"
-										title="remove this tag"></span></a> <a href="#"
-										class="label label-danger labeltag" title="go" rel="tag">go<span
-										class="glyphicon glyphicon-remove" title="remove this tag"></span></a>
-									<a href="#" class="label label-danger labeltag" title="html"
-										rel="tag">html<span class="glyphicon glyphicon-remove"
-										title="remove this tag"></span></a> <a href="#"
-										class="label label-danger labeltag" title="css" rel="tag">css<span
-										class="glyphicon glyphicon-remove" title="remove this tag"></span></a>
-
+									<a href="#" class="label label-danger " title="java" rel="tag">
+										java<span class="glyphicon glyphicon-remove" title="remove this tag"></span>
+									</a>
+									<a href="#" class="label label-danger " title="go" rel="tag">
+										go<span class="glyphicon glyphicon-remove" title="remove this tag"></span>
+									</a>
+									<a href="#" class="label label-danger " title="html" rel="tag">html
+										<span class="glyphicon glyphicon-remove" title="remove this tag"></span>
+									</a>
+									
+									
 								</div>
-								<div id="addTag">
-									<input type="text" name="interestingTag" autocomplete="off"
-										class="form-control">
-									<button class="btn btn-success">add</button>
-								</div>
+								
 							</div>
 						</div>
 						<div class="col-md-9">
@@ -298,7 +286,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<label for="userBio">自我介绍</label>
 						            <textarea class='form-control' id="userBio" name="userBio" onkeyup='textAreaChange(this)' onkeydown='textAreaChange(this)' rows='5'>${sessionScope.NowLoginUser.usatement}</textarea>
 						            <div class='text-right'>
-						                <em style='color:red'>200</em>/<span>200</span>
+						                <em style='color:red'>500</em>/<span>500</span>
 						            </div>
 								</div>
 								<button type="submit" class="btn btn-default" id="setUserInfo">Submit</button>
@@ -314,8 +302,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 
 </body>
-
+<!-- 页面跳转 -->
+<script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
+<!-- 提示框 -->
+<script type="text/javascript" src="js/zebra_tooltips.js"></script>
+<!-- 字符限制 -->
 <script type="text/javascript" src="js/limitStr.js"></script>
+
 <script type="text/javascript">
 	$(function(){
 		textAreaChange($("#userBio"));

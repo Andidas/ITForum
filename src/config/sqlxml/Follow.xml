@@ -21,6 +21,18 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Follow">
+	<!-- 是否被该用户关注 -->
+	<resultMap type="INTEGER" id="isBeFollowResult">
+		<id column="nun" jdbcType="INTEGER" property="nun" />
+	</resultMap>
+	<select id="isBeFollow"  parameterType="entity.Follow" resultMap="isBeFollowResult">
+	select count(fid) nun from follow 
+		<where>
+			 uid =#{uid} and sid = #{sid};
+		</where>
+	</select>
+	
+	
 	<resultMap type="INTEGER" id="queryFollowIDResult">
 		<id column="fid" jdbcType="INTEGER" property="fid" />
 	</resultMap>

@@ -9387,7 +9387,7 @@ hr.dots:before {
 }
 #login .loginform {
   margin-top: 0;
-  top: 100px;
+  top: 0px;
 }
 #register #signup-main,
 #register #signup-project {

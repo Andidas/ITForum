@@ -2,7 +2,17 @@ package dao;
 
 import entity.Follow;
 
+/**
+ * @author lwy
+ *	关注和取消关注的Dao类
+ */
 public interface FollowDao {
+	/**
+	 * 是否被该用户关注
+	 * @param follow
+	 * @return
+	 */
+	int isBeFollow(Follow follow);
 	/**
 	 * 查询session的关注人数
 	 * @param sid

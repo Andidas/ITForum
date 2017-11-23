@@ -96,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<ul id="Tabson" class="nav nav-tabs ">
 						<li>
-							<h4>10tiao</h4>
+							<h4>${ReplyPage.totalRecordCount} &nbsp;条回复</h4>
 						</li>
 						<li class="pull-right"><a href="#answers" data-toggle="tab"
 							aria-expanded="false">oldest</a></li>

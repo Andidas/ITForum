@@ -6,6 +6,13 @@ package service.iService;
  */
 public interface IFollowService {
 	/**
+	 * session是否被user关注
+	 * @param uid
+	 * @param sid
+	 * @return
+	 */
+	boolean isBeFollow(String uid,String sid);
+	/**
 	 * 查询版块的关注人数
 	 * @param sid
 	 * @return

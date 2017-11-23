@@ -135,15 +135,14 @@
 				</div>
 
 				<div class="col-lg-3" id="content-right">
-					
-				
+					<c:if test="${!empty sessionScope.NowLoginUser.uemail}">
 					<div class="panel panel-info">
 						<div class="panel-heading  text-center">
-							<img class="img-circle" src="img/骑行.jpg" width="60" height="60" />
+							<img class="img-circle" src="<c:if test="${not empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/${sessionScope.NowLoginUser.uhead}</c:if><c:if test="${empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/ITForum.jpg</c:if>" width="60" height="60" />
 						</div>
 						<div class="panel-body">
 							<h3 class="panel-title">
-								Favorite Tags<a href="#" class="small">edit</a>
+								Favorite Tags
 							</h3>
 							<div style="line-height: 25px;">
 								<span class="label label-info">java</span> <span
@@ -159,9 +158,11 @@
 							</div>
 						</div>
 					</div>
+					</c:if>
 					
-					<iframe id="iframe" src="MyLogin.html" frameborder="0"  width="100%" height="300px;"></iframe>
-					
+					<c:if test="${empty sessionScope.NowLoginUser.uemail}">
+					<%@include file="MyLogin.html" %>						
+					</c:if>
 					<div class="panel " id="HotQuestion">
 					<div class="panel-heading">
 						<h3 class="panel-title">热议</h3>
@@ -169,9 +170,8 @@
 					<div class="panel-body">
 						<ul class=""> 
 							<c:forEach items="${HotsTopics }" var="topic">
-							
 							<li>
-								<span class="label label-success col-xs-2 zebra_tips1" title="回复人数:${topic.treplycount }">${topic.treplycount }</span>
+								<span class="label label-success col-xs-2 zebra_tips4" title="回复人数:${topic.treplycount }">${topic.treplycount }</span>
 								<a href="javaScript:;" class="col-xs-10" onclick="topicjumg(this,${topic.tsid})">${topic.ttopic}</a>
 								<input type="hidden" class="topicTid" value="${topic.tid}">
 							</li>
@@ -213,9 +213,8 @@ function findPage(pageno) {
 			$('#mainContent').empty();
 			var topics = JSON.parse(data);
 			$.each(topics, function(i, topic) {
-				console.log(topic);
+				//console.log(topic);
 				var text = topicContent(topic);
-
 				$('#mainContent').append(text);
 			});
 			clickInit();
@@ -261,7 +260,9 @@ function topicContent(topic){
 			+'</div><div class="author">'
 			+'<a href="javaScript:;" title="发帖人:'
 			+topic.uname
-			+'" target="_blank" class="zebra_tips1" onclick="touserjump('
+			+'<br><a href='
+			+'InfoCenter.jsp'
+			+'>发邮件给他</a>" target="_blank" class="zebra_tips1" onclick="touserjump('
 			+topic.tuid
 			+')"><span class="glyphicon glyphicon-user "></span> '
 			+topic.uname

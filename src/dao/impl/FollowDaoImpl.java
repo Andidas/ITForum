@@ -60,17 +60,33 @@ public class FollowDaoImpl implements FollowDao {
 
 	@Override
 	public int queryFollowCount(int sid) {
-		int result =0;
 		try {
+			int result =0;
 			sqlSession = dbAccess.getSqlSession();
 			result = sqlSession.selectOne("Follow.queryFollowCountBySid",sid);
+			return result;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return result;
 		}finally{
 			sqlSession.close();
 		}
-		return result;
+		return 0;
+	}
+
+	@Override
+	public int isBeFollow(Follow follow) {
+		try {
+			int result =0;
+			sqlSession = dbAccess.getSqlSession();
+			result = sqlSession.selectOne("Follow.isBeFollow",follow);
+			return result;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			sqlSession.close();
+		}
+		return 0;
+		
 	}
 
 }
