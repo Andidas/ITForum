@@ -40,13 +40,11 @@
 	padding-bottom:2px;
 	padding-top:2px;
 }
-#mainContent .panel-heading{
-	
-}
+
 </style>
 
 </head>
-<body data-spy="scroll" data-target="#myScrollspy" style="margin-top:30px;">
+<body data-spy="scroll" data-target="#myScrollspy" id="MyBody">
 	<jsp:include page="nav.jsp" flush="true"></jsp:include>
 	
 	<div class="container" id="content">
@@ -137,6 +135,8 @@
 				</div>
 
 				<div class="col-lg-3" id="content-right">
+					
+				
 					<div class="panel panel-info">
 						<div class="panel-heading  text-center">
 							<img class="img-circle" src="img/骑行.jpg" width="60" height="60" />
@@ -159,6 +159,9 @@
 							</div>
 						</div>
 					</div>
+					
+					<iframe id="iframe" src="MyLogin.html" frameborder="0"  width="100%" height="300px;"></iframe>
+					
 					<div class="panel " id="HotQuestion">
 					<div class="panel-heading">
 						<h3 class="panel-title">热议</h3>

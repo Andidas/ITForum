@@ -2,7 +2,7 @@
 /* Custom Styles */
 
 #content .row {
-	margin-top: 50px;
+	margin-top: 20px;
 }
 
 #HotQuestion .panel-body a {
@@ -10,8 +10,8 @@
 }
 #mainContent .panel{
 	position: relative;
-	
 }
+
 #mainContent .panel-heading,#mainContent .panel-body{
 	padding:0px;
 }

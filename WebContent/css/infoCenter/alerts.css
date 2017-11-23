@@ -1,0 +1,90 @@
+.icon-origin,
+.icon-info-sm,
+.icon-success-sm,
+.icon-stop-sm,
+.icon-warning-sm,
+.icon-danger-sm,
+.alert-success strong,
+.alert-info strong,
+.alert-warning strong,
+.alert-danger strong {
+  background-image: url("../img/bg_icons.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+.icon-sm,
+.icon-info-sm,
+.icon-success-sm,
+.icon-stop-sm,
+.icon-warning-sm,
+.icon-danger-sm,
+.alert-success strong,
+.alert-info strong,
+.alert-warning strong,
+.alert-danger strong {
+  width: 16px;
+  height: 16px;
+}
+.icon-info-sm,
+.alert-info strong {
+  background-position: -55px -64px;
+}
+.icon-success-sm,
+.alert-success strong {
+  background-position: -74px -64px;
+}
+.icon-stop-sm {
+  background-position: -18px -64px;
+}
+.icon-warning-sm,
+.alert-warning strong {
+  background-position: -37px -64px;
+}
+.icon-danger-sm,
+.alert-danger strong {
+  background-position: 0 -64px;
+}
+.alert-success {
+  height: 26px;
+  line-height: 26px;
+  padding: 0 0 0 5px;
+  border-radius: 0;
+}
+.alert-success strong {
+  margin-right: 5px;
+  vertical-align: text-bottom;
+}
+.alert-info {
+  height: 26px;
+  line-height: 26px;
+  padding: 0 0 0 5px;
+  border-radius: 0;
+}
+.alert-info strong {
+  margin-right: 5px;
+  vertical-align: text-bottom;
+}
+.alert-warning {
+  height: 26px;
+  line-height: 26px;
+  padding: 0 0 0 5px;
+  border-radius: 0;
+}
+.alert-warning strong {
+  margin-right: 5px;
+  vertical-align: text-bottom;
+}
+.alert-danger {
+  height: 26px;
+  line-height: 26px;
+  padding: 0 0 0 5px;
+  border-radius: 0;
+}
+.alert-danger strong {
+  margin-right: 5px;
+  vertical-align: text-bottom;
+}
+.alert-info a:hover {
+  color: #333;
+  text-decoration: underline;
+}

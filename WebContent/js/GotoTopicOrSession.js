@@ -39,3 +39,7 @@ function jumpEveryWhere(str){
 		location.href = myHref + str;
 	}
 }
+//跳转到信息中心
+function toInfoCenterjump(uid){
+	location.href ="UserInFo?op=toInfoCenter&uid="+uid;	
+}

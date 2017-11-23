@@ -75,7 +75,7 @@
 					<form onsubmit="submitFn(this, event);">
 			            <div class="search-wrapper">
 			                <div class="input-holder">
-			                    <input type="text" class="search-input" placeholder="Type to search" />
+			                    <input type="text" class="search-input"  />
 			                    <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
 			                </div>
 			                <span class="close" onclick="searchToggle(this, event);"></span>
@@ -86,10 +86,9 @@
 					<div class="login">
 						<ul class="nav navbar-nav navbar-right">
 							<c:if test="${empty sessionScope.NowLoginUser.uemail}">
-								<li><a href="UserServlet?op=toLogin"><span
-										class="glyphicon glyphicon-user"></span>注册</a></li>
-								<li><a href="UserServlet?op=toLogin"><span
-										class="glyphicon glyphicon-log-in"></span>登录</a></li>
+								<li><a href="UserServlet?op=toLogin">
+									<span class="glyphicon glyphicon-user"></span>登录/注册</a>
+								</li>
 							</c:if>
 							<c:if test="${!empty sessionScope.NowLoginUser.uemail}">
 								<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -104,10 +103,9 @@
 											<input type="hidden" value="${sessionScope.NowLoginUser.uid}" id="nowUserID" class="nowUserID"/>
 										</li>
 										<li class="divider"></li>
-										<li><a href="user.jsp" class="dropdown-item">个人信息</a></li>
-
+										<li><a href="javaScript:;" class="dropdown-item" onclick="touserjump(${sessionScope.NowLoginUser.uid})">个人信息</a></li>
+										<li><a href="javaScript:;" class="dropdown-item" onclick="toInfoCenterjump(${sessionScope.NowLoginUser.uid})">消息中心</a></li>
 										<li class="divider"></li>
-										<li><a href="#" class="dropdown-item"> 帮助</a></li>
 										<li><a href="#" class="dropdown-item"> 设置</a></li>
 										<li><a href="javaScript:void(0)" class="dropdown-item"
 											id="exitEmail"> 退出</a></li>

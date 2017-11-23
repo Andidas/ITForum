@@ -1,3 +1,4 @@
+/utils/
 /config/
 /dao/
 /entity/
@@ -6,4 +7,3 @@
 /service/
 /servlet/
 /testService/
-/utils/

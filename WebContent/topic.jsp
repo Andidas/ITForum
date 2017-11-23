@@ -30,11 +30,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 富文本框 -->
 <link href="dist/summernote.css" rel="stylesheet" />
 </head>
-<body >
+<body id="MyBody">
 <jsp:include page="nav.jsp" flush="true"></jsp:include>
-	<div class="container">
+	<div class="container" id="content">
 		<div class="row clearfix">
-			<div class="col-lg-12 page-header">
+			<div class="col-lg-12 page-header" style="margin-top:0;">
 				<h2 class="col-lg-12">
 				<span class="TopicTName" id="nowTopicName">${nowActiveTopicView.ttopic}</span>
 				<input type="hidden" value="${nowActiveTopicView.tid}" id="nowTopicTid" class="topicTid"/> 

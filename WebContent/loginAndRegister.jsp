@@ -30,11 +30,11 @@ body {
 </style>
 </head>
 <body>
-	<div class="form">
+	<div class="form" >
 		<div id="landing">登录</div>
 		<div id="registered">注册</div>
 		<div class="fix"></div>
-		<div id="landing-content" class="show">
+		 <div id="landing-content" class="show">
 			<form class="form-horizontal " role="form"
 				action="UserServlet?op=login" method="post" id="FormLogin">
 				<div id="photo">
@@ -48,13 +48,14 @@ body {
 						id="inputPassword" /> <small><input type="checkbox"
 						name="rememberMe" value="yes" id="rememberMe" />记住我</small>
 				</div>
-
 				<div class="login" id="login">登录</div>
 				<div id="bottom">
 					<a href="forgetPassword.jsp"><span id="forgotpassword">忘记密码</span></a>
 				</div>
 			</form>
 		</div>
+		
+		
 		<div id="registered-content" class="hidden">
 			<form class="form-horizontal " role="form"
 				action="UserServlet?op=register" method="post" id="Formregister">
@@ -87,6 +88,15 @@ body {
 
 
 </body>
+ <script>
+    $(function() {
+        $('#FormLogin #inputPassword').focus(function() {
+            $('#owl-login').addClass('password');
+        }).blur(function() {
+            $('#owl-login').removeClass('password');
+        });
+    });
+    </script>
 <script type="text/javascript">
 	/*发送邮箱验证，ajax*/
 	$(document).ready(function(){

@@ -24,13 +24,14 @@
 <title>版块</title>
 
 
-<link href="css/init.css" rel="stylesheet" />
+
 <link href="css/session.css" rel="stylesheet" />
 <link href="dist/summernote.css" rel="stylesheet" />
 <!-- 提示框 -->
 <link rel="stylesheet" href="css/zebra_tooltips.css" type="text/css"> 
+<link href="css/init.css" rel="stylesheet" />
 </head>
-<body >
+<body id="MyBody">
 	<jsp:include page="nav.jsp" flush="true" />
 	<div class="clearfix container" id="content">
 		<div class="row-fluid clearfix" id="sessionHead">
@@ -135,7 +136,7 @@
 			</div>
 		</div>
 				
-		<div class="col-md-4" style="padding-left:0;">
+		<div class="col-md-4" style="padding:0;">
 			<div class="panel " id="HotQuestion">
 				<div class="panel-heading">
 					<h3 class="panel-title">相关session</h3>
@@ -227,7 +228,7 @@ if(topic.treplycount!=0){
 	lastReply="";
 }
 
-var text = "<li class='clearfix'><div class='col-xs-2'><div class='thumbsUp'><p title='回复条数' class='zebra_tips6'>"
+var text = "<li class='clearfix'><div class='col-xs-1'><div class='thumbsUp'><p title='回复条数' class='zebra_tips6'>"
 			+ "<span class='activeSpan'>"
 			+ topic.treplycount
 			+ "	</span><span class='glyphicon glyphicon-comment'></span>"
@@ -263,7 +264,8 @@ var text = "<li class='clearfix'><div class='col-xs-2'><div class='thumbsUp'><p 
 							[ 'font', [ 'bold', 'underline', 'clear' ] ],
 							[ 'color', [ 'color' ] ],
 							[ 'insert', [ 'link', 'picture' ] ],
-							[ 'view', [ 'fullscreen' ] ] ],
+							['view', ['fullscreen', 'codeview', 'help']]
+							 ],
 					callbacks: {  
 			            onImageUpload: function(files) { //the onImageUpload API  
 			                img = sendFile(files[0]);  
