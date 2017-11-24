@@ -22,7 +22,10 @@
 
 <mapper namespace="Topic">
 
-
+	<!--  -->
+	<select id="">
+		select * from topic where tuid = 16 ORDER BY ttime DESC LIMIT 0,10;
+	</select>
 	<!-- 搜索框 -->
 	<select id="searchTopicAndContents" parameterType="STRING" resultMap="TopicResult">
 		select * from topic where ttopic like CONCAT(CONCAT('%', #{_parameter}), '%') or tcontents like CONCAT(CONCAT('%', #{_parameter}), '%');
@@ -52,7 +55,7 @@
 		select tid,treplycount,ttopic from topic where tsid = #{_parameter} order by ttime DESC limit 0,10
 	</select>
 	
-	<!-- 分页 -->
+	<!-- 分页,根据sid -->
 	<resultMap type="entity.viewEntity.TopicView" id="splitPageResult">
 		<id column="tid" jdbcType="INTEGER" property="tid" />
 		<result column="tsid" jdbcType="VARCHAR" property="tsid" />

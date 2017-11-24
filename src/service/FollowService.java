@@ -1,8 +1,11 @@
 package service;
 
+import java.util.List;
+
 import dao.FollowDao;
 import dao.factory.DaoFactory;
 import entity.Follow;
+import entity.viewEntity.FollowView;
 import service.iService.IFollowService;
 import utils.ConstantsData.EnumDaoFactory;
 
@@ -44,6 +47,12 @@ public class FollowService implements IFollowService {
 		int ssid = Integer.parseInt(sid);
 		Follow follow = new Follow(uuid,ssid);
 		return followDao.isBeFollow(follow)>0;
+	}
+
+	@Override
+	public List<FollowView> queryFollowList(String uid) {
+		int id = Integer.parseInt(uid);
+		return followDao.queryFollowList(id);
 	}
 
 }

@@ -12,6 +12,12 @@ import entity.viewEntity.ReplyView;
  */
 public interface ReplyDao {
 	/**
+	 * 查询该用户的所有回复
+	 * @param uid 用户id
+	 * @return
+	 */
+	PageMode<Reply> queryUserAllReply(PageParam pageParam);
+	/**
 	 * 符合条件的条数
 	 * @param topic的id
 	 * @return

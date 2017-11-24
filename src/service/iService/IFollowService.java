@@ -1,10 +1,20 @@
 package service.iService;
 
+import java.util.List;
+
+import entity.viewEntity.FollowView;
+
 /**
  * @author lwy
  * 关注服务接口
  */
 public interface IFollowService {
+	/**
+	 * 查找用户关注的session
+	 * @param uid 用户id
+	 * @return
+	 */
+	List<FollowView>queryFollowList(String uid);
 	/**
 	 * session是否被user关注
 	 * @param uid

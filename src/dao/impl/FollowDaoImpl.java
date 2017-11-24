@@ -1,12 +1,14 @@
 package dao.impl;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import dao.FollowDao;
 import utils.db.DBAccess;
+import dao.FollowDao;
 import entity.Follow;
+import entity.viewEntity.FollowView;
 
 public class FollowDaoImpl implements FollowDao {
 	 private SqlSession sqlSession = null;
@@ -87,6 +89,19 @@ public class FollowDaoImpl implements FollowDao {
 		}
 		return 0;
 		
+	}
+
+	@Override
+	public List<FollowView> queryFollowList(int uid) {
+		try {
+			List<FollowView> followView = null;
+			sqlSession = dbAccess.getSqlSession();
+			followView = sqlSession.selectList("Follow.queryFollowList",uid);
+			return followView;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

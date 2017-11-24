@@ -1,4 +1,4 @@
-package testService.topic;
+package testService;
 
 import org.junit.Test;
 

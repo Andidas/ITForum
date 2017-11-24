@@ -51,9 +51,6 @@ public class ReplyDaoImpl implements ReplyDao {
 		}
 		return result;
 	}
-
-	
-
 	@Override
 	public PageMode<ReplyView> queryReplyViewList(PageParam pageParam) {
 		int start = (pageParam.getPageno()-1)*pageParam.getPagesize();
@@ -76,7 +73,7 @@ public class ReplyDaoImpl implements ReplyDao {
 		}
 		return null;
 	}
-
+	@Override
 	public int rowCount(int id) {
 		try {
 			int num = 0;
@@ -89,6 +86,37 @@ public class ReplyDaoImpl implements ReplyDao {
 		return 0;
 	}
 
+	@Override
+	public PageMode<Reply> queryUserAllReply(PageParam pageParam) {
+		int start = (pageParam.getPageno()-1)*pageParam.getPagesize();
+		pageParam.setPageno(start);
+		try {
+			PageMode<Reply> pm = new PageMode<Reply>();
+			List<Reply> pageData = new ArrayList<Reply>();
+			
+			sqlSession = dbAccess.getSqlSession();
+			pageData = sqlSession.selectList("Reply.queryUserAllReply",pageParam);
+			
+			pm.setData(pageData);
+			pm.setPageParam(pageParam);
+			pm.setTotalRecordCount(this.UserReplyrowNum(pageParam.getId()));
+			return pm;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	private int UserReplyrowNum(int id) {
+		try {
+			int num = 0;
+			sqlSession = dbAccess.getSqlSession();
+			num = sqlSession.selectOne("Reply.UserReplyrowNum", id);
+			return num;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
 
 }

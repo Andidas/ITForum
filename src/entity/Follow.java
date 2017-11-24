@@ -23,9 +23,9 @@ public class Follow {
 		super();
 		
 	}
-	private int fid;
-	private int uid;
-	private int sid;
+	protected int fid;
+	protected int uid;
+	protected int sid;
 	@Override
 	public String toString() {
 		return "Follow [fid=" + fid + ", uid=" + uid + ", sid=" + sid + "]";

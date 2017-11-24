@@ -22,6 +22,21 @@
 
 <mapper namespace="Reply">
 	
+	
+	<!-- 该用户的所有回复 -->
+	<resultMap type="entity.Reply" id="queryUserAllReplyResult">
+		<id column="rid" jdbcType="INTEGER" property="rid" />
+		<result column="rtid" jdbcType="INTEGER" property="rtid" />
+		<result column="rsid" jdbcType="INTEGER" property="rsid" />
+		<result column="ruid" jdbcType="INTEGER" property="ruid" />
+		<result column="rfavour" jdbcType="INTEGER" property="rfavour" />
+		<result column="rcontent" jdbcType="VARCHAR" property="rcontent" />
+		<result column="rtime" jdbcType="VARCHAR" property="rtime" />
+		</resultMap>
+	<select id="queryUserAllReply" parameterType="entity.PageParam" resultMap="queryUserAllReplyResult">
+		select * from reply where ruid = #{id} ORDER BY rtime DESC LIMIT #{pageno},#{pagesize}
+	</select>
+	
 	<insert id="addReplyOne" parameterType="entity.Reply">
 		insert into reply(rtid,rsid,ruid,rcontent,rtime) values(#{rtid},#{rsid},#{ruid},#{rcontent},#{rtime});
 	</insert>
@@ -51,8 +66,11 @@
 	<resultMap type="INTEGER" id="ReplyrowNumResult">
 		<result column="num" jdbcType="INTEGER" property="num" />
 	</resultMap>
-	<select id="ReplyrowNum" parameterType="entity.PageParam" resultMap="ReplyrowNumResult">
-		select count(*) as num from reply where rtid  = #{id}
+	<select id="ReplyrowNum" parameterType="INTEGER" resultMap="ReplyrowNumResult">
+		select count(*) as num from reply where rtid  = #{_parameter}
+	</select>
+	<select id="UserReplyrowNum" parameterType="INTEGER" resultMap="ReplyrowNumResult">
+		select count(*) num from reply where ruid = #{_parameter}
 	</select>
 	<!-- end 分页 -->
 </mapper>

@@ -1,4 +1,4 @@
-package testService.session;
+package testService;
 
 import static org.junit.Assert.*;
 

@@ -1,5 +1,8 @@
 package service.iService;
 
+import entity.PageMode;
+import entity.Reply;
+
 
 public interface IReplyService {
 	/** 
@@ -20,4 +23,10 @@ public interface IReplyService {
 	 * @return
 	 */
 	boolean addReplyOne(String nowTopicTid,String nowSessionID,String nowUserID,String replyText);
+	/**
+	 * 查询该用户的所有回复
+	 * @param uid 用户id
+	 * @return
+	 */
+	PageMode<Reply> queryUserAllReply(String uid);
 }

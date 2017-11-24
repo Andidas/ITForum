@@ -1,12 +1,21 @@
 package dao;
 
+import java.util.List;
+
 import entity.Follow;
+import entity.viewEntity.FollowView;
 
 /**
  * @author lwy
  *	关注和取消关注的Dao类
  */
 public interface FollowDao {
+	/**
+	 * 查找该用户关注的session
+	 * @param uid 用户id
+	 * @return
+	 */
+	List<FollowView>queryFollowList(int uid);
 	/**
 	 * 是否被该用户关注
 	 * @param follow
