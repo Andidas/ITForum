@@ -7,69 +7,71 @@ import entity.PageParam;
 import entity.Topic;
 import entity.viewEntity.TopicView;
 /**
- * Ö÷ÌùµÄÊý¾Ý¿â´¦Àí²Ù×÷µÄ½Ó¿Ú
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿â´¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½Ó¿ï¿½
  * @author lwy
  *
  */
 
 
 public interface TopicDao {
+	PageMode<Topic> queryUserAllTopic(PageParam page);
+	
 	/**
-	 * ²éÑ¯»ØÌûÊý×î¶àµÄtopic
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½topic
 	 * @return
 	 */
 	List<Topic> queryHotsTopicList();
 	/**
-	 * ËÑË÷Ìû×Ó£¬ÓÉÌâÄ¿ºÍÄÚÈÝ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param text
 	 * @return
 	 */
 	List<Topic> searchTopicAndContents(String text);
 	/**
-	 * ²éÑ¯µ¥¸ötopic view
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½topic view
 	 * @param tid
 	 * @return
 	 */
 	TopicView getTopicViewOne(int tid);
 	/**
-	 * ÓÃÓÚ·ÖÒ³
+	 * ï¿½ï¿½ï¿½Ú·ï¿½Ò³
 	 * @param page
 	 * @return
 	 */
 	PageMode<TopicView> splitPage(PageParam page);
 	/**
-	 * ÓÐ¶àÉÙÌõ¼ÇÂ¼
-	 * @param sid²éÑ¯µÄsession id
+	 * ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼
+	 * @param sidï¿½ï¿½Ñ¯ï¿½ï¿½session id
 	 * @return
 	 */
 	int rowCount(int sid);
 	/**
-	 * µã»÷´ÎÊý¼Ó1
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
 	 * @param tid
 	 * @return
 	 */
 	int updateClickCount(int tid);
 	/**
-	 * Ôö¼ÓÖ÷Ìù
-	 * @param Topic ÒªÔö¼ÓµÄÖ÷Ìù (tsid,tidy,ttopic,tcontents,ttime)
-	 * @return ·µ»Ø±»Ôö¼ÓµÄÌõÊý£¬Èç¹û²»´óÓÚ0Ôò±íÊ¾Ê§°Ü
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param Topic Òªï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ (tsid,tidy,ttopic,tcontents,ttime)
+	 * @return ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½Ê¾Ê§ï¿½ï¿½
 	 */
 	int addTopic(Topic topic);
 	
 	/**
-	 * ²éÑ¯·ûºÏµÄÖ÷Ìù,¹ýÂËÌõ¼þtsid
-	 * @return Ö÷Ìù×é
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tsid
+	 * @return ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	List<Topic> querySameTopicListByTSID(int tsid);
 	/**
-	 * Í¨¹ý±êÌâ²éÑ¯Ìû×Ó
-	 * @param tid Ìû×Óid
+	 * Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
+	 * @param tid ï¿½ï¿½ï¿½ï¿½id
 	 * @return
 	 */
 	Topic queryTopicOneByTopic(int tid);
 	
 	/**
-	 * »ØÌûÊý¼Ó1
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
 	 * @param tid
 	 * @return
 	 */

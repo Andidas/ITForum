@@ -57,7 +57,7 @@
 <body>
 	<div class="clearfix">
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
-			style="border-top: solid #F48024 3px;">
+			style="border-top: solid #F48024 3px;border-top: solid #F48024 3px;background: white;">
 			<div class="container">
 
 				<div class="navbar-header">

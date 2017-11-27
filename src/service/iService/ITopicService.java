@@ -2,47 +2,50 @@ package service.iService;
 
 import java.util.List;
 
+import entity.PageMode;
+import entity.PageParam;
 import entity.Topic;
 
 /**
- * @author ÁõÎ°ÒÕ
- * Ìû×Ó½Ó¿Ú
+ * @author ï¿½ï¿½Î°ï¿½ï¿½
+ * ï¿½ï¿½ï¿½Ó½Ó¿ï¿½
  */
 public interface ITopicService {
+	PageMode<Topic> queryUserAllTopic(PageParam pageParam);
 	/**
-	 * ²éÑ¯»ØÌûÊý×î¶àµÄtopic
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½topic
 	 * @return
 	 */
 	List<Topic> queryHotsTopicList();
 	/**
-	 * Ä£ºý²éÑ¯£¬ÌâÄ¿ºÍÄÚÈÝ
+	 * Ä£ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param text
 	 * @return
 	 */
 	List<Topic> searchTopicAndContents(String text);
 	/**
-	 * µã»÷´ÎÊý¼Ó1
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
 	 */
 	boolean updateClickCount(String tid);
 	/**
-	 * Ìí¼ÓÌû×Ó
-	 * @param sname sessionµÄÃû
-	 * @param uname ÓÃ»§µÄÃû
-	 * @param ttopic ÌâÄ¿
-	 * @param tcontents ÄÚÈÝ
-	 * @return Ìí¼Ó³É¹¦·µ»Øtrue
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param sname sessionï¿½ï¿½ï¿½ï¿½
+	 * @param uname ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param ttopic ï¿½ï¿½Ä¿
+	 * @param tcontents ï¿½ï¿½ï¿½ï¿½
+	 * @return ï¿½ï¿½Ó³É¹ï¿½ï¿½ï¿½ï¿½ï¿½true
 	 */
 	boolean addTopic(String sname,String uname,String ttopic,String tcontents);
 	
 	/**
-	 * ²éÑ¯ÊôÓÚtsid°æ¿éµÄËùÓÐÌû×Ótopic
-	 * @param tsid sessionµÄid
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½tsidï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½topic
+	 * @param tsid sessionï¿½ï¿½id
 	 * @return
 	 */
 	List<Topic> querySameTopicListByTSID(int tsid);
 	 /**
-	  * Í¨¹ýtid²éÑ¯Ìû×Ó
-	  * @param tid Ìû×Ó±êÌâ
+	  * Í¨ï¿½ï¿½tidï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
+	  * @param tid ï¿½ï¿½ï¿½Ó±ï¿½ï¿½ï¿½
 	  * @return
 	  */
 	Topic queryTopicOneByTopic(int tid);

@@ -1,9 +1,4 @@
-/utils/
 /config/
 /dao/
-/entity/
-/factory/
-/filter/
 /service/
-/servlet/
 /testService/

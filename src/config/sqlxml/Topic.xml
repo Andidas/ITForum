@@ -21,10 +21,10 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Topic">
-
-	<!--  -->
-	<select id="">
-		select * from topic where tuid = 16 ORDER BY ttime DESC LIMIT 0,10;
+			
+	<!-- 查询属于该用户的topic -->
+	<select id="queryUserAllTopic" parameterType="entity.PageParam" resultMap="TopicResult">
+		select * from topic where tuid = #{id} ORDER BY ttime DESC LIMIT #{pageno},#{pagesize};
 	</select>
 	<!-- 搜索框 -->
 	<select id="searchTopicAndContents" parameterType="STRING" resultMap="TopicResult">
@@ -94,6 +94,12 @@
 	    		tsid = #{_parameter}
 	    		</where>
 	    	</if>
+	</select>
+	<select id="rowUserTopicNum" parameterType="INTEGER" resultMap="rowNumResult">
+			select count(*) as num from topic
+			<where>
+				tuid = #{_parameter}
+			</where>
 	</select>
 	<!-- end 分页 -->
 	

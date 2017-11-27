@@ -37,7 +37,7 @@ public class TopicDaoImpl implements TopicDao {
 		return 0;
 	}
 
-	//·ÖÒ³²âÊÔ
+	//ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½
 	@Override
 	public PageMode<TopicView> splitPage(PageParam page){
 		int start = (page.getPageno()-1)*page.getPagesize();
@@ -60,7 +60,39 @@ public class TopicDaoImpl implements TopicDao {
 		}
 		return null;
 	}
-	
+	@Override
+	public PageMode<Topic> queryUserAllTopic(PageParam page) {
+		int start = (page.getPageno()-1)*page.getPagesize();
+		page.setPageno(start);
+		try {
+			PageMode<Topic> pm = new PageMode<Topic>();
+			List<Topic> pageData = new ArrayList<Topic>();
+			
+			sqlSession = dbAccess.getSqlSession();
+			pageData = sqlSession.selectList("Topic.queryUserAllTopic", page);
+			
+			pm.setData(pageData);
+			pm.setPageParam(page);
+			pm.setTotalRecordCount(this.rowUserTopicNum(page.getId()));
+			return pm;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			if(sqlSession!=null)sqlSession.close();
+		}
+		return null;
+	}
+	private int rowUserTopicNum(int id){
+		try {
+			int num = 0;
+			sqlSession = dbAccess.getSqlSession();
+			num = sqlSession.selectOne("Topic.rowUserTopicNum", id);
+			return num;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	@Override
 	public int rowCount(int id) {
 		try {
@@ -73,7 +105,7 @@ public class TopicDaoImpl implements TopicDao {
 		}
 		return 0;
 	}
-
+	
 	@Override
 	public List<Topic> querySameTopicListByTSID(int tsid) {
 		try {
@@ -179,5 +211,6 @@ public class TopicDaoImpl implements TopicDao {
 		}
 		return null;
 	}
+
 
 }

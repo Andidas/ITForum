@@ -23,6 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <link href="css/init.css" rel="stylesheet" />
 <link href="css/user.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/zebra_tooltips.css" type="text/css"> 
 
 </head>
 <body>
@@ -59,13 +60,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									131,472 <span class="label-uppercase">reputation</span>
 								</div>
 
-								<div class="g-row _gutters ai-start fl-none -row-first ">
-									<div class="g-col g-row g-center badge1-alternate" title="用户状态:">
+								<div class="g-row _gutters ai-start fl-none -row-first zebra_tips1">
+									<div class="g-col g-row g-center badge1-alternate " title="用户状态:${queryUserInfo.ustate}">
 										<span class="g-col fl-none -badge badge1"></span> 
 										<span class="g-col g-center -total">${queryUserInfo.ustate}</span>
 									</div>
 
-									<div class="g-col g-row g-center badge2-alternate " title="用户积分:">
+									<div class="g-col g-row g-center badge2-alternate zebra_tips1" title="用户积分:${queryUserInfo.upoint}">
 										<span class="g-col fl-none -badge badge2"></span> 
 										<span class="g-col g-center -total">${queryUserInfo.upoint}</span>
 									</div>
@@ -116,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												Atlanta, GA
 											</li>
 											<li><svg aria-hidden="true" class="svg-icon iconLink" width="18" height="18" viewBox="0 0 18 18">
-												<path d="M2.9 9c0-1.16.94-2.1 2.1-2.1h3V5H5a4 4 0 1 0 0 8h3v-1.9H5A2.1 2.1 0 0 1 2.9 9zM13 5h-3v1.9h3a2.1 2.1 0 1 1 0 4.2h-3V13h3a4 4 0 1 0 0-8zm-7 5h6V8H6v2z"></path></svg>
+												<path d="M2.9 9c0-1.16.94-2.1 2.1-2.1h3V5H 5a4 4 0 1 0 0 8h3v-1.9H5A2.1 2.1 0 0 1 2.9 9zM13 5h-3v1.9h3a2.1 2.1 0 1 1 0 4.2h-3V13h3a4 4 0 1 0 0-8zm-7 5h6V8H6v2z"></path></svg>
 												<a href="http://www.frischcode.com" rel="me noreferrer" class="url">
 												frischcode.com
 												</a>

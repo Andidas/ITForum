@@ -9,6 +9,8 @@ import utils.ConstantsData.EnumDaoFactory;
 import dao.SessionDao;
 import dao.TopicDao;
 import dao.factory.DaoFactory;
+import entity.PageMode;
+import entity.PageParam;
 import entity.Topic;
 
 public class TopicService implements ITopicService {
@@ -20,12 +22,12 @@ public class TopicService implements ITopicService {
 			String tcontents) {
 		
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String ttime = df.format(new Date());//»ñÈ¡×¢²áÊ±¼ä
-		//µÃµ½ÓÃ»§id
+		String ttime = df.format(new Date());//ï¿½ï¿½È¡×¢ï¿½ï¿½Ê±ï¿½ï¿½
+		//ï¿½Ãµï¿½ï¿½Ã»ï¿½id
 		int uid = Integer.parseInt(tuid);
-		//µÃµ½sessionµÄid
+		//ï¿½Ãµï¿½sessionï¿½ï¿½id
 		int sid = Integer.parseInt(tsid);
-		//Éú³Étopic
+		//ï¿½ï¿½ï¿½ï¿½topic
 		Topic topic = new Topic(0,sid,uid,0,null,ttopic,tcontents,ttime,0,0,uid,ttime);
 		if(sessionDao.addSessionStopiccount(sid)>0){
 			return topicDao.addTopic(topic)>0;
@@ -60,6 +62,12 @@ public class TopicService implements ITopicService {
 	@Override
 	public List<Topic> queryHotsTopicList() {
 		return topicDao.queryHotsTopicList();
+	}
+
+	@Override
+	public PageMode<Topic> queryUserAllTopic(PageParam pageParam) {
+		
+		return topicDao.queryUserAllTopic(pageParam);
 	}
 	
 	
