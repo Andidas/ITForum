@@ -76,7 +76,7 @@
 			</table>
 ​		</c:if>
 	</div>
-
+<%@include file="footer.html" %>
 </body>
 <script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
 <script type="text/javascript">

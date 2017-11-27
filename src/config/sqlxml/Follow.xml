@@ -21,6 +21,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Follow">
+	<!-- 被user关注的session -->
 	<resultMap type="entity.viewEntity.FollowView" id="queryFollowListResult">
 		<id column="fid" jdbcType="INTEGER" property="fid" />
 		<result column="uid" jdbcType="INTEGER" property="uid" />
@@ -28,7 +29,7 @@
 		<result column="sname" jdbcType="VARCHAR" property="sname" />
 	</resultMap>
 	<select id="queryFollowList" parameterType="INTEGER" resultMap="queryFollowListResult">
-		select fid,uid,f.sid,s.sname
+		select f.fid,f.uid,f.sid,s.sname
 		from follow f left join `session` s on  f.sid = s.sid
 			<where>
 			 uid =#{_parameter}

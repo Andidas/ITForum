@@ -10,32 +10,30 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import dao.TopicDao;
-import dao.factory.DaoFactory;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import service.FollowService;
 import service.JsonService;
 import service.SessionService;
 import service.TopicService;
 import service.TopicViewService;
 import utils.ConstantsData;
-import utils.ConstantsData.EnumDaoFactory;
 import entity.PageMode;
-import entity.PageParam;
 import entity.Session;
 import entity.Topic;
+import entity.User;
+import entity.viewEntity.FollowView;
 import entity.viewEntity.TopicView;
 
 public class WelcomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private TopicViewService topicViewService;
 	private TopicService topicService = new TopicService();
 	private TopicViewService topicviewService = new TopicViewService();
 	private SessionService sessionService = new SessionService();
-	private JsonService js = new JsonService();
-	private TopicDao topicDao = DaoFactory.getInstance(EnumDaoFactory.TOPIC).getTopicDao();
-
+	private JsonService jsonService = new JsonService();
+	private FollowService followService = new FollowService();
     public WelcomeServlet() {
         super();
     }
@@ -57,10 +55,15 @@ public class WelcomeServlet extends HttpServlet {
 	}
 
 	private void main(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session = request.getSession();
 		PageMode<TopicView> topicViewPageMode = topicviewService.TopicSplitPage(ConstantsData.PAGENO,ConstantsData.PAGESIZE);
 		List<String> profiles = sessionService.queryAllProfile();
 		List<Topic> topics = topicService.queryHotsTopicList();
+		User user = (User)session.getAttribute("NowLoginUser");
+		if(user!=null){
+			List<FollowView> follows= followService.queryFollowList(user.getUid()+"");
+			request.setAttribute("userFollowSession", follows);
+		}
 		request.setAttribute("HotsTopics", topics);
 		request.setAttribute("welcomeProfiles", profiles);
 		request.setAttribute("topicViewPageMode", topicViewPageMode);
@@ -94,13 +97,12 @@ public class WelcomeServlet extends HttpServlet {
 		if(pagenoStr!=null&&!"".equals(pagenoStr)){
 			pageno = Integer.parseInt(pagenoStr);
 		}
+		PageMode<TopicView> pm = new TopicViewService().TopicSplitPage(pageno, ConstantsData.PAGESIZE_10);
 		
-		PageMode<TopicView> pm = new TopicViewService().TopicSplitPage(pageno, ConstantsData.PAGESIZE);
-		
-		if(pm==null){
+		if(pm.getData().size()==0){
 			out.print("false");
 		}else{
-			out.print(js.toJSONArray(pm.getData()));
+			out.print(jsonService.toJSONArray(pm.getData()));
 		}		
 	}
 }

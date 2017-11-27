@@ -62,7 +62,7 @@ body {
 				
 				<div class="inp">
 					<input type="text" placeholder="请输入用户名" name="rname" id="rname" />
-					<small class=" hidden"  >中文、字母、数字或下划线的组合<span class='triangle-left'></span></small>
+					<small class="hidden">中文、字母、数字或下划线的组合<span class='triangle-left'></span></small>
 				</div>
 				<div class="inp">
 					<input type="password" placeholder="请输入密码" name="rpassword" id="rpassword" />

@@ -2,3 +2,8 @@
 /dao/
 /service/
 /testService/
+/entity/
+/factory/
+/filter/
+/servlet/
+/utils/

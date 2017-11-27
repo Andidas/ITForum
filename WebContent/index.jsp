@@ -120,11 +120,41 @@
 						<li class="active"><a href="#profile" data-toggle="tab">
 								最新</a></li>
 						<li><a href="#activity" data-toggle="tab">感兴趣</a></li>
-						<li><a href="#edit" data-toggle="tab">Edit Profile &amp;
-								Settings</a></li>
+						
 					</ul>
 					<ul class="content-text" id="mainContent">
-						<!-- 内容 -->
+						<li>
+						
+							<div class="panel">
+								<div class="panel-heading">
+									<a href="javaScript:void(0)" class="sessionName "
+										style="color: black; margin-right: 15px;">PHP</a><input
+										type="hidden" class="sessionSid" value="10"><a
+										href="javaScript:;" class="topicTName "
+										onclick="topicjumg(this,10)">试一试</a><input type="hidden"
+										class="topicTid" value="99">
+								</div>
+								<div class="panel-body">
+									<div style="max-height: 60px; min-height: 20px;" title=""
+										class="zebra_tips7">
+										<p>是打发士大夫</p>
+									</div>
+									<div>
+										<img width="137" height="137" src="files/code-wallpaper-16.jpg"
+											data-filename="image name" styleold="width: 100%;"
+											style="cursor: zoom-in;"><img width="137" height="137"
+											src="files/maxresdefault.jpg" data-filename="image name"
+											styleold="width: 25%;" style="cursor: zoom-in;">
+									</div>
+								</div>
+								<div class="author">
+									<a href="javaScript:;" title="" target="_blank"
+										class="zebra_tips1" onclick="touserjump(30)"><span
+										class="glyphicon glyphicon-user "></span> 小鹏</a>
+								</div>
+							</div>
+						</li>
+					
 					</ul>
 					
 					<ul class="pagination" id="pagination"></ul>
@@ -136,25 +166,20 @@
 
 				<div class="col-lg-3" id="content-right">
 					<c:if test="${!empty sessionScope.NowLoginUser.uemail}">
-					<div class="panel panel-info">
+					<div class="panel panel-info" id="userinfo">
 						<div class="panel-heading  text-center">
 							<img class="img-circle" src="<c:if test="${not empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/${sessionScope.NowLoginUser.uhead}</c:if><c:if test="${empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/ITForum.jpg</c:if>" width="60" height="60" />
 						</div>
 						<div class="panel-body">
 							<h3 class="panel-title">
-								Favorite Tags
+								关注
 							</h3>
 							<div style="line-height: 25px;">
-								<span class="label label-info">java</span> <span
-									class="label label-info">javascript</span> <span
-									class="label label-info">bootstrap</span> <span
-									class="label label-info">json</span> <span
-									class="label label-info">mysql</span> <span
-									class="label label-info">java</span> <span
-									class="label label-info">javascript</span> <span
-									class="label label-info">bootstrap</span> <span
-									class="label label-info">json</span> <span
-									class="label label-info">mysql</span>
+								<c:forEach items="${userFollowSession}" var="follow">
+									<a href="javaScript:;" class="label label-success" onclick="tosessionjump(${follow.sid})">
+										${follow.sname}
+									</a>									
+								</c:forEach>
 							</div>
 						</div>
 					</div>
@@ -182,7 +207,7 @@
 				</div>
 			</div>
 		</div>
-
+<%@include file="footer.html" %>
 		
 </body>
 <!-- 分页 -->
@@ -206,7 +231,6 @@ function findPage(pageno) {
 		'pageno' : pageno,
 	}
 	$.post("welcome", param, function(data) {
-		
 		if (data == "false") {
 			alert('分页查询失败');
 		} else {
@@ -243,9 +267,7 @@ function topicContent(topic){
 	}
 	
 	var text ='<li><div class="panel" ><div class="panel-heading">'
-		+'<a href="javaScript:void(0)" class="sessionName zebra_tips1" style="color:black;margin-right:15px;" title="版块:'
-		+topic.sname
-			+'">'
+		+'<a href="javaScript:void(0)" class="sessionName " style="color:black;margin-right:15px;">'
 			+topic.sname
 			+'</a><input type="hidden" class="sessionSid" value="'
 			+topic.tsid 
@@ -261,7 +283,7 @@ function topicContent(topic){
 			+'<a href="javaScript:;" title="发帖人:'
 			+topic.uname
 			+'<br><a href='
-			+'InfoCenter.jsp'
+			+'NoticeUser.jsp'
 			+'>发邮件给他</a>" target="_blank" class="zebra_tips1" onclick="touserjump('
 			+topic.tuid
 			+')"><span class="glyphicon glyphicon-user "></span> '

@@ -26,18 +26,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" href="css/zebra_tooltips.css" type="text/css"> 
 
 </head>
-<body>
-<body class="user-page" style="margin-top: 80px">
+<body class="user-page" id="MyBody">
 	<jsp:include page="nav.jsp" flush="true"></jsp:include>
 	<div class="container" id="content">
 		<div class="clearfix">
 			<div class="col-md-12 column">
 				<ul id="myTab" class="nav nav-tabs">
 					<li class="active"><a href="#profile" data-toggle="tab">
-							Profile</a></li>
-					<li><a href="#activity" data-toggle="tab">Activity</a></li>
+							<span class="glyphicon glyphicon-home"></span>主页</a></li>
+					<li><a href="#activity" data-toggle="tab"><span class="glyphicon glyphicon-leaf"></span>成就</a></li>
 					<c:if test="${queryUserInfo.uid==NowLoginUser.uid}">
-					<li><a href="#edit" data-toggle="tab">编辑</a></li>
+					<li><a href="#edit" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span>编辑</a></li>
 					</c:if>
 				</ul>
 			</div>
@@ -49,19 +48,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="col-sidebar col-lg-3">
 							<div id="avatar-card" class="avatar-card">
 								<div class="avatar">
-									<a href="javascript:;">
-										<div class="gravatar-wrapper-164">
-											<img  src="<c:if test="${not empty queryUserInfo.uhead}"><%=basePath%>files/${queryUserInfo.uhead}</c:if><c:if test="${empty queryUserInfo.uhead}"><%=basePath%>files/ITForum.jpg</c:if>"									
-												alt="" width="164" height="164" class="avatar-user">
-										</div>
+									<a href="javascript:;" onclick="touserjump(${queryUserInfo.uid})" >
+									<input type="hidden" id="queryUserId" value="${queryUserInfo.uid}">
+										<img  src="<c:if test="${not empty queryUserInfo.uhead}"><%=basePath%>files/${queryUserInfo.uhead}</c:if><c:if test="${empty queryUserInfo.uhead}"><%=basePath%>files/ITForum.jpg</c:if>"									
+											alt="" width="164" height="164" class="avatar-user">
 									</a>
 								</div>
-								<div class="reputation" title="reputation">
+								<div class="reputation zebra_tips1" title="reputation">
 									131,472 <span class="label-uppercase">reputation</span>
 								</div>
 
-								<div class="g-row _gutters ai-start fl-none -row-first zebra_tips1">
-									<div class="g-col g-row g-center badge1-alternate " title="用户状态:${queryUserInfo.ustate}">
+								<div class="g-row _gutters ai-start fl-none -row-first">
+									<div class="g-col g-row g-center badge1-alternate zebra_tips1" title="用户状态:${queryUserInfo.ustate}">
 										<span class="g-col fl-none -badge badge1"></span> 
 										<span class="g-col g-center -total">${queryUserInfo.ustate}</span>
 									</div>
@@ -150,20 +148,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="clearfix" id="sidebar">
 						<div class="col-md-3">
 							<div class="module" id="interesting-tags">
-								<h4 id="h-interesting-tags">Favorite Tags</h4>
+								<h4 id="h-interesting-tags">他的关注</h4>
 								<a id="edit-interesting">edit</a>
 								<div>
-									<a href="#" class="label label-danger " title="java" rel="tag">
-										java<span class="glyphicon glyphicon-remove" title="remove this tag"></span>
-									</a>
-									<a href="#" class="label label-danger " title="go" rel="tag">
-										go<span class="glyphicon glyphicon-remove" title="remove this tag"></span>
-									</a>
-									<a href="#" class="label label-danger " title="html" rel="tag">html
-										<span class="glyphicon glyphicon-remove" title="remove this tag"></span>
-									</a>
-									
-									
+									<c:forEach items="${userFollowSession}" var="follow">
+									<a href="javaScript:;" class="label label-success"  rel="tag" onclick="tosessionjump(${follow.sid})">
+										${follow.sname}
+									</a>									
+									</c:forEach>
 								</div>
 								
 							</div>
@@ -171,83 +163,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="col-md-9">
 							<ul id="Tabson" class="nav nav-tabs ">
 								<li>
-									<h4>10tiao</h4>
+									<h4>帖子</h4>
 								</li>
-								<li class="active pull-right"><a href="#answers"
-									data-toggle="tab"> answers</a></li>
-								<li class="pull-right"><a href="#questions"
-									data-toggle="tab">questions</a></li>
-								<li class="pull-right"><a href="#All" data-toggle="tab">All</a></li>
 							</ul>
 							<div id="TabContentSon" class="tab-content">
-								<div class="tab-pane fade in active" id="All">
+								<div class="tab-pane fade in active" >
 									<table class="table table-hover table-condensed table-striped">
 										<thead>
 											<tr>
-												<th>赞</th>
 												<th>题目</th>
 												<th>时间</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr>
-												<td>1</td>
-												<td>Java program advice</td>
-												<td>01/04/2012</td>
-
+										<tbody id="tbody">
+											<c:forEach items="${userTopic.data}" var="topic" varStatus="num">
+											<tr <c:if test="${num.index%2==1}">class="success"</c:if>>
+												<td><a href="javaScript:;" onclick="toTopicJump(${topic.tid},${topic.tsid})">${topic.ttopic}</a></td>
+												<td>${topic.ttime}</td>
 											</tr>
-											<tr class="success">
-												<td>1</td>
-												<td>StudentGPA.java:5: error: '.class' expected error</td>
-												<td>01/04/2012</td>
-
-											</tr>
-											<tr class="error">
-												<td>2</td>
-												<td>TB - Monthly</td>
-												<td>02/04/2012</td>
-
-											</tr>
-											<tr class="warning">
-												<td>3</td>
-												<td>TB - Monthly</td>
-												<td>03/04/2012</td>
-
-											</tr>
-											<tr class="info">
-												<td>4</td>
-												<td>TB - Monthly</td>
-												<td>04/04/2012</td>
-
-											</tr>
+											</c:forEach>
 										</tbody>
 									</table>
-									<ul class="pagination">
-										<li><a href="#">Prev</a></li>
-										<li><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">5</a></li>
-										<li><a href="#">Next</a></li>
-									</ul>
-								</div>
-								<div class="tab-pane fade" id="questions">
-									<p>iOS 是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod
-										Touch 和 Apple TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X
-										操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
-								</div>
-								<div class="tab-pane fade" id="answers">
-									<p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
 								</div>
 							</div>
-
+							<div class="col-xs-2 col-xs-offset-5" style="padding-bottom:20px;">								
+								<a class="btn btn-default" id="showMore">加载更多</a>
+								<input type="hidden" value="1" id="nowPageNo">
+								<div class="loadEffect" id="loadEffect" style="display:none;">
+							        <span></span>
+							        <span></span>
+							        <span></span>
+							        <span></span>
+							        <span></span>
+							        <span></span>
+							        <span></span>
+							        <span></span>
+								</div>
+							</div>
+							
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="tab-pane fade" id="activity">
-				<div class="clearfix">222222</div>
+				<div class="clearfix col-xs-12" style="margin-bottom:170px;">
+				<img src="img/achieve.PNG" alt="暂未获得成就" class="col-xs-6 col-xs-offset-3">
+				</div>
 			</div>
 			<div class="tab-pane fade" id="edit">
 				<div class="clearfix">
@@ -301,8 +262,60 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 	</div>
-
+	<%@include file="footer.html" %>	
 </body>
+<script type="text/javascript">
+	$(function(){
+		$("#showMore").click(function(){
+			showLoadButton();
+			var uid = $("#queryUserId").val();
+			var nowPageNo = $("#nowPageNo").val();
+			var param = {
+					'op':'findUserTopic',
+					'uid':uid,
+					'pageno':nowPageNo
+			}
+			$.post('UserInFo',param,function(data){
+				if(data=="false"){
+					setTimeout('hide_MoreBtn_LoadBtn()',1000);
+				}else{
+					showMoreButton();
+					var topics = JSON.parse(data);
+					$.each(topics,function(i,topic){
+						var content=setUser_Ttopic(i,topic);
+						$('#tbody').append(content);
+					});
+					nowPageNo++;
+					$("#nowPageNo").val(nowPageNo);
+				}
+			});
+		});
+	});
+	function setUser_Ttopic(i,topic){
+		if(i%2==1){
+			var cla = 'class="success"';
+		}
+		var text = '<tr '+cla+'>'
+				+'<td>'
+				+'<a href="javaScript:;" onclick="toTopicJump('+topic.tid+','+topic.tsid+')">'+topic.ttopic+'</a>'
+				+'</td><td>'
+				+topic.ttime
+				+'</td></tr>';
+		return text;
+	}
+	function hide_MoreBtn_LoadBtn(){
+		$("#showMore").hide();
+		$("#loadEffect").hide();
+	}
+	function showMoreButton(){
+		$("#showMore").show();
+		$('#loadEffect').hide();
+	}
+	function showLoadButton(){
+		$("#showMore").hide();
+		$("#loadEffect").show();
+	}
+</script>
 <!-- 页面跳转 -->
 <script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
 <!-- 提示框 -->

@@ -3,49 +3,48 @@ package service.iService;
 import java.util.List;
 
 import entity.PageMode;
-import entity.PageParam;
 import entity.Topic;
 
 /**
- * @author ��ΰ��
- * ���ӽӿ�
+ * @author 锟斤拷伟锟斤拷
+ * 锟斤拷锟接接匡拷
  */
 public interface ITopicService {
-	PageMode<Topic> queryUserAllTopic(PageParam pageParam);
+	PageMode<Topic> queryUserAllTopic(int pageno,int pagesize,String uid);
 	/**
-	 * ��ѯ����������topic
+	 * 锟斤拷询锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷topic
 	 * @return
 	 */
 	List<Topic> queryHotsTopicList();
 	/**
-	 * ģ����ѯ����Ŀ������
+	 * 模锟斤拷锟斤拷询锟斤拷锟斤拷目锟斤拷锟斤拷锟斤拷
 	 * @param text
 	 * @return
 	 */
 	List<Topic> searchTopicAndContents(String text);
 	/**
-	 * ���������1
+	 * 锟斤拷锟斤拷锟斤拷锟斤拷锟�1
 	 */
 	boolean updateClickCount(String tid);
 	/**
-	 * �������
-	 * @param sname session����
-	 * @param uname �û�����
-	 * @param ttopic ��Ŀ
-	 * @param tcontents ����
-	 * @return ��ӳɹ�����true
+	 * 锟斤拷锟斤拷锟斤拷锟�
+	 * @param sname session锟斤拷锟斤拷
+	 * @param uname 锟矫伙拷锟斤拷锟斤拷
+	 * @param ttopic 锟斤拷目
+	 * @param tcontents 锟斤拷锟斤拷
+	 * @return 锟斤拷映晒锟斤拷锟斤拷锟絫rue
 	 */
 	boolean addTopic(String sname,String uname,String ttopic,String tcontents);
 	
 	/**
-	 * ��ѯ����tsid������������topic
-	 * @param tsid session��id
+	 * 锟斤拷询锟斤拷锟斤拷tsid锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷topic
+	 * @param tsid session锟斤拷id
 	 * @return
 	 */
 	List<Topic> querySameTopicListByTSID(int tsid);
 	 /**
-	  * ͨ��tid��ѯ����
-	  * @param tid ���ӱ���
+	  * 通锟斤拷tid锟斤拷询锟斤拷锟斤拷
+	  * @param tid 锟斤拷锟接憋拷锟斤拷
 	  * @return
 	  */
 	Topic queryTopicOneByTopic(int tid);

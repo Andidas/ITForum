@@ -54,7 +54,7 @@
 </style>
 <link rel="stylesheet" type="text/css" href="css/search-form.css">
 </head>
-<body>
+<body >
 	<div class="clearfix">
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
 			style="border-top: solid #F48024 3px;border-top: solid #F48024 3px;background: white;">
@@ -118,6 +118,7 @@
 		</nav>
 	</div>
 	<a href="javaScript:;" class="btn btn-link" id="return_top"></a>
+	
 </body>
 <script type="text/javascript">
  $(window).scroll(function(){

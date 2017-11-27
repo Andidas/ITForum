@@ -24,6 +24,11 @@ function topicjumg(obj,tsid) {
 					+ $(obj).siblings('.topicTid').val() + "&sessionSid="
 					+ tsid;
 		}
+function toTopicJump(tid,tsid){
+	location.href = "Topic?op=toTopic&topicTid="
+		+ tid + "&sessionSid="
+		+ tsid;
+}
 /*主页的session跳转,用户左侧的导航条*/
 function tosessionjump(tsid){
 	location.href = "Session?op=toSession&SessionSid=" + tsid;
@@ -42,6 +47,5 @@ function jumpEveryWhere(str){
 }
 //跳转到信息中心
 function toInfoCenterjump(uid){
-	//location.href ="UserInFo?op=toInfoCenter&uid="+uid;	
 	open("UserInFo?op=toInfoCenter&uid="+uid);
 }

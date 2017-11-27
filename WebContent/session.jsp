@@ -125,7 +125,7 @@
 	
 	</div>
 	
-			
+	<%@include file="footer.html" %>
 </body>
 <!-- 提示框 -->
 <script type="text/javascript" src="js/zebra_tooltips.js"></script> 

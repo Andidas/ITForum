@@ -127,7 +127,7 @@
 	</div>
 	<!--content/-->
 
-
+<%@include file="footer.html" %>
 </body>
 
 <script type="text/javascript">

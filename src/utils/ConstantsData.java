@@ -10,6 +10,8 @@ public class ConstantsData {
 	 * 每一页显示几条数据
 	 */
 	public final static int PAGESIZE = 5;
+	public final static int PAGESIZE_20 = 20;
+	public final static int PAGESIZE_10 = 10;
 	/**
 	 * 当前在第几页
 	 */

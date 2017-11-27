@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import service.iService.ITopicService;
+import utils.ConstantsData;
 import utils.ConstantsData.EnumDaoFactory;
 import dao.SessionDao;
 import dao.TopicDao;
@@ -65,8 +66,9 @@ public class TopicService implements ITopicService {
 	}
 
 	@Override
-	public PageMode<Topic> queryUserAllTopic(PageParam pageParam) {
-		
+	public PageMode<Topic> queryUserAllTopic(int pageno,int pagesize,String uid) {
+		int id = Integer.parseInt(uid);
+		PageParam pageParam = new PageParam(pageno,pagesize,id);
 		return topicDao.queryUserAllTopic(pageParam);
 	}
 	

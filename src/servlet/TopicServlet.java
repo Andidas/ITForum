@@ -26,9 +26,9 @@ public class TopicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	 
 	/*实例化业务类*/
-	private TopicService ts = new TopicService();
-	private TopicViewService tvs = new TopicViewService();
-	private JsonService js = new JsonService();
+	private TopicService topicService = new TopicService();
+	private TopicViewService topicViewService = new TopicViewService();
+	private JsonService jsonService = new JsonService();
     public TopicServlet() {
         super();
     }
@@ -55,12 +55,12 @@ public class TopicServlet extends HttpServlet {
 		String topicTid = request.getParameter("topicTid");
 		String sid = request.getParameter("sessionSid");
 		
-		TopicView topicView = tvs.getTopicViewOne(topicTid,sid);
+		TopicView topicView = topicViewService.getTopicViewOne(topicTid,sid);
 		
 		if(topicView==null){
 			response.getWriter().print("<script>alert('帖子不存在');history.back();</script>");
 		}else{
-			ts.updateClickCount(topicTid);
+			topicService.updateClickCount(topicTid);
 			request.setAttribute("nowActiveTopicView", topicView);
 			request.setAttribute("ReplyPage", topicView.getAllReply());
 			request.getRequestDispatcher("topic.jsp").forward(request,response);
@@ -79,12 +79,11 @@ public class TopicServlet extends HttpServlet {
 			pageno = Integer.parseInt(pagenoStr);
 		}
 		String nowTopicTid = request.getParameter("nowTopicTid");
-		PageMode<ReplyView> pm = tvs.queryReplyViewPageMode(pageno, ConstantsData.PAGESIZE, Integer.parseInt(nowTopicTid));
+		PageMode<ReplyView> pm = topicViewService.queryReplyViewPageMode(pageno, ConstantsData.PAGESIZE, Integer.parseInt(nowTopicTid));
 		if(pm==null){
 			out.print("false");
 		}else{
-			JSONArray ja = js.toJSONArray(pm.getData());
-			
+			JSONArray ja = jsonService.toJSONArray(pm.getData());
 			out.print(ja);
 		}		
 	}
@@ -101,7 +100,7 @@ public class TopicServlet extends HttpServlet {
 		String ttopic = request.getParameter("ttopic");
 		String tcontents = request.getParameter("tcontents");
 		/*传递参数*/
-		if(ts.addTopic(tsid, tuid, ttopic, tcontents)){		
+		if(topicService.addTopic(tsid, tuid, ttopic, tcontents)){		
 			out.print("true");	
 		}else{
 			out.print("false");			

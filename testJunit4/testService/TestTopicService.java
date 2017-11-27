@@ -2,9 +2,11 @@ package testService;
 
 import org.junit.Test;
 
-import dao.impl.TopicDaoImpl;
-import entity.PageParam;
 import service.TopicService;
+import dao.impl.TopicDaoImpl;
+import entity.PageMode;
+import entity.PageParam;
+import entity.Topic;
 
 public class TestTopicService {
 
@@ -14,6 +16,7 @@ public class TestTopicService {
 	}
 	@Test
 	public void queryUserAllTopic(){
-		System.out.println(new TopicService().queryUserAllTopic(new PageParam(1, 5,16)));
+		PageMode<Topic> ps = new TopicService().queryUserAllTopic(3,10,"16");
+		System.out.println(ps.getData().size());
 	}
 }

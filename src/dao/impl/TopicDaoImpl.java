@@ -37,7 +37,6 @@ public class TopicDaoImpl implements TopicDao {
 		return 0;
 	}
 
-	//��ҳ����
 	@Override
 	public PageMode<TopicView> splitPage(PageParam page){
 		int start = (page.getPageno()-1)*page.getPagesize();

@@ -1,6 +1,19 @@
 @CHARSET "UTF-8";
-/* Custom Styles */
+#HotQuestion{
+	margin-top:10px;
+	border:1px solid #e7e7e7;
+}
 
+#userinfo .label {
+	display:inline-block;
+	min-width:113;
+	padding: 10px 0;
+    margin-top:5px;
+    
+}
+#userinfo .panel-title{
+	margin-bottom:10px;
+}
 #content .row {
 	margin-top: 20px;
 }
