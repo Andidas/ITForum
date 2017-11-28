@@ -28,20 +28,7 @@
 
 <link href="css/index.css" rel="stylesheet" />
 <link href="css/init.css" rel="stylesheet" />
-<style type="text/css">
-#mainContent .panel-body div{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100%;
-    white-space: nowrap;
-}
-#mainContent .panel,#mainContent .panel-heading,#mainContent .panel-body,#mainContent .panel-footer{
-	margin-bottom:0;
-	padding-bottom:2px;
-	padding-top:2px;
-}
-
-</style>
+<link href="css/loadingButton.css" rel="stylesheet">
 
 </head>
 <body data-spy="scroll" data-target="#myScrollspy" id="MyBody">
@@ -123,45 +110,23 @@
 						
 					</ul>
 					<ul class="content-text" id="mainContent">
-						<li>
-						
-							<div class="panel">
-								<div class="panel-heading">
-									<a href="javaScript:void(0)" class="sessionName "
-										style="color: black; margin-right: 15px;">PHP</a><input
-										type="hidden" class="sessionSid" value="10"><a
-										href="javaScript:;" class="topicTName "
-										onclick="topicjumg(this,10)">试一试</a><input type="hidden"
-										class="topicTid" value="99">
-								</div>
-								<div class="panel-body">
-									<div style="max-height: 60px; min-height: 20px;" title=""
-										class="zebra_tips7">
-										<p>是打发士大夫</p>
-									</div>
-									<div>
-										<img width="137" height="137" src="files/code-wallpaper-16.jpg"
-											data-filename="image name" styleold="width: 100%;"
-											style="cursor: zoom-in;"><img width="137" height="137"
-											src="files/maxresdefault.jpg" data-filename="image name"
-											styleold="width: 25%;" style="cursor: zoom-in;">
-									</div>
-								</div>
-								<div class="author">
-									<a href="javaScript:;" title="" target="_blank"
-										class="zebra_tips1" onclick="touserjump(30)"><span
-										class="glyphicon glyphicon-user "></span> 小鹏</a>
-								</div>
-							</div>
-						</li>
-					
+						<!-- content -->
 					</ul>
 					
-					<ul class="pagination" id="pagination"></ul>
-	   				<input type="hidden" id="indextotalPageCount" value="${topicViewPageMode.totalPageCount}">
-	   				<input type="hidden" id="indexpagesize" value="${topicViewPageMode.pageParam.pagesize}">	
-						
-						
+	   				<div class="col-xs-2 col-xs-offset-5" style="padding-bottom:20px;">								
+						<a class="btn btn-default" id="showMore">加载更多</a>
+						<input type="hidden" value="1" id="nowPageNo">
+						<div class="loadEffect" id="loadEffect" style="display:none;">
+					        <span></span>
+					        <span></span>
+					        <span></span>
+					        <span></span>
+					        <span></span>
+					        <span></span>
+					        <span></span>
+					        <span></span>
+						</div>
+					</div>
 				</div>
 
 				<div class="col-lg-3" id="content-right">
@@ -210,42 +175,58 @@
 <%@include file="footer.html" %>
 		
 </body>
-<!-- 分页 -->
-<script type="text/javascript" src="js/jqPaginator.js"></script>
+<!-- 加载更多 -->
 <script type="text/javascript" src="js/indexSpiltPage.js"></script>
 <script type="text/javascript">
-var ipc = parseInt($('#indextotalPageCount').val());
-var ips = parseInt($('#indexpagesize').val());
-
-$.jqPaginator('#pagination', {
-	totalPages : ipc,
-	visiblePages : ips,
-	currentPage : 1,
-	onPageChange : function(num, type) {
-		findPage(num);
-	}
-});
-function findPage(pageno) {
+	$(function(){
+		loadedMore();
+		$("#showMore").click(loadedMore);
+	});
+	  
+function loadedMore(){
+	hide_show($("#showMore"),$("#loadEffect"));
+	
+	var nowPageNo = $("#nowPageNo").val();
 	var param = {
-		'op' : 'findTopicByPage',
-		'pageno' : pageno,
+			'op':'findTopicByPage',
+			'pageno':nowPageNo
 	}
-	$.post("welcome", param, function(data) {
-		if (data == "false") {
-			alert('分页查询失败');
-		} else {
-			$('#mainContent').empty();
+	$.post('welcome',param,function(data){
+		if(data=="false"){
+			setTimeout('hide_MoreBtn_LoadBtn()',1000);
+		}else{
+			
+			hide_show($("#loadEffect"),$("#showMore"));
+			
 			var topics = JSON.parse(data);
-			$.each(topics, function(i, topic) {
-				//console.log(topic);
-				var text = topicContent(topic);
-				$('#mainContent').append(text);
+			$.each(topics,function(i,topic){
+				var content=topicContent(topic);
+				$('#mainContent').append(content);
 			});
-			clickInit();
+			nowPageNo++;
+			$("#nowPageNo").val(nowPageNo);
+			
+			$("[data-toggle='tooltip']").tooltip();
+			//按钮点击
+			$('.sessionName').unbind('click',sessionName);
+			$('.TopicTName').unbind('click',TopicTName);
 			$('.sessionName').click(sessionName);
-			new $.Zebra_Tooltips($('.zebra_tips1'));
+			$('.TopicTName').click(TopicTName);
+			//图片放大器
+			PostbirdImgGlass.init({
+		        domSelector:"#mainContent img",
+		        animation:true
+		    });
 		}
 	});
+}
+function hide_show(obj_x,obj_y){
+	obj_x.hide();
+	obj_y.show();
+}
+function hide_MoreBtn_LoadBtn(){
+	$("#showMore").hide();
+	$("#loadEffect").hide();
 }
 function topicContent(topic){
 	var myimgs = getImageSrc(topic.tcontents);
@@ -257,7 +238,7 @@ function topicContent(topic){
 			+topic.lastreplyuser
 			+'<br>回复时间:'
 			+topic.tlastreplaytime
-			+'" target="_blank" class="zebra_tips1" onclick="touserjump('
+			+'" target="_blank" class="" data-toggle="tooltip" onclick="touserjump('
 			+topic.tlastreplyuseid
 			+')"><span class="glyphicon glyphicon-comment"></span> '
 			+topic.lastreplyuser
@@ -267,11 +248,11 @@ function topicContent(topic){
 	}
 	
 	var text ='<li><div class="panel" ><div class="panel-heading">'
-		+'<a href="javaScript:void(0)" class="sessionName " style="color:black;margin-right:15px;">'
+		+'<a href="javaScript:void(0)" class="sessionName " onclick="tosessionjump('+topic.tsid+')" style="color:black;margin-right:15px;">'
 			+topic.sname
 			+'</a><input type="hidden" class="sessionSid" value="'
 			+topic.tsid 
-			+'"><a href="javaScript:;" class="topicTName " onclick="topicjumg(this,'
+			+'"><a href="javaScript:;" class="topicTName" data-toggle="tooltip" title="题目" onclick="topicjumg(this,'
 			+topic.tsid
 			+')" >'
 			+topic.ttopic 
@@ -282,9 +263,7 @@ function topicContent(topic){
 			+'</div><div class="author">'
 			+'<a href="javaScript:;" title="发帖人:'
 			+topic.uname
-			+'<br><a href='
-			+'NoticeUser.jsp'
-			+'>发邮件给他</a>" target="_blank" class="zebra_tips1" onclick="touserjump('
+			+'" target="_blank" class="" data-toggle="tooltip" onclick="touserjump('
 			+topic.tuid
 			+')"><span class="glyphicon glyphicon-user "></span> '
 			+topic.uname

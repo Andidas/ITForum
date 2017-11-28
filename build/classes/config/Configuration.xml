@@ -46,6 +46,7 @@
     <mapper resource="config/sqlxml/Topic.xml"/>
      <mapper resource="config/sqlxml/Follow.xml"/>
      <mapper resource="config/sqlxml/Reply.xml"/>
+     <mapper resource="config/sqlxml/privateletter.xml"/>
   </mappers>
 
 </configuration>

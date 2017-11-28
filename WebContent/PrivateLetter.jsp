@@ -77,7 +77,6 @@
 			<ul class="notice-info-tab">
 				<li class="notify "><a href="NoticeUser.jsp">通知</a></li>
 				<li class="letter curr-tab"><a href="javaScript:;">私信</a></li>
-
 			</ul>
 			<div class="col-xs-4 col-summary nLeft">
 				<div class="nl_setting">
@@ -139,7 +138,30 @@
 							</div>
 						</div>
 					</div>
-					<div class="media-list" style="min-height: 300px;"></div>
+					<div class="media-list" style="min-height: 300px;">
+						<div class="media nty-mas-li">
+							<div class="pull-left">
+								<div class="checkbox">
+									<label> <input type="checkbox" name="ids[]"
+										value="flyingpig2016" class="select"><img
+										src="http://avatar.csdn.net/F/C/D/3_flyingpig2016.jpg"
+										class="media-object">
+									</label>
+								</div>
+							</div>
+							<div class="media-body">
+								<a href="javaScript:;" class="userList">
+									<h4 class="media-heading">
+										<div class="pull-right">刚刚</div>
+										<span class="txt">flyingpig2016</span>
+									</h4>
+									<p class="con">
+										<span class="letter_id" id="2792801">hi</span>
+									</p>
+								</a>
+							</div>
+						</div>
+					</div>
 				</form>
 				<div class="csdn-pagination hide-text hide-set hide-go">
 					<span class="page-nav"> <a class="btn"
@@ -148,13 +170,21 @@
 					</span>
 				</div>
 
-				<a class="btnNewMail new-private"> <i
-					class="glyphicon glyphicon-plus addicon"></i> <span>新建私信</span>
+				<a class="btnNewMail new-private"> 
+					<i class="glyphicon glyphicon-plus addicon"></i> 
+					<span>新建私信</span>
 				</a>
 
 			</div>
 			<div class="col-xs-8 col-content nRight">
-
+				<!--  <div class="row alert alert-success fade in">
+					<button class="close" data-dismiss="alert">×</button>
+					<i class="glyphicon glyphicon-ok-sign"></i> 私信发送成功
+				</div>
+				<div class="row alert alert-danger fade in">
+					<button class="close" data-dismiss="alert">×</button>
+					<i class="glyphicon glyphicon-remove-sign"></i> 不存在此用户:123as1z2zzzzzxzxz
+				</div>-->
 				<div class="private-new" style="display: block;">
 					<div class="row nty-mas-rtop">
 						<h3 class="noy-pl15">
@@ -162,13 +192,14 @@
 						</h3>
 					</div>
 					<form class="form-horizontal nty-sent-newmas" name="send_new"
-						action="/letters/send_message" method="get">
+						action="" method="post">
 						<div class="form-group">
 							<label class="pull-left control-label" style="text-align: right;">发给：</label>
 							<div class="pull-right">
 								<input type="text" placeholder="请输入有效的收信人" name="receiver"
-									class="form-control typeahead"> <span
-									class="error error-empty help-block">请输入有效的收信人</span>
+									class="form-control typeahead" value="${nowRecipient.uname}">
+								<input type="hidden" value="${nowRecipient.uid}" id="nowRecipientUid">
+								<span class="error error-empty help-block">请输入有效的收信人</span>
 							</div>
 						</div>
 						<div class="form-group">
@@ -187,31 +218,58 @@
 				</div>
 
 				<div class="private-list"
-					style="display: none; margin-left: -15px; margin-right: -15px;">
+					style="margin-left: -15px; margin-right: -15px; display: none;">
 					<div class="nl_title">
-						<i class="icon-envelope-alt"></i> <a href="http://my.csdn.net/"
-							class="nl_username" target="_blank"> </a> <span>&nbsp;和我的私信往来</span>
+						<i class="glyphicon glyphicon-envelope"></i>
+						 <a href="javaScript:;" class="nl_username" target="_blank" onclick="touserjump(30)">
+						  flyingpig2016
+						  </a>
+						  <span>&nbsp;和我的私信往来</span>
 					</div>
-
 					<div class="nl_content">
 						<div class="nl_dialog clearfix">
-							<!--<div class="nl_show_his"><span class="nl_a_l"></span><a class="nl_a_show_his" href="www.163.com">查看历史消息</a><span class="nl_a_r"></span></div>-->
-
+							<div class="nl_show_his">2017-11-28 14:29</div>
+							<div class="dialog_wr">
+								<div class="dialog_g_r">hi</div>
+								<div class="ang3"></div>
+								<div class="ang4"></div>
+								<div class="dialog_wr_l">
+									<div>
+										<a href="javaScript:;" target="_blank">
+											<img class="dialog_p"
+											src="<%=basePath%>files/${NowLoginUser.uhead}">
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="nl_show_his">2017-11-28 14:29</div>
+							<div class="dialog_girl">
+								<div class="dialog_g_l">
+									<div>
+										<a href="http://my.csdn.net/qq_39051449" target="_blank">
+											<img class="dialog_p"
+											src="http://avatar.csdn.net/8/0/2/3_qq_39051449.jpg">
+										</a>
+									</div>
+								</div>
+								<div class="ang"></div>
+								<div class="ang2"></div>
+								<div class="dialog_g_r">Heee</div>
+							</div>
 						</div>
+						
 						<div class="nl_input_box nl_input_box2"></div>
 						<div class="nl_input_box">
 							<form class="form-horizontal" name="reply"
 								action="/letters/send_message" method="get">
-								<input type="hidden" name="receiver" value=""> <input
-									type="hidden" name="linker" value=""> <input
-									name="body" id="content1" class="nl_input" type="text"
+								<input type="hidden" name="receiver" value="flyingpig2016">
+								<input type="hidden" name="linker" value="flyingpig2016">
+								<input name="body" id="content1" class="nl_input" type="text"
 									placeholder="200字以内" maxlength="200"> <input
 									class="nl_btn_reply" type="submit" value="回复">
 							</form>
 						</div>
-
 					</div>
-
 				</div>
 
 			</div>
@@ -221,4 +279,20 @@
 </body>
 <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('.userList').click(function() {
+			show_hide($('.private-list'),$('.private-new'));
+			
+		});
+		$('.new-private').click(function(){
+			show_hide($('.private-new'),$('.private-list'));
+		});
+		
+	});
+	function show_hide(obj_x,obj_y){
+		obj_x.show();
+		obj_y.hide();
+	}
+</script>
 </html>

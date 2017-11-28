@@ -24,6 +24,7 @@
 </head>
 <body style="margin-top: 50px">
 	<jsp:include page="nav.jsp" flush="true"></jsp:include>
+	
 	<div class="container">
 		<c:if test="${empty topics }">
 		<h1><a href="javaScript:;" id="newSession">新建</a></h1>
@@ -43,7 +44,7 @@
 						<tr>
 							<td>
 							
-							<a href="javaScript:;" class="topicTName" onclick="topicjumg(this,${topic.tsid})">${topic.ttopic }</a>
+							<a  href="javaScript:;" class="topicTName" onclick="topicjumg(this,${topic.tsid})">${topic.ttopic }</a>
 							<input type="hidden" class="topicTid" value="${topic.tid }">
 						
 							</td>

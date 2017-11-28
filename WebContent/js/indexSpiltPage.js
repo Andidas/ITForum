@@ -31,7 +31,7 @@ function getMainContents(imgs,content){
 }
 //把图片和文字整合在一起
 function neatenContent(imgs,content){
-	var lastContent = '<div style="max-height:60px;min-height:20px;" title="简略内容,请点击题目进入主贴!" class="zebra_tips7">'+content+'</div><div>';
+	var lastContent = '<div style="max-height:60px;min-height:20px;">'+content+'</div><div>';
 	var len = imgs.length;
 	if(len>3)len=3;
 	for(var i =0;i<len;i++){
@@ -44,8 +44,9 @@ function neatenContent(imgs,content){
 //初始化事件
 function clickInit(){
 	//下面方法在文件 GotoTopicOrSession.js中
+	$('.TopicTName').unbind('click',TopicTName);
 	$('.TopicTName').click(TopicTName);
-	jumpEveryWhere('#');
+	
 	//图片放大器
 	PostbirdImgGlass.init({
         domSelector:"#mainContent img",
@@ -55,8 +56,6 @@ function clickInit(){
 	new $.Zebra_Tooltips($('.zebra_tips6'),{
 		'position': 'right'
 	});
-	new $.Zebra_Tooltips($('.zebra_tips7'),{
-		'position': 'left'
-	});
+	
 	
 }

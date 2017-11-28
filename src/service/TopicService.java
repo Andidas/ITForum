@@ -23,12 +23,12 @@ public class TopicService implements ITopicService {
 			String tcontents) {
 		
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String ttime = df.format(new Date());//��ȡע��ʱ��
-		//�õ��û�id
+		String ttime = df.format(new Date());
+		
 		int uid = Integer.parseInt(tuid);
-		//�õ�session��id
+		
 		int sid = Integer.parseInt(tsid);
-		//����topic
+		
 		Topic topic = new Topic(0,sid,uid,0,null,ttopic,tcontents,ttime,0,0,uid,ttime);
 		if(sessionDao.addSessionStopiccount(sid)>0){
 			return topicDao.addTopic(topic)>0;

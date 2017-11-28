@@ -82,7 +82,9 @@ public class AboutUserInfo extends HttpServlet {
 	private void toInfoCenter(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String uid = request.getParameter("uid");
-		request.getRequestDispatcher("NoticeUser.jsp").forward(request, response);
+		User user = userService.queryUserOne(uid);
+		request.setAttribute("nowRecipient", user);
+		request.getRequestDispatcher("PrivateLetter.jsp").forward(request, response);
 	}
 	
 

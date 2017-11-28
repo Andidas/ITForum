@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import utils.ConstantsData.EnumDaoFactory;
 import dao.FollowDao;
+import dao.PrivateLetterDao;
 import dao.ReplyDao;
 import dao.SessionDao;
 import dao.TopicDao;
@@ -66,6 +67,10 @@ public class DaoFactory {
 			String userDaoClzz = prop.getProperty("UserDaoFactory");
 			userDao = (UserDao) Class.forName(userDaoClzz).newInstance();
 			break;
+		case PRIVATELETTER:
+			String PrivateLetterDaoClzz = prop.getProperty("PrivateLetterDaoFactory");
+			privateLetterDao = (PrivateLetterDao) Class.forName(PrivateLetterDaoClzz).newInstance();
+			break;
 		default:
 			break;
 		}
@@ -100,12 +105,16 @@ public class DaoFactory {
 	public SessionDao getSessionDao() {
 		return sessionDao;
 	}
+	public  PrivateLetterDao getPrivateLetterDao() {
+		return privateLetterDao;
+	}
 	
 	private static FollowDao followDao = null;
 	private static ReplyDao replyDao = null;
 	private static TopicDao topicDao = null;
 	private static UserDao userDao = null;
 	private static SessionDao sessionDao = null;
+	private static PrivateLetterDao privateLetterDao = null;
 
 	
 }

@@ -26,6 +26,6 @@ public class ConstantsData {
 	 * @param USER -> UserDao
 	 */
 	public enum EnumDaoFactory {
-		FOLLOW, REPLY, SESSION, TOPIC, USER;
+		FOLLOW, REPLY, SESSION, TOPIC, USER,PRIVATELETTER;
 	}
 }

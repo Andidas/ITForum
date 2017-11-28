@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="css/init.css" rel="stylesheet" />
 <link href="css/user.css" rel="stylesheet" />
 <link rel="stylesheet" href="css/zebra_tooltips.css" type="text/css"> 
-
+<link href="css/loadingButton.css" rel="stylesheet">
 </head>
 <body class="user-page" id="MyBody">
 	<jsp:include page="nav.jsp" flush="true"></jsp:include>
@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="col-sidebar col-lg-3">
 							<div id="avatar-card" class="avatar-card">
 								<div class="avatar">
-									<a href="javascript:;" onclick="touserjump(${queryUserInfo.uid})" >
+								<a href="javascript:;" onclick="touserjump(${queryUserInfo.uid})" >
 									<input type="hidden" id="queryUserId" value="${queryUserInfo.uid}">
 										<img  src="<c:if test="${not empty queryUserInfo.uhead}"><%=basePath%>files/${queryUserInfo.uhead}</c:if><c:if test="${empty queryUserInfo.uhead}"><%=basePath%>files/ITForum.jpg</c:if>"									
 											alt="" width="164" height="164" class="avatar-user">
@@ -59,20 +59,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 
 								<div class="g-row _gutters ai-start fl-none -row-first">
-									<div class="g-col g-row g-center badge1-alternate zebra_tips1" title="用户状态:${queryUserInfo.ustate}">
-										<span class="g-col fl-none -badge badge1"></span> 
-										<span class="g-col g-center -total">${queryUserInfo.ustate}</span>
+									<div class="g-col g-row g-center badge1-alternate zebra_tips1" title="拥有${queryUserInfo.uissectioner}个版块<br><a href=''>申请版主?</a>">
+										<span class="g-col g-center -total">${queryUserInfo.uissectioner}</span>
 									</div>
-
 									<div class="g-col g-row g-center badge2-alternate zebra_tips1" title="用户积分:${queryUserInfo.upoint}">
-										<span class="g-col fl-none -badge badge2"></span> 
 										<span class="g-col g-center -total">${queryUserInfo.upoint}</span>
 									</div>
-
 									<div class="g-col g-row g-center badge3-alternate zebra_tips1"
-										title="拥有${queryUserInfo.uissectioner}个版块<br><a href=''>申请版主?</a>">
-										<span class="g-col fl-none -badge badge3"></span> <span
-											class="g-col g-center -total">${queryUserInfo.uissectioner}</span>
+										title="发送消息给他">
+										<a href="javaScript:;" onclick="toInfoCenterjump(${queryUserInfo.uid})" class="g-col g-center -total">私信</a>
 									</div>
 
 								</div>
@@ -90,7 +85,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									${queryUserInfo.usatement}
 								</c:if>
 								</div>
+								
 							</div>
+							
 							<div class="col-right col-md-5">
 								<div class="user-links">
 									<div class="user-stats">
@@ -151,6 +148,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<h4 id="h-interesting-tags">他的关注</h4>
 								<a id="edit-interesting">edit</a>
 								<div>
+									<c:if test="${empty userFollowSession}">
+										<br><br>
+										<p style="color: #9e9e9e;">
+											用户暂时没有关注的版块
+										</p>		
+									</c:if>
 									<c:forEach items="${userFollowSession}" var="follow">
 									<a href="javaScript:;" class="label label-success"  rel="tag" onclick="tosessionjump(${follow.sid})">
 										${follow.sname}
@@ -178,7 +181,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<tbody id="tbody">
 											<c:forEach items="${userTopic.data}" var="topic" varStatus="num">
 											<tr <c:if test="${num.index%2==1}">class="success"</c:if>>
-												<td><a href="javaScript:;" onclick="toTopicJump(${topic.tid},${topic.tsid})">${topic.ttopic}</a></td>
+											<td><a href="javaScript:;" onclick="toTopicJump(${topic.tid},${topic.tsid})">${topic.ttopic}</a></td>
 												<td>${topic.ttime}</td>
 											</tr>
 											</c:forEach>
@@ -186,20 +189,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</table>
 								</div>
 							</div>
-							<div class="col-xs-2 col-xs-offset-5" style="padding-bottom:20px;">								
-								<a class="btn btn-default" id="showMore">加载更多</a>
-								<input type="hidden" value="1" id="nowPageNo">
-								<div class="loadEffect" id="loadEffect" style="display:none;">
-							        <span></span>
-							        <span></span>
-							        <span></span>
-							        <span></span>
-							        <span></span>
-							        <span></span>
-							        <span></span>
-							        <span></span>
+							<c:if test="${empty userTopic.data}">
+								<p style="color:#9e9e9e;text-align: center;">一个帖子都没发过</p>
+							</c:if>
+							<c:if test="${not empty userTopic.data}">
+								
+								<div class="col-xs-2 col-xs-offset-5" style="padding-bottom:20px;">								
+									<a class="btn btn-default" id="showMore">加载更多</a>
+									<input type="hidden" value="1" id="nowPageNo">
+									<div class="loadEffect" id="loadEffect" style="display:none;">
+								        <span></span>
+								        <span></span>
+								        <span></span>
+								        <span></span>
+								        <span></span>
+								        <span></span>
+								        <span></span>
+								        <span></span>
+									</div>
 								</div>
-							</div>
+								
+							</c:if>
 							
 						</div>
 					</div>
@@ -264,10 +274,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<%@include file="footer.html" %>	
 </body>
+<!-- 加载更多 -->
 <script type="text/javascript">
 	$(function(){
 		$("#showMore").click(function(){
-			showLoadButton();
+			hide_show($("#showMore"),$("#loadEffect"));
 			var uid = $("#queryUserId").val();
 			var nowPageNo = $("#nowPageNo").val();
 			var param = {
@@ -279,7 +290,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				if(data=="false"){
 					setTimeout('hide_MoreBtn_LoadBtn()',1000);
 				}else{
-					showMoreButton();
+					hide_show($("#loadEffect"),$("#showMore"));
+					
 					var topics = JSON.parse(data);
 					$.each(topics,function(i,topic){
 						var content=setUser_Ttopic(i,topic);
@@ -303,17 +315,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				+'</td></tr>';
 		return text;
 	}
+	function hide_show(obj_x,obj_y){
+		obj_x.hide();
+		obj_y.show();
+	}
 	function hide_MoreBtn_LoadBtn(){
 		$("#showMore").hide();
 		$("#loadEffect").hide();
-	}
-	function showMoreButton(){
-		$("#showMore").show();
-		$('#loadEffect').hide();
-	}
-	function showLoadButton(){
-		$("#showMore").hide();
-		$("#loadEffect").show();
 	}
 </script>
 <!-- 页面跳转 -->
