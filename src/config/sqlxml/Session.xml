@@ -61,9 +61,7 @@
 	
 	<!-- 相似版块，5条信息 -->
 	<select id="querySameSession" parameterType="entity.Session" resultMap="SessionResult">
-		select sid,sname,sstatement from `session` where sprofile=#{sprofile} and sid &lt;&gt; #{sid}
-		order by sclickcount DESC
-		limit 0,5
+		select sid,sname,sstatement from `session` where sprofile=#{sprofile} and sid &lt;&gt; #{sid} order by sclickcount DESC limit 0,5
 	</select>
 	<!--相似版块，所有信息 -->
 	<select id="queryAllSessionByProfile" parameterType="String" resultMap="SessionResult">
@@ -82,9 +80,7 @@
 		<result column="uname" jdbcType="VARCHAR" property="uname" />
 	</resultMap>
 	<select id="querySessionView" parameterType="INTEGER" resultMap="querySessionViewResult">
-		select s.*,u.uname
-		from `session` s,`user` u
-		where s.smasterid = u.uid and sid = #{_parameter}
+		select s.*,u.uname from `session` s,`user` u where s.smasterid = u.uid and sid = #{_parameter}
 	</select>
 	
 	<!-- 更新session点击数 -->

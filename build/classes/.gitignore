@@ -1,11 +1,8 @@
-/config/
 /dao/
-/service/
-/testService/
-/entity/
-/factory/
-/filter/
-/servlet/
-/utils/
-/privateletter/
 /testDao/
+/testService/
+/utils/
+/log4j.properties
+/config/
+/service/
+/servlet/

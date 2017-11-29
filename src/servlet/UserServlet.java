@@ -131,7 +131,7 @@ public class UserServlet extends HttpServlet {
 		String ubirthady = smRequest.getParameter("userBirthday");
 		String usatement = smRequest.getParameter("userBio");
 		String usex = smRequest.getParameter("userSex");
-		user = userService.modifyUser(user,uname,uhead,uemail,usex,ubirthady,usatement);
+		user = userService.updateUser(user.getUid(),uname,uhead,uemail,usex,ubirthady,usatement);
 		if(user==null){
 			System.out.println("user is empty");
 		}
@@ -243,16 +243,11 @@ public class UserServlet extends HttpServlet {
 		String name = request.getParameter("rname");
 		String email = request.getParameter("remail");
 		String password = request.getParameter("rpassword");
-		String ensurePassword = request.getParameter("ensurePassword");
 		PrintWriter out = response.getWriter();
-		int result = userService.addUser(name, email, password, ensurePassword);
-		if (result == 1) {
-			out.print("<script>alert('两次密码不同');history.back();</script>");
-
-		} else if (result == 2) {
+		boolean result = userService.addUser(name, email, password);
+		if (!result) {
 			out.print("<script>alert('插入失败');history.back();</script>");
-
-		} else if (result == 4) {
+		} else {
 			out.print("<script>alert('新增成功');history.back();</script>");
 			session.setAttribute("emailCaptcha", null);
 		}

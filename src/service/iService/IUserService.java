@@ -42,16 +42,16 @@ public interface IUserService {
 	 * @param usatement
 	 * @return 新的用户信息User
 	 */
-	public User modifyUser(User u,String uname,String uhead,String uemail,String usex,String ubirthady,String usatement);
+	public User updateUser(int uid,String uname,String uhead,String uemail,String usex,String ubirthady,String usatement);
 	/**
 	 * 增加用户
 	 * @param name
 	 * @param email
 	 * @param password
 	 * @param ensurePassword
-	 * @return result = 1两次输入的密码不同，result = 2插入数据库失败，result = 4新增用户成功并插入数据库，
+	 * @return 
 	 */
-	public int addUser(String name,String email,String password,String ensurePassword);
+	public boolean addUser(String name,String email,String password);
 	
 	/**
 	 * 通过邮箱修改密码

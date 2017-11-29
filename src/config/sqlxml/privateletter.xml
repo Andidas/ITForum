@@ -33,8 +33,7 @@
 		select * from private_letter
 	</select>
 	<select id="queryDialogList" parameterType="entity.PrivateLetter" resultMap="queryAllResult">
-		select * from private_letter 
-		where (puid = #{puid} and ptouid = #{ptouid}) or (puid = #{puid} and ptouid = #{ptouid})
+		select * from private_letter where (puid = #{puid} and ptouid = #{ptouid}) or (puid = #{puid} and ptouid = #{ptouid})
 		order by ptime ;
 	</select>
 	

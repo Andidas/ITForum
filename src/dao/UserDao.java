@@ -4,6 +4,13 @@ import java.util.List;
 
 
 
+
+
+
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
 import entity.User;
 /**
  * 用户的数据库处理操作的接口
@@ -13,16 +20,18 @@ import entity.User;
 public interface UserDao {
 	
 	/**
-	 * 通过用户名查找用户id
+	 * 判断用户名是否存在
 	 * @param uname
 	 * @return uid
 	 */
-	int queryUserIDByName(String uname);
+	@Select("select count(uid) uid from user where uname = #{_parameter}")
+	int isExistName(String uname);
 	/**
 	 * 增加用户
 	 * @param user 要增加的用户 (uname,upassword,uemail,uregdate)
 	 * @return 返回被增加的条数，如果不大于0则表示失败
 	 */
+	@Insert("INSERT INTO `user` (uname,uemail,upassword,uregdate) VALUES(#{uname},#{uemail},#{upassword},#{uregdate})")
 	int addUser(User user);
 	
 	/**
@@ -30,18 +39,27 @@ public interface UserDao {
 	 * @param user 要修改的用户
 	 * @return 返回被更新的条数，如果不大于0则表示失败
 	 */
-	int modifyUser(User user);
+	@Update(" UPDATE user SET uname = #{uname},upassword = #{upassword},uemail = #{uemail},uregdate = #{uregdate},ubirthady = #{ubirthady},usex = #{usex}, uhead = #{uhead}, usatement = #{usatement},ustate = #{ustate},upoint = #{upoint}, uissectioner = #{uissectioner} WHERE uid = #{uid}")
+	int updateUser(User user);
 	/**
 	 * 查询单个用户
 	 * @param uemail 要查询的用户email
 	 * @return 查询到得一个用户user(all)
 	 */
-	User queryUser(String uemail);
+	@Select("select * from user where uemail = #{_parameter}")
+	User queryUserOneByEmail(String uemail);
+	/**
+	 * 查询单个用户，通过id查询
+	 * @param uid
+	 * @return
+	 */
+	@Select("select * from user where uid = #{_parameter}")
 	User queryUserOne(int uid);
 	/**
 	 * 查询所有的用户
 	 * @return 用户组
 	 */
+	@Select("select uid,uname,upassword,uemail,uregdate,ubirthady,usex,uhead,usatement,ustate,upoint,uissectioner from user")
 	List<User> queryUserList();
 	
 	/**
@@ -50,7 +68,8 @@ public interface UserDao {
 	 * @param password 密码
 	 * @return
 	 */
-	boolean checkUser(String email,String password);
+	@Select("select count(*) num from user where uemail = #{uemail} and upassword = #{upassword}")
+	int checkUser(User user);
 	
 	/**
 	 * 通过邮箱修改密码
@@ -58,6 +77,7 @@ public interface UserDao {
 	 * @param password
 	 * @return
 	 */
-	int modifyPasswordByEmail(String email,String password);
+	@Update("UPDATE user SET upassword = #{upassword} WHERE uemail = #{uemail}")
+	int modifyPasswordByEmail(User user);
 	
 }

@@ -34,7 +34,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public int modifyUser(User user) {
+	public int updateUser(User user) {
 		try {
 			int result = 0;
 			sqlSession = dbAccess.getSqlSession();
@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User queryUser(String uemail) {	
+	public User queryUserOneByEmail(String uemail) {	
 		 try {
 			 User user = null;
 			sqlSession = dbAccess.getSqlSession();
@@ -85,33 +85,29 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean checkUser(String email, String password) {
-		User result = null;
+	public int checkUser(User user) {
+		
 		try {
+			int result;
 			sqlSession =dbAccess.getSqlSession();
-			User user = new User();
-			user.setUemail(email);
-			user.setUpassword(password);
+			
 			result = sqlSession.selectOne("User.checkUser",user);
+			return result;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}finally{
 			sqlSession.close();
 		}
-		if(result==null){
-			return false;
-		}else
-		return true;
+		
+		return 0;
 	}
 
 	@Override
-	public int modifyPasswordByEmail(String email, String password) {
+	public int modifyPasswordByEmail(User user) {
 		try {
 			int result = 0;
 			sqlSession =dbAccess.getSqlSession();
-			User user = new User();
-			user.setUemail(email);
-			user.setUpassword(password);
+			
 			result = sqlSession.update("User.updateUserPasswordByEmail",user);
 			sqlSession.commit();
 			return result;
@@ -124,7 +120,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public int queryUserIDByName(String uname) {
+	public int isExistName(String uname) {
 		try {
 			int result = 0;
 			sqlSession = dbAccess.getSqlSession();

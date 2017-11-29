@@ -31,19 +31,15 @@
 	<select id="queryFollowList" parameterType="INTEGER" resultMap="queryFollowListResult">
 		select f.fid,f.uid,f.sid,s.sname
 		from follow f left join `session` s on  f.sid = s.sid
-			<where>
-			 uid =#{_parameter}
-			</where>
+		where uid =#{_parameter}
+			
 	</select>
 	<!-- 是否被该用户关注 -->
 	<resultMap type="INTEGER" id="isBeFollowResult">
 		<id column="nun" jdbcType="INTEGER" property="nun" />
 	</resultMap>
 	<select id="isBeFollow"  parameterType="entity.Follow" resultMap="isBeFollowResult">
-	select count(fid) nun from follow 
-		<where>
-			 uid =#{uid} and sid = #{sid};
-		</where>
+	select count(fid) nun from follow  where uid =#{uid} and sid = #{sid};
 	</select>
 	
 	

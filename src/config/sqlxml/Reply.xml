@@ -63,6 +63,7 @@
 		select r.*,u.uname,u.ustate,u.upoint,u.uissectioner from reply r,`user` u
 		where rtid = #{id} and r.ruid = u.uid order by r.rtime DESC limit #{pageno},#{pagesize}
 	</select>
+	
 	<resultMap type="INTEGER" id="ReplyrowNumResult">
 		<result column="num" jdbcType="INTEGER" property="num" />
 	</resultMap>

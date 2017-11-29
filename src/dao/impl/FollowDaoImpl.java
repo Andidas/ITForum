@@ -29,36 +29,36 @@ public class FollowDaoImpl implements FollowDao {
 		return 0;
 	}
 
-	@Override
-	public int deleteFollow(int fid) {
-		try {
-			int result =0;
-			sqlSession = dbAccess.getSqlSession();
-			result = sqlSession.delete("Follow.deleteFollow",fid);
-			sqlSession.commit();
-			return result;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			sqlSession.close();
-		}
-		return 0;
-	}
+//	@Override
+//	public int deleteFollow(int fid) {
+//		try {
+//			int result =0;
+//			sqlSession = dbAccess.getSqlSession();
+//			result = sqlSession.delete("Follow.deleteFollow",fid);
+//			sqlSession.commit();
+//			return result;
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}finally{
+//			sqlSession.close();
+//		}
+//		return 0;
+//	}
 
-	@Override
-	public int queryFollowID(Follow follow) {
-		try {
-			int result =0;
-			sqlSession = dbAccess.getSqlSession();
-			result = sqlSession.selectOne("Follow.queryFollowID",follow);
-			return result;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			sqlSession.close();
-		}
-		return 0;
-	}
+//	@Override
+//	public int queryFollowID(Follow follow) {
+//		try {
+//			int result =0;
+//			sqlSession = dbAccess.getSqlSession();
+//			result = sqlSession.selectOne("Follow.queryFollowID",follow);
+//			return result;
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}finally{
+//			sqlSession.close();
+//		}
+//		return 0;
+//	}
 
 	@Override
 	public int queryFollowCount(int sid) {
@@ -102,6 +102,12 @@ public class FollowDaoImpl implements FollowDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public int deleteFollow(Follow follow) {
+		// TODO 自动生成的方法存根
+		return 0;
 	}
 
 }

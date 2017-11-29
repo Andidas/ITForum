@@ -20,7 +20,7 @@ public class SessionDaoImpl implements SessionDao {
 
 	
 	@Override
-	public Session searchSession(int sid) {
+	public Session searchSessionBySid(int sid) {
 		try {
 			Session session = null;
 			sqlSession  = dbAccess.getSqlSession();

@@ -36,9 +36,7 @@
 	</select>
 	
 	<select id="queryUserList" resultMap="UserResult">
-		select
-		uid,uname,upassword,uemail,uregdate,ubirthady,usex,uhead,usatement,ustate,upoint,uissectioner
-		from user
+		select uid,uname,upassword,uemail,uregdate,ubirthady,usex,uhead,usatement,ustate,upoint,uissectioner from user
 	</select>
 
 	<select id="queryUser" parameterType="String" resultMap="UserResult">
@@ -48,7 +46,7 @@
 		select * from user where uid = #{_parameter}
 	</select>
 	<select id="checkUser" parameterType="entity.User" resultMap="UserResult">
-		select * from user where uemail = #{uemail} and upassword = #{upassword}
+		select count(*) num from user where uemail = #{uemail} and upassword = #{upassword}
 	</select>
 
 	<insert id="addUser" parameterType="entity.User">
@@ -67,27 +65,15 @@
 	</insert>
 	
 	 <update id="updateUser" parameterType="entity.User">
-    UPDATE user SET
-    uname = #{uname,jdbcType=VARCHAR},
-    upassword = #{upassword,jdbcType=VARCHAR},
-    uemail = #{uemail,jdbcType=VARCHAR},
-    uregdate = #{uregdate,jdbcType=VARCHAR},
-    ubirthady = #{ubirthady,jdbcType=VARCHAR},
-    usex = #{usex,jdbcType=INTEGER},
-    uhead = #{uhead,jdbcType=VARCHAR},
-    usatement = #{usatement,jdbcType=VARCHAR},
-    ustate = #{ustate,jdbcType=INTEGER},
-    upoint = #{upoint,jdbcType=INTEGER},
-    uissectioner = #{uissectioner,jdbcType=INTEGER}
-    WHERE
-    uid = #{uid,jdbcType=INTEGER}
+    UPDATE user SET uname = #{uname},upassword = #{upassword},uemail = #{uemail},
+    uregdate = #{uregdate},ubirthady = #{ubirthady},
+    usex = #{usex}, uhead = #{uhead}, usatement = #{usatement},
+    ustate = #{ustate},upoint = #{upoint}, uissectioner = #{uissectioner}
+    WHERE uid = #{uid}
   </update>
   
   <update id="updateUserPasswordByEmail" parameterType="entity.User">
-    UPDATE user SET
-    upassword = #{upassword,jdbcType=VARCHAR}
-    WHERE
-    uemail = #{uemail,jdbcType=VARCHAR}
+    UPDATE user SET upassword = #{upassword} WHERE uemail = #{uemail}
   </update>
   
   	

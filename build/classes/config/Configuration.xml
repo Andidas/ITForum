@@ -32,12 +32,12 @@
   </environments>
 
   <mappers>
-    <mapper resource="config/sqlxml/User.xml"/>
-    <mapper resource="config/sqlxml/Session.xml"/>
     <mapper resource="config/sqlxml/Topic.xml"/>
-     <mapper resource="config/sqlxml/Follow.xml"/>
      <mapper resource="config/sqlxml/Reply.xml"/>
-     <mapper resource="config/sqlxml/privateletter.xml"/>
+     <mapper class="dao.PrivateLetterDao"/> 
+     <mapper class="dao.FollowDao"/>  
+     <mapper class="dao.UserDao"/> 
+     <mapper class="dao.SessionDao"/>
   </mappers>
 
 </configuration>
