@@ -227,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="col-md-3">
 								<div class="thumbnail">
 									<img src="<c:if test="${not empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/${sessionScope.NowLoginUser.uhead}</c:if><c:if test="${empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/ITForum.jpg</c:if>" alt="图片不符合规范" 
-										id="PictureBySet" style="width:235;height:235;">
+										id="PictureBySet" style="min-width:216px;min-height:189px;width:216px;height:189px;">
 									<div class="caption">
 										<label for="setPicture" class="btn btn-success btn-block">set
 											picture</label><input type="file" id="setPicture" class="hidden" name = "PictureBySet" value="${sessionScope.NowLoginUser.uhead}"/>
@@ -261,7 +261,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						                <em style='color:red'>500</em>/<span>500</span>
 						            </div>
 								</div>
-								<button type="submit" class="btn btn-default" id="setUserInfo">Submit</button>
+								<button type="submit" class="btn btn-default" id="setUserInfo" style="margin-bottom: 20px;">Submit</button>
+								
 							</div>
 							
 						</form>

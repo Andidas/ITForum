@@ -1,10 +1,14 @@
 package testService;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import org.apache.log4j.Logger;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
+import entity.PageParam;
 import service.PrivateLetterService;
 
 public class TestPrivateLetter {
@@ -12,17 +16,29 @@ public class TestPrivateLetter {
 	
 	@Test 
 	public void testInsertOne(){
-		assertTrue(pls.insertOne("16", "30", "NIHAO"));
-		assertTrue(pls.insertOne("30", "16", "you too"));
-		assertFalse(pls.insertOne("30", "30", "you too"));
+		assertTrue(pls.batchAdd("16", "32",1, "你是？"));
+		assertTrue(pls.batchAdd("31", "16",1, "我是程序员"));
+		assertFalse(pls.batchAdd("30", "30",1, "you too"));
 	}
 	@Test
-	public void queryDialogList(){
+	public void testQueryDialogList(){
 		System.out.println(pls.queryDialogList("16","30"));
 	}
 	@Test 
-	public void findAll(){
+	public void testFindAll(){
 		System.out.println(pls.findAll());
+	}
+	@Test 
+	public void testBatchDelete(){
+		List<Integer> ids = new ArrayList<Integer>();
+		ids.add(36);
+		ids.add(37);
+		assertTrue(pls.batchDelete(ids));
+	}
+	@Test
+	public void testQueryMyPrivateLetterList(){
+		PageParam pp = new PageParam(1,10,16);
+		System.out.println(pls.queryMyPrivateLetterList(pp));
 	}
 	
 }

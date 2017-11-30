@@ -4,19 +4,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
 import service.iService.ITopicService;
-import utils.ConstantsData;
-import utils.ConstantsData.EnumDaoFactory;
+import utils.db.MyBatisSessionFactory;
 import dao.SessionDao;
 import dao.TopicDao;
-import dao.factory.DaoFactory;
+import dao.impl.TopicDaoImpl;
 import entity.PageMode;
 import entity.PageParam;
 import entity.Topic;
 
 public class TopicService implements ITopicService {
-	private TopicDao topicDao = DaoFactory.getInstance(EnumDaoFactory.TOPIC).getTopicDao();
-	private SessionDao sessionDao = DaoFactory.getInstance(EnumDaoFactory.SESSION).getSessionDao();
+	private TopicDao topicDao = new TopicDaoImpl();
 	
 	@Override
 	public boolean addTopic(String tsid, String tuid, String ttopic,
@@ -30,7 +30,10 @@ public class TopicService implements ITopicService {
 		int sid = Integer.parseInt(tsid);
 		
 		Topic topic = new Topic(0,sid,uid,0,null,ttopic,tcontents,ttime,0,0,uid,ttime);
-		if(sessionDao.addSessionStopiccount(sid)>0){
+		SqlSession sqlsession = MyBatisSessionFactory.getSession();
+		int result = sqlsession.getMapper(SessionDao.class).addSessionStopiccount(sid);
+		MyBatisSessionFactory.closeSession();
+		if(result>0){
 			return topicDao.addTopic(topic)>0;
 		}else {
 			return false;

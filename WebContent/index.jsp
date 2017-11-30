@@ -140,6 +140,11 @@
 								关注
 							</h3>
 							<div style="line-height: 25px;">
+								<c:if test="${empty userFollowSession}">
+									<div style="margin: 26px 0;  color: #9e9e9e;">
+									该用户暂时没有关注的东西
+									</div>
+								</c:if>
 								<c:forEach items="${userFollowSession}" var="follow">
 									<a href="javaScript:;" class="label label-success" onclick="tosessionjump(${follow.sid})">
 										${follow.sname}

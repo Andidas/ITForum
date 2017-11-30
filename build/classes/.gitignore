@@ -8,3 +8,5 @@
 /servlet/
 /Configuration.xml
 /init.properties
+/entity/
+/mapper/

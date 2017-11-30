@@ -2,10 +2,10 @@ package service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import service.iService.IReplyService;
-import utils.ConstantsData.EnumDaoFactory;
 import dao.ReplyDao;
-import dao.factory.DaoFactory;
+import dao.impl.ReplyDaoImpl;
 import dao.impl.TopicDaoImpl;
 import entity.PageMode;
 import entity.PageParam;
@@ -14,7 +14,7 @@ import entity.Topic;
 
 public class ReplyService implements IReplyService {
 	
-	private ReplyDao replyDao = DaoFactory.getInstance(EnumDaoFactory.REPLY).getReplyDao();
+	private ReplyDao replyDao = new ReplyDaoImpl();
 	@Override
 	public PageMode<Reply> queryUserAllReply(String uid){
 		int id = Integer.parseInt(uid);

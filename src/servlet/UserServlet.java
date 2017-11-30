@@ -127,6 +127,9 @@ public class UserServlet extends HttpServlet {
 		SmartFile f = fs.getFile(0);
 		String uname = smRequest.getParameter("userName");
 		String uhead = f.getFileName();
+		if(uhead.equals("")){
+			uhead = user.getUhead();
+		}
 		String uemail = smRequest.getParameter("userEmail");
 		String ubirthady = smRequest.getParameter("userBirthday");
 		String usatement = smRequest.getParameter("userBio");
@@ -144,9 +147,9 @@ public class UserServlet extends HttpServlet {
 			System.out.print("保存失败！~");
 		}
 		
-		response.sendRedirect("user.jsp");
+		response.sendRedirect("UserInFo?op=toUserInfo&uid="+user.getUid());
 
-	}
+	}	
 
 	/**
 	 * 得到用户密码，用ajax密码自动填写

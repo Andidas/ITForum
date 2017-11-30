@@ -10,7 +10,6 @@ public class FollowView extends Follow {
 	public FollowView(String sname) {
 		super();
 		this.sname = sname;
-		
 	}
 
 	public FollowView(int fid, int uid, int sid, String sname) {

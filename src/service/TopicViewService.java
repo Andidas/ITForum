@@ -4,10 +4,10 @@ import java.util.List;
 
 import service.iService.ITopicViewService;
 import utils.ConstantsData;
-import utils.ConstantsData.EnumDaoFactory;
 import dao.ReplyDao;
 import dao.TopicDao;
-import dao.factory.DaoFactory;
+import dao.impl.ReplyDaoImpl;
+import dao.impl.TopicDaoImpl;
 import entity.PageMode;
 import entity.PageParam;
 import entity.Topic;
@@ -15,8 +15,8 @@ import entity.viewEntity.ReplyView;
 import entity.viewEntity.TopicView;
 
 public class TopicViewService implements ITopicViewService {
-	private ReplyDao replyDao = DaoFactory.getInstance(EnumDaoFactory.REPLY).getReplyDao();
-	private TopicDao topicDao = DaoFactory.getInstance(EnumDaoFactory.TOPIC).getTopicDao();
+	private ReplyDao replyDao = new ReplyDaoImpl();;
+	private TopicDao topicDao =new TopicDaoImpl();
 
 	@Override
 	public PageMode<TopicView> TopicSplitPage(int pageno, int pagesize,int tsid) {
