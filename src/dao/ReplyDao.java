@@ -22,7 +22,7 @@ public interface ReplyDao {
 	 * @param topic的id
 	 * @return
 	 */
-	int rowCount(int id);
+	int ReplyrowNum(int id);
 	/**
 	 * 回帖的分页视图列表
 	 * @param rtid 查询条件

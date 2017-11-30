@@ -17,6 +17,7 @@ import entity.User;
  * @author lwy
  *
  */
+
 public interface UserDao {
 	
 	/**

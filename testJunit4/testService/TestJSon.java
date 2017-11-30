@@ -1,7 +1,5 @@
 package testService;
 
-import static org.junit.Assert.*;
-
 import java.lang.reflect.InvocationTargetException;
 
 import net.sf.json.JSONObject;

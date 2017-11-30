@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 //实现获取、释放mybatis数据库连接的工具类
 public class MyBatisSessionFactory {
 	//定义常量
-	private static String CONFIG_FILE_LOCATION="config/Configuration.xml";
+	private static String CONFIG_FILE_LOCATION="Configuration.xml";
 	
 	//考虑到该工具类允许被多线程执行。因此封装1个线程池，让每个线程从线程池中获取1个连接。
 	//1个线程对应1条数据库连接,这样更安全

@@ -6,3 +6,5 @@
 /config/
 /service/
 /servlet/
+/Configuration.xml
+/init.properties

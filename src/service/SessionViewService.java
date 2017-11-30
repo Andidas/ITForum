@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import service.iService.ISessionViewService;
+import utils.ConstantsData;
 import utils.db.MyBatisSessionFactory;
 import dao.SessionDao;
 import entity.PageMode;
@@ -19,9 +20,6 @@ import entity.viewEntity.TopicView;
  *
  */
 public class SessionViewService implements ISessionViewService{
-	//private SessionDao sessionDao = DaoFactory.getInstance(EnumDaoFactory.SESSION).getSessionDao();
-	private final static int PAGENO = 1;//第几页
-	private final static int PAGESIZE =5;//每页条数
 	
 	private SessionService sessionService = new SessionService();
 	private TopicViewService topicViewService = new TopicViewService();
@@ -38,7 +36,7 @@ public class SessionViewService implements ISessionViewService{
 		SessionView sessionView =sqlsession.getMapper(SessionDao.class).querySessionView(sessionId);
 		MyBatisSessionFactory.closeSession();
 		
-		PageMode<TopicView> topicViewPM = topicViewService.TopicSplitPage(PAGENO, PAGESIZE, sessionId);
+		PageMode<TopicView> topicViewPM = topicViewService.TopicSplitPage(ConstantsData.PAGENO, ConstantsData.PAGESIZE, sessionId);
 
 		List<Session> sameSprofile  = sessionService.querySameSession(sessionView.getSprofile(),sessionId);
 		int follow = followService.queryFollowCount(sessionId);

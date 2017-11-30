@@ -22,7 +22,6 @@
 
 <mapper namespace="Reply">
 	
-	
 	<!-- 该用户的所有回复 -->
 	<resultMap type="entity.Reply" id="queryUserAllReplyResult">
 		<id column="rid" jdbcType="INTEGER" property="rid" />

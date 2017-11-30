@@ -1,13 +1,12 @@
 package dao.impl;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
 import dao.TopicDao;
-import utils.db.DBAccess;
+import utils.db.MyBatisSessionFactory;
 import entity.PageMode;
 import entity.PageParam;
 import entity.Topic;
@@ -19,196 +18,134 @@ import entity.viewEntity.TopicView;
  */
 public class TopicDaoImpl implements TopicDao {
 
-	private SqlSession sqlSession = null;
-	private DBAccess dbAccess = new DBAccess();
+	
 	@Override
 	public int addTopic(Topic topic) {
-		try {
 			int result = 0;
-			sqlSession = dbAccess.getSqlSession();
+			SqlSession sqlSession = MyBatisSessionFactory.getSession();
 			result = sqlSession.insert("Topic.addTopic",topic);
 			sqlSession.commit();			
+			MyBatisSessionFactory.closeSession();
 			return result;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			if(sqlSession!=null)sqlSession.close();
-		}
-		return 0;
 	}
 
 	@Override
 	public PageMode<TopicView> splitPage(PageParam page){
 		int start = (page.getPageno()-1)*page.getPagesize();
 		page.setPageno(start);
-		try {
+		
 			PageMode<TopicView> pm = new PageMode<TopicView>();
 			List<TopicView> pageData = new ArrayList<TopicView>();
 			
-			sqlSession = dbAccess.getSqlSession();
+			SqlSession sqlSession = MyBatisSessionFactory.getSession();
 			pageData = sqlSession.selectList("Topic.splitPage", page);
 			
 			pm.setData(pageData);
 			pm.setPageParam(page);
 			pm.setTotalRecordCount(this.rowCount(page.getId()));
+		
+			MyBatisSessionFactory.closeSession();
 			return pm;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			if(sqlSession!=null)sqlSession.close();
-		}
-		return null;
+		
+		
 	}
 	@Override
 	public PageMode<Topic> queryUserAllTopic(PageParam page) {
 		int start = (page.getPageno()-1)*page.getPagesize();
 		page.setPageno(start);
-		try {
+		
 			PageMode<Topic> pm = new PageMode<Topic>();
 			List<Topic> pageData = new ArrayList<Topic>();
 			
-			sqlSession = dbAccess.getSqlSession();
+			SqlSession sqlSession = MyBatisSessionFactory.getSession();
 			pageData = sqlSession.selectList("Topic.queryUserAllTopic", page);
 			
 			pm.setData(pageData);
 			pm.setPageParam(page);
 			pm.setTotalRecordCount(this.rowUserTopicNum(page.getId()));
+		
+			MyBatisSessionFactory.closeSession();
 			return pm;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			if(sqlSession!=null)sqlSession.close();
-		}
-		return null;
+	
 	}
 	private int rowUserTopicNum(int id){
-		try {
 			int num = 0;
-			sqlSession = dbAccess.getSqlSession();
+			SqlSession sqlSession = MyBatisSessionFactory.getSession();
 			num = sqlSession.selectOne("Topic.rowUserTopicNum", id);
+			MyBatisSessionFactory.closeSession();
 			return num;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return 0;
 	}
 	@Override
 	public int rowCount(int id) {
-		try {
 			int num = 0;
-			sqlSession = dbAccess.getSqlSession();
+			SqlSession sqlSession = MyBatisSessionFactory.getSession();
 			num = sqlSession.selectOne("Topic.rowNum", id);
+			MyBatisSessionFactory.closeSession();
 			return num;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return 0;
 	}
 	
 	@Override
 	public List<Topic> querySameTopicListByTSID(int tsid) {
-		try {
 			List<Topic> topics = null;
-			sqlSession = dbAccess.getSqlSession();
+			SqlSession sqlSession = MyBatisSessionFactory.getSession();
 			topics = sqlSession.selectList("Topic.querySameTopicList", tsid);
+			MyBatisSessionFactory.closeSession();
 			return topics;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			if(sqlSession!=null)sqlSession.close();
-		}
-		return null;
 	}
 
 	@Override
 	public Topic queryTopicOneByTopic(int tid) {
-		try {
 			Topic topic = null;
-			sqlSession = dbAccess.getSqlSession();
+			SqlSession sqlSession = MyBatisSessionFactory.getSession();
 			topic = sqlSession.selectOne("Topic.queryTopicOneByTopic", tid);
+			MyBatisSessionFactory.closeSession();
 			return topic;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			if(sqlSession!=null)sqlSession.close();
-		}
-		return null;
 	}
 
 	@Override
 	public int updateClickCount(int tid) {
-		try {
 			int result =0;
-			sqlSession = dbAccess.getSqlSession();
+			SqlSession sqlSession = MyBatisSessionFactory.getSession();
 			result = sqlSession.update("Topic.updateClickCount", tid);
 			sqlSession.commit();
+			MyBatisSessionFactory.closeSession();
 			return result;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			if(sqlSession!=null)sqlSession.close();
-		}
-		return 0;
 	}
 
 	@Override
 	public int updateReplyCountAdd(Topic topic) {
-		try {
 			int result = 0 ;
-			sqlSession = dbAccess.getSqlSession();
+			SqlSession sqlSession = MyBatisSessionFactory.getSession();
 			result = sqlSession.update("Topic.updateReplyCountAdd", topic);
 			sqlSession.commit();
+			MyBatisSessionFactory.closeSession();
 			return result;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			if(sqlSession!=null)sqlSession.close();
-		}
-		return 0;
 	}
 
 	public TopicView getTopicViewOne(int tid) {
-		try {
 			TopicView topicView = null;
-			sqlSession = dbAccess.getSqlSession();
+			SqlSession sqlSession = MyBatisSessionFactory.getSession();
 			topicView = sqlSession.selectOne("Topic.topicViewOne", tid);
+			MyBatisSessionFactory.closeSession();
 			return topicView;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			if(sqlSession!=null)sqlSession.close();
-		}
-		return null;
 	}
 
 	@Override
 	public List<Topic> searchTopicAndContents(String text) {
-		try {
 			List<Topic> topics = null;
-			sqlSession = dbAccess.getSqlSession();
+			SqlSession sqlSession = MyBatisSessionFactory.getSession();
 			topics = sqlSession.selectList("Topic.searchTopicAndContents", text);
+			MyBatisSessionFactory.closeSession();
 			return topics;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			if(sqlSession!=null)sqlSession.close();
-		}
-		return null;
 	}
 
 	@Override
 	public List<Topic> queryHotsTopicList() {
-		try {
 			List<Topic> topics = null;
-			sqlSession = dbAccess.getSqlSession();
+			SqlSession sqlSession = MyBatisSessionFactory.getSession();
 			topics = sqlSession.selectList("Topic.queryHotsTopicList");
+			MyBatisSessionFactory.closeSession();
 			return topics;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-			if(sqlSession!=null)sqlSession.close();
-		}
-		return null;
 	}
 
 

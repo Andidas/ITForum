@@ -14,8 +14,7 @@ import entity.Session;
  * session°æ¿é
  */
 public class SessionService implements ISessionService {
-	//SessionDao sessionDao = DaoFactory.getInstance(EnumDaoFactory.SESSION).getSessionDao();
-
+	
 	@Override
 	public boolean isSearchSession(String text){
 		if(!text.equals("")&&text.length()>2){
