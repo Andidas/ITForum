@@ -50,6 +50,19 @@
 		limit #{pageno},#{pagesize}
 	</select>
 	
+	<!-- 分页查询我的私信列表详情 -->
+	<select id="queryMyPrivateLetterList_detail" parameterType="entity.PageParam" resultType="HashMap">
+		SELECT p.pid,p.pcontent,p.puid,p.ptouid,p.ptime,u.uname AS sender_name,
+		u.uhead AS sender_image,uu.uname AS receiver_name FROM private_letter p 
+		INNER JOIN `user` u on u.uid=p.puid 
+		INNER JOIN `user` uu on uu.uid=p.ptouid 
+		WHERE p.user_id=#{id} and p.friend_id=#{friend_id}
+		and p.pstatus !=3 
+		ORDER BY p.pid DESC 
+		limit #{pageno},#{pagesize}
+	</select>
+	
+	
 	<!-- 查询我的信息列表条数 -->
 	<select id="queryMyPrivateLetterList_count" parameterType="INTEGER" resultType="INTEGER">
 		select count(DISTINCT friend_id) as num from private_letter where user_id = #{_parameter}

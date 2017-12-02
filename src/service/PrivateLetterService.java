@@ -75,17 +75,7 @@ public class PrivateLetterService {
 		return plists;
 	}
 	
-	public List<PrivateLetter> queryDialogList(String puid,String ptouid){
-		SqlSession session = MyBatisSessionFactory.getSession();
-		int uid = Integer.parseInt(puid);
-		int touid = Integer.parseInt(ptouid);
-		PrivateLetter pletter = new PrivateLetter();
-		pletter.setPuid(uid);
-		pletter.setPtouid(touid);
-		List<PrivateLetter> plists = session.getMapper(PrivateLetterDao.class).queryDialogList(pletter);
-		MyBatisSessionFactory.closeSession();
-		return plists;
-	}
+
 	/**
 	 * 查询我的私信列表
 	 * @param pageParam
@@ -100,6 +90,33 @@ public class PrivateLetterService {
 
 		SqlSession sqlSession = MyBatisSessionFactory.getSession();
 		pageData = sqlSession.getMapper(PrivateLetterDao.class).queryMyPrivateLetterList(pageParam);
+
+		pm.setData(pageData);
+		pm.setPageParam(pageParam);
+		pm.setTotalRecordCount(sqlSession.getMapper(PrivateLetterDao.class).queryMyPrivateLetterList_count(pageParam.getId()));
+
+		MyBatisSessionFactory.closeSession();
+		return pm;
+	}
+	
+	/**
+	 * 分页查询我的私信列表详情
+	 * @param param {
+	 * 	user_id = *,自己id
+	 * 	friend_id = *,好友id
+	 * 	pageno = *,页数
+	 * 	pagesize= * 每页条数}
+	 * @return
+	 */
+	public PageMode<Map<String,Object>> queryMyPrivateLetterList_detail(PageParam pageParam) {
+		int start = (pageParam.getPageno() - 1) * pageParam.getPagesize();
+		pageParam.setPageno(start);
+
+		PageMode<Map<String,Object>> pm = new PageMode<Map<String,Object>>();
+		List<Map<String,Object>> pageData = new ArrayList<Map<String,Object>>();
+
+		SqlSession sqlSession = MyBatisSessionFactory.getSession();
+		pageData = sqlSession.getMapper(PrivateLetterDao.class).queryMyPrivateLetterList_detail(pageParam);
 
 		pm.setData(pageData);
 		pm.setPageParam(pageParam);

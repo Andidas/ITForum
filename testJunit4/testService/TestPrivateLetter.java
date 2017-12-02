@@ -20,10 +20,7 @@ public class TestPrivateLetter {
 		assertTrue(pls.batchAdd("31", "16",1, "我是程序员"));
 		assertFalse(pls.batchAdd("30", "30",1, "you too"));
 	}
-	@Test
-	public void testQueryDialogList(){
-		System.out.println(pls.queryDialogList("16","30"));
-	}
+	
 	@Test 
 	public void testFindAll(){
 		System.out.println(pls.findAll());
@@ -39,6 +36,11 @@ public class TestPrivateLetter {
 	public void testQueryMyPrivateLetterList(){
 		PageParam pp = new PageParam(1,10,16);
 		System.out.println(pls.queryMyPrivateLetterList(pp));
+	}
+	@Test
+	public void testQueryMyPrivateLetterList_detail(){
+		PageParam pp = new PageParam(1,10,16,31);
+		System.out.println(pls.queryMyPrivateLetterList_detail(pp));
 	}
 	
 }
