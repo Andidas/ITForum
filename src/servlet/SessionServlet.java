@@ -37,7 +37,7 @@ public class SessionServlet extends HttpServlet {
 	private SessionService sessionService = new SessionService();
 	private SessionViewService sessionViewService = new SessionViewService();
 	private TopicViewService topicViewService = new TopicViewService();
-	private JsonService js = new JsonService();
+	private JsonService jsonService = new JsonService();
     public SessionServlet() {
         super();
     }
@@ -171,7 +171,7 @@ public class SessionServlet extends HttpServlet {
 		if(pm==null){
 			out.print("false");
 		}else{
-			out.print(js.toJSONArray(pm.getData()));
+			out.print(jsonService.toJSONArray(pm.getData()));
 		}		
 	}
 	

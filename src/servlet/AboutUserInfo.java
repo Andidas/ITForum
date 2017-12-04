@@ -3,38 +3,40 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 import service.FollowService;
 import service.JsonService;
+import service.PrivateLetterService;
 import service.TopicService;
 import service.UserService;
 import utils.ConstantsData;
+import utils.transform_time;
 import entity.PageMode;
+import entity.PageParam;
 import entity.Topic;
 import entity.User;
 import entity.viewEntity.FollowView;
-import entity.viewEntity.ReplyView;
 public class AboutUserInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private FollowService followService = new FollowService();
 	private UserService userService = new UserService();
 	private TopicService topicService = new TopicService();
 	private JsonService jsonService = new JsonService();
+	private PrivateLetterService pls = new PrivateLetterService();
     public AboutUserInfo() {
         super();
     }
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
-
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String op = request.getParameter("op");
 		if(op.equals("toInfoCenter")){
@@ -83,9 +85,28 @@ public class AboutUserInfo extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String uid = request.getParameter("uid");
 		User user = userService.queryUserOne(uid);
-		request.setAttribute("nowRecipient", user);
-		request.getRequestDispatcher("PrivateLetter.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		User sender = (User)session.getAttribute("NowLoginUser");
+		
+		if(sender==null){
+			response.getWriter().print("<script>alert('ÇëÏÈµÇÂ¼');location.href='UserServlet?op=toLogin';</script>");
+		}else{
+			PageParam param = new PageParam(ConstantsData.PAGENO,ConstantsData.PAGESIZE_10,sender.getUid());
+			PageMode<Map<String, Object>> letters = pls.queryMyPrivateLetterList(param);
+			transformTime(letters);
+			if(letters!=null){
+			System.err.println(user);
+			request.setAttribute("queryUserInfo", user);
+			request.setAttribute("letterList", letters);
+			request.getRequestDispatcher("PrivateLetter.jsp").forward(request, response);
+			}
+		}
+		
 	}
-	
-
+	private static void transformTime(PageMode<Map<String, Object>> letters){
+		for (Map<String, Object> m : letters.getData()) {
+			String value = transform_time.howLongFromNow(m.get("ptime").toString());
+			m.put("ptime", value);
+		}
+	}
 }

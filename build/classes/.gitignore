@@ -1,12 +1,5 @@
-/dao/
-/testDao/
-/testService/
-/utils/
-/log4j.properties
-/config/
-/service/
 /servlet/
-/Configuration.xml
-/init.properties
-/entity/
+/utils/
+/service/
 /mapper/
+/dao/

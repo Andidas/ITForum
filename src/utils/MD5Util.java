@@ -1,7 +1,6 @@
 package utils;  
   
-import java.math.BigInteger;  
-import java.security.MessageDigest;  
+import java.security.MessageDigest;
   
 public class MD5Util{  
       

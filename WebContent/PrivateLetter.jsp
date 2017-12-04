@@ -129,44 +129,48 @@
 									操作 <span class="caret"></span>
 								</button>
 								<ul aria-labelledby="center-list-menu" class="dropdown-menu">
-									<li><span class="nty-top-arr"></span> <a class="del"
-										href="javascript:void(0);"><span
-											class="glyphicon glyphicon-trash"></span> 删除私信</a> <a
-										class="mark" href="javascript:void(0);"><span
-											class="glyphicon glyphicon-volume-down"></span>标记已读</a></li>
+									<li>
+										<span class="nty-top-arr"></span> 
+										<a class="del" href="javascript:void(0);">
+											<span class="glyphicon glyphicon-trash"></span> 删除私信</a>
+										<a class="mark" href="javascript:void(0);">
+										<span class="glyphicon glyphicon-volume-down"></span>标记已读</a>
+									</li>
 								</ul>
 							</div>
 						</div>
 					</div>
 					<div class="media-list" style="min-height: 300px;">
+						<input type="hidden" value="${letterList.data[0].user_id}" id="user_id">
+						<c:forEach items="${letterList.data}" var="letter">
 						<div class="media nty-mas-li">
 							<div class="pull-left">
 								<div class="checkbox">
-									<label> <input type="checkbox" name="ids[]"
-										value="flyingpig2016" class="select"><img
-										src="http://avatar.csdn.net/F/C/D/3_flyingpig2016.jpg"
-										class="media-object">
+									<label> 
+									<input type="checkbox" name="ids[]" value="${letter.receiver_name}" class="select">
+									<img src="<%=basePath%>files/${letter.receiver_image}" class="media-object">
 									</label>
 								</div>
 							</div>
 							<div class="media-body">
 								<a href="javaScript:;" class="userList">
 									<h4 class="media-heading">
-										<div class="pull-right">刚刚</div>
-										<span class="txt">flyingpig2016</span>
+										<div class="pull-right">${letter.ptime}</div>
+										<span class="txt">${letter.receiver_name}</span>
+										<input type="hidden" class="friend_id" value="${letter.friend_id}"/>
 									</h4>
 									<p class="con">
-										<span class="letter_id" id="2792801">hi</span>
+										<span class="letter_id" >${letter.pcontent}</span>
 									</p>
 								</a>
 							</div>
 						</div>
+						</c:forEach>
 					</div>
 				</form>
 				<div class="csdn-pagination hide-text hide-set hide-go">
-					<span class="page-nav"> <a class="btn"
-						href="/letters?start_id=0">&lt;</a> <a class="btn"
-						href="/letters?start_id=10">&gt;</a>
+					<span class="page-nav">
+					 	<a  href="javaScript:;" pageno="1" id="show_more">加载更多</a>
 					</span>
 				</div>
 
@@ -177,14 +181,7 @@
 
 			</div>
 			<div class="col-xs-8 col-content nRight">
-				<!--  <div class="row alert alert-success fade in">
-					<button class="close" data-dismiss="alert">×</button>
-					<i class="glyphicon glyphicon-ok-sign"></i> 私信发送成功
-				</div>
-				<div class="row alert alert-danger fade in">
-					<button class="close" data-dismiss="alert">×</button>
-					<i class="glyphicon glyphicon-remove-sign"></i> 不存在此用户:123as1z2zzzzzxzxz
-				</div>-->
+				
 				<div class="private-new" style="display: block;">
 					<div class="row nty-mas-rtop">
 						<h3 class="noy-pl15">
@@ -192,13 +189,13 @@
 						</h3>
 					</div>
 					<form class="form-horizontal nty-sent-newmas" name="send_new"
-						action="" method="post">
+						action="letter?op=new_letter" method="post">
 						<div class="form-group">
 							<label class="pull-left control-label" style="text-align: right;">发给：</label>
 							<div class="pull-right">
-								<input type="text" placeholder="请输入有效的收信人" name="receiver"
-									class="form-control typeahead" value="${nowRecipient.uname}">
-								<input type="hidden" value="${nowRecipient.uid}" id="nowRecipientUid">
+								<input type="text" placeholder="请输入有效的收信人" 
+									class="form-control typeahead" value="${queryUserInfo.uname }" name="receiver">
+								<input type="hidden" name="receiver_id" value="${queryUserInfo.uid}" >
 								<span class="error error-empty help-block">请输入有效的收信人</span>
 							</div>
 						</div>
@@ -206,12 +203,12 @@
 							<label class="pull-left control-label" style="text-align: right;">内容：</label>
 							<div class="pull-right">
 								<textarea rows="6" class="form-control" name="body"
-									placeholder="可发送200字以内的内容"></textarea>
+									placeholder="可发送200字以内的内容" maxlength="200"></textarea>
 								<span class="error error-empty help-block">私信内容不能为空</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<button class="btn btn-primary send-private"
+							<button class="btn btn-primary send-private" type="submit"
 								style="margin-left: 86px;">私信</button>
 						</div>
 					</form>
@@ -228,45 +225,15 @@
 					</div>
 					<div class="nl_content">
 						<div class="nl_dialog clearfix">
-							<div class="nl_show_his">2017-11-28 14:29</div>
-							<div class="dialog_wr">
-								<div class="dialog_g_r">hi</div>
-								<div class="ang3"></div>
-								<div class="ang4"></div>
-								<div class="dialog_wr_l">
-									<div>
-										<a href="javaScript:;" target="_blank">
-											<img class="dialog_p"
-											src="<%=basePath%>files/${NowLoginUser.uhead}">
-										</a>
-									</div>
-								</div>
-							</div>
-							<div class="nl_show_his">2017-11-28 14:29</div>
-							<div class="dialog_girl">
-								<div class="dialog_g_l">
-									<div>
-										<a href="http://my.csdn.net/qq_39051449" target="_blank">
-											<img class="dialog_p"
-											src="http://avatar.csdn.net/8/0/2/3_qq_39051449.jpg">
-										</a>
-									</div>
-								</div>
-								<div class="ang"></div>
-								<div class="ang2"></div>
-								<div class="dialog_g_r">Heee</div>
-							</div>
+							<!-- 详细信息内容 -->
 						</div>
 						
 						<div class="nl_input_box nl_input_box2"></div>
 						<div class="nl_input_box">
-							<form class="form-horizontal" name="reply"
-								action="/letters/send_message" method="get">
-								<input type="hidden" name="receiver" value="flyingpig2016">
-								<input type="hidden" name="linker" value="flyingpig2016">
-								<input name="body" id="content1" class="nl_input" type="text"
-									placeholder="200字以内" maxlength="200"> <input
-									class="nl_btn_reply" type="submit" value="回复">
+							<form class="form-horizontal" name="reply" action="letter?op=send_letter" method="post">
+								<input type="hidden" name="receiver" value="flyingpig2016" id="receiver_id">
+								<input name="body" id="content1" class="nl_input" type="text" placeholder="200字以内" maxlength="200">
+								<input class="nl_btn_reply" type="submit" value="回复">
 							</form>
 						</div>
 					</div>
@@ -281,18 +248,73 @@
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript">
 	$(function() {
+		//查看信息
 		$('.userList').click(function() {
+			var friend_id = $(this).find('.friend_id').val();
 			show_hide($('.private-list'),$('.private-new'));
-			
+			$('.nl_username').html($(this).find('.txt').html());
+			$('#receiver_id').val(friend_id);
+			var param = {
+				'op':'letter_detail',
+				'friend_id':friend_id
+			}
+			$.post('letter',param,function(data){
+				if(data=='false'){
+					alert('获取数据错误');
+				}else{
+					$('.nl_dialog').empty();
+					var letters = JSON.parse(data);
+					$.each(letters,function(i,letter){
+						var text = letterContent(letter);
+						$('.nl_dialog').prepend(text);
+					});
+				}
+			});
 		});
+		//新建私信
 		$('.new-private').click(function(){
 			show_hide($('.private-new'),$('.private-list'));
 		});
 		
 	});
+	//内容布局
+	function letterContent(letter){
+		if(letter.puid == $('#user_id').val()){
+			var left_or_right = '<div class="dialog_wr">'
+				+'<div class="dialog_g_r">'+letter.pcontent+'</div>'
+				+'<div class="ang3"></div>'
+				+'<div class="ang4"></div>'
+				+'<div class="dialog_wr_l">'
+					+'<div>'
+						+'<a href="javaScript:;" touserjump('+letter.puid+')>'
+						+'<img class="dialog_p" src="files/'+letter.sender_image+'">'
+						+'</a>'
+					+'</div>'
+				+'</div>'
+			+'</div>';
+		}else{
+			var left_or_right = '<div class="dialog_girl">'
+				+'<div class="dialog_g_l">'
+					+'<a href="javaScript:;" touserjump('+letter.puid+')>'
+					+'<img class="dialog_p" src="files/'+letter.sender_image+'">'
+					+'</a></div>'
+				+'<div class="ang"></div>'
+				+'<div class="ang2"></div>'
+				+'<div class="dialog_g_r">'
+					+'<div>'
+					+letter.pcontent
+					+'</div>'
+				+'</div>'
+			+'</div>';
+		}
+		
+		var text = '<div class="nl_show_his">'+getDateDiff(letter.ptime)+'</div>'+left_or_right
+		return text;
+	}
 	function show_hide(obj_x,obj_y){
 		obj_x.show();
 		obj_y.hide();
 	}
 </script>
+<script type="text/javascript" src="js/transform_time.js"></script>
 </html>

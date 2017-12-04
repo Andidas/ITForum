@@ -21,7 +21,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dao.PrivateLetterDao">
-
+	<!-- 批量插入 -->
 	<insert id="batchAdd" parameterType="java.util.List">
 		INSERT INTO private_letter(
 			user_id,friend_id,puid,ptouid,message_type,ptime,pcontent
@@ -31,7 +31,7 @@
 			(#{letter.user_id}, #{letter.friend_id}, #{letter.puid}, #{letter.ptouid},#{letter.message_type}, #{letter.ptime}, #{letter.pcontent})
 		</foreach>
 	</insert>
-	
+	<!-- 批量删除 -->
 	<delete id="batchDelete" parameterType="java.util.List">
 		delete from private_letter where pid in
 		<foreach collection="list" item="id" open="(" close=")" separator=",">

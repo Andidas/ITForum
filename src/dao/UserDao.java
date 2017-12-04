@@ -7,6 +7,7 @@ import java.util.List;
 
 
 
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -80,5 +81,12 @@ public interface UserDao {
 	 */
 	@Update("UPDATE user SET upassword = #{upassword} WHERE uemail = #{uemail}")
 	int modifyPasswordByEmail(User user);
+	/**
+	 * 通过用户名查询用户id
+	 * @param uname
+	 * @return
+	 */
+	@Select("select uid from `user` where uname = #{uname}")
+	int queryUserByName(String uname);
 	
 }

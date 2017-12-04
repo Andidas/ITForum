@@ -5,11 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
-import org.apache.log4j.Logger;
 
-import dao.UserDao;
 import service.iService.IUserService;
 import utils.db.MyBatisSessionFactory;
+import dao.UserDao;
 import entity.User;
 
 /**
@@ -98,6 +97,12 @@ public class UserService implements IUserService{
 		User user = session.getMapper(UserDao.class).queryUserOne(id);
 		MyBatisSessionFactory.closeSession();
 		return user;
+	}
+	public int queryUserByName(String uname) {
+		SqlSession session = MyBatisSessionFactory.getSession();
+		int uid = session.getMapper(UserDao.class).queryUserByName(uname);
+		MyBatisSessionFactory.closeSession();
+		return uid;
 	}
 	
 	

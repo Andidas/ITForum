@@ -13,7 +13,6 @@ import dao.PrivateLetterDao;
 import entity.PageMode;
 import entity.PageParam;
 import entity.PrivateLetter;
-import entity.viewEntity.ReplyView;
 
 public class PrivateLetterService {
 
@@ -22,7 +21,7 @@ public class PrivateLetterService {
 	 * @param puid 发送者
 	 * @param ptouid 接收者
 	 * @param pcontent
-	 * @return
+	 * @return 成功返回true
 	 */
 	public  boolean batchAdd(String puid,String ptouid,int type,String pcontent){
 		if(puid.equals(ptouid))return false;
