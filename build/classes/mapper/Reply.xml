@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+       Copyright 2009-2016 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Reply">
+	
+	<!-- 该用户的所有回复 -->
+	<resultMap type="entity.Reply" id="queryUserAllReplyResult">
+		<id column="rid" jdbcType="INTEGER" property="rid" />
+		<result column="rtid" jdbcType="INTEGER" property="rtid" />
+		<result column="rsid" jdbcType="INTEGER" property="rsid" />
+		<result column="ruid" jdbcType="INTEGER" property="ruid" />
+		<result column="rfavour" jdbcType="INTEGER" property="rfavour" />
+		<result column="rcontent" jdbcType="VARCHAR" property="rcontent" />
+		<result column="rtime" jdbcType="VARCHAR" property="rtime" />
+		</resultMap>
+	<select id="queryUserAllReply" parameterType="entity.PageParam" resultMap="queryUserAllReplyResult">
+		select * from reply where ruid = #{id} ORDER BY rtime DESC LIMIT #{pageno},#{pagesize}
+	</select>
+	
+	<insert id="addReplyOne" parameterType="entity.Reply">
+		insert into reply(rtid,rsid,ruid,rcontent,rtime) values(#{rtid},#{rsid},#{ruid},#{rcontent},#{rtime});
+	</insert>
+	<delete id="deleteReplyOne" parameterType="INTEGER">
+		delete from reply where rid = #{_parameter};
+	</delete>
+	
+	
+	<!-- 分页 -->
+	<resultMap type="entity.viewEntity.ReplyView" id="queryReplyViewListResult">
+		<id column="rid" jdbcType="INTEGER" property="rid" />
+		<result column="rtid" jdbcType="INTEGER" property="rtid" />
+		<result column="rsid" jdbcType="INTEGER" property="rsid" />
+		<result column="ruid" jdbcType="INTEGER" property="ruid" />
+		<result column="rfavour" jdbcType="INTEGER" property="rfavour" />
+		<result column="rcontent" jdbcType="VARCHAR" property="rcontent" />
+		<result column="rtime" jdbcType="VARCHAR" property="rtime" />
+		<result column="uname" jdbcType="VARCHAR" property="uname" />
+		<result column="ustate" jdbcType="INTEGER" property="ustate" />
+		<result column="upoint" jdbcType="INTEGER" property="upoint" />
+		<result column="uissectioner" jdbcType="INTEGER" property="uissectioner" />
+	</resultMap>
+	<select id="queryReplyViewList"  parameterType="entity.PageParam" resultMap="queryReplyViewListResult">
+		select r.*,u.uname,u.ustate,u.upoint,u.uissectioner from reply r,`user` u
+		where rtid = #{id} and r.ruid = u.uid order by r.rtime DESC limit #{pageno},#{pagesize}
+	</select>
+	
+	<resultMap type="INTEGER" id="ReplyrowNumResult">
+		<result column="num" jdbcType="INTEGER" property="num" />
+	</resultMap>
+	<select id="ReplyrowNum" parameterType="INTEGER" resultMap="ReplyrowNumResult">
+		select count(*) as num from reply where rtid  = #{_parameter}
+	</select>
+	<select id="UserReplyrowNum" parameterType="INTEGER" resultMap="ReplyrowNumResult">
+		select count(*) num from reply where ruid = #{_parameter}
+	</select>
+	<!-- end 分页 -->
+</mapper>

@@ -60,8 +60,8 @@ public class FollowService implements IFollowService {
 
 	@Override
 	public List<FollowView> queryFollowList(String uid) {
-		SqlSession session = MyBatisSessionFactory.getSession();
 		int id = Integer.parseInt(uid);
+		SqlSession session = MyBatisSessionFactory.getSession();
 		List<FollowView> lists = session.getMapper(FollowDao.class).queryFollowList(id);
 		MyBatisSessionFactory.closeSession();
 		return lists;

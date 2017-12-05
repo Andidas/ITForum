@@ -1,4 +1,4 @@
-package utils;  
+package utils.endecrypt.utils;  
   
 import java.security.MessageDigest;
   
@@ -59,11 +59,8 @@ public class MD5Util{
             return null;  
         }  
     }  
-  //E10ADC3949BA59ABBE56E057F20F883E
          public static void main(String[] args) {  
-        String md5 = MD5("123456{admin}");  
-/*              String md52 = getMD5("123456");*/
+        String md5 = MD5("123456");  
             System.out.println(md5);
- /*             System.out.println(md52);*/
     }  
 }  

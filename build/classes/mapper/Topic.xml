@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+       Copyright 2009-2016 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Topic">
+			
+	<!-- 查询属于该用户的topic -->
+	<select id="queryUserAllTopic" parameterType="entity.PageParam" resultMap="TopicResult">
+		select * from topic where tuid = #{id} ORDER BY ttime DESC LIMIT #{pageno},#{pagesize};
+	</select>
+	<!-- 搜索框 -->
+	<select id="searchTopicAndContents" parameterType="STRING" resultMap="TopicResult">
+		select * from topic where ttopic like CONCAT(CONCAT('%', #{_parameter}), '%') or tcontents like CONCAT(CONCAT('%', #{_parameter}), '%');
+	</select>
+	
+	<resultMap type="entity.Topic" id="TopicResult">
+		<id column="tid" jdbcType="INTEGER" property="tid" />
+		<result column="tsid" jdbcType="INTEGER" property="tsid" />
+		<result column="tuid" jdbcType="INTEGER" property="tuid" />
+		<result column="treplycount" jdbcType="INTEGER" property="treplycount" />
+		<result column="temotion" jdbcType="VARCHAR" property="temotion" />
+		<result column="ttopic" jdbcType="VARCHAR" property="ttopic" />
+		<result column="tcontents" jdbcType="VARCHAR" property="tcontents" />
+		<result column="ttime" jdbcType="VARCHAR" property="ttime" />
+		<result column="tflag" jdbcType="INTEGER" property="tflag" />
+		<result column="tclickcount" jdbcType="INTEGER" property="tclickcount" />
+		<result column="tlastreplyuseid" jdbcType="INTEGER" property="tlastreplyuseid" />
+		<result column="tlastreplaytime" jdbcType="VARCHAR" property="tlastreplaytime" />
+	</resultMap>
+	
+	<!-- 查询回帖数比较多的帖子 -->
+	<select id="queryHotsTopicList" resultMap="TopicResult">
+		select tid,tsid,ttopic,treplycount from topic order by treplycount desc limit 0,10
+	</select>
+	<!-- 查询相似topic -->
+	<select id="querySameTopicList" parameterType="INTEGER" resultMap="TopicResult">
+		select tid,treplycount,ttopic from topic where tsid = #{_parameter} order by ttime DESC limit 0,10
+	</select>
+	
+	<!-- 分页,根据sid -->
+	<resultMap type="entity.viewEntity.TopicView" id="splitPageResult">
+		<id column="tid" jdbcType="INTEGER" property="tid" />
+		<result column="tsid" jdbcType="VARCHAR" property="tsid" />
+		<result column="tuid" jdbcType="VARCHAR" property="tuid" />
+		<result column="treplycount" jdbcType="INTEGER" property="treplycount" />
+		<result column="temotion" jdbcType="VARCHAR" property="temotion" />
+		<result column="ttopic" jdbcType="VARCHAR" property="ttopic" />
+		<result column="tcontents" jdbcType="VARCHAR" property="tcontents" />
+		<result column="ttime" jdbcType="VARCHAR" property="ttime" />
+		<result column="tclickcount" jdbcType="INTEGER" property="tclickcount" />
+		<result column="tlastreplyuseid" jdbcType="VARCHAR" property="tlastreplyuseid" />
+		<result column="tlastreplaytime" jdbcType="VARCHAR" property="tlastreplaytime" />		
+		<result column="sname" jdbcType="VARCHAR" property="sname" />
+		<result column="uname" jdbcType="VARCHAR" property="uname" />
+		<result column="lastreplyuser" jdbcType="VARCHAR" property="lastreplyuser" />
+	</resultMap>
+	<select id="splitPage" parameterType="entity.PageParam" resultMap="splitPageResult">
+		select t.*,s.sname,u.uname,u1.uname lastreplyuser
+		from topic t,`session` s,`user` u,`user` u1 
+		<where>
+			t.tsid = s.sid and u.uid = t.tuid and t.tlastreplyuseid = u1.uid 
+			<if test="id != 0">
+	    		 and t.tsid = #{id}
+	    	</if>
+		</where>
+		order by t.ttime DESC
+		LIMIT #{pageno},#{pagesize}
+	</select>
+	<resultMap type="INTEGER" id="rowNumResult">
+		<result column="num" jdbcType="INTEGER" property="num" />
+	</resultMap>
+	<select id="rowNum" parameterType="INTEGER" resultMap="rowNumResult">
+	    		select count(*) as num from topic 
+	    	<if test="_parameter != 0">
+	    		<where>
+	    		tsid = #{_parameter}
+	    		</where>
+	    	</if>
+	</select>
+	<select id="rowUserTopicNum" parameterType="INTEGER" resultMap="rowNumResult">
+			select count(*) as num from topic
+			<where>
+				tuid = #{_parameter}
+			</where>
+	</select>
+	<!-- end 分页 -->
+	
+	<!-- topicView -->
+	<select id="topicViewOne" parameterType="INTEGER" resultMap="splitPageResult">
+		select  t.*,s.sname,u.uname,u1.uname lastreplyuser
+		from topic t,`session` s,`user` u,`user` u1 
+		where t.tid = #{_parameter} and t.tsid = s.sid and u.uid = t.tuid and t.tlastreplyuseid = u1.uid
+	</select>
+	
+	<select id="queryTopicOneByTopic" parameterType="INTEGER" resultMap="TopicResult">
+		select * from topic where tid = #{_parameter}
+	</select>
+	<insert id="addTopic" parameterType="entity.Topic">
+		INSERT INTO topic(tsid,tuid,ttopic,tcontents,ttime,tlastreplyuseid,tlastreplaytime)
+		VALUES(#{tsid},#{tuid},#{ttopic},#{tcontents},#{ttime},#{tlastreplyuseid},#{tlastreplaytime})
+	</insert>
+	<update id="updateClickCount" parameterType="INTEGER">
+		UPDATE topic set tclickcount = tclickcount+1 where tid= #{_parameter}
+	</update>
+	
+	<!-- 回帖数加1，并且更新回帖数 -->
+	<update id="updateReplyCountAdd" parameterType="entity.Topic">
+		UPDATE topic set treplycount = treplycount+1,tlastreplyuseid=#{tlastreplyuseid},tlastreplaytime=#{tlastreplaytime} where tid= #{tid};
+	</update>
+	
+</mapper>

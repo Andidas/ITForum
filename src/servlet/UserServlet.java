@@ -61,10 +61,6 @@ public class UserServlet extends HttpServlet {
 		}
 	}
 
-	
-
-	
-
 	/**
 	 * 用户名是否存在
 	 */

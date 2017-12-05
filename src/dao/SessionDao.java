@@ -69,7 +69,7 @@ public interface SessionDao {
 	 * @return 大于0成功
 	 */
 	@Update("UPDATE `session` set sclickcount = sclickcount+1 where sid= #{_parameter}")
-	int updateSessionClickCount(int sid);
+	int updateSessionClickCount(String sid);
 
 	
 	/**

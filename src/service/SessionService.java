@@ -64,11 +64,8 @@ public class SessionService implements ISessionService {
 	@Override
 	public boolean updateSessionClickCount(String sid) {
 		SqlSession sqlsession = MyBatisSessionFactory.getSession();
-		
-		int sessionId = Integer.parseInt(sid);
-		int result = sqlsession.getMapper(SessionDao.class).updateSessionClickCount(sessionId);
+		int result = sqlsession.getMapper(SessionDao.class).updateSessionClickCount(sid);
 		MyBatisSessionFactory.closeSession();
-		
 		return result>0;
 	}
 	@Override

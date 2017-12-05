@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import service.iService.IUserService;
 import utils.db.MyBatisSessionFactory;
+import utils.endecrypt.utils.SHAUtil;
 import dao.UserDao;
 import entity.User;
 
@@ -35,7 +36,7 @@ public class UserService implements IUserService{
 		SqlSession session = MyBatisSessionFactory.getSession();
 		User user = new User();
 		user.setUemail(email);
-		user.setUpassword(password);
+		user.setUpassword(SHAUtil.shaEncode(password));
 		int result = session.getMapper(UserDao.class).checkUser(user);
 		MyBatisSessionFactory.closeSession();
 		return result>0;
@@ -64,7 +65,7 @@ public class UserService implements IUserService{
 		User user = new User();
 		user.setUname(name);
 		user.setUemail(email);
-		user.setUpassword(password);
+		user.setUpassword(SHAUtil.shaEncode(password));
 		user.setUregdate(regdateTime);
 		int result = session.getMapper(UserDao.class).addUser(user);
 		session.commit();
@@ -76,7 +77,7 @@ public class UserService implements IUserService{
 	public boolean modifyPasswordByEmail(String email, String password) {
 		User user = new User();
 		user.setUemail(email);
-		user.setUpassword(password);
+		user.setUpassword(SHAUtil.shaEncode(password));
 		SqlSession session = MyBatisSessionFactory.getSession();
 		int result = session.getMapper(UserDao.class).modifyPasswordByEmail(user);
 		session.commit();
@@ -92,7 +93,7 @@ public class UserService implements IUserService{
 	}
 	@Override
 	public User queryUserOne(String uid) {
-		int id = Integer.parseInt(uid);
+		int id= Integer.parseInt(uid);
 		SqlSession session = MyBatisSessionFactory.getSession();
 		User user = session.getMapper(UserDao.class).queryUserOne(id);
 		MyBatisSessionFactory.closeSession();
@@ -104,6 +105,4 @@ public class UserService implements IUserService{
 		MyBatisSessionFactory.closeSession();
 		return uid;
 	}
-	
-	
 }
