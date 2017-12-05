@@ -16,6 +16,11 @@ public interface IUserService {
 	 * @return
 	 */
 	public User queryUser(String email) ;
+	/**
+	 * 查询单个用户
+	 * @param uid
+	 * @return
+	 */
 	public User queryUserOne(String uid);
 	/**
 	 * 检查用户是否存在
@@ -23,8 +28,14 @@ public interface IUserService {
 	 * @param password
 	 * @return
 	 */
-	
 	public boolean checkUser(String email, String password) ;
+	/**
+	 * 检查用户是否存在
+	 * @param email
+	 * @param password sha_1加密之后的密码
+	 * @return
+	 */
+	public boolean checkUser_isSha_1(String email, String password);
 	/**
 	 * 名字是否存在
 	 * @param uname
@@ -60,5 +71,7 @@ public interface IUserService {
 	 * @return
 	 */
 	public boolean modifyPasswordByEmail(String email, String password) ;
+
+
 	
 }

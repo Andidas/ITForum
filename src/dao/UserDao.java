@@ -89,4 +89,5 @@ public interface UserDao {
 	@Select("select uid from `user` where uname = #{uname}")
 	int queryUserByName(String uname);
 	
+	
 }

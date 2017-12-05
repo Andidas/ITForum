@@ -42,6 +42,16 @@ public class UserService implements IUserService{
 		return result>0;
 	}
 	@Override
+	public boolean checkUser_isSha_1(String email, String password) {
+		SqlSession session = MyBatisSessionFactory.getSession();
+		User user = new User();
+		user.setUemail(email);
+		user.setUpassword(password);
+		int result = session.getMapper(UserDao.class).checkUser(user);
+		MyBatisSessionFactory.closeSession();
+		return result>0;
+	}
+	@Override
 	public User updateUser(int uid,String uname,String uhead,String uemail,String usex,String ubirthady,String usatement){
 		SqlSession session = MyBatisSessionFactory.getSession();
 		User user = session.getMapper(UserDao.class).queryUserOne(uid);
