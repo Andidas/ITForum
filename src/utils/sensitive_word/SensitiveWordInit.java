@@ -1,14 +1,14 @@
 package utils.sensitive_word;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.ibatis.session.SqlSession;
+
+import dao.SensitiveWordDao;
+import utils.db.MyBatisSessionFactory;
 
 /**
  * @Description: 初始化敏感词库，将敏感词加入到HashMap中，构建DFA算法模型
@@ -119,29 +119,35 @@ public class SensitiveWordInit {
 	 * @version 1.0
 	 * @throws Exception 
 	 */
-	@SuppressWarnings("resource")
 	private Set<String> readSensitiveWordFile() throws Exception{
 		Set<String> set = null;
-		
-		File file = new File("E:\\敏感词库\\CensorWords\\Censor.txt");    //读取文件
-		InputStreamReader read = new InputStreamReader(new FileInputStream(file),ENCODING);
-		try {
-			if(file.isFile() && file.exists()){      //文件流是否存在
-				set = new HashSet<String>();
-				BufferedReader bufferedReader = new BufferedReader(read);
-				String txt = null;
-				while((txt = bufferedReader.readLine()) != null){    //读取文件，将文件内容放入到set中
-					set.add(txt);
-			    }
-			}
-			else{         //不存在抛出异常信息
-				throw new Exception("敏感词库文件不存在");
-			}
-		} catch (Exception e) {
-			throw e;
-		}finally{
-			read.close();     //关闭文件流
-		}
+		SqlSession sqlsession = MyBatisSessionFactory.getSession();
+		set = sqlsession.getMapper(SensitiveWordDao.class).findAll();
+		MyBatisSessionFactory.closeSession();
 		return set;
 	}
+//	private Set<String> readSensitiveWordFile() throws Exception{
+//		Set<String> set = null;
+//		
+//		File file = new File("E:\\敏感词库\\CensorWords\\Censor.txt");    //读取文件
+//		InputStreamReader read = new InputStreamReader(new FileInputStream(file),ENCODING);
+//		try {
+//			if(file.isFile() && file.exists()){      //文件流是否存在
+//				set = new HashSet<String>();
+//				BufferedReader bufferedReader = new BufferedReader(read);
+//				String txt = null;
+//				while((txt = bufferedReader.readLine()) != null){    //读取文件，将文件内容放入到set中
+//					set.add(txt);
+//			    }
+//			}
+//			else{         //不存在抛出异常信息
+//				throw new Exception("敏感词库文件不存在");
+//			}
+//		} catch (Exception e) {
+//			throw e;
+//		}finally{
+//			read.close();     //关闭文件流
+//		}
+//		return set;
+//	}
 }
