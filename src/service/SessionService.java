@@ -6,12 +6,17 @@ import org.apache.ibatis.session.SqlSession;
 
 import service.iService.ISessionService;
 import utils.db.MyBatisSessionFactory;
+import utils.sensitive_word.SensitivewordFilter;
 import dao.SessionDao;
 import entity.Session;
 
 
+/**
+ * @author lwy
+ *
+ */
 public class SessionService implements ISessionService {
-	
+	private SensitivewordFilter filter = new SensitivewordFilter();
 	@Override
 	public boolean isSearchSession(String text){
 		if(!text.equals("")&&text.length()>2){
@@ -47,6 +52,7 @@ public class SessionService implements ISessionService {
 	public boolean subSessionStopiccount(String sname) {
 		SqlSession sqlsession = MyBatisSessionFactory.getSession();
 		int result = sqlsession.getMapper(SessionDao.class).subSessionStopiccount(sname);
+		sqlsession.commit();
 		MyBatisSessionFactory.closeSession();
 		return result>0;
 	}
@@ -62,6 +68,7 @@ public class SessionService implements ISessionService {
 	public boolean updateSessionClickCount(String sid) {
 		SqlSession sqlsession = MyBatisSessionFactory.getSession();
 		int result = sqlsession.getMapper(SessionDao.class).updateSessionClickCount(sid);
+		sqlsession.commit();
 		MyBatisSessionFactory.closeSession();
 		return result>0;
 	}
@@ -76,13 +83,15 @@ public class SessionService implements ISessionService {
 	@Override
 	public boolean addSession(String sname, int smasterid, String sprofile,
 			String sstatement, String spicture) {
+		String statement = filter.replaceSensitiveWord(sstatement, 1, "*");
 		SqlSession sqlsession = MyBatisSessionFactory.getSession();
 		Session session = new Session();
 		session.setSname(sname);
 		session.setSmasterid(smasterid);
-		session.setSprofile(sprofile);session.setSstatement(sstatement);
+		session.setSprofile(sprofile);session.setSstatement(statement);
 		session.setSpicture(spicture);
 		int result = sqlsession.getMapper(SessionDao.class).insertSession(session);
+		sqlsession.commit();
 		MyBatisSessionFactory.closeSession();
 		return result>0;
 	}
@@ -107,8 +116,4 @@ public class SessionService implements ISessionService {
 		MyBatisSessionFactory.closeSession();
 		return sessions;
 	}
-
-	
-
-	
 }

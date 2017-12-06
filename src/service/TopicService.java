@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import service.iService.ITopicService;
 import utils.db.MyBatisSessionFactory;
+import utils.sensitive_word.SensitivewordFilter;
 import dao.SessionDao;
 import dao.TopicDao;
 import dao.impl.TopicDaoImpl;
@@ -17,19 +18,20 @@ import entity.Topic;
 
 public class TopicService implements ITopicService {
 	private TopicDao topicDao = new TopicDaoImpl();
-	
+	private SensitivewordFilter filter = new SensitivewordFilter();
 	@Override
 	public boolean addTopic(String tsid, String tuid, String ttopic,
 			String tcontents) {
+		String title = filter.replaceSensitiveWord(ttopic, 1, "*");
+		String content = filter.replaceSensitiveWord(tcontents, 1, "*");
 		
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String ttime = df.format(new Date());
 		
 		int uid = Integer.parseInt(tuid);
-		
 		int sid = Integer.parseInt(tsid);
 		
-		Topic topic = new Topic(0,sid,uid,0,null,ttopic,tcontents,ttime,0,0,uid,ttime);
+		Topic topic = new Topic(0,sid,uid,0,null,title,content,ttime,0,0,uid,ttime);
 		SqlSession sqlsession = MyBatisSessionFactory.getSession();
 		int result = sqlsession.getMapper(SessionDao.class).addSessionStopiccount(sid);
 		MyBatisSessionFactory.closeSession();
@@ -74,13 +76,4 @@ public class TopicService implements ITopicService {
 		PageParam pageParam = new PageParam(pageno,pagesize,id);
 		return topicDao.queryUserAllTopic(pageParam);
 	}
-	
-	
-
-	
-
-	
-	
-	
-
 }

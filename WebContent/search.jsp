@@ -26,9 +26,16 @@
 	<jsp:include page="nav.jsp" flush="true"></jsp:include>
 	
 	<div class="container">
-		<c:if test="${empty topics }">
-		<h1><a href="javaScript:;" id="newSession">新建</a></h1>
+		<div style="color:red;margin-top:20px;">
+		<p>简易搜索教程</p>
+		<p>搜索版块：java。请在搜索框输入：[java]</p>
+		<p>搜索帖子：帖子1。请在搜索框输入：帖子1</p>
+		</div>
+		<c:if test="${empty sessions and empty topics}">
+		<h1>无搜索结果，您可以选择<a href="javaScript:;" id="newSession">新建</a></h1>
+			<img src="img/notfound.jpg" width="100%" height="100%">
 		</c:if>
+		
 		<c:if test="${not empty topics }">
 			<table class="table table-striped">
 				<caption>查找内容</caption>
@@ -83,11 +90,7 @@
 <script type="text/javascript">
 	$(function(){
 		$('#newSession').click(function(){
-			if($('#nowUserName').html()==undefined){
-				alert('请登录');
-			}else{
-				location.href="Session?op=toNewSession"
-			}
+			location.href="Session?op=toNewSession"
 		});
 	});
 </script>

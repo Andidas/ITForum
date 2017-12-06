@@ -7,3 +7,6 @@
 /utils/
 /sensitive_word/
 /mapper/
+/Configuration.xml
+/init.properties
+/log4j.properties

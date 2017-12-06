@@ -117,4 +117,13 @@
     <filter-name>EncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+   <filter>
+    <filter-name>SensitiveWordFilter</filter-name>
+    <filter-class>filter.SensitiveWordFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>SensitiveWordFilter</filter-name>
+    <url-pattern>/newSession.jsp</url-pattern>
+  </filter-mapping>
 </web-app>

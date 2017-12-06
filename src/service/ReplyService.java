@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import service.iService.IReplyService;
+import utils.sensitive_word.SensitivewordFilter;
 import dao.ReplyDao;
 import dao.impl.ReplyDaoImpl;
 import dao.impl.TopicDaoImpl;
@@ -13,7 +14,7 @@ import entity.Reply;
 import entity.Topic;
 
 public class ReplyService implements IReplyService {
-	
+	private SensitivewordFilter filter = new SensitivewordFilter();
 	private ReplyDao replyDao = new ReplyDaoImpl();
 	@Override
 	public PageMode<Reply> queryUserAllReply(String uid){
@@ -36,21 +37,21 @@ public class ReplyService implements IReplyService {
 	}
 	@Override
 	public boolean addReplyOne(String nowTopicTid,String nowSessionID,String nowUserID,String replyText) {
-		
+		String content = filter.replaceSensitiveWord(replyText, 1, "*");
 		Reply reply = new Reply();
 		int rtid= Integer.parseInt(nowTopicTid);
 		int rsid= Integer.parseInt(nowSessionID);
 		int ruid= Integer.parseInt(nowUserID);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String rtime = df.format(new Date());//获取注册时间
+		String rtime = df.format(new Date());
 		
 		reply.setRtid(rtid);
 		reply.setRsid(rsid);
 		reply.setRuid(ruid);
 		reply.setRtime(rtime);
-		reply.setRcontent(replyText);
+		reply.setRcontent(content);
 		if(!updateReplyCountAdd(rtid,ruid,rtime)){
-			System.out.println("回帖数加1失败");
+			System.out.println("鍙戝笘鏁板姞1澶辫触");
 			return false;
 		}else{
 			return replyDao.addReplyOne(reply) > 0;

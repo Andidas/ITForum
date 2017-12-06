@@ -3,8 +3,12 @@ package utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-public class transform_time {
+/**
+ * 距离现在有多久
+ * @param oldtime 对比时间
+ * @throws ParseException
+ */
+public class TransformTime {
 	/**
 	 * 距离现在有多久
 	 * @param oldtime 对比时间

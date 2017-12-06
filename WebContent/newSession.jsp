@@ -119,7 +119,7 @@
 				$('#sessionBio').focus();
 				alert('请输入简短的描述！');
 			}else{
-				//$('#newSessionForm').submit();
+				$('#newSessionForm').submit();
 			}
 		});
 	});

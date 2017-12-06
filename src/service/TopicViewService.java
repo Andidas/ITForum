@@ -4,6 +4,7 @@ import java.util.List;
 
 import service.iService.ITopicViewService;
 import utils.ConstantsData;
+import utils.TransformTime;
 import dao.ReplyDao;
 import dao.TopicDao;
 import dao.impl.ReplyDaoImpl;
@@ -17,7 +18,6 @@ import entity.viewEntity.TopicView;
 public class TopicViewService implements ITopicViewService {
 	private ReplyDao replyDao = new ReplyDaoImpl();;
 	private TopicDao topicDao =new TopicDaoImpl();
-
 	@Override
 	public PageMode<TopicView> TopicSplitPage(int pageno, int pagesize,int tsid) {
 		PageParam pageParam = new PageParam(pageno, pagesize, tsid);
@@ -33,12 +33,14 @@ public class TopicViewService implements ITopicViewService {
 		int tid = Integer.parseInt(id);
     	 TopicView topicView = null;
 		 int sessionid = Integer.parseInt(sid);
-		 //该topic的所有回帖
+
 		 PageMode<ReplyView> allReply = queryReplyViewPageMode(ConstantsData.PAGENO, ConstantsData.PAGESIZE, tid);
-		 //和该topic相似的topics
 		 List<Topic> sameList = topicDao.querySameTopicListByTSID(sessionid);
 		 
 		 topicView = topicDao.getTopicViewOne(tid);
+		 String oldtime = topicView.getTtime();
+		 topicView.setTtime(TransformTime.howLongFromNow(oldtime));
+		 topicView.setTlastreplaytime(TransformTime.howLongFromNow(topicView.getTlastreplaytime()));
 		 topicView.setAllReply(allReply);	
 		 topicView.setSameTopic(sameList);
 		return topicView;

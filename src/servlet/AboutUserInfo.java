@@ -18,7 +18,7 @@ import service.PrivateLetterService;
 import service.TopicService;
 import service.UserService;
 import utils.ConstantsData;
-import utils.transform_time;
+import utils.TransformTime;
 import entity.PageMode;
 import entity.PageParam;
 import entity.Topic;
@@ -50,7 +50,7 @@ public class AboutUserInfo extends HttpServlet {
 	private void findUserTopic(HttpServletRequest request,
 			HttpServletResponse response)throws ServletException, IOException  {
 		PrintWriter out = response.getWriter();
-		int pageno=ConstantsData.PAGENO; //Ò³Êý
+		int pageno=ConstantsData.PAGENO; 
 		
 		String pagenoStr = request.getParameter("pageno");
 		if(pagenoStr!=null&&!"".equals(pagenoStr)){
@@ -66,7 +66,7 @@ public class AboutUserInfo extends HttpServlet {
 		}		
 	}
 	/**
-	 * ÓÃ»§ÐÅÏ¢
+	 * ï¿½Ã»ï¿½ï¿½ï¿½Ï¢
 	 */
 	private void toUserInfo(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -89,7 +89,7 @@ public class AboutUserInfo extends HttpServlet {
 		User sender = (User)session.getAttribute("NowLoginUser");
 		
 		if(sender==null){
-			response.getWriter().print("<script>alert('ÇëÏÈµÇÂ¼');location.href='UserServlet?op=toLogin';</script>");
+			response.getWriter().print("<script>alert('è¯·å…ˆç™»å½•');location.href='UserServlet?op=toLogin';</script>");
 		}else{
 			PageParam param = new PageParam(ConstantsData.PAGENO,ConstantsData.PAGESIZE_10,sender.getUid());
 			PageMode<Map<String, Object>> letters = pls.queryMyPrivateLetterList(param);
@@ -105,7 +105,7 @@ public class AboutUserInfo extends HttpServlet {
 	}
 	private static void transformTime(PageMode<Map<String, Object>> letters){
 		for (Map<String, Object> m : letters.getData()) {
-			String value = transform_time.howLongFromNow(m.get("ptime").toString());
+			String value = TransformTime.howLongFromNow(m.get("ptime").toString());
 			m.put("ptime", value);
 		}
 	}
