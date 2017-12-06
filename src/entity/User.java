@@ -4,19 +4,19 @@ package entity;
 
 /**
  * @author lwy
- * ÊµÌåÀà,uid,uemail,uregdate²»¿É¸Ä
- * @param uid ÓÃ»§ID
- * @param uname ÓÃ»§êÇ³Æ£¬Î¨Ò»
- * @param upassword ÃÜÂë
- * @param uemail µç×ÓÓÊ¼ş£¬Î¨Ò»
- * @param ubirthady ÉúÈÕ
- * @param usex ĞÔ±ğ
- * @param uhead ÓÃ»§Í·Ïñ
- * @param usatement ÓÃ»§±¸×¢
- * @param uregdate ×¢²áÈÕÆÚ
- * @param ustate ÓÃ»§×´Ì¬
- * @param upoint ÓÃ»§»ı·Ö
- * @param uissectioner ÊÇ·ñ°æÖ÷
+ * å®ä½“ç±»,uid,uemail,uregdateä¸å¯æ”¹
+ * @param uid ç”¨æˆ·ID
+ * @param uname ç”¨æˆ·æ˜µç§°ï¼Œå”¯ä¸€
+ * @param upassword å¯†ç 
+ * @param uemail ç”µå­é‚®ä»¶ï¼Œå”¯ä¸€
+ * @param ubirthady ç”Ÿæ—¥
+ * @param usex æ€§åˆ«
+ * @param uhead ç”¨æˆ·å¤´åƒ
+ * @param usatement ç”¨æˆ·å¤‡æ³¨
+ * @param uregdate æ³¨å†Œæ—¥æœŸ
+ * @param ustate ç”¨æˆ·çŠ¶æ€
+ * @param upoint ç”¨æˆ·ç§¯åˆ†
+ * @param uissectioner æ˜¯å¦ç‰ˆä¸»
  */
 public class User implements Cloneable{
 
@@ -40,7 +40,7 @@ public class User implements Cloneable{
 	public User() {
 		super();
 	}
-	//¿ËÂ¡½Ó¿ÚÊµÏÖ
+	//ï¿½ï¿½Â¡ï¿½Ó¿ï¿½Êµï¿½ï¿½
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 			return super.clone();

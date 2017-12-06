@@ -12,7 +12,7 @@ import service.FollowService;
 
 /**
  * @author lwy
- * ¹Ø×¢°å¿éºÍÈ¡Ïû¹Ø×¢
+ * å…³æ³¨æ¿å—å’Œå–æ¶ˆå…³æ³¨
  */
 public class FollowAndUnfollowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -36,7 +36,7 @@ public class FollowAndUnfollowServlet extends HttpServlet {
 		}
 	}
 	/**
-	 * ÊÇ·ñ±»¹Ø×¢
+	 * æ˜¯å¦è¢«å…³æ³¨
 	 * @param request
 	 * @param response
 	 * @throws IOException

@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 import service.AuthenticateService;
 
 /**
- * @author ÁõÎ°ÒÕ
- * ÑéÖ¤ servlet
+ * @author åˆ˜ä¼Ÿè‰º
+ * éªŒè¯ servlet
  */
 public class AuthenticateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -39,15 +39,15 @@ public class AuthenticateServlet extends HttpServlet {
 	}
 
 	/**
-	 * ÑéÖ¤ÊäÈëµÄÑéÖ¤ÂëÊÇ·ñÕıÈ·
+	 * éªŒè¯è¾“å…¥çš„éªŒè¯ç æ˜¯å¦æ­£ç¡®
 	 */
 	private void toCheckEmailCaptcha(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException,IOException{
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
-		//±£´æÔÚsessionµÄÑéÖ¤Âë,emailCaptcha
+		//ä¿å­˜åœ¨sessionçš„éªŒè¯ç ,emailCaptcha
 		String emailCaptcha = (String)session.getAttribute("emailCaptcha");
-		//´ÓÒ³Ãæ´«À´µÄÑéÖ¤Âë,inputCaptcha
+		//ä»é¡µé¢ä¼ æ¥çš„éªŒè¯ç ,inputCaptcha
 		String inputCaptcha = request.getParameter("captcha");
 		if(emailCaptcha!=null & inputCaptcha!=null){
 			if(emailCaptcha.equals(inputCaptcha)){
@@ -60,7 +60,7 @@ public class AuthenticateServlet extends HttpServlet {
 	}
 
 	/**
-	 * ÓÊÏäÑéÖ¤,ajaxÊµÏÖ,µÃµ½ÑéÖ¤Âë
+	 * é‚®ç®±éªŒè¯,ajaxå®ç°,å¾—åˆ°éªŒè¯ç 
 	 * @throws ServletException,IOException 
 	 * @throws GeneralSecurityException 
 	 */
@@ -69,15 +69,15 @@ public class AuthenticateServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
 		
-		String to = request.getParameter("remail");//µÃµ½×¢²áµÄemail
-		String Captcha = authenticateService.emailCaptcha(to);//µÃµ½Ëæ»úÑéÖ¤Âë
+		String to = request.getParameter("remail");//å¾—åˆ°æ³¨å†Œçš„email
+		String Captcha = authenticateService.emailCaptcha(to);//å¾—åˆ°éšæœºéªŒè¯ç 
 		if(Captcha!=null){
-			//·¢ËÍÑéÖ¤Âë³É¹¦
+			//å‘é€éªŒè¯ç æˆåŠŸ
 			out.print("true");
-			session.setAttribute("emailCaptcha", Captcha);//½«emailÑéÖ¤Âë±£´æÔÚsessionÖĞ
+			session.setAttribute("emailCaptcha", Captcha);//å°†emailéªŒè¯ç ä¿å­˜åœ¨sessionä¸­
 		}else{
 			out.print("false");
-			session.setAttribute("emailCaptcha", null);//Çå¿ÕsessionÀïÃæµÄemailÑéÖ¤Âë
+			session.setAttribute("emailCaptcha", null);//æ¸…ç©ºsessioné‡Œé¢çš„emailéªŒè¯ç 
 		}
 	}
 

@@ -4,15 +4,15 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 
 /** 
- * ²ÉÓÃSHAA¼ÓÃÜ
+ * é‡‡ç”¨SHAAåŠ å¯†
  * @author Xingxing,Xie
  * @datetime 2014-6-1 
  */
 public class SHAUtil {
     /*** 
-     * SHA¼ÓÃÜ Éú³É40Î»SHAÂë
-     * @param ´ı¼ÓÃÜ×Ö·û´®
-     * @return ·µ»Ø40Î»SHAÂë
+     * SHAåŠ å¯† ç”Ÿæˆ40ä½SHAç 
+     * @param å¾…åŠ å¯†å­—ç¬¦ä¸²
+     * @return è¿”å›40ä½SHAç 
      * @throws UnsupportedEncodingException 
      */
     public static String shaEncode(String inStr) {
@@ -45,13 +45,13 @@ public class SHAUtil {
     }
 
     /**
-     * ²âÊÔÖ÷º¯Êı
+     * æµ‹è¯•ä¸»å‡½æ•°
      * @param args
      * @throws Exception
      */
     public static void main(String args[]) throws Exception {
         String str = new String("a123123");
-        System.out.println("Ô­Ê¼£º" + str);
-        System.out.println("SHAºó£º" + shaEncode(str));
+        System.out.println("åŸå§‹ï¼š" + str);
+        System.out.println("SHAåï¼š" + shaEncode(str));
     }
 }

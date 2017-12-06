@@ -6,8 +6,8 @@ import net.sf.json.JSONArray;
 
 public interface IJsonService {
 	/**
-	 * 把java list对象转化成json对象
-	 * @param 要转换的对象
+	 * 鎶妀ava list瀵硅薄杞寲鎴恓son瀵硅薄
+	 * @param 瑕佽浆鎹㈢殑瀵硅薄
 	 */
 	JSONArray toJSONArray(List Views);
 }

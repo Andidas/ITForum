@@ -6,7 +6,7 @@ import entity.viewEntity.SessionView;
 public interface ISessionViewService {
 
 	/**
-	 * ≤È—Øsession view
+	 * session view
 	 * @param sid
 	 * @return
 	 */

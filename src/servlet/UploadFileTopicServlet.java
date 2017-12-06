@@ -17,7 +17,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
- * 上传文件
+ * 鏂囦欢鐨勪笂浼犲拰涓嬭浇
  * @author lwy
  *
  */
@@ -43,7 +43,7 @@ public class UploadFileTopicServlet extends HttpServlet {
 		        for (Object object : items) {
 		            FileItem fileItem = (FileItem) object;
 		           // System.out.println("2:=========" + fileItem.toString());
-		           // System.out.println("3：fileItem.getFieldName():==" + fileItem.getFieldName());
+		           // System.out.println("3fileItem.getFieldName():==" + fileItem.getFieldName());
 
 		            if (fileItem.isFormField()) {
 		                param.put(fileItem.getFieldName(), fileItem.getString("utf-8"));

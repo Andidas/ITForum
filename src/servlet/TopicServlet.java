@@ -25,7 +25,7 @@ import utils.ConstantsData;
 public class TopicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	 
-	/*ÊµÀı»¯ÒµÎñÀà*/
+	/*å®ä¾‹åŒ–ä¸šåŠ¡ç±»*/
 	private TopicService topicService = new TopicService();
 	private TopicViewService topicViewService = new TopicViewService();
 	private JsonService jsonService = new JsonService();
@@ -47,7 +47,7 @@ public class TopicServlet extends HttpServlet {
 		
 	}
 	/**
-	 * Ìø×ªµ½topic
+	 * è·³è½¬åˆ°topic
 	 */
 	private void toTopic(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
@@ -58,7 +58,7 @@ public class TopicServlet extends HttpServlet {
 		TopicView topicView = topicViewService.getTopicViewOne(topicTid,sid);
 		
 		if(topicView==null){
-			response.getWriter().print("<script>alert('Ìû×Ó²»´æÔÚ');history.back();</script>");
+			response.getWriter().print("<script>alert('å¸–å­ä¸å­˜åœ¨');history.back();</script>");
 		}else{
 			topicService.updateClickCount(topicTid);
 			request.setAttribute("nowActiveTopicView", topicView);
@@ -67,12 +67,12 @@ public class TopicServlet extends HttpServlet {
 		}
 	}
 	/**
-	 * topicµÄ»ØÌû·ÖÒ³
+	 * topicçš„å›å¸–åˆ†é¡µ
 	 */
 	private void findReplyByPage(HttpServletRequest request,
 			HttpServletResponse response)throws ServletException, IOException  {
 		PrintWriter out = response.getWriter();
-		int pageno=ConstantsData.PAGENO; //Ò³Êı
+		int pageno=ConstantsData.PAGENO; //é¡µæ•°
 		
 		String pagenoStr = request.getParameter("pageno");
 		if(pagenoStr!=null&&!"".equals(pagenoStr)){
@@ -89,17 +89,17 @@ public class TopicServlet extends HttpServlet {
 	}
 	
 	/**
-	 * ·¢²¼topic£¬ajax
+	 * å‘å¸ƒtopicï¼Œajax
 	 */
 	private void releaseTopic(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		PrintWriter out = response.getWriter();
-		/*»ñµÃ²ÎÊı*/
+		/*è·å¾—å‚æ•°*/
 		String tsid = request.getParameter("tsid");
 		String tuid = request.getParameter("tuid");
 		String ttopic = request.getParameter("ttopic");
 		String tcontents = request.getParameter("tcontents");
-		/*´«µİ²ÎÊı*/
+		/*ä¼ é€’å‚æ•°*/
 		if(topicService.addTopic(tsid, tuid, ttopic, tcontents)){		
 			out.print("true");	
 		}else{

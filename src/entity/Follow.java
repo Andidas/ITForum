@@ -1,10 +1,10 @@
 package entity;
 /**
  * @author lwy
- * ¹Ø×¢±íÊµÌåÀà
- * @param fid ¹Ø×¢±íid£¬×Ô¶¯Ôö³¤
- * @param uid ÓÃ»§id
- * @param sid sessionµÄid
+ * å…³æ³¨è¡¨å®ä½“ç±»
+ * @param fid å…³æ³¨è¡¨idï¼Œè‡ªåŠ¨å¢é•¿
+ * @param uid ç”¨æˆ·id
+ * @param sid sessionçš„id
  */
 public class Follow {
 	

@@ -7,20 +7,20 @@ import entity.Topic;
 
 /**
  * @author lwy
- *	ÒªÏÔÊ¾ÔÚtopic½çÃæµÄ¶«Î÷
- * @param tid topicµÄid
- * @param tsid sessionµÄid
- * @param sname sessionµÄname
- * @param uname ·¢²¼Õâ¸öÌû×ÓµÄuser
- * @param treplycount »ØÌûÊı
- * @param ttopic ÌâÄ¿
- * @param tcontents ÄÚÈİ
- * @param ttime ·¢ÌûÊ±¼ä
- * @param tclickcount µã»÷Êı
- * @param lastreplyuser ×îºó»Ø¸´µÄuser
- * @param tlastreplaytime ×îºó»Ø¸´µÄÊ±¼ä
- * @param sameTopic ÏàÍ¬µÄtopic
- * @param allReply ¸ÃtopicµÄËùÓĞreplyÊÓÍ¼
+ *	è¦æ˜¾ç¤ºåœ¨topicç•Œé¢çš„ä¸œè¥¿
+ * @param tid topicçš„id
+ * @param tsid sessionçš„id
+ * @param sname sessionçš„name
+ * @param uname å‘å¸ƒè¿™ä¸ªå¸–å­çš„user
+ * @param treplycount å›å¸–æ•°
+ * @param ttopic é¢˜ç›®
+ * @param tcontents å†…å®¹
+ * @param ttime å‘å¸–æ—¶é—´
+ * @param tclickcount ç‚¹å‡»æ•°
+ * @param lastreplyuser æœ€åå›å¤çš„user
+ * @param tlastreplaytime æœ€åå›å¤çš„æ—¶é—´
+ * @param sameTopic ç›¸åŒçš„topic
+ * @param allReply è¯¥topicçš„æ‰€æœ‰replyè§†å›¾
  */
 public class TopicView extends Topic{
 

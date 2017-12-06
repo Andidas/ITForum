@@ -6,8 +6,8 @@ import java.util.Date;
 
 public class transform_time {
 	/**
-	 * ¾àÀëÏÖÔÚÓĞ¶à¾Ã
-	 * @param oldtime ¶Ô±ÈÊ±¼ä
+	 * è·ç¦»ç°åœ¨æœ‰å¤šä¹…
+	 * @param oldtime å¯¹æ¯”æ—¶é—´
 	 * @throws ParseException
 	 */
 	public static String howLongFromNow(String oldtime){
@@ -27,19 +27,18 @@ public class transform_time {
 			StringBuffer sb = new StringBuffer();
 	
 			if(day > 0)
-				sb.append(day+"Ìì");
+				sb.append(day+"å¤©");
 			if(hour > 0 )
-				sb.append(hour+"Ğ¡Ê±");
+				sb.append(hour+"å°æ—¶");
 			if(min > 0 )
-				sb.append(min+"·Ö");
-			sb.append(s+"Ãë Ç°");
+				sb.append(min+"åˆ†");
+			sb.append(s+"ç§’ å‰");
 			return sb.toString();
 		} catch (ParseException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
 }
-

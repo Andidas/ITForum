@@ -6,39 +6,39 @@ import entity.Reply;
 import entity.viewEntity.ReplyView;
 
 /**
- * ¸úÌûµÄÊı¾İ¿â´¦Àí²Ù×÷µÄ½Ó¿Ú
+ * è·Ÿå¸–çš„æ•°æ®åº“å¤„ç†æ“ä½œçš„æ¥å£
  * @author lwy
  *
  */
 public interface ReplyDao {
 	/**
-	 * ²éÑ¯¸ÃÓÃ»§µÄËùÓĞ»Ø¸´
-	 * @param uid ÓÃ»§id
+	 * æŸ¥è¯¢è¯¥ç”¨æˆ·çš„æ‰€æœ‰å›å¤
+	 * @param uid ç”¨æˆ·id
 	 * @return
 	 */
 	PageMode<Reply> queryUserAllReply(PageParam pageParam);
 	/**
-	 * ·ûºÏÌõ¼şµÄÌõÊı
-	 * @param topicµÄid
+	 * ç¬¦åˆæ¡ä»¶çš„æ¡æ•°
+	 * @param topicçš„id
 	 * @return
 	 */
 	int ReplyrowNum(int id);
 	/**
-	 * »ØÌûµÄ·ÖÒ³ÊÓÍ¼ÁĞ±í
-	 * @param rtid ²éÑ¯Ìõ¼ş
+	 * å›å¸–çš„åˆ†é¡µè§†å›¾åˆ—è¡¨
+	 * @param rtid æŸ¥è¯¢æ¡ä»¶
 	 * @return
 	 */
 	PageMode<ReplyView> queryReplyViewList(PageParam pageParam);
 	
 	/**
-	 * É¾³ıµ¥¸öÌû×Ó
+	 * åˆ é™¤å•ä¸ªå¸–å­
 	 * @param rid
 	 * @return
 	 */
 	int deleteReplyOne(int rid);
 	
 	/**
-	 * Ìí¼Óµ¥¸ö
+	 * æ·»åŠ å•ä¸ª
 	 * @param reply
 	 * @return
 	 */

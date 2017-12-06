@@ -5,18 +5,18 @@ package entity;
 /**
  * @author lwy
  * 
- * @param tid  ·¢Ìù±íID
- * @param tsid ËùÔÚ°æ¿é,Íâ¼ü(ÒıÓÃ°æ¿é±íµÄSID)
- * @param tuid ·¢ÌùÈË,Íâ¼ü(ÒıÓÃ ÓÃ»§±íµÄUID)
- * @param treplycount »Ø¸´Êı
- * @param temotion ·¢Ìù±íÇé 
- * @param ttopic ±êÌâ 
- * @param tcontents ÕıÎÄ 
- * @param ttime ·¢ÌùÊ±¼ä
- * @param tclickcount µã»÷ÂÊ
- * @param tflag ×´Ì¬ 
- * @param tlastreplyuseid ×îºó»Ø¸´ÓÃ»§ID,Íâ¼ü(ÒıÓÃÓÃ»§±íµÄUID)
- * @param tlastreplaytime ×îºó»Ø¸´Ê±¼ä
+ * @param tid  å‘è´´è¡¨ID
+ * @param tsid æ‰€åœ¨ç‰ˆå—,å¤–é”®(å¼•ç”¨ç‰ˆå—è¡¨çš„SID)
+ * @param tuid å‘è´´äºº,å¤–é”®(å¼•ç”¨ ç”¨æˆ·è¡¨çš„UID)
+ * @param treplycount å›å¤æ•°
+ * @param temotion å‘è´´è¡¨æƒ… 
+ * @param ttopic æ ‡é¢˜ 
+ * @param tcontents æ­£æ–‡ 
+ * @param ttime å‘è´´æ—¶é—´
+ * @param tclickcount ç‚¹å‡»ç‡
+ * @param tflag çŠ¶æ€ 
+ * @param tlastreplyuseid æœ€åå›å¤ç”¨æˆ·ID,å¤–é”®(å¼•ç”¨ç”¨æˆ·è¡¨çš„UID)
+ * @param tlastreplaytime æœ€åå›å¤æ—¶é—´
  */
 public class Topic {
 	
@@ -43,18 +43,18 @@ public class Topic {
 		this.tlastreplaytime = tlastreplaytime;
 	}
 
-	private int tid;// ·¢Ìù±íID
-	private int tsid;// ËùÔÚ°æ¿é,Íâ¼ü(ÒıÓÃ°æ¿é±íµÄSID)
-	private int tuid;// ·¢ÌùÈË,Íâ¼ü(ÒıÓÃÓÃ»§±íµÄUID)
-	private int treplycount;// »Ø¸´Êı
-	private String temotion;// ·¢Ìù±íÇé 
-	private String ttopic;// ±êÌâ 
-	private String tcontents;// ÕıÎÄ 
-	private String ttime;// ·¢ÌùÊ±¼ä
-	private int tclickcount;// µã»÷ÂÊ
+	private int tid;// ï¿½ï¿½ï¿½ï¿½ï¿½ID
+	private int tsid;// ï¿½ï¿½ï¿½Ú°ï¿½ï¿½,ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½SID)
+	private int tuid;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½UID)
+	private int treplycount;// ï¿½Ø¸ï¿½ï¿½ï¿½
+	private String temotion;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	private String ttopic;// ï¿½ï¿½ï¿½ï¿½ 
+	private String tcontents;// ï¿½ï¿½ï¿½ï¿½ 
+	private String ttime;// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+	private int tclickcount;// ï¿½ï¿½ï¿½ï¿½ï¿½
 	private int tflag;// ×´Ì¬
-	private int tlastreplyuseid;// ×îºó»Ø¸´ÓÃ»§ID,Íâ¼ü(ÒıÓÃÓÃ»§±íµÄUID)
-	private String tlastreplaytime;// ×îºó»Ø¸´Ê±¼ä
+	private int tlastreplyuseid;// ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½Ã»ï¿½ID,ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½UID)
+	private String tlastreplaytime;// ï¿½ï¿½ï¿½Ø¸ï¿½Ê±ï¿½ï¿½
 	@Override
 	public String toString() {
 		return "Topic [tid=" + tid + ", tsid=" + tsid + ", tuid=" + tuid

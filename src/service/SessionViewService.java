@@ -13,12 +13,7 @@ import entity.Session;
 import entity.viewEntity.SessionView;
 import entity.viewEntity.TopicView;
 
-/**
- * 要显示在session界面的所有信息的service
- * 
- * @author lwy
- *
- */
+
 public class SessionViewService implements ISessionViewService{
 	
 	private SessionService sessionService = new SessionService();

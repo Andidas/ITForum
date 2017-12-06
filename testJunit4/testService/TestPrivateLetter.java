@@ -16,8 +16,8 @@ public class TestPrivateLetter {
 	
 	@Test 
 	public void testInsertOne(){
-		assertTrue(pls.batchAdd("16", "32",1, "ÄãÊÇ£¿"));
-		assertTrue(pls.batchAdd("31", "16",1, "ÎÒÊÇ³ÌĞòÔ±"));
+		assertTrue(pls.batchAdd("16", "32",1, "ä½ å¥½"));
+		assertTrue(pls.batchAdd("31", "16",1, "æˆ‘æ˜¯ç¨‹åºå‘˜"));
 		assertFalse(pls.batchAdd("30", "30",1, "you too"));
 	}
 	

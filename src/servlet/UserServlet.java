@@ -20,8 +20,8 @@ import entity.User;
 import service.UserService;
 
 /**
- * @author ÁõÎ°ÒÕ
- * ÓÃ»§servlet
+ * @author åˆ˜ä¼Ÿè‰º
+ * ç”¨æˆ·servlet
  */
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -62,7 +62,7 @@ public class UserServlet extends HttpServlet {
 	}
 
 	/**
-	 * ÓÃ»§ÃûÊÇ·ñ´æÔÚ
+	 * ç”¨æˆ·åæ˜¯å¦å­˜åœ¨
 	 */
 	private void isNameExist(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException{
@@ -77,7 +77,7 @@ public class UserServlet extends HttpServlet {
 	}
 
 	/**
-	 * ĞŞ¸ÄÃÜÂë
+	 * ä¿®æ”¹å¯†ç 
 	 */
 	private void modifyPassword(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException{
@@ -93,33 +93,33 @@ public class UserServlet extends HttpServlet {
 	}
 
 	/**
-	 * ¸üĞÂÓÃ»§
+	 * æ›´æ–°ç”¨æˆ·
 	 */
 	private void update(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("NowLoginUser");
 	
-		// 1¡¢´´½¨SmartUpload£¬²¢³õÊ¼»¯
+		// 1ã€åˆ›å»ºSmartUploadï¼Œå¹¶åˆå§‹åŒ–
 		SmartUpload su = new SmartUpload();
 		su.initialize(this.getServletConfig(), request, response);
 
-		// 2¡¢ÅäÖÃÎÄ¼ş¸ñÊ½¡¢´óĞ¡
+		// 2ã€é…ç½®æ–‡ä»¶æ ¼å¼ã€å¤§å°
 		su.setAllowedFilesList("jpg,txt,doc,png,gif,ini,java");
-		su.setMaxFileSize(10 * 1024 * 1024); // µ¥¸öÎÄ¼ş×î´ó10M
-		su.setTotalMaxFileSize(15 * 1024 * 1024); // È«²¿×î´ó15M
+		su.setMaxFileSize(10 * 1024 * 1024); // å•ä¸ªæ–‡ä»¶æœ€å¤§10M
+		su.setTotalMaxFileSize(15 * 1024 * 1024); // å…¨éƒ¨æœ€å¤§15M
 
-		// 3¡¢Ö´ĞĞÉÏ´«£º°ÑÉÏ´«µÄÎÄ¼ş±£´æµ½·şÎñÆ÷µÄÄÚ´æÖĞ
+		// 3ã€æ‰§è¡Œä¸Šä¼ ï¼šæŠŠä¸Šä¼ çš„æ–‡ä»¶ä¿å­˜åˆ°æœåŠ¡å™¨çš„å†…å­˜ä¸­
 		try {
 			su.upload();
 		} catch (SecurityException e) {
-			System.out.print("ÉÏ´«Ê§°Ü,ÎÄ¼ş¸ñÊ½²»Æ¥Åä»òÎÄ¼şÄÚÈİÁËÖ¸¶¨´óĞ¡");
+			System.out.print("ä¸Šä¼ å¤±è´¥,æ–‡ä»¶æ ¼å¼ä¸åŒ¹é…æˆ–æ–‡ä»¶å†…å®¹äº†æŒ‡å®šå¤§å°");
 		} catch (SmartUploadException e) {
-			System.out.print("ÉÏ´«Ê§°Ü");
+			System.out.print("ä¸Šä¼ å¤±è´¥");
 		}
-		// 4¡¢»ñÈ¡±íµ¥ĞÅÏ¢£¬°üÀ¨ÎÄ¼şµÄÏêÏ¸ĞÅÏ¢
+		// 4ã€è·å–è¡¨å•ä¿¡æ¯ï¼ŒåŒ…æ‹¬æ–‡ä»¶çš„è¯¦ç»†ä¿¡æ¯
 		SmartRequest smRequest = su.getRequest();
-		SmartFiles fs = su.getFiles();// µÃµ½ËùÓĞÎÄ¼ş
+		SmartFiles fs = su.getFiles();// å¾—åˆ°æ‰€æœ‰æ–‡ä»¶
 		SmartFile f = fs.getFile(0);
 		String uname = smRequest.getParameter("userName");
 		String uhead = f.getFileName();
@@ -136,11 +136,11 @@ public class UserServlet extends HttpServlet {
 		}
 		session.setAttribute("NowLoginUser", user);
 
-		// 5¡¢ÎÄ¼ş±£´æµ½·şÎñÆ÷Ö¸¶¨µÄÂ·¾¶ÏÂ
+		// 5ã€æ–‡ä»¶ä¿å­˜åˆ°æœåŠ¡å™¨æŒ‡å®šçš„è·¯å¾„ä¸‹
 		try {
 			su.save("/files");
 		} catch (SmartUploadException e) {
-			System.out.print("±£´æÊ§°Ü£¡~");
+			System.out.print("ä¿å­˜å¤±è´¥ï¼~");
 		}
 		
 		response.sendRedirect("UserInFo?op=toUserInfo&uid="+user.getUid());
@@ -148,7 +148,7 @@ public class UserServlet extends HttpServlet {
 	}	
 
 	/**
-	 * µÃµ½ÓÃ»§ÃÜÂë£¬ÓÃajaxÃÜÂë×Ô¶¯ÌîĞ´
+	 * å¾—åˆ°ç”¨æˆ·å¯†ç ï¼Œç”¨ajaxå¯†ç è‡ªåŠ¨å¡«å†™
 	 */
 	private void getPassword(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -168,7 +168,7 @@ public class UserServlet extends HttpServlet {
 	}
 
 	/**
-	 * Ìø×ªµ½µÇÂ¼Ò³Ãæ£¬±£´æÌø×ªÖ®Ç°µÄÒ³Ãæurl
+	 * è·³è½¬åˆ°ç™»å½•é¡µé¢ï¼Œä¿å­˜è·³è½¬ä¹‹å‰çš„é¡µé¢url
 	 */
 	private void toLogin(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -179,19 +179,19 @@ public class UserServlet extends HttpServlet {
 	}
 
 	/**
-	 * ÓÃ»§µÇÂ¼£¬cookie±£´æ
+	 * ç”¨æˆ·ç™»å½•ï¼Œcookieä¿å­˜
 	 */
 	private void login(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String email = request.getParameter("email");//ÓÊÏä
-		String password = request.getParameter("password");//ÃÜÂë
-		String rememberMe = request.getParameter("rememberMe");//ÊÇ·ñ¼Ç×¡ÎÒ
+		String email = request.getParameter("email");//é‚®ç®±
+		String password = request.getParameter("password");//å¯†ç 
+		String rememberMe = request.getParameter("rememberMe");//æ˜¯å¦è®°ä½æˆ‘
 		HttpSession session = request.getSession();
-		String url = (String) session.getAttribute("toLoginURL");//´ÓÄÄ¸öÒ³Ãæµã»÷µÄµÇÂ¼
+		String url = (String) session.getAttribute("toLoginURL");//ä»å“ªä¸ªé¡µé¢ç‚¹å‡»çš„ç™»å½•
 		if (userService.checkUser(email, password)||userService.checkUser_isSha_1(email, password)) {
 			User user = userService.queryUser(email);
 			if (rememberMe != null && rememberMe.equals("yes")) {
-				Cookie c = new Cookie(String.valueOf(user.getUid())+"itforum", email);//½«emailºÍÓÃ»§Ãû±£´æÔÚCookie
+				Cookie c = new Cookie(String.valueOf(user.getUid())+"itforum", email);//å°†emailå’Œç”¨æˆ·åä¿å­˜åœ¨Cookie
 				c.setMaxAge(7 * 24 * 60 * 60);
 				response.addCookie(c);
 			} else {
@@ -208,8 +208,8 @@ public class UserServlet extends HttpServlet {
 	}
 	private void loginAtAjxa(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		String email = request.getParameter("email");//ÓÊÏä
-		String password = request.getParameter("password");//ÃÜÂë
+		String email = request.getParameter("email");//é‚®ç®±
+		String password = request.getParameter("password");//å¯†ç 
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 		if (userService.checkUser(email, password)) {
@@ -222,18 +222,18 @@ public class UserServlet extends HttpServlet {
 		}
 	}
 	/**
-	 * ÍË³öÓÃ»§
+	 * é€€å‡ºç”¨æˆ·
 	 */
 	private void exitUser(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String url = request.getHeader("REFERER");// ´«µİ¹ıÀ´µÄµØÖ·£¬°üÀ¨²ÎÊı
+		String url = request.getHeader("REFERER");// ä¼ é€’è¿‡æ¥çš„åœ°å€ï¼ŒåŒ…æ‹¬å‚æ•°
 		session.setAttribute("NowLoginUser", null);
 		response.sendRedirect(url);
 	}
 
 	/**
-	 * ÓÃ»§×¢²á
+	 * ç”¨æˆ·æ³¨å†Œ
 	 */
 	private void register(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -244,9 +244,9 @@ public class UserServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		boolean result = userService.addUser(name, email, password);
 		if (!result) {
-			out.print("<script>alert('²åÈëÊ§°Ü');history.back();</script>");
+			out.print("<script>alert('æ’å…¥å¤±è´¥');history.back();</script>");
 		} else {
-			out.print("<script>alert('ĞÂÔö³É¹¦');history.back();</script>");
+			out.print("<script>alert('æ–°å¢æˆåŠŸ');history.back();</script>");
 			session.setAttribute("emailCaptcha", null);
 		}
 

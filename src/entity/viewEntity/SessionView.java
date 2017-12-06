@@ -15,10 +15,10 @@ import entity.Session;
  * @param stopiccount
  * @param sclickcount
  * @param spicture
- * @param uname
- * @param topicViewPM
- * @param sameSprofile
- * @param follow
+ * @param uname 用户名
+ * @param topicViewPM topic视图
+ * @param sameSprofile 相似版块
+ * @param follow 关注数
  */
 public class SessionView extends Session {
 

@@ -1,10 +1,10 @@
 package entity;
 /**
  * @author lwy
- * @param pageno 当前页码
- * @param pagesize 每页条数
- * @param id 用户id
- * @param friend_id 好友id
+ * @param pageno 褰撳墠椤电爜
+ * @param pagesize 姣忛〉鏉℃暟
+ * @param id 鐢ㄦ埛id
+ * @param friend_id 濂藉弸id
  */
 public class PageParam {
 	public PageParam(int pageno, int pagesize, int id, int friend_id) {
@@ -29,9 +29,9 @@ public class PageParam {
 		super();
 		
 	}
-	private int pageno = 1;   //当前页码
-	private int pagesize = 5;  //每页条数
-	private int id;//模型参数
+	private int pageno = 1;   //锟斤拷前页锟斤拷
+	private int pagesize = 5;  //每页锟斤拷锟斤拷
+	private int id;//模锟酵诧拷锟斤拷
 	private int friend_id;
 	
 	public int getPageno() {

@@ -6,24 +6,24 @@ import entity.viewEntity.FollowView;
 
 /**
  * @author lwy
- * ¹Ø×¢·şÎñ½Ó¿Ú
+ * å…³æ³¨æœåŠ¡æ¥å£
  */
 public interface IFollowService {
 	/**
-	 * ²éÕÒÓÃ»§¹Ø×¢µÄsession
-	 * @param uid ÓÃ»§id
+	 * æŸ¥æ‰¾ç”¨æˆ·å…³æ³¨çš„session
+	 * @param uid ç”¨æˆ·id
 	 * @return
 	 */
 	List<FollowView>queryFollowList(String uid);
 	/**
-	 * sessionÊÇ·ñ±»user¹Ø×¢
+	 * sessionæ˜¯å¦è¢«userå…³æ³¨
 	 * @param uid
 	 * @param sid
 	 * @return
 	 */
 	boolean isBeFollow(String uid,String sid);
 	/**
-	 * ²éÑ¯°æ¿éµÄ¹Ø×¢ÈËÊı
+	 * æŸ¥è¯¢ç‰ˆå—çš„å…³æ³¨äººæ•°
 	 * @param sid
 	 * @return
 	 */
@@ -31,13 +31,13 @@ public interface IFollowService {
 	/**
 	 * @param uname
 	 * @param sname
-	 * @return ¹Ø×¢³É¹¦Îªtrue
+	 * @return å…³æ³¨æˆåŠŸä¸ºtrue
 	 */
 	boolean addFollow(String uname,String sname);
 	/**
 	 * @param uname
 	 * @param sname
-	 * @return È¡Ïû¹Ø×¢³É¹¦Îªtrue
+	 * @return å–æ¶ˆå…³æ³¨æˆåŠŸä¸ºtrue
 	 */
 	boolean deleteFollow(String uname,String sname);
 }

@@ -2,17 +2,16 @@ package entity;
 
 /**
  * @author lwy
- * °å¿éÊµÌåÀà,id²»¿ÉĞŞ¸Ä
- * @param sid °æ¿éID
- * @param sname °æ¿éÃû³Æ£¬Î¨Ò»
- * @param smasterid °æÖ÷ID,Íâ¼ü(ÒıÓÃÓÃ»§±íµÄUID)
- * @param sprofile °æ¿éÖ÷Ìâ
- * @param sstatement ±¾°æÁôÑÔ
- * @param stopiccount ·¢ÌùÊı
- * @param sclickcount µã»÷ÂÊ
- * @param spicture °æ¿éÍ·Ïñ
+ * æ¿å—å®ä½“ç±»,idä¸å¯ä¿®æ”¹
+ * @param sid ç‰ˆå—ID
+ * @param sname ç‰ˆå—åç§°ï¼Œå”¯ä¸€
+ * @param smasterid ç‰ˆä¸»ID,å¤–é”®(å¼•ç”¨ç”¨æˆ·è¡¨çš„UID)
+ * @param sprofile ç‰ˆå—ä¸»é¢˜
+ * @param sstatement æœ¬ç‰ˆç•™è¨€
+ * @param stopiccount å‘è´´æ•°
+ * @param sclickcount ç‚¹å‡»ç‡
+ * @param spicture ç‰ˆå—å¤´åƒ
  */
-
 public class Session {
 	
 	public Session(int sid, String sname, int smasterid, String sprofile,
@@ -32,14 +31,14 @@ public class Session {
 		super();
 	}
 
-	protected int sid; // °æ¿éID
-	protected String sname; // °æ¿éÃû³Æ
-	protected int smasterid; // °æÖ÷ID,Íâ¼ü(ÒıÓÃÓÃ»§±íµÄUID)
-	protected String sprofile; // °æ¿éÖ÷Ìâ
-	protected String sstatement; // ±¾°æÁôÑÔ
-	protected int stopiccount; // ·¢ÌùÊı
-	protected int sclickcount; // µã»÷ÂÊ
-	protected String spicture; //°æ¿éÍ·Ïñ
+	protected int sid; // ï¿½ï¿½ï¿½ID
+	protected String sname; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	protected int smasterid; // ï¿½ï¿½ï¿½ï¿½ID,ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½UID)
+	protected String sprofile; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	protected String sstatement; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	protected int stopiccount; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	protected int sclickcount; // ï¿½ï¿½ï¿½ï¿½ï¿½
+	protected String spicture; //ï¿½ï¿½ï¿½Í·ï¿½ï¿½
 	
 	public int getSid() {
 		return sid;

@@ -9,10 +9,7 @@ import utils.db.MyBatisSessionFactory;
 import dao.SessionDao;
 import entity.Session;
 
-/**
- * @author ÁõÎ°ÒÕ
- * session°æ¿é
- */
+
 public class SessionService implements ISessionService {
 	
 	@Override

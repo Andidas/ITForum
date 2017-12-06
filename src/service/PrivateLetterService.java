@@ -17,11 +17,11 @@ import entity.PrivateLetter;
 public class PrivateLetterService {
 
 	/**
-	 * ÅúÁ¿²åÈë
-	 * @param puid ·¢ËÍÕß
-	 * @param ptouid ½ÓÊÕÕß
+	 * æ‰¹é‡æ’å…¥
+	 * @param puid å‘é€è€…
+	 * @param ptouid æ¥æ”¶è€…
 	 * @param pcontent
-	 * @return ³É¹¦·µ»Øtrue
+	 * @return æˆåŠŸè¿”å›true
 	 */
 	public  boolean batchAdd(String puid,String ptouid,int type,String pcontent){
 		if(puid.equals(ptouid))return false;
@@ -48,7 +48,7 @@ public class PrivateLetterService {
 		}
 	}
 	/**
-	 * ÅúÁ¿É¾³ı
+	 * æ‰¹é‡åˆ é™¤
 	 * @param ids
 	 * @return
 	 */
@@ -76,7 +76,7 @@ public class PrivateLetterService {
 	
 
 	/**
-	 * ²éÑ¯ÎÒµÄË½ĞÅÁĞ±í
+	 * æŸ¥è¯¢æˆ‘çš„ç§ä¿¡åˆ—è¡¨
 	 * @param pageParam
 	 * @return
 	 */
@@ -99,12 +99,12 @@ public class PrivateLetterService {
 	}
 	
 	/**
-	 * ·ÖÒ³²éÑ¯ÎÒµÄË½ĞÅÁĞ±íÏêÇé
+	 * åˆ†é¡µæŸ¥è¯¢æˆ‘çš„ç§ä¿¡åˆ—è¡¨è¯¦æƒ…
 	 * @param param {
-	 * 	user_id = *,×Ô¼ºid
-	 * 	friend_id = *,ºÃÓÑid
-	 * 	pageno = *,Ò³Êı
-	 * 	pagesize= * Ã¿Ò³ÌõÊı}
+	 * 	user_id = *,è‡ªå·±id
+	 * 	friend_id = *,å¥½å‹id
+	 * 	pageno = *,é¡µæ•°
+	 * 	pagesize= * æ¯é¡µæ¡æ•°}
 	 * @return
 	 */
 	public PageMode<Map<String,Object>> queryMyPrivateLetterList_detail(PageParam pageParam) {

@@ -14,12 +14,12 @@ import javax.mail.internet.MimeMessage;
 import com.sun.mail.util.MailSSLSocketFactory;
 
 /**
- * @author ÁõÎ°ÒÕ
- * ÓÊÏä¹¤¾ß
+ * @author åˆ˜ä¼Ÿè‰º
+ * é‚®ç®±å·¥å…·
  */
 public class SendEmail {
 	/**
-	 * Éú³É9Î»ÑéÖ¤Âë
+	 * ç”Ÿæˆ9ä½éªŒè¯ç 
 	 * @return
 	 */
 	public static String generateCAPTCHA() {
@@ -29,66 +29,66 @@ public class SendEmail {
 	}
 
 	/**
-	 * ·¢ËÍÓÊÏä
+	 * å‘é€é‚®ç®±
 	 * 
-	 * @param to ÊÕ¼şÈË
-	 * @param head ÓÊÏäÖ÷Ìâ
-	 * @param content ÓÊÏäÄÚÈİ
+	 * @param to æ”¶ä»¶äºº
+	 * @param head é‚®ç®±ä¸»é¢˜
+	 * @param content é‚®ç®±å†…å®¹
 	 * @throws GeneralSecurityException
-	 * @return ·¢ËÍ³É¹¦·µ»Øtrue£¬Ê§°Ü·µ»Øfalse£»
+	 * @return å‘é€æˆåŠŸè¿”å›trueï¼Œå¤±è´¥è¿”å›falseï¼›
 	 */
 	public static boolean sendEmail(String to, String head, String content)
 			throws GeneralSecurityException {
-		// ÊÕ¼şÈËµç×ÓÓÊÏä
+		// æ”¶ä»¶äººç”µå­é‚®ç®±
 		// String to = "1275179864@qq.com";
 
-		// ·¢¼şÈËµç×ÓÓÊÏä
+		// å‘ä»¶äººç”µå­é‚®ç®±
 		String from = "15880808647@163.com";
 
-		// Ö¸¶¨·¢ËÍÓÊ¼şµÄÖ÷»úÎª smtp.qq.com£¬ÍøÒ×ÊÇ£ºsmtp.163.com
-		String host = "smtp.163.com"; // ÍøÒ× ÓÊ¼ş·şÎñÆ÷
+		// æŒ‡å®šå‘é€é‚®ä»¶çš„ä¸»æœºä¸º smtp.qq.comï¼Œç½‘æ˜“æ˜¯ï¼šsmtp.163.com
+		String host = "smtp.163.com"; // ç½‘æ˜“ é‚®ä»¶æœåŠ¡å™¨
 
-		// »ñÈ¡ÏµÍ³ÊôĞÔ
+		// è·å–ç³»ç»Ÿå±æ€§
 		Properties properties = System.getProperties();
 
-		// ÉèÖÃÓÊ¼ş·şÎñÆ÷
+		// è®¾ç½®é‚®ä»¶æœåŠ¡å™¨
 		properties.setProperty("mail.smtp.host", host);
 
-		// qqÃÜÂë¼ÓÃÜ
+		// qqå¯†ç åŠ å¯†
 		properties.put("mail.smtp.auth", "true");
 		MailSSLSocketFactory sf = new MailSSLSocketFactory();
 		sf.setTrustAllHosts(true);
 		properties.put("mail.smtp.ssl.enable", "true");
 		properties.put("mail.smtp.ssl.socketFactory", sf);
-		// »ñÈ¡Ä¬ÈÏsession¶ÔÏó
+		// è·å–é»˜è®¤sessionå¯¹è±¡
 		Session session = Session.getDefaultInstance(properties,
 				new Authenticator() {
 					public PasswordAuthentication getPasswordAuthentication() {
 						return new PasswordAuthentication(
-								"15880808647@163.com", "LWY163com"); // ·¢¼şÈËÓÊ¼şÓÃ»§Ãû¡¢ÃÜÂë
+								"15880808647@163.com", "LWY163com"); // å‘ä»¶äººé‚®ä»¶ç”¨æˆ·åã€å¯†ç 
 					}
 				});
 
 		try {
-			// ´´½¨Ä¬ÈÏµÄ MimeMessage ¶ÔÏó
+			// åˆ›å»ºé»˜è®¤çš„ MimeMessage å¯¹è±¡
 			MimeMessage message = new MimeMessage(session);
 
-			// Set From: Í·²¿Í·×Ö¶Î
+			// Set From: å¤´éƒ¨å¤´å­—æ®µ
 			message.setFrom(new InternetAddress(from));
 
-			// Set To: Í·²¿Í·×Ö¶Î
+			// Set To: å¤´éƒ¨å¤´å­—æ®µ
 			message.addRecipient(Message.RecipientType.CC, new InternetAddress(
 					from));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(
 					to));
 
-			// Set Subject: Í·²¿Í·×Ö¶Î
+			// Set Subject: å¤´éƒ¨å¤´å­—æ®µ
 			message.setSubject(head);
 
-			// ÉèÖÃÏûÏ¢Ìå
+			// è®¾ç½®æ¶ˆæ¯ä½“
 			message.setText(content);
 
-			// ·¢ËÍÏûÏ¢
+			// å‘é€æ¶ˆæ¯
 			Transport.send(message);
 			System.out.println("Sent message successfully....from runoob.com");
 			

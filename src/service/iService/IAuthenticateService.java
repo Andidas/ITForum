@@ -2,15 +2,15 @@ package service.iService;
 
 import java.security.GeneralSecurityException;
 /**
- * @author ÁõÎ°ÒÕ
- * ÑéÖ¤ÓÊÏä·şÎñ½Ó¿Ú
+ * @author åˆ˜ä¼Ÿè‰º
+ * éªŒè¯é‚®ç®±æœåŠ¡æ¥å£
  */
 public interface IAuthenticateService {
 	/**
-	 * ÑéÖ¤ÓÊÏä·şÎñ£¬ÓÊ¼ş·¢ËÍ³É¹¦¾Í·µ»Ø£ºÑéÖ¤Âë×Ö·û´®¡£
-	 * ·ñÔò·µ»Ø£º null
-	 * @param email ÊÕ¼şÈËÓÊÏä
-	 * @return ÑéÖ¤Âë»ònull
+	 * éªŒè¯é‚®ç®±æœåŠ¡ï¼Œé‚®ä»¶å‘é€æˆåŠŸå°±è¿”å›ï¼šéªŒè¯ç å­—ç¬¦ä¸²ã€‚
+	 * å¦åˆ™è¿”å›ï¼š null
+	 * @param email æ”¶ä»¶äººé‚®ç®±
+	 * @return éªŒè¯ç æˆ–null
 	 * @throws GeneralSecurityException
 	 */
 	public String emailCaptcha(String email);

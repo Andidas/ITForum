@@ -58,15 +58,15 @@ public class SessionServlet extends HttpServlet {
 		}
 	}
 	/**
-	 * tokenÁîÅÆ¼¼Êõ£ºÓÃÓÚ·ÀÖ¹ÖØ¸´Ìá½»µÄÎÊÌâ£º
-	 * 1¡¢Ìø×ªµ½Ìá½»Ò³ÃæÇ°ÏÈÌí¼ÓÁîÅÆ
-	 * 2¡¢ÔÚÌá½»Ò³ÃæÖĞ´æ´¢ÁîÅÆ
-	 * 3¡¢ÔÚÌá½»·½·¨ÖĞĞ£ÑéÁîÅÆ
-	 * ´Ó¶ø´ïµ½·ÀÖ¹ÖØ¸´Ìá½»µÄ¹¦ÄÜ
+	 * tokenä»¤ç‰ŒæŠ€æœ¯ï¼šç”¨äºé˜²æ­¢é‡å¤æäº¤çš„é—®é¢˜ï¼š
+	 * 1ã€è·³è½¬åˆ°æäº¤é¡µé¢å‰å…ˆæ·»åŠ ä»¤ç‰Œ
+	 * 2ã€åœ¨æäº¤é¡µé¢ä¸­å­˜å‚¨ä»¤ç‰Œ
+	 * 3ã€åœ¨æäº¤æ–¹æ³•ä¸­æ ¡éªŒä»¤ç‰Œ
+	 * ä»è€Œè¾¾åˆ°é˜²æ­¢é‡å¤æäº¤çš„åŠŸèƒ½
 	 */
 	private void toNewSession(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		//1¡¢Ìø×ªµ½Ìá½»Ò³ÃæÇ°ÏÈÌí¼ÓÁîÅÆ
+		//1ã€è·³è½¬åˆ°æäº¤é¡µé¢å‰å…ˆæ·»åŠ ä»¤ç‰Œ
 		HttpSession session = request.getSession();
 		session.setAttribute("token", System.currentTimeMillis()+"");
 		List<String> profiles= sessionService.queryAllProfile();
@@ -79,16 +79,16 @@ public class SessionServlet extends HttpServlet {
 			HttpServletResponse response) throws IOException, ServletException {
 		
 		SmartUpload su = upPicture(request,response);
-		// 4¡¢»ñÈ¡±íµ¥ĞÅÏ¢£¬°üÀ¨ÎÄ¼şµÄÏêÏ¸ĞÅÏ¢
+		// 4ã€è·å–è¡¨å•ä¿¡æ¯ï¼ŒåŒ…æ‹¬æ–‡ä»¶çš„è¯¦ç»†ä¿¡æ¯
 		SmartRequest smRequest = su.getRequest();
-		SmartFiles fs = su.getFiles();// µÃµ½ËùÓĞÎÄ¼ş
+		SmartFiles fs = su.getFiles();// å¾—åˆ°æ‰€æœ‰æ–‡ä»¶
 		SmartFile f = fs.getFile(0);
 		
 		HttpSession session = request.getSession();
 		String formToken = smRequest.getParameter("token");
 		String sessionToken = (String)session.getAttribute("token");
 		if(formToken==null||sessionToken==null||!formToken.equals(sessionToken)){
-			response.getWriter().print("<script>alert('Çë²»ÒªÖØ¸´Ìá½»');location.href='welcome'</script>");
+			response.getWriter().print("<script>alert('è¯·ä¸è¦é‡å¤æäº¤');location.href='welcome'</script>");
 		}else{
 			String spicture = f.getFileName();
 			String sname = smRequest.getParameter("sessionName");
@@ -99,7 +99,7 @@ public class SessionServlet extends HttpServlet {
 			String sstatement = smRequest.getParameter("sessionBio");
 			int smasterid = ((User)session.getAttribute("NowLoginUser")).getUid();
 			if(!sessionService.addSession(sname,smasterid,sprofile,sstatement,spicture)){
-				System.out.println("²åÈëÊ§°Ü");
+				System.out.println("æ’å…¥å¤±è´¥");
 			}else{
 				int sid = sessionService.querySessionID(sname);
 				response.sendRedirect("Session?op=toSession&SessionSid="+sid);
@@ -111,32 +111,32 @@ public class SessionServlet extends HttpServlet {
 		
 	}
 	/**
-	 * ÉÏ´«Í¼Æ¬
+	 * ä¸Šä¼ å›¾ç‰‡
 	 */
 	private SmartUpload upPicture(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException{
-		// 1¡¢´´½¨SmartUpload£¬²¢³õÊ¼»¯
+		// 1ã€åˆ›å»ºSmartUploadï¼Œå¹¶åˆå§‹åŒ–
 		SmartUpload su = new SmartUpload();
 		su.initialize(this.getServletConfig(), request, response);
 
-		// 2¡¢ÅäÖÃÎÄ¼ş¸ñÊ½¡¢´óĞ¡
+		// 2ã€é…ç½®æ–‡ä»¶æ ¼å¼ã€å¤§å°
 		su.setAllowedFilesList("jpg,png,gif");
-		su.setMaxFileSize(10 * 1024 * 1024); // µ¥¸öÎÄ¼ş×î´ó10M
-		su.setTotalMaxFileSize(15 * 1024 * 1024); // È«²¿×î´ó15M
+		su.setMaxFileSize(10 * 1024 * 1024); // å•ä¸ªæ–‡ä»¶æœ€å¤§10M
+		su.setTotalMaxFileSize(15 * 1024 * 1024); // å…¨éƒ¨æœ€å¤§15M
 
-		// 3¡¢Ö´ĞĞÉÏ´«£º°ÑÉÏ´«µÄÎÄ¼ş±£´æµ½·şÎñÆ÷µÄÄÚ´æÖĞ
+		// 3ã€æ‰§è¡Œä¸Šä¼ ï¼šæŠŠä¸Šä¼ çš„æ–‡ä»¶ä¿å­˜åˆ°æœåŠ¡å™¨çš„å†…å­˜ä¸­
 		try {
 			su.upload();
 		} catch (SecurityException e) {
-			System.out.print("ÉÏ´«Ê§°Ü,ÎÄ¼ş¸ñÊ½²»Æ¥Åä»òÎÄ¼şÄÚÈİÁËÖ¸¶¨´óĞ¡");
+			System.out.print("ä¸Šä¼ å¤±è´¥,æ–‡ä»¶æ ¼å¼ä¸åŒ¹é…æˆ–æ–‡ä»¶å†…å®¹äº†æŒ‡å®šå¤§å°");
 		} catch (SmartUploadException e) {
-			System.out.print("ÉÏ´«Ê§°Ü");
+			System.out.print("ä¸Šä¼ å¤±è´¥");
 		}
-		// 5¡¢ÎÄ¼ş±£´æµ½·şÎñÆ÷Ö¸¶¨µÄÂ·¾¶ÏÂ
+		// 5ã€æ–‡ä»¶ä¿å­˜åˆ°æœåŠ¡å™¨æŒ‡å®šçš„è·¯å¾„ä¸‹
 		try {
 			su.save("/files");
 		} catch (SmartUploadException e) {
-			System.out.print("±£´æÊ§°Ü£¡~");
+			System.out.print("ä¿å­˜å¤±è´¥ï¼~");
 		}
 		return su;
 		
@@ -149,7 +149,7 @@ public class SessionServlet extends HttpServlet {
 		SessionView sessionView = sessionViewService.querySessionView(sid);
 		
 		if(sessionView==null){
-			response.getWriter().print("<script>alert('°æ¿é²»´æÔÚ');history.back();</script>");
+			response.getWriter().print("<script>alert('ç‰ˆå—ä¸å­˜åœ¨');history.back();</script>");
 		}else{
 			request.setAttribute("sessionPage", sessionView.getTopicViewPM());
 			request.setAttribute("nowActiveSessionView", sessionView);
@@ -160,7 +160,7 @@ public class SessionServlet extends HttpServlet {
 	private void findTopicByPage(HttpServletRequest request,
 			HttpServletResponse response)throws ServletException, IOException  {
 		PrintWriter out = response.getWriter();
-		int pageno=ConstantsData.PAGENO; //Ò³Êı
+		int pageno=ConstantsData.PAGENO; //é¡µæ•°
 		
 		String pagenoStr = request.getParameter("pageno");
 		if(pagenoStr!=null&&!"".equals(pagenoStr)){

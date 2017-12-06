@@ -12,10 +12,7 @@ import utils.endecrypt.utils.SHAUtil;
 import dao.UserDao;
 import entity.User;
 
-/**
- * @author 刘伟艺
- * 用户服务接口实现
- */
+
 public class UserService implements IUserService{
 	@Override
 	public List<User> queryUserList() {
@@ -71,7 +68,7 @@ public class UserService implements IUserService{
 	public boolean addUser(String name,String email,String password) {
 		SqlSession session = MyBatisSessionFactory.getSession();	
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String regdateTime = df.format(new Date());//获取注册时间
+		String regdateTime = df.format(new Date());//锟斤拷取注锟斤拷时锟斤拷
 		User user = new User();
 		user.setUname(name);
 		user.setUemail(email);

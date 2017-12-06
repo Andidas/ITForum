@@ -6,50 +6,61 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-//ÊµÏÖ»ñÈ¡¡¢ÊÍ·ÅmybatisÊı¾İ¿âÁ¬½ÓµÄ¹¤¾ßÀà
+
+/**
+ * å®ç°è·å–ã€é‡Šæ”¾mybatisæ•°æ®åº“è¿æ¥çš„å·¥å…·ç±»
+ * @author lwy
+ *
+ */
 public class MyBatisSessionFactory {
-	//¶¨Òå³£Á¿
+	
 	private static String CONFIG_FILE_LOCATION="Configuration.xml";
 	
-	//¿¼ÂÇµ½¸Ã¹¤¾ßÀàÔÊĞí±»¶àÏß³ÌÖ´ĞĞ¡£Òò´Ë·â×°1¸öÏß³Ì³Ø£¬ÈÃÃ¿¸öÏß³Ì´ÓÏß³Ì³ØÖĞ»ñÈ¡1¸öÁ¬½Ó¡£
-	//1¸öÏß³Ì¶ÔÓ¦1ÌõÊı¾İ¿âÁ¬½Ó,ÕâÑù¸ü°²È«
-	//ThreadLocalµÄ×÷ÓÃ£ºÈÃ"Ïß³Ì"°ó¶¨"×ÊÔ´",ÕâÑù¾Í²»»á³öÏÖ¶à¸öÏß³ÌÍ¬Ïí×ÊÔ´µÄÇé¿ö¡£¸ü°²È«¡£ÎşÉüÄÚ´æ£¬»»È¡¡±°²È«¡°
+	/**è€ƒè™‘åˆ°è¯¥å·¥å…·ç±»å…è®¸è¢«å¤šçº¿ç¨‹æ‰§è¡Œã€‚å› æ­¤å°è£…1ä¸ªçº¿ç¨‹æ± ï¼Œè®©æ¯ä¸ªçº¿ç¨‹ä»çº¿ç¨‹æ± ä¸­è·å–1ä¸ªè¿æ¥ã€‚
+	*1ä¸ªçº¿ç¨‹å¯¹åº”1æ¡æ•°æ®åº“è¿æ¥,è¿™æ ·æ›´å®‰å…¨
+	*ThreadLocalçš„ä½œç”¨ï¼šè®©"çº¿ç¨‹"ç»‘å®š"èµ„æº",è¿™æ ·å°±ä¸ä¼šå‡ºç°å¤šä¸ªçº¿ç¨‹åŒäº«èµ„æºçš„æƒ…å†µã€‚æ›´å®‰å…¨ã€‚ç‰ºç‰²å†…å­˜ï¼Œæ¢å–â€å®‰å…¨â€œ
+	**/
 	private static ThreadLocal<SqlSession> threadLocal = new ThreadLocal<SqlSession>();
 	
-	private static InputStream is; //ÓÃÓÚ¶ÁÈ¡ÅäÖÃÎÄ¼şµÄÁ÷¶ÔÏó
+	private static InputStream is; //ç”¨äºè¯»å–é…ç½®æ–‡ä»¶çš„æµå¯¹è±¡
 	
-	private static SqlSessionFactory fac;//ÓÃÓÚ¹ÜÀí¶à¸öÁ¬½ÓµÄ¹¤³§¡£Ò»¸ö¹¤³§¶ÔÓ¦1¸öÊı¾İ¿â¡£
+	private static SqlSessionFactory fac;//ç”¨äºç®¡ç†å¤šä¸ªè¿æ¥çš„å·¥å‚ã€‚ä¸€ä¸ªå·¥å‚å¯¹åº”1ä¸ªæ•°æ®åº“ã€‚
 	
-	//ÔÚ¸ÃÀàµÄ¾²Ì¬¶ÎÖĞ¼ÓÔØÅäÖÃÎÄ¼ş£¬ÕâÑù¿ÉÒÔÈ·±£Ö»Ö´ĞĞ1´Î¡£
+	/**åœ¨è¯¥ç±»çš„é™æ€æ®µä¸­åŠ è½½é…ç½®æ–‡ä»¶ï¼Œè¿™æ ·å¯ä»¥ç¡®ä¿åªæ‰§è¡Œ1æ¬¡ã€‚
+	 */
 	static
 	{
 		try {
-			is = Resources.getResourceAsStream(CONFIG_FILE_LOCATION);//¶ÁÈ¡ÅäÖÃÎÄ¼ş
-			fac = new SqlSessionFactoryBuilder().build(is);//Í¨¹ıÅäÖÃÎÄ¼ş´´½¨1¸öÁ¬½Ó¹¤³§
+			is = Resources.getResourceAsStream(CONFIG_FILE_LOCATION);//è¯»å–é…ç½®æ–‡ä»¶
+			fac = new SqlSessionFactoryBuilder().build(is);//é€šè¿‡é…ç½®æ–‡ä»¶åˆ›å»º1ä¸ªè¿æ¥å·¥å‚
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
 		}
 		
 	}
-	//»ñÈ¡1ÌõÁ¬½Ó
+	/**
+	 * è·å–1æ¡è¿æ¥
+	 **/
 	public static SqlSession getSession()
 	{
-		SqlSession s  = threadLocal.get(); //ÕÒÏß³Ì³ØÒª1ÌõÁ¬½Ó
-		if(s==null) //µÚ1´ÎÊ±£¬ÄÃ²»µ½£¬ÔòÓÉ¹¤³§»ñÈ¡1ÌõÁ¬½Ó²¢·ÅÈëÏß³Ì³Ø
+		SqlSession s  = threadLocal.get(); //æ‰¾çº¿ç¨‹æ± è¦1æ¡è¿æ¥
+		if(s==null) //ç¬¬1æ¬¡æ—¶ï¼Œæ‹¿ä¸åˆ°ï¼Œåˆ™ç”±å·¥å‚è·å–1æ¡è¿æ¥å¹¶æ”¾å…¥çº¿ç¨‹æ± 
 		{
-			s = fac.openSession();//ÓÉ¹¤³§»ñÈ¡1ÌõÁ¬½Ó²¢·ÅÈëÏß³Ì³Ø
-			threadLocal.set(s);//·ÅÈëÏß³Ì³Ø
+			s = fac.openSession();//ç”±å·¥å‚è·å–1æ¡è¿æ¥å¹¶æ”¾å…¥çº¿ç¨‹æ± 
+			threadLocal.set(s);//æ”¾å…¥çº¿ç¨‹æ± 
 		}
 		return s;
 	}
 	
-	//¹Ø±ÕÁ¬½Ó
+	/**
+	 * å…³é—­è¿æ¥
+	 */
 	public static void closeSession()
 	{
-		SqlSession s  = threadLocal.get();//ÕÒÏß³Ì³ØÒª±¾Ïß³Ì¶ÔÓ¦µÄÁ¬½Ó
-		threadLocal.set(null);//½«¸ÃÁ¬½Ó´ÓÏß³Ì³ØÖĞÇå³ı
+		SqlSession s  = threadLocal.get();//æ‰¾çº¿ç¨‹æ± è¦æœ¬çº¿ç¨‹å¯¹åº”çš„è¿æ¥
+		threadLocal.set(null);//å°†è¯¥è¿æ¥ä»çº¿ç¨‹æ± ä¸­æ¸…é™¤
 		if(s!=null)
-			s.close();//ÎïÀí¹Ø±ÕÁ¬½Ó
+			s.close();//ç‰©ç†å…³é—­è¿æ¥
 	}
 }

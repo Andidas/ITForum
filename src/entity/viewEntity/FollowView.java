@@ -2,6 +2,11 @@ package entity.viewEntity;
 
 import entity.Follow;
 
+/**
+ * 关注视图
+ * @author lwy
+ * @param sname 版块的名称
+ */
 public class FollowView extends Follow {
 	public FollowView() {
 		super();

@@ -14,33 +14,33 @@ public interface PrivateLetterDao {
 
 		
 	/**
-	 * ÅúÁ¿²åÈëÊı¾İ
+	 * æ‰¹é‡æ’å…¥æ•°æ®
 	 * @param letters
 	 */
 	void batchAdd(List<PrivateLetter> letters);
 	
 	/**
-	 * ÅúÁ¿É¾³ı
+	 * æ‰¹é‡åˆ é™¤
 	 * @param ids
 	 */
 	void batchDelete(List<Integer> ids);
 	
 	/**
-	 * ·ÖÒ³²éÑ¯ÎÒµÄĞÅÏ¢ÁĞ±í 
+	 * åˆ†é¡µæŸ¥è¯¢æˆ‘çš„ä¿¡æ¯åˆ—è¡¨ 
 	 * @param pageParam
 	 * @return
 	 */
 	List<Map<String,Object>> queryMyPrivateLetterList(PageParam pageParam);
 	
 	/**
-	 * ĞÅÏ¢ÁĞ±íÊı¾İµÄÌõÊı
-	 * @param id ÓÃ»§id
+	 * ä¿¡æ¯åˆ—è¡¨æ•°æ®çš„æ¡æ•°
+	 * @param id ç”¨æˆ·id
 	 * @return
 	 */
 	int queryMyPrivateLetterList_count(int id);
 	
 	/**
-	 * ·ÖÒ³²éÑ¯ÎÒµÄË½ĞÅÁĞ±íÏêÇé
+	 * åˆ†é¡µæŸ¥è¯¢æˆ‘çš„ç§ä¿¡åˆ—è¡¨è¯¦æƒ…
 	 * @param param 
 	 * @return
 	 */

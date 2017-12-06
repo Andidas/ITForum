@@ -11,41 +11,41 @@ import entity.viewEntity.FollowView;
 
 /**
  * @author lwy
- *	¹Ø×¢ºÍÈ¡Ïû¹Ø×¢µÄDaoÀà
+ *	å…³æ³¨å’Œå–æ¶ˆå…³æ³¨çš„Daoç±»
  */
 public interface FollowDao {
 	/**
-	 * ²éÕÒ¸ÃÓÃ»§¹Ø×¢µÄsession
-	 * @param uid ÓÃ»§id
+	 * æŸ¥æ‰¾è¯¥ç”¨æˆ·å…³æ³¨çš„session
+	 * @param uid ç”¨æˆ·id
 	 * @return
 	 */
 	@Select("select f.fid,f.uid,f.sid,s.sname from follow f left join `session` s on  f.sid = s.sid where uid =#{_parameter}")
 	List<FollowView>queryFollowList(int uid);
 	/**
-	 * ÊÇ·ñ±»¸ÃÓÃ»§¹Ø×¢
+	 * æ˜¯å¦è¢«è¯¥ç”¨æˆ·å…³æ³¨
 	 * @param follow
 	 * @return
 	 */
 	@Select("select count(fid) nun from follow  where uid =#{uid} and sid = #{sid}")
 	int isBeFollow(Follow follow);
 	/**
-	 * ²éÑ¯sessionµÄ¹Ø×¢ÈËÊı
+	 * æŸ¥è¯¢sessionçš„å…³æ³¨äººæ•°
 	 * @param sid
 	 * @return
 	 */
 	@Select("select count(fid) as count from follow where sid = #{_parameter}")
 	int queryFollowCount(int sid);
 	/**
-	 * Ìí¼Ófollow
+	 * æ·»åŠ follow
 	 * @param follow
-	 * @return ·µ»Ø±»Ôö¼ÓµÄÌõÊı£¬Èç¹û²»´óÓÚ0Ôò±íÊ¾Ê§°Ü
+	 * @return è¿”å›è¢«å¢åŠ çš„æ¡æ•°ï¼Œå¦‚æœä¸å¤§äº0åˆ™è¡¨ç¤ºå¤±è´¥
 	 */
 	@Insert("insert into follow(uid,sid) VALUES(#{uid},#{sid});")
 	int addFollow(Follow follow);
 	/**
-	 * É¾³ı
+	 * åˆ é™¤
 	 * @param fid
-	 * @return ·µ»Ø±»Ôö¼ÓµÄÌõÊı£¬Èç¹û²»´óÓÚ0Ôò±íÊ¾Ê§°Ü
+	 * @return è¿”å›è¢«å¢åŠ çš„æ¡æ•°ï¼Œå¦‚æœä¸å¤§äº0åˆ™è¡¨ç¤ºå¤±è´¥
 	 */
 	@Delete("delete from follow  where uid = #{uid} and sid = #{sid}")
 	int deleteFollow(Follow follow);

@@ -44,7 +44,7 @@ public class PrivateLetterServlet extends HttpServlet {
 	
 
 	/**
-	 * ĞÂ½¨Ë½ĞÅ
+	 * æ–°å»ºç§ä¿¡
 	 */
 	private void new_letter(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
@@ -58,12 +58,12 @@ public class PrivateLetterServlet extends HttpServlet {
 		if(pls.batchAdd(puid, ptouid, ORDINARY_MESSAGE, pcontent)){
 			request.getRequestDispatcher("UserInFo?op=toInfoCenter&uid="+user.getUid()).forward(request, response);
 		}else{
-			response.getWriter().print("<script>alert('·¢ËÍÊ§°Ü');history.back();</script>");
+			response.getWriter().print("<script>alert('å‘é€å¤±è´¥');history.back();</script>");
 		}
 	}
 
 	/**
-	 * ·¢ËÍË½ĞÅ
+	 * å‘é€ç§ä¿¡
 	 */
 	private void send_letter(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
@@ -75,12 +75,12 @@ public class PrivateLetterServlet extends HttpServlet {
 		if(pls.batchAdd(puid, ptouid, ORDINARY_MESSAGE, pcontent)){
 			request.getRequestDispatcher("UserInFo?op=toInfoCenter&uid="+user.getUid()).forward(request, response);
 		}else{
-			response.getWriter().print("<script>alert('·¢ËÍÊ§°Ü');history.back();</script>");
+			response.getWriter().print("<script>alert('å‘é€å¤±è´¥');history.back();</script>");
 		}
 	}
 
 	/**
-	 * ÏêÏ¸¶Ô»°ĞÅÏ¢
+	 * è¯¦ç»†å¯¹è¯ä¿¡æ¯
 	 */
 	private void letter_detail(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {

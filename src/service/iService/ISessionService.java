@@ -5,76 +5,76 @@ import java.util.List;
 import entity.Session;
 
 /**
- * @author ÁõÎ°ÒÕ
- * session°æ¿é½Ó¿Ú
+ * @author åˆ˜ä¼Ÿè‰º
+ * sessionç‰ˆå—æ¥å£
  */
 public interface ISessionService {
 	/**
-	 * ²éÑ¯ÊôÓÚÍ¬Ò»ÀàµÄsession
+	 * æŸ¥è¯¢å±äºåŒä¸€ç±»çš„session
 	 * @param sprofile
 	 * @return
 	 */
 	List<Session>queryAllSessionByProfile(String sprofile);
 	/**
-	 * ²éÑ¯ËùÓĞµÄsession·ÖÀàprofile
+	 * æŸ¥è¯¢æ‰€æœ‰çš„sessionåˆ†ç±»profile
 	 * @return
 	 */
 	List<String> queryAllProfile();
 	/**
-	 * ²éÕÒsession
+	 * æŸ¥æ‰¾session
 	 * @param sname
 	 * @return
 	 */
 	int querySessionID(String sname);
 	
 	/**
-	 * Í¨¹ıËÑË÷À¸²éÑ¯µ½µÄÄÚÈİ
+	 * é€šè¿‡æœç´¢æ æŸ¥è¯¢åˆ°çš„å†…å®¹
 	 * @param searchText
 	 * @return
 	 */
 	List<Session> searchSession(String searchText);
 	/**
-	 * ÊÇ·ñÊÇ²éÑ¯session
+	 * æ˜¯å¦æ˜¯æŸ¥è¯¢session
 	 * @param text
 	 * @return
 	 */
 	public boolean isSearchSession(String text);
 	/**
-	 * Ìû×ÓÊı¼õ1
+	 * å¸–å­æ•°å‡1
 	 * @param sname
-	 * @return ³É¹¦,·µ»Øtrue
+	 * @return æˆåŠŸ,è¿”å›true
 	 */
 	boolean subSessionStopiccount(String sname);
 	/**
-	 * ²éÑ¯Ìû×ÓÊı
+	 * æŸ¥è¯¢å¸–å­æ•°
 	 * @param sname
-	 * @return ·µ»ØÌû×ÓµÄÊıÄ¿
+	 * @return è¿”å›å¸–å­çš„æ•°ç›®
 	 */
 	int querySessionStopicCount(String sname);
 	/**
-	 * ²éÑ¯Õû¸ö°å¿éµÄĞÅÏ¢
-	 * @param sid °å¿éµÄid
+	 * æŸ¥è¯¢æ•´ä¸ªæ¿å—çš„ä¿¡æ¯
+	 * @param sid æ¿å—çš„id
 	 * @return session
 	 */
 	Session searchSession(int sid);
 	/**
-	 * ²éÑ¯·ûºÏµÄ°æ¿é×é£¬Ìõ¼şsprofile
-	 * @param sprofile // session Ö÷Ìâ£¬·ÖÀàÒÀ¾İ
+	 * æŸ¥è¯¢ç¬¦åˆçš„ç‰ˆå—ç»„ï¼Œæ¡ä»¶sprofile
+	 * @param sprofile // session ä¸»é¢˜ï¼Œåˆ†ç±»ä¾æ®
 	 * @param sid 
-	 * @return °æ¿é×é
+	 * @return ç‰ˆå—ç»„
 	 */
 	
 	List<Session>querySameSession(String sprofile,int sid);
 	
 	
 	/**
-	 * µã»÷´ÎÊı¼Ó1
+	 * ç‚¹å‡»æ¬¡æ•°åŠ 1
 	 * @param sid
 	 * @return
 	 */
 	boolean updateSessionClickCount(String sid);
 	/**
-	 * ĞÂÔösession
+	 * æ–°å¢session
 	 * @param sname
 	 * @param smasterid
 	 * @param sprofile

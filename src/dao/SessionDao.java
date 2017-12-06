@@ -9,93 +9,93 @@ import org.apache.ibatis.annotations.Update;
 import entity.Session;
 import entity.viewEntity.SessionView;
 /**
- * °æ¿éµÄÊı¾İ¿â´¦Àí²Ù×÷µÄ½Ó¿Ú
+ * ç‰ˆå—çš„æ•°æ®åº“å¤„ç†æ“ä½œçš„æ¥å£
  * @author lwy
  *
  */
 public interface SessionDao {
 	/**
-	 * ²éÑ¯ËùÓĞµÄsession·ÖÀàprofile
+	 * æŸ¥è¯¢æ‰€æœ‰çš„sessionåˆ†ç±»profile
 	 * @return
 	 */
 	@Select("select DISTINCT sprofile from session")
 	List <String>queryAllProfile();
 	/**
-	 * ²éÕÒsessionµÄid
+	 * æŸ¥æ‰¾sessionçš„id
 	 * @param sname
 	 * @return
 	 */
 	@Select("select sid from session where sname=#{_parameter}")
 	int querySessionID(String sname);
 	/**
-	 * Ôö¼ÓÒ»¸ösession
+	 * å¢åŠ ä¸€ä¸ªsession
 	 * @param session
 	 * @return
 	 */
 	@Insert("insert into session values(null,#{sname},#{smasterid},#{sprofile},#{sstatement},#{stopiccount},#{sclickcount},#{spicture})")
 	int insertSession(Session session);
 	/**
-	 * ²éÑ¯session view
+	 * æŸ¥è¯¢session view
 	 * @param sid
 	 * @return
 	 */
 	@Select("select s.*,u.uname from `session` s,`user` u where s.smasterid = u.uid and sid = #{_parameter}")
 	SessionView querySessionView(int sid);
 	/**
-	 * Ìû×ÓÊı¼Ó1
+	 * å¸–å­æ•°åŠ 1
 	 * @param sid
-	 * @return ´óÓÚ0³É¹¦
+	 * @return å¤§äº0æˆåŠŸ
 	 */
 	@Update("UPDATE `session` set stopiccount = stopiccount+1 where sid= #{_parameter}")
 	int addSessionStopiccount(int sid);
 	/**
-	 * Ìû×ÓÊı¼õ1
+	 * å¸–å­æ•°å‡1
 	 * @param sname
-	 * @return ´óÓÚ0³É¹¦
+	 * @return å¤§äº0æˆåŠŸ
 	 */
 	@Update("UPDATE `session` set stopiccount = stopiccount-1 where sname= #{_parameter}")
 	int subSessionStopiccount(String sname);
 	/**
-	 * ²éÑ¯Ìû×ÓÊı
+	 * æŸ¥è¯¢å¸–å­æ•°
 	 * @param sname
-	 * @return ·µ»ØÌû×ÓµÄÊıÄ¿
+	 * @return è¿”å›å¸–å­çš„æ•°ç›®
 	 */
 	@Select("select stopiccount from `session` where sname=#{_parameter}")
 	int querySessionStopicCount(String sname);
 	
 	/**
-	 * µã»÷´ÎÊı¼Ó1
+	 * ç‚¹å‡»æ¬¡æ•°åŠ 1
 	 * @param sname
-	 * @return ´óÓÚ0³É¹¦
+	 * @return å¤§äº0æˆåŠŸ
 	 */
 	@Update("UPDATE `session` set sclickcount = sclickcount+1 where sid= #{_parameter}")
 	int updateSessionClickCount(String sid);
 
 	
 	/**
-	 * ²éÑ¯µ¥¸ö°æ¿é
-	 * @param sid Òª²éÑ¯µÄ°æ¿ésid
-	 * @return ²éÑ¯µ½µÃÒ»¸ö°æ¿éSession(all)
+	 * æŸ¥è¯¢å•ä¸ªç‰ˆå—
+	 * @param sid è¦æŸ¥è¯¢çš„ç‰ˆå—sid
+	 * @return æŸ¥è¯¢åˆ°å¾—ä¸€ä¸ªç‰ˆå—Session(all)
 	 */
 	@Select("select * from session where sname like CONCAT(CONCAT('%', #{_parameter}), '%')")
 	Session searchSessionBySid(int sid);
 	/**
-	 * ²éÑ¯·ûºÏµÄÏàËÆ°æ¿é×é£¬Ìõ¼şsprofile ºÍsid
-	 * ²»°üÀ¨´«½øÀ´µÄsession±¾Éí
-	 * @return °æ¿é×é
+	 * æŸ¥è¯¢ç¬¦åˆçš„ç›¸ä¼¼ç‰ˆå—ç»„ï¼Œæ¡ä»¶sprofile å’Œsid
+	 * ä¸åŒ…æ‹¬ä¼ è¿›æ¥çš„sessionæœ¬èº«
+	 * @return ç‰ˆå—ç»„
 	 */
 	@Select("select sid,sname,sstatement from `session` where sprofile=#{sprofile} and sid <> #{sid} order by sclickcount DESC limit 0,5")
 	List<Session> querySameSession(Session session);
 	
 	/**
-	 * ²éÑ¯ÊôÓÚÍ¬Ò»ÀàµÄsession
+	 * æŸ¥è¯¢å±äºåŒä¸€ç±»çš„session
 	 * @param sprofile
 	 * @return
 	 */
 	@Select("select sid,sname from `session` where sprofile =#{_parameter}")
 	List<Session> queryAllSessionByProfile(String sprofile);
 	/**
-	 * Í¨¹ıËÑË÷À¸²éÕÒsession
+	 * é€šè¿‡æœç´¢æ æŸ¥æ‰¾session
 	 * @param searchText
 	 * @return
 	 */

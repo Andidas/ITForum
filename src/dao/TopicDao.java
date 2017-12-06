@@ -7,71 +7,75 @@ import entity.PageParam;
 import entity.Topic;
 import entity.viewEntity.TopicView;
 /**
- * ���������ݿ⴦������Ľӿ�
+ * 
  * @author lwy
  *
  */
-
-
 public interface TopicDao {
+	
+	/**
+	 * 查询用户发表过的所有topic
+	 * @param page
+	 * @return
+	 */
 	PageMode<Topic> queryUserAllTopic(PageParam page);
 	
 	/**
-	 * ��ѯ����������topic
+	 * 查找回帖数最多，最热门的topic
 	 * @return
 	 */
 	List<Topic> queryHotsTopicList();
 	/**
-	 * �������ӣ�����Ŀ������
+	 * 模糊查询题目和内容
 	 * @param text
 	 * @return
 	 */
 	List<Topic> searchTopicAndContents(String text);
 	/**
-	 * ��ѯ����topic view
+	 * 查询单个topic view
 	 * @param tid
 	 * @return
 	 */
 	TopicView getTopicViewOne(int tid);
 	/**
-	 * ���ڷ�ҳ
+	 * 分页视图
 	 * @param page
 	 * @return
 	 */
 	PageMode<TopicView> splitPage(PageParam page);
 	/**
-	 * �ж�������¼
-	 * @param sid��ѯ��session id
+	 * 一共有多少条记录
+	 * @param session id
 	 * @return
 	 */
 	int rowCount(int sid);
 	/**
-	 * ���������1
+	 * 点击次数加一
 	 * @param tid
 	 * @return
 	 */
 	int updateClickCount(int tid);
 	/**
-	 * ��������
-	 * @param Topic Ҫ���ӵ����� (tsid,tidy,ttopic,tcontents,ttime)
-	 * @return ���ر����ӵ����������������0���ʾʧ��
+	 * 新增帖子
+	 * @param 
+	 * @return 
 	 */
 	int addTopic(Topic topic);
 	
 	/**
-	 * ��ѯ���ϵ�����,��������tsid
-	 * @return ������
+	 * 查询相同的topic，在同一个session中
+	 * @return 
 	 */
 	List<Topic> querySameTopicListByTSID(int tsid);
 	/**
-	 * ͨ�������ѯ����
-	 * @param tid ����id
+	 * 查询单个Topic
+	 * @param 
 	 * @return
 	 */
 	Topic queryTopicOneByTopic(int tid);
 	
 	/**
-	 * ��������1
+	 * 回帖数加一
 	 * @param tid
 	 * @return
 	 */

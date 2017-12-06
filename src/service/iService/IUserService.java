@@ -4,58 +4,58 @@ import java.util.List;
 
 import entity.User;
 /**
- * @author ÁõÎ°ÒÕ
- * ÓÃ»§·şÎñ½Ó¿Ú
+ * @author åˆ˜ä¼Ÿè‰º
+ * ç”¨æˆ·æœåŠ¡æ¥å£
  */
 public interface IUserService {
 	
 	public List<User> queryUserList();
 	/**
-	 * ²éÑ¯µ¥¸öÓÃ»§
+	 * æŸ¥è¯¢å•ä¸ªç”¨æˆ·
 	 * @param email
 	 * @return
 	 */
 	public User queryUser(String email) ;
 	/**
-	 * ²éÑ¯µ¥¸öÓÃ»§
+	 * æŸ¥è¯¢å•ä¸ªç”¨æˆ·
 	 * @param uid
 	 * @return
 	 */
 	public User queryUserOne(String uid);
 	/**
-	 * ¼ì²éÓÃ»§ÊÇ·ñ´æÔÚ
+	 * æ£€æŸ¥ç”¨æˆ·æ˜¯å¦å­˜åœ¨
 	 * @param email
 	 * @param password
 	 * @return
 	 */
 	public boolean checkUser(String email, String password) ;
 	/**
-	 * ¼ì²éÓÃ»§ÊÇ·ñ´æÔÚ
+	 * æ£€æŸ¥ç”¨æˆ·æ˜¯å¦å­˜åœ¨
 	 * @param email
-	 * @param password sha_1¼ÓÃÜÖ®ºóµÄÃÜÂë
+	 * @param password sha_1åŠ å¯†ä¹‹åçš„å¯†ç 
 	 * @return
 	 */
 	public boolean checkUser_isSha_1(String email, String password);
 	/**
-	 * Ãû×ÖÊÇ·ñ´æÔÚ
+	 * åå­—æ˜¯å¦å­˜åœ¨
 	 * @param uname
 	 * @return
 	 */
 	public boolean isNameExist(String uname);
 	/**
-	 * ĞŞ¸ÄÓÃ»§
-	 * @param u ÓÃ»§
-	 * @param uname ÒªĞŞ¸ÄµÄÃû×Ö
+	 * ä¿®æ”¹ç”¨æˆ·
+	 * @param u ç”¨æˆ·
+	 * @param uname è¦ä¿®æ”¹çš„åå­—
 	 * @param uhead
 	 * @param uemail
 	 * @param usex
 	 * @param ubirthady
 	 * @param usatement
-	 * @return ĞÂµÄÓÃ»§ĞÅÏ¢User
+	 * @return æ–°çš„ç”¨æˆ·ä¿¡æ¯User
 	 */
 	public User updateUser(int uid,String uname,String uhead,String uemail,String usex,String ubirthady,String usatement);
 	/**
-	 * Ôö¼ÓÓÃ»§
+	 * å¢åŠ ç”¨æˆ·
 	 * @param name
 	 * @param email
 	 * @param password
@@ -65,7 +65,7 @@ public interface IUserService {
 	public boolean addUser(String name,String email,String password);
 	
 	/**
-	 * Í¨¹ıÓÊÏäĞŞ¸ÄÃÜÂë
+	 * é€šè¿‡é‚®ç®±ä¿®æ”¹å¯†ç 
 	 * @param email
 	 * @param password
 	 * @return

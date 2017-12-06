@@ -8,21 +8,27 @@ public interface ITopicViewService {
 	
 	
 	/**
-	 * ²éÑ¯¸ÃÌû×ÓµÄreply·ÖÒ³²ÎÊı£¬°üº¬ËùÓĞ»ØÌûµÄÊÓÍ¼
+	 * æŸ¥è¯¢è¯¥å¸–å­çš„replyåˆ†é¡µå‚æ•°ï¼ŒåŒ…å«æ‰€æœ‰å›å¸–çš„è§†å›¾
 	 */
 	PageMode<ReplyView> queryReplyViewPageMode(int pageno, int pagesize,int rtid);
 	/**
-	 * µÃµ½µ¥¸ötopic view
+	 * å¾—åˆ°å•ä¸ªtopic view
 	 */
 	TopicView getTopicViewOne(String tid,String sid);
 	/**
-	 * µÃµ½topicµÄ·ÖÒ³ÊÓÍ¼
-	 * @param pageno µÚ¼¸Ò³
-	 * @param pagesize Ò»Ò³ĞèÒª¼¸ÌõÊı¾İ
-	 * @param tsid 
+	 * å¾—åˆ°topicçš„åˆ†é¡µè§†å›¾
+	 * @param pageno ç¬¬å‡ é¡µ
+	 * @param pagesize ä¸€é¡µéœ€è¦å‡ æ¡æ•°æ®
+	 * @param tsid è¿‡æ»¤å‚æ•°ï¼Œsession id
 	 * @return
 	 */
 	PageMode<TopicView> TopicSplitPage(int pageno,int pagesize,int tsid);
+	/**
+	 * å¾—åˆ°topicçš„åˆ†é¡µè§†å›¾
+	 * @param pageno ç¬¬å‡ é¡µ
+	 * @param pagesize ä¸€é¡µéœ€è¦å‡ æ¡æ•°æ®
+	 * @return
+	 */
 	PageMode<TopicView> TopicSplitPage(int pageno, int pagesize);
 
 }

@@ -6,26 +6,26 @@ import entity.Reply;
 
 public interface IReplyService {
 	/** 
-	 * ·¢ÌûÊı¼Ó1,²¢ÇÒ¸üĞÂ×îºó·¢ÌûÈËºÍ·¢ÌûÊ±¼ä
+	 * å‘å¸–æ•°åŠ 1,å¹¶ä¸”æ›´æ–°æœ€åå‘å¸–äººå’Œå‘å¸–æ—¶é—´
 	 * @param 
 	 * @return
 	 */
 	boolean updateReplyCountAdd(int tid,int ruid,String rtime);
 	/**
-	 * É¾³ıµ¥¸öÌû×Ó
+	 * åˆ é™¤å•ä¸ªå¸–å­
 	 * @param rid
 	 * @return
 	 */
 	boolean deleteReplyOne(int rid);
 	/**
-	 * Ìí¼Óµ¥¸ö
+	 * æ·»åŠ å•ä¸ª
 	 * @param 
 	 * @return
 	 */
 	boolean addReplyOne(String nowTopicTid,String nowSessionID,String nowUserID,String replyText);
 	/**
-	 * ²éÑ¯¸ÃÓÃ»§µÄËùÓĞ»Ø¸´
-	 * @param uid ÓÃ»§id
+	 * æŸ¥è¯¢è¯¥ç”¨æˆ·çš„æ‰€æœ‰å›å¤
+	 * @param uid ç”¨æˆ·id
 	 * @return
 	 */
 	PageMode<Reply> queryUserAllReply(String uid);

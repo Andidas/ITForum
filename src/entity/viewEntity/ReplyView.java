@@ -3,12 +3,12 @@ package entity.viewEntity;
 import entity.Reply;
 
 /**
- * »ØÌûÊÓÍ¼ÊµÌåÀà
+ * å›å¸–è§†å›¾å®ä½“ç±»
  * @author lwy
- * @param uname »ØÌûÈË
- * @param ustate  »ØÌûÈË×´Ì¬
- * @param upoint »ØÌûÈË»ı·Ö
- * @param uissectioner »ØÌûÈËÊÇ·ñÊÇ°æÖ÷
+ * @param uname å›å¸–äºº
+ * @param ustate  å›å¸–äººçŠ¶æ€
+ * @param upoint å›å¸–äººç§¯åˆ†
+ * @param uissectioner å›å¸–äººæ˜¯å¦æ˜¯ç‰ˆä¸»
  */
 public class ReplyView extends Reply{
 	

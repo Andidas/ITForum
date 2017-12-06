@@ -1,46 +1,46 @@
 package utils;
 
 /**
- * ³£Á¿Êı¾İ
+ * å¸¸é‡æ•°æ®
  * @author lwy
  *
  */
 public class ConstantsData {
 	/**
-	 * Ã¿Ò»Ò³ÏÔÊ¾5ÌõÊı¾İ
+	 * æ¯ä¸€é¡µæ˜¾ç¤º5æ¡æ•°æ®
 	 */
 	public final static int PAGESIZE = 5;
 	/**
-	 * Ã¿Ò»Ò³ÏÔÊ¾20ÌõÊı¾İ
+	 * æ¯ä¸€é¡µæ˜¾ç¤º20æ¡æ•°æ®
 	 */
 	public final static int PAGESIZE_20 = 20;
 	/**
-	 * Ã¿Ò»Ò³ÏÔÊ¾10ÌõÊı¾İ
+	 * æ¯ä¸€é¡µæ˜¾ç¤º10æ¡æ•°æ®
 	 */
 	public final static int PAGESIZE_10 = 10;
 	/**
-	 * µ±Ç°ÔÚµÚ¼¸Ò³
+	 * å½“å‰åœ¨ç¬¬å‡ é¡µ
 	 */
 	public final static int PAGENO = 1;
 	/**
-	 * ÆÕÍ¨ÏûÏ¢
+	 * æ™®é€šæ¶ˆæ¯
 	 */
 	public final static int ORDINARY_MESSAGE = 1;
 	/**
-	 * ÏµÍ³ÏûÏ¢
+	 * ç³»ç»Ÿæ¶ˆæ¯
 	 */
 	public final static int SYSTEM_MESSAGE = 2;
 	
 	/**
-	 * ÏûÏ¢×´Ì¬£ºÒÑ¶Á
+	 * æ¶ˆæ¯çŠ¶æ€ï¼šå·²è¯»
 	 */
 	public final static int MESSAGE_STATUS_READED = 1;
 	/**
-	 * ÏûÏ¢×´Ì¬£ºÎ´¶Á
+	 * æ¶ˆæ¯çŠ¶æ€ï¼šæœªè¯»
 	 */
 	public final static int MESSAGE_STATUS_UNREAD = 2;
 	/**
-	 * ÏûÏ¢×´Ì¬£ºÉ¾³ı
+	 * æ¶ˆæ¯çŠ¶æ€ï¼šåˆ é™¤
 	 */
 	public final static int MESSAGE_STATUS_DELETED = 3;
 }

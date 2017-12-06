@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Update;
 
 import entity.User;
 /**
- * ÓÃ»§µÄÊı¾İ¿â´¦Àí²Ù×÷µÄ½Ó¿Ú
+ * ç”¨æˆ·çš„æ•°æ®åº“å¤„ç†æ“ä½œçš„æ¥å£
  * @author lwy
  *
  */
@@ -22,59 +22,59 @@ import entity.User;
 public interface UserDao {
 	
 	/**
-	 * ÅĞ¶ÏÓÃ»§ÃûÊÇ·ñ´æÔÚ
+	 * åˆ¤æ–­ç”¨æˆ·åæ˜¯å¦å­˜åœ¨
 	 * @param uname
 	 * @return uid
 	 */
 	@Select("select count(uid) uid from user where uname = #{_parameter}")
 	int isExistName(String uname);
 	/**
-	 * Ôö¼ÓÓÃ»§
-	 * @param user ÒªÔö¼ÓµÄÓÃ»§ (uname,upassword,uemail,uregdate)
-	 * @return ·µ»Ø±»Ôö¼ÓµÄÌõÊı£¬Èç¹û²»´óÓÚ0Ôò±íÊ¾Ê§°Ü
+	 * å¢åŠ ç”¨æˆ·
+	 * @param user è¦å¢åŠ çš„ç”¨æˆ· (uname,upassword,uemail,uregdate)
+	 * @return è¿”å›è¢«å¢åŠ çš„æ¡æ•°ï¼Œå¦‚æœä¸å¤§äº0åˆ™è¡¨ç¤ºå¤±è´¥
 	 */
 	@Insert("INSERT INTO `user` (uname,uemail,upassword,uregdate) VALUES(#{uname},#{uemail},#{upassword},#{uregdate})")
 	int addUser(User user);
 	
 	/**
-	 * ĞŞ¸ÄÓÃ»§
-	 * @param user ÒªĞŞ¸ÄµÄÓÃ»§
-	 * @return ·µ»Ø±»¸üĞÂµÄÌõÊı£¬Èç¹û²»´óÓÚ0Ôò±íÊ¾Ê§°Ü
+	 * ä¿®æ”¹ç”¨æˆ·
+	 * @param user è¦ä¿®æ”¹çš„ç”¨æˆ·
+	 * @return è¿”å›è¢«æ›´æ–°çš„æ¡æ•°ï¼Œå¦‚æœä¸å¤§äº0åˆ™è¡¨ç¤ºå¤±è´¥
 	 */
 	@Update(" UPDATE user SET uname = #{uname},upassword = #{upassword},uemail = #{uemail},uregdate = #{uregdate},ubirthady = #{ubirthady},usex = #{usex}, uhead = #{uhead}, usatement = #{usatement},ustate = #{ustate},upoint = #{upoint}, uissectioner = #{uissectioner} WHERE uid = #{uid}")
 	int updateUser(User user);
 	/**
-	 * ²éÑ¯µ¥¸öÓÃ»§
-	 * @param uemail Òª²éÑ¯µÄÓÃ»§email
-	 * @return ²éÑ¯µ½µÃÒ»¸öÓÃ»§user(all)
+	 * æŸ¥è¯¢å•ä¸ªç”¨æˆ·
+	 * @param uemail è¦æŸ¥è¯¢çš„ç”¨æˆ·email
+	 * @return æŸ¥è¯¢åˆ°å¾—ä¸€ä¸ªç”¨æˆ·user(all)
 	 */
 	@Select("select * from user where uemail = #{_parameter}")
 	User queryUserOneByEmail(String uemail);
 	/**
-	 * ²éÑ¯µ¥¸öÓÃ»§£¬Í¨¹ıid²éÑ¯
+	 * æŸ¥è¯¢å•ä¸ªç”¨æˆ·ï¼Œé€šè¿‡idæŸ¥è¯¢
 	 * @param uid
 	 * @return
 	 */
 	@Select("select * from user where uid = #{_parameter}")
 	User queryUserOne(int uid);
 	/**
-	 * ²éÑ¯ËùÓĞµÄÓÃ»§
-	 * @return ÓÃ»§×é
+	 * æŸ¥è¯¢æ‰€æœ‰çš„ç”¨æˆ·
+	 * @return ç”¨æˆ·ç»„
 	 */
 	@Select("select uid,uname,upassword,uemail,uregdate,ubirthady,usex,uhead,usatement,ustate,upoint,uissectioner from user")
 	List<User> queryUserList();
 	
 	/**
-	 * ¼ì²éÓÃ»§ÊÇ·ñ´æÔÚ
-	 * @param email ÓÃ»§Ãû
-	 * @param password ÃÜÂë
+	 * æ£€æŸ¥ç”¨æˆ·æ˜¯å¦å­˜åœ¨
+	 * @param email ç”¨æˆ·å
+	 * @param password å¯†ç 
 	 * @return
 	 */
 	@Select("select count(*) num from user where uemail = #{uemail} and upassword = #{upassword}")
 	int checkUser(User user);
 	
 	/**
-	 * Í¨¹ıÓÊÏäĞŞ¸ÄÃÜÂë
+	 * é€šè¿‡é‚®ç®±ä¿®æ”¹å¯†ç 
 	 * @param email
 	 * @param password
 	 * @return
@@ -82,7 +82,7 @@ public interface UserDao {
 	@Update("UPDATE user SET upassword = #{upassword} WHERE uemail = #{uemail}")
 	int modifyPasswordByEmail(User user);
 	/**
-	 * Í¨¹ıÓÃ»§Ãû²éÑ¯ÓÃ»§id
+	 * é€šè¿‡ç”¨æˆ·åæŸ¥è¯¢ç”¨æˆ·id
 	 * @param uname
 	 * @return
 	 */

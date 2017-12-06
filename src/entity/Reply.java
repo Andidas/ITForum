@@ -4,14 +4,14 @@ package entity;
 
 /**
  * @author lwy
- * ¸úÌû±íÊµÌåÀà
- * @param rid ¸úÌù±íID
- * @param rtid »Ø¸´Ö÷ÌùID,Íâ¼ü(ÒıÓÃ·¢Ìù±íµÄTID)
- * @param rsid ËùÔÚ°æ¿éID,Íâ¼ü(ÒıÓÃ°æ¿é±íµÄSID)
- * @param ruid ·¢ÌùÈËID,Íâ¼ü(ÒıÓÃÓÃ»§±íµÄUID)
- * @param rfavour µãÔŞÊı	
- * @param rcontent »ØÌùÄÚÈİ
- * @param rtime »ØÌùÊ±¼ä
+ * è·Ÿå¸–è¡¨å®ä½“ç±»
+ * @param rid è·Ÿè´´è¡¨ID
+ * @param rtid å›å¤ä¸»è´´ID,å¤–é”®(å¼•ç”¨å‘è´´è¡¨çš„TID)
+ * @param rsid æ‰€åœ¨ç‰ˆå—ID,å¤–é”®(å¼•ç”¨ç‰ˆå—è¡¨çš„SID)
+ * @param ruid å‘è´´äººID,å¤–é”®(å¼•ç”¨ç”¨æˆ·è¡¨çš„UID)
+ * @param rfavour ç‚¹èµæ•°	
+ * @param rcontent å›è´´å†…å®¹
+ * @param rtime å›è´´æ—¶é—´
  */
 public class Reply {
 	
@@ -35,13 +35,13 @@ public class Reply {
 
 	
 
-	protected int rid; // ¸úÌù±íID
-	protected int rtid; // »Ø¸´Ö÷ÌùID,Íâ¼ü(ÒıÓÃ·¢Ìù±íµÄTID)
-	protected int rsid; // ËùÔÚ°æ¿éID,Íâ¼ü(ÒıÓÃ°æ¿é±íµÄSID)
-	protected int ruid; // ·¢ÌùÈËID,Íâ¼ü(ÒıÓÃÓÃ»§±íµÄUID)
-	protected int rfavour; // µãÔŞÊı
-	protected String rcontent; // »ØÌùÄÚÈİ
-	protected String rtime; // »ØÌùÊ±¼ä
+	protected int rid; // ï¿½ï¿½ï¿½ï¿½ï¿½ID
+	protected int rtid; // ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½ID,ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½TID)
+	protected int rsid; // ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ID,ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½SID)
+	protected int ruid; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID,ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½UID)
+	protected int rfavour; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	protected String rcontent; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	protected String rtime; // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 	
 	
 

@@ -6,16 +6,16 @@ import java.util.List;
  * @author lwy
  * @param data //List<T>
  * @param pageParam
- * @param totalRecordCount ×Ü¼ÇÂ¼Êý
- * @param totalPageCount ×ÜÒ³Êý
+ * @param totalRecordCount æ€»è®°å½•æ•°
+ * @param totalPageCount æ€»é¡µæ•°
  */
 public class PageMode<T> {
 	
 	
-	private List<T> data = new ArrayList<T>();   //Ã¿Ò³Êý¾ÝÄÚÈÝ
+	private List<T> data = new ArrayList<T>();   //Ã¿Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private PageParam pageParam;
-	private int totalRecordCount;   //×Ü¼ÇÂ¼Êý
-	private int totalPageCount;  //×ÜÒ³Êý
+	private int totalRecordCount;   //ï¿½Ü¼ï¿½Â¼ï¿½ï¿½
+	private int totalPageCount;  //ï¿½ï¿½Ò³ï¿½ï¿½
 	
 	public List<T> getData() {
 		return data;

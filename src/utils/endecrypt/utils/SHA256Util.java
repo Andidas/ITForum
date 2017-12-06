@@ -6,8 +6,8 @@ import java.security.NoSuchAlgorithmException;
 
 public class SHA256Util {
 	/**
-	* ÀûÓÃjavaÔ­ÉúµÄÕªÒªÊµÏÖSHA256¼ÓÃÜ
-	* @param str ¼ÓÃÜºóµÄ±¨ÎÄ
+	* åˆ©ç”¨javaåŸç”Ÿçš„æ‘˜è¦å®ç°SHA256åŠ å¯†
+	* @param str åŠ å¯†åçš„æŠ¥æ–‡
 	* @return
 	*/
 	public static String getSHA256StrJava(String str){
@@ -25,7 +25,7 @@ public class SHA256Util {
 	 return encodeStr;
 	}
 	/**
-	* ½«byte×ªÎª16½øÖÆ
+	* å°†byteè½¬ä¸º16è¿›åˆ¶
 	* @param bytes
 	* @return
 	*/
@@ -35,7 +35,7 @@ public class SHA256Util {
 	 for (int i=0;i<bytes.length;i++){
 	  temp = Integer.toHexString(bytes[i] & 0xFF);
 	  if (temp.length()==1){
-	  //1µÃµ½Ò»Î»µÄ½øĞĞ²¹0²Ù×÷
+	  //1å¾—åˆ°ä¸€ä½çš„è¿›è¡Œè¡¥0æ“ä½œ
 	  stringBuffer.append("0");
 	  }
 	  stringBuffer.append(temp);

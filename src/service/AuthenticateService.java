@@ -6,16 +6,16 @@ import service.iService.IAuthenticateService;
 import utils.SendEmail;
 
 /**
- * @author ÁõÎ°ÒÕ
- * ÑéÖ¤·şÎñ
+ * @author åˆ˜ä¼Ÿè‰º
+ * éªŒè¯æœåŠ¡
  */
 public class AuthenticateService implements IAuthenticateService{
 	
 	public String emailCaptcha(String email) {
-		String captcha = SendEmail.generateCAPTCHA();//Éú³ÉÑéÖ¤Âë
+		String captcha = SendEmail.generateCAPTCHA();//ç”ŸæˆéªŒè¯ç 
 		String to = email;
-		String head = "ITForum ×¢ ²á Ñé Ö¤";
-		String content = "ÄúºÃ£¡ ÑéÖ¤ÂëÎª:" + captcha;
+		String head = "ITForum æ³¨ å†Œ éªŒ è¯";
+		String content = "æ‚¨å¥½ï¼ éªŒè¯ç ä¸º:" + captcha;
 		boolean result = false;
 		try {
 			result = SendEmail.sendEmail(to, head, content);

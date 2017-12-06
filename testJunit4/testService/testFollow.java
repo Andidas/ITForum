@@ -14,15 +14,15 @@ public class testFollow {
 	}
 	@Test
 	public void addFollow(){
-		assertTrue("²åÈëÊı¾İ³É¹¦",fs.addFollow("30", "10"));
-		assertTrue("ÊÇ·ñ±»¹Ø×¢",fs.isBeFollow("30", "10"));
+		assertTrue("æ’å…¥æ•°æ®æˆåŠŸ",fs.addFollow("30", "10"));
+		assertTrue("æ˜¯å¦è¢«å…³æ³¨",fs.isBeFollow("30", "10"));
 	}
 	@Test
 	public void deleteFollow(){
-		assertTrue("É¾³ıÊı¾İ³É¹¦",fs.deleteFollow("30", "10"));
+		assertTrue("åˆ é™¤æ•°æ®æˆåŠŸ",fs.deleteFollow("30", "10"));
 	}
 	@Test 
 	public void queryFollowCount(){
-		assertEquals("¹Ø×¢ÈËÊı",fs.queryFollowCount(10),2);
+		assertEquals("å…³æ³¨äººæ•°",fs.queryFollowCount(10),2);
 	}
 }

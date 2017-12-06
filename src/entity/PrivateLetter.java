@@ -1,5 +1,17 @@
 package entity;
 
+/**
+ * 私信列表
+ * @author lwy
+ * @param user_id 用户id
+ * @param friend_id 好友id
+ * @param puid 发送方的id
+ * @param ptouid 接收方的id
+ * @param message_type 消息类型：1普通消息，2系统消息
+ * @param ptime 发送时间
+ * @param pcontent 内容
+ * @param pstatus 状态：1未读，2，已读，3删除
+ */
 public class PrivateLetter {
 	
 	
@@ -15,6 +27,7 @@ public class PrivateLetter {
 		this.ptime = ptime;
 		this.pcontent = pcontent;
 	}
+	
 	public PrivateLetter(int user_id, int friend_id, int puid, int ptouid,
 			int message_type, String ptime, String pcontent, String pstatus) {
 		super();
