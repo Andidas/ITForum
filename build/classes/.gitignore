@@ -1,12 +1,11 @@
+/init.properties
+/log4j.properties
+/mapper/
+/utils/
+/Configuration.xml
 /dao/
 /entity/
 /filter/
 /service/
 /servlet/
 /testService/
-/utils/
-/sensitive_word/
-/mapper/
-/Configuration.xml
-/init.properties
-/log4j.properties
