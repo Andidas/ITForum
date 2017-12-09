@@ -55,19 +55,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</a>
 								</div>
 								<div class="reputation zebra_tips1" title="该用户所获得的成就">
-									131,472 <span class="label-uppercase">reputation</span>
+									${queryUserInfo.upoint} <span class="label-uppercase">reputation</span>
 								</div>
 
 								<div class="g-row _gutters ai-start fl-none -row-first">
-									<div class="g-col g-row g-center badge1-alternate zebra_tips1" title="拥有${queryUserInfo.uissectioner}个版块<br><a href=''>申请版主?</a>">
-										<span class="g-col g-center -total">${queryUserInfo.uissectioner}</span>
+									<div class="g-col g-row g-center badge1-alternate zebra_tips1" title="普通用户${queryUserInfo.uissectioner}">
+										<a class="g-col g-center -total"><i class="glyphicon glyphicon-tower"></i></a>
 									</div>
-									<div class="g-col g-row g-center badge2-alternate zebra_tips1" title="举报该用户">
-										<a href="" class="g-col g-center -total">举报</a>
+									<div class="g-col g-row g-center badge2-alternate zebra_tips1" title="发送电子邮件~">
+										<a href="" class="g-col g-center -total"><i class="glyphicon glyphicon-envelope"></i></a>
 									</div>
 									<div class="g-col g-row g-center badge3-alternate zebra_tips1"
-										title="发送消息给他">
-										<a href="javaScript:;" onclick="toInfoCenterjump(${queryUserInfo.uid})" class="g-col g-center -total">私信</a>
+										title="发送私信给他">
+										<a href="javaScript:;" onclick="toInfoCenterjump(${queryUserInfo.uid})" class="g-col g-center -total"><i class="glyphicon glyphicon-send"></i></a>
 									</div>
 
 								</div>
@@ -93,47 +93,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div class="user-stats">
 										<div class="row" style="margin: 0;">
 											<div class="stat">
-												<span class="number">5,852</span> answers
+												<span class="number"><i class="glyphicon glyphicon-user"></i> ${queryUserInfo.uname}</span>
 											</div>
-
-											<div class="stat">
-												<span class="number">0</span> questions
-											</div>
-											<div class="stat">
-												<span class="number">~4.0m</span> people reached
-											</div>
+										
 										</div>
 									</div>
 
 									<div class="user-link">
 										<ul class="list-unstyled">
-											<li><svg aria-hidden="true" class="svg-icon iconLocation" width="18" height="18" viewBox="0 0 18 18">
-												<path d="M8.1 17.7S2 9.9 2 6.38A6.44 6.44 0 0 1 8.5 0C12.09 0 15 2.86 15 6.38 15 9.91 8.9 17.7 8.9 17.7c-.22.29-.58.29-.8 0zm.4-8.45a2.75 2.75 0 1 0 0-5.5 2.75 2.75 0 0 0 0 5.5z"></path></svg>
-												Atlanta, GA
+											
+											<li><span class="glyphicon glyphicon-gift"></span>
+												出生日期：${queryUserInfo.ubirthady}
 											</li>
-											<li><svg aria-hidden="true" class="svg-icon iconLink" width="18" height="18" viewBox="0 0 18 18">
-												<path d="M2.9 9c0-1.16.94-2.1 2.1-2.1h3V5H 5a4 4 0 1 0 0 8h3v-1.9H5A2.1 2.1 0 0 1 2.9 9zM13 5h-3v1.9h3a2.1 2.1 0 1 1 0 4.2h-3V13h3a4 4 0 1 0 0-8zm-7 5h6V8H6v2z"></path></svg>
-												<a href="http://www.frischcode.com" rel="me noreferrer" class="url">
-												frischcode.com
-												</a>
+											<li><span class="glyphicon glyphicon-time"></span>
+												注册时间：<i id="regist_time">${queryUserInfo.uregdate}</i>
 											</li>
-											<li><svg aria-hidden="true" class="svg-icon iconHistory" width="19" height="18" viewBox="0 0 19 18">
-												<path d="M3 9a8 8 0 1 1 3.73 6.77L8.2 14.3A6 6 0 1 0 5 9l3.01-.01-4 4-4-4h3zm7-4h1.01L11 9.36l3.22 2.1-.6.93L10 10V5z"></path></svg>
-												Member for 
-												<span title="2013-11-09 01:20:44Z">
-												3 years, 11 months
-												</span>
+											<li><span class="glyphicon glyphicon-file"></span>
+												发帖个数：${userTopic.totalRecordCount}
 											</li>
-											<li><svg aria-hidden="true" class="svg-icon iconEye" width="18" height="18" viewBox="0 0 18 18">
-												<path 	d="M9.06 3C4 3 1 9 1 9s3 6 8.06 6C14 15 17 9 17 9s-3-6-7.94-6zM9 13a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm2-4a2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2 2 2 0 0 1 2 2z"></path></svg>
-												11,727 profile views
+											<li><span class="glyphicon glyphicon-comment"></span>
+												回帖个数：${userReplys.totalRecordCount}
 												</li>
-											<li><svg aria-hidden="true" class="svg-icon iconClock"width="18" height="18" viewBox="0 0 18 18">
-												<path d="M9 17A8 8 0 1 1 9 1a8 8 0 0 1 0 16zm0-2A6 6 0 1 0 9 3a6 6 0 0 0 0 12zM8 5h1.01L9 9.36l3.22 2.1-.6.93L8 10V5z"></path></svg>
-												Last seen 
-												<span title="2017-10-23 02:04:28Z" class="relativetime">
-												3 mins ago
-												</span>
+											<li><span class="glyphicon glyphicon-info-sign"></span>
+											用户状态：
+											<c:if test="${queryUserInfo.ustate > 0}">良好</c:if>
+											<c:if test="${queryUserInfo.ustate < -10}">警告</c:if>
 											</li>
 										</ul>
 									</div>
@@ -180,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="col-md-9">
 							<ul class="nav nav-tabs ">
 								<li>
-									<h4>${userTopic.totalRecordCount}个帖子</h4>
+									<h4>帖子</h4>
 								</li>
 							</ul>
 							<div  class="tab-content">
@@ -226,7 +210,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<!-- 回帖 -->
 							<ul class="nav nav-tabs" style="margin-top: 100px;">
 								<li>
-									<h4>${userReplys.totalRecordCount}个回复</h4>
+									<h4>回复</h4>
 								</li>
 							</ul>
 							<div  class="tab-content">
@@ -434,9 +418,12 @@ function hide_MoreBtn_LoadBtn_reply(){
 <script type="text/javascript" src="js/zebra_tooltips.js"></script>
 <!-- 字符限制 -->
 <script type="text/javascript" src="js/limitStr.js"></script>
-
+<script type="text/javascript" src="js/transform_time.js"></script>
 <script type="text/javascript">
 	$(function(){
+		var time = $('#regist_time').html();
+		$('#regist_time').html(getDateDiff(time));
+		console.log(getDateDiff('2017-11-04'))
 		textAreaChange($("#userBio"));
 	});
 </script>

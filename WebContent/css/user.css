@@ -11,9 +11,7 @@ body.user-page #content * {
     margin-top:5px;
         font-weight: 500;
 }
-#showMore{
-	width:100px;
-}
+
 
 
 
@@ -109,8 +107,8 @@ body.user-page #content * {
 }
 
 .badge1-alternate {
-	background-color: #fff8e2;
-	border-color: #ece3c8;
+	background-color: #9C27B0;
+	border-color: #9C27B0;
 }
 
 .badge1-alternate,
