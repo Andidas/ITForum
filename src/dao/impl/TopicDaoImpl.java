@@ -68,7 +68,8 @@ public class TopicDaoImpl implements TopicDao {
 			return pm;
 	
 	}
-	private int rowUserTopicNum(int id){
+	@Override
+	public int rowUserTopicNum(int id){
 			int num = 0;
 			SqlSession sqlSession = MyBatisSessionFactory.getSession();
 			num = sqlSession.selectOne("Topic.rowUserTopicNum", id);

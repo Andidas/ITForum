@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -16,6 +17,14 @@ import entity.Session;
  *
  */
 public class SessionService implements ISessionService {
+	@Override
+	public List<Map<String,Object>> queryAllSessionByMaster(String userid){
+		int id = Integer.parseInt(userid);
+		SqlSession sqlsession = MyBatisSessionFactory.getSession();
+		List<Map<String,Object>> sessions = sqlsession.getMapper(SessionDao.class).queryAllSessionByMaster(id);
+		MyBatisSessionFactory.closeSession();
+		return sessions;
+	}
 	private SensitivewordFilter filter = new SensitivewordFilter();
 	@Override
 	public boolean isSearchSession(String text){

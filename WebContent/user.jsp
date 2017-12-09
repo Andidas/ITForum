@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li class="active"><a href="#profile" data-toggle="tab">
 							<span class="glyphicon glyphicon-home"></span>主页</a></li>
 					<li><a href="#activity" data-toggle="tab"><span class="glyphicon glyphicon-leaf"></span>成就</a></li>
-					<c:if test="${queryUserInfo.uid==NowLoginUser.uid}">
+					<c:if test="${queryUserInfo.uid==NowLoginUser.uid and not empty NowLoginUser}">
 					<li><a href="#edit" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span>编辑</a></li>
 					</c:if>
 				</ul>
@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											alt="" width="164" height="164" class="avatar-user">
 									</a>
 								</div>
-								<div class="reputation zebra_tips1" title="reputation">
+								<div class="reputation zebra_tips1" title="该用户所获得的成就">
 									131,472 <span class="label-uppercase">reputation</span>
 								</div>
 
@@ -62,8 +62,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div class="g-col g-row g-center badge1-alternate zebra_tips1" title="拥有${queryUserInfo.uissectioner}个版块<br><a href=''>申请版主?</a>">
 										<span class="g-col g-center -total">${queryUserInfo.uissectioner}</span>
 									</div>
-									<div class="g-col g-row g-center badge2-alternate zebra_tips1" title="用户积分:${queryUserInfo.upoint}">
-										<span class="g-col g-center -total">${queryUserInfo.upoint}</span>
+									<div class="g-col g-row g-center badge2-alternate zebra_tips1" title="举报该用户">
+										<a href="" class="g-col g-center -total">举报</a>
 									</div>
 									<div class="g-col g-row g-center badge3-alternate zebra_tips1"
 										title="发送消息给他">
@@ -145,8 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="clearfix" id="sidebar">
 						<div class="col-md-3">
 							<div class="module" id="interesting-tags">
-								<h4 id="h-interesting-tags">他的关注</h4>
-								<a id="edit-interesting">edit</a>
+								<h4>他的关注</h4>
 								<div>
 									<c:if test="${empty userFollowSession}">
 										<br><br>
@@ -160,16 +159,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</a>									
 									</c:forEach>
 								</div>
-								
+							</div>
+							<div class="module" id="myNew-tags">
+								<h4 >他建的版块</h4>
+								<div>
+									<c:if test="${empty sessionsCreatedByUser}">
+										<br><br>
+										<p style="color: #9e9e9e;">
+											用户暂时不是版主
+										</p>		
+									</c:if>
+									<c:forEach items="${sessionsCreatedByUser}" var="session">
+									<a href="javaScript:;" class="label label-success"  rel="tag" onclick="tosessionjump(${session.sid})">
+										${session.sname}
+									</a>									
+									</c:forEach>
+								</div>
 							</div>
 						</div>
 						<div class="col-md-9">
-							<ul id="Tabson" class="nav nav-tabs ">
+							<ul class="nav nav-tabs ">
 								<li>
-									<h4>帖子</h4>
+									<h4>${userTopic.totalRecordCount}个帖子</h4>
 								</li>
 							</ul>
-							<div id="TabContentSon" class="tab-content">
+							<div  class="tab-content">
 								<div class="tab-pane fade in active" >
 									<table class="table table-hover table-condensed table-striped">
 										<thead>
@@ -190,13 +204,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 							</div>
 							<c:if test="${empty userTopic.data}">
-								<p style="color:#9e9e9e;text-align: center;">一个帖子都没发过</p>
+								<p style="color:#9e9e9e;text-align: center;">一个帖子都没发表过</p>
 							</c:if>
 							<c:if test="${not empty userTopic.data}">
 								
 								<div class="col-xs-2 col-xs-offset-5" style="padding-bottom:20px;">								
 									<a class="btn btn-default" id="showMore">加载更多</a>
-									<input type="hidden" value="1" id="nowPageNo">
+									<input type="hidden" value="2" id="nowPageNo">
 									<div class="loadEffect" id="loadEffect" style="display:none;">
 								        <span></span>
 								        <span></span>
@@ -208,9 +222,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								        <span></span>
 									</div>
 								</div>
-								
 							</c:if>
-							
+							<!-- 回帖 -->
+							<ul class="nav nav-tabs" style="margin-top: 100px;">
+								<li>
+									<h4>${userReplys.totalRecordCount}个回复</h4>
+								</li>
+							</ul>
+							<div  class="tab-content">
+								<div class="tab-pane fade in active" >
+									<table class="table table-hover table-condensed table-striped">
+										<thead>
+											<tr>
+												<th>内容</th>
+												<th>时间</th>
+											</tr>
+										</thead>
+										<tbody id="reply_tbody">
+											<c:forEach items="${userReplys.data}" var="reply" varStatus="num">
+											<tr <c:if test="${num.index%2==1}">class="success"</c:if>>
+											<td><a href="javaScript:;" onclick="toTopicJump(${reply.rtid},${reply.rsid})">${reply.rcontent}</a></td>
+												<td>${reply.rtime}</td>
+											</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<c:if test="${empty userReplys.data}">
+								<p style="color:#9e9e9e;text-align: center;">从未回复过帖子</p>
+							</c:if>
+							<c:if test="${not empty userReplys.data}">
+								<div class="col-xs-2 col-xs-offset-5" style="padding-bottom:20px;">								
+									<a class="btn btn-default" id="replyShowMore">加载更多</a>
+									<input type="hidden" value="2" id="replyNowPageNo">
+									<div class="loadEffect" id="replyLoadEffect" style="display:none;">
+								        <span></span>
+								        <span></span>
+								        <span></span>
+								        <span></span>
+								        <span></span>
+								        <span></span>
+								        <span></span>
+								        <span></span>
+									</div>
+								</div>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -275,7 +332,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<%@include file="footer.html" %>	
 </body>
-<!-- 加载更多 -->
+<!-- topic加载更多 -->
 <script type="text/javascript">
 	$(function(){
 		$("#showMore").click(function(){
@@ -287,7 +344,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					'uid':uid,
 					'pageno':nowPageNo
 			}
-			$.post('UserInFo',param,function(data){
+			$.post('Topic',param,function(data){
 				if(data=="false"){
 					setTimeout('hide_MoreBtn_LoadBtn()',1000);
 				}else{
@@ -323,6 +380,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function hide_MoreBtn_LoadBtn(){
 		$("#showMore").hide();
 		$("#loadEffect").hide();
+	}
+</script>
+<!-- reply加载更多 -->
+<script type="text/javascript">
+function hide_MoreBtn_LoadBtn_reply(){
+	$("#replyShowMore").hide();
+	$("#replyLoadEffect").hide();
+}
+	$(function(){
+		$("#replyShowMore").click(function(){
+			hide_show($("#replyShowMore"),$("#replyLoadEffect"));
+			var uid = $("#queryUserId").val();
+			var nowPageNo = $("#replyNowPageNo").val();
+			var param = {
+					'op':'findUserReply',
+					'uid':uid,
+					'pageno':nowPageNo
+			}
+			$.post('Reply',param,function(data){
+				if(data=="false"){
+					setTimeout('hide_MoreBtn_LoadBtn_reply()',1000);
+				}else{
+					hide_show($("#replyLoadEffect"),$("#replyShowMore"));
+					
+					var replys = JSON.parse(data);
+					$.each(replys,function(i,reply){
+						var content=setUser_Treply(i,reply);
+						$('#reply_tbody').append(content);
+					});
+					nowPageNo++;
+					$("#replyNowPageNo").val(nowPageNo);
+				}
+			});
+		});
+	});
+	function setUser_Treply(i,reply){
+		if(i%2==1){
+			var cla = 'class="success"';
+		}
+		var text = '<tr '+cla+'>'
+				+'<td>'
+				+'<a href="javaScript:;" onclick="toTopicJump('+reply.rtid+','+reply.rsid+')">'+reply.rcontent+'</a>'
+				+'</td><td>'
+				+reply.rtime
+				+'</td></tr>';
+		return text;
 	}
 </script>
 <!-- 页面跳转 -->

@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -11,25 +10,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import net.sf.json.JSONArray;
 import service.FollowService;
-import service.JsonService;
 import service.PrivateLetterService;
+import service.ReplyService;
+import service.SessionService;
 import service.TopicService;
 import service.UserService;
 import utils.ConstantsData;
 import utils.TransformTime;
 import entity.PageMode;
 import entity.PageParam;
+import entity.Reply;
 import entity.Topic;
 import entity.User;
 import entity.viewEntity.FollowView;
 public class AboutUserInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private FollowService followService = new FollowService();
+    private SessionService sessionService = new SessionService();
+    private ReplyService replyService = new ReplyService();
 	private UserService userService = new UserService();
 	private TopicService topicService = new TopicService();
-	private JsonService jsonService = new JsonService();
+	
 	private PrivateLetterService pls = new PrivateLetterService();
     public AboutUserInfo() {
         super();
@@ -43,38 +45,21 @@ public class AboutUserInfo extends HttpServlet {
 			toInfoCenter(request, response);
 		}else if(op.equals("toUserInfo")){
 			toUserInfo(request,response);
-		}else if(op.equals("findUserTopic")){
-			findUserTopic(request,response);
 		}
 	}
-	private void findUserTopic(HttpServletRequest request,
-			HttpServletResponse response)throws ServletException, IOException  {
-		PrintWriter out = response.getWriter();
-		int pageno=ConstantsData.PAGENO; 
-		
-		String pagenoStr = request.getParameter("pageno");
-		if(pagenoStr!=null&&!"".equals(pagenoStr)){
-			pageno = Integer.parseInt(pagenoStr);
-		}
-		String uid = request.getParameter("uid");
-		PageMode<Topic> pm = topicService.queryUserAllTopic(pageno,ConstantsData.PAGESIZE_10,uid);
-		if(pm.getData().size()==0){
-			out.print("false");
-		}else{
-			JSONArray ja = jsonService.toJSONArray(pm.getData());
-			out.print(ja);
-		}		
-	}
-	/**
-	 * �û���Ϣ
-	 */
+	
+	
 	private void toUserInfo(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String uid = request.getParameter("uid");
 		User user = userService.queryUserOne(uid);
 		List<FollowView> follows= followService.queryFollowList(uid);
 		PageMode<Topic>topics = topicService.queryUserAllTopic(ConstantsData.PAGENO,ConstantsData.PAGESIZE_10,uid);
+		PageMode<Reply>replys = replyService.queryUserAllReply(ConstantsData.PAGENO,ConstantsData.PAGESIZE,uid);
+		List<Map<String,Object>> created = sessionService.queryAllSessionByMaster(uid);
 		
+		request.setAttribute("userReplys", replys);
+		request.setAttribute("sessionsCreatedByUser", created);
 		request.setAttribute("queryUserInfo", user);
 		request.setAttribute("userFollowSession", follows);
 		request.setAttribute("userTopic", topics);

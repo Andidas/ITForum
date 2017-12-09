@@ -63,13 +63,10 @@
 		where rtid = #{id} and r.ruid = u.uid order by r.rtime DESC limit #{pageno},#{pagesize}
 	</select>
 	
-	<resultMap type="INTEGER" id="ReplyrowNumResult">
-		<result column="num" jdbcType="INTEGER" property="num" />
-	</resultMap>
-	<select id="ReplyrowNum" parameterType="INTEGER" resultMap="ReplyrowNumResult">
+	<select id="ReplyrowNum" parameterType="INTEGER" resultType="INTEGER">
 		select count(*) as num from reply where rtid  = #{_parameter}
 	</select>
-	<select id="UserReplyrowNum" parameterType="INTEGER" resultMap="ReplyrowNumResult">
+	<select id="UserReplyrowNum" parameterType="INTEGER" resultType="INTEGER">
 		select count(*) num from reply where ruid = #{_parameter}
 	</select>
 	<!-- end 分页 -->

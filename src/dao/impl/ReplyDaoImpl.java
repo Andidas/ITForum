@@ -86,8 +86,8 @@ public class ReplyDaoImpl implements ReplyDao {
 		return pm;
 
 	}
-
-	private int UserReplyrowNum(int id) {
+	@Override
+	public int UserReplyrowNum(int id) {
 		int num = 0;
 		SqlSession sqlSession = MyBatisSessionFactory.getSession();
 		num = sqlSession.selectOne("Reply.UserReplyrowNum", id);

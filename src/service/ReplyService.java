@@ -17,9 +17,10 @@ public class ReplyService implements IReplyService {
 	private SensitivewordFilter filter = new SensitivewordFilter();
 	private ReplyDao replyDao = new ReplyDaoImpl();
 	@Override
-	public PageMode<Reply> queryUserAllReply(String uid){
+	public PageMode<Reply> queryUserAllReply(int pageno,int pagesize,String uid){
 		int id = Integer.parseInt(uid);
-		return replyDao.queryUserAllReply(new PageParam(1,5,id));
+		PageParam param = new PageParam(pageno,pagesize,id);
+		return replyDao.queryUserAllReply(param);
 	}
 	@Override
 	public boolean deleteReplyOne(int rid) {
@@ -57,6 +58,7 @@ public class ReplyService implements IReplyService {
 			return replyDao.addReplyOne(reply) > 0;
 		}
 	}
+
 
 	
 

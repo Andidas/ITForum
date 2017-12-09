@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -14,6 +15,13 @@ import entity.viewEntity.SessionView;
  *
  */
 public interface SessionDao {
+	/**
+	 * 通过用户id查询该用户创建的session
+	 * @param userid
+	 * @return
+	 */
+	@Select("select * from `session` where smasterid = #{_parameter}")
+	List<Map<String,Object>> queryAllSessionByMaster(int userid);
 	/**
 	 * 查询所有的session分类profile
 	 * @return

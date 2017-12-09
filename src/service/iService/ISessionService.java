@@ -1,6 +1,7 @@
 package service.iService;
 
 import java.util.List;
+import java.util.Map;
 
 import entity.Session;
 
@@ -84,6 +85,13 @@ public interface ISessionService {
 	 */
 	boolean addSession(String sname, int smasterid, String sprofile,
 			String sstatement, String spicture);
+	
+	/**
+	 * 通过用户id查询该用户创建的session
+	 * @param userid
+	 * @return
+	 */
+	List<Map<String, Object>> queryAllSessionByMaster(String userid);
 	
 }		
  

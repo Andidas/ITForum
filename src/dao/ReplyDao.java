@@ -43,4 +43,11 @@ public interface ReplyDao {
 	 * @return
 	 */
 	int addReplyOne(Reply reply);
+	
+	/**
+	 * 用户回复的帖子数
+	 * @param userid
+	 * @return
+	 */
+	int UserReplyrowNum(int userid);
 }

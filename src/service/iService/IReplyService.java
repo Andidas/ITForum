@@ -28,5 +28,6 @@ public interface IReplyService {
 	 * @param uid 用户id
 	 * @return
 	 */
-	PageMode<Reply> queryUserAllReply(String uid);
+	PageMode<Reply> queryUserAllReply(int pageno,int pagesize,String uid);
+	
 }

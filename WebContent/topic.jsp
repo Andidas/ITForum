@@ -269,7 +269,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			'pageno':pageno,
 			'nowTopicTid':$('#nowTopicTid').val()
 		}
-		$.post("Topic",param,function(data){
+		$.post("Reply",param,function(data){
 			if(data=="false"){
 				alert('分页查询失败');
 			}else{

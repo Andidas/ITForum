@@ -19,4 +19,8 @@ public class TestTopicService {
 		PageMode<Topic> ps = new TopicService().queryUserAllTopic(3,10,"16");
 		System.out.println(ps.getData().size());
 	}
+	@Test
+	public void rowNum(){
+		System.out.println(new TopicDaoImpl().rowUserTopicNum(16));
+	}
 }

@@ -28,6 +28,11 @@ public class TestSessionService {
 	}
 	@Test
 	public void queryAllProfile(){
+		assertTrue(ss.queryAllProfile()!=null);
 		System.out.println(ss.queryAllProfile());
+	}
+	@Test 
+	public void queryAllSessionByMaster(){
+		System.out.println(ss.queryAllSessionByMaster("16"));
 	}
 }

@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
-import entity.PageMode;
-import entity.viewEntity.ReplyView;
-import entity.viewEntity.TopicView;
 import service.JsonService;
 import service.TopicService;
 import service.TopicViewService;
 import utils.ConstantsData;
+import entity.PageMode;
+import entity.Topic;
+import entity.viewEntity.TopicView;
 
 /**
  * topic
@@ -24,11 +24,11 @@ import utils.ConstantsData;
  */
 public class TopicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	 
 	/*实例化业务类*/
+	private JsonService jsonService = new JsonService();	 
 	private TopicService topicService = new TopicService();
 	private TopicViewService topicViewService = new TopicViewService();
-	private JsonService jsonService = new JsonService();
+	
     public TopicServlet() {
         super();
     }
@@ -41,10 +41,31 @@ public class TopicServlet extends HttpServlet {
 			releaseTopic(request,response);
 		}else if(op.equals("toTopic")){
 			toTopic(request,response);
-		}else if(op.equals("findReplyByPage")){
-			findReplyByPage(request,response);
+		}else if(op.equals("findUserTopic")){
+			findUserTopic(request,response);
 		}
 		
+	}
+	/**
+	 * 查询用户的topic分页
+	 */
+	private void findUserTopic(HttpServletRequest request,
+			HttpServletResponse response)throws ServletException, IOException  {
+		PrintWriter out = response.getWriter();
+		int pageno=ConstantsData.PAGENO; 
+		
+		String pagenoStr = request.getParameter("pageno");
+		if(pagenoStr!=null&&!"".equals(pagenoStr)){
+			pageno = Integer.parseInt(pagenoStr);
+		}
+		String uid = request.getParameter("uid");
+		PageMode<Topic> pm = topicService.queryUserAllTopic(pageno,ConstantsData.PAGESIZE_10,uid);
+		if(pm.getData().size()==0){
+			out.print("false");
+		}else{
+			JSONArray ja = jsonService.toJSONArray(pm.getData());
+			out.print(ja);
+		}		
 	}
 	/**
 	 * 跳转到topic
@@ -66,27 +87,7 @@ public class TopicServlet extends HttpServlet {
 			request.getRequestDispatcher("topic.jsp").forward(request,response);
 		}
 	}
-	/**
-	 * topic的回帖分页
-	 */
-	private void findReplyByPage(HttpServletRequest request,
-			HttpServletResponse response)throws ServletException, IOException  {
-		PrintWriter out = response.getWriter();
-		int pageno=ConstantsData.PAGENO; //页数
-		
-		String pagenoStr = request.getParameter("pageno");
-		if(pagenoStr!=null&&!"".equals(pagenoStr)){
-			pageno = Integer.parseInt(pagenoStr);
-		}
-		String nowTopicTid = request.getParameter("nowTopicTid");
-		PageMode<ReplyView> pm = topicViewService.queryReplyViewPageMode(pageno, ConstantsData.PAGESIZE, Integer.parseInt(nowTopicTid));
-		if(pm==null){
-			out.print("false");
-		}else{
-			JSONArray ja = jsonService.toJSONArray(pm.getData());
-			out.print(ja);
-		}		
-	}
+	
 	
 	/**
 	 * 发布topic，ajax

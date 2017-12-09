@@ -133,7 +133,9 @@
 					<c:if test="${!empty sessionScope.NowLoginUser.uemail}">
 					<div class="panel panel-info" id="userinfo">
 						<div class="panel-heading  text-center">
+						<a href="javaScript:;" onclick="touserjump(${NowLoginUser.uid})">
 							<img class="img-circle" src="<c:if test="${not empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/${sessionScope.NowLoginUser.uhead}</c:if><c:if test="${empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/ITForum.jpg</c:if>" width="60" height="60" />
+						</a>
 						</div>
 						<div class="panel-body">
 							<h3 class="panel-title">

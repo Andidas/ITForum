@@ -19,7 +19,7 @@ public class ConstantsData {
 	 */
 	public final static int PAGESIZE_10 = 10;
 	/**
-	 * 当前在第几页
+	 * 当前在第1页
 	 */
 	public final static int PAGENO = 1;
 	/**

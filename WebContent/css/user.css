@@ -4,7 +4,7 @@ body.user-page #content * {
 	box-sizing: border-box;
 }
 
-#interesting-tags .label{
+#myNew-tags .label, #interesting-tags .label{
 	display:inline-block;
 	min-width:113px;
 	padding: 10px 0;
@@ -132,8 +132,8 @@ body.user-page #content * {
 
 .badge2-alternate,
 .badge-how-to {
-	background-color: #edeeef;
-	border-color: #e0e1e3;
+	background-color: #ffc107;
+	border-color: #ffc107;
 }
 
 .g-center {

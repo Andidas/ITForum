@@ -80,4 +80,11 @@ public interface TopicDao {
 	 * @return
 	 */
 	int updateReplyCountAdd(Topic topic);
+
+	/**
+	 * 用户发表的帖子数
+	 * @param id
+	 * @return
+	 */
+	int rowUserTopicNum(int id);
 }

@@ -29,17 +29,20 @@ public class TransformTime {
 			long s=(l/1000-day*24*60*60-hour*60*60-min*60);
 	
 			StringBuffer sb = new StringBuffer();
-	
-			if(day > 0)
-				sb.append(day+"天");
-			if(hour > 0 )
-				sb.append(hour+"小时");
-			if(min > 0 )
-				sb.append(min+"分");
-			sb.append(s+"秒 前");
-			return sb.toString();
+			
+			if(hour>0){
+				if(day > 0)
+					sb.append(day+"天");
+				if(hour > 0 )
+					sb.append(hour+"小时.前");
+				return sb.toString();
+			}else{
+				if(min > 0 )
+					sb.append(min+"分");
+				sb.append(s+"秒.前");
+				return sb.toString();
+			}
 		} catch (ParseException e) {
-			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		return null;
