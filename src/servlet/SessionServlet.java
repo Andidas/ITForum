@@ -55,8 +55,22 @@ public class SessionServlet extends HttpServlet {
 			doNewSession(request,response);
 		}else if(op.equals("toNewSession")){
 			toNewSession(request,response);
+		}else if(op.equals("deleteSession")){
+			deleteSession(request,response);
+		}
+		
+	}
+	private void deleteSession(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String sid = request.getParameter("sid");
+		PrintWriter out = response.getWriter();
+		if(sessionService.deleteSession(sid)){
+			out.print("true");
+		}else{
+			out.print("false");
 		}
 	}
+
 	/**
 	 * token令牌技术：用于防止重复提交的问题：
 	 * 1、跳转到提交页面前先添加令牌

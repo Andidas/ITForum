@@ -3,7 +3,10 @@ package service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.ibatis.session.SqlSession;
+
 import service.iService.IReplyService;
+import utils.db.MyBatisSessionFactory;
 import utils.sensitive_word.SensitivewordFilter;
 import dao.ReplyDao;
 import dao.impl.ReplyDaoImpl;
@@ -57,6 +60,15 @@ public class ReplyService implements IReplyService {
 		}else{
 			return replyDao.addReplyOne(reply) > 0;
 		}
+	}
+	@Override
+	public boolean deleteReply(String rid) {
+		int reply_id = Integer.parseInt(rid);
+		SqlSession sqlsession = MyBatisSessionFactory.getSession();
+		int result = sqlsession.getMapper(ReplyDao.class).deleteReply(reply_id);
+		sqlsession.commit();
+		MyBatisSessionFactory.closeSession();
+		return result>0;
 	}
 
 

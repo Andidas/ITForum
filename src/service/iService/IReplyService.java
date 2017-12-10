@@ -5,6 +5,12 @@ import entity.Reply;
 
 
 public interface IReplyService {
+	/**
+	 * 删除reply
+	 * @param rid
+	 * @return
+	 */
+	boolean deleteReply(String rid);
 	/** 
 	 * 发帖数加1,并且更新最后发帖人和发帖时间
 	 * @param 

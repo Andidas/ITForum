@@ -125,4 +125,13 @@ public class SessionService implements ISessionService {
 		MyBatisSessionFactory.closeSession();
 		return sessions;
 	}
+	@Override
+	public boolean deleteSession(String sid) {
+		int session_id = Integer.parseInt(sid);
+		SqlSession sqlsession = MyBatisSessionFactory.getSession();
+		int result = sqlsession.getMapper(SessionDao.class).deleteSession(session_id);
+		sqlsession.commit();
+		MyBatisSessionFactory.closeSession();
+		return result>0;
+	}
 }

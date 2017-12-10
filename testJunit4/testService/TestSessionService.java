@@ -1,6 +1,8 @@
 package testService;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -10,6 +12,11 @@ import service.SessionViewService;
 public class TestSessionService {
 	SessionViewService svs = new SessionViewService();
 	SessionService ss = new SessionService();
+	
+	@Test
+	public void testDeleteSession(){
+		assertTrue(ss.deleteSession("50"));
+	}
 	@Test
 	public void querySessionView(){
 		assertEquals(null,svs.querySessionView(""));

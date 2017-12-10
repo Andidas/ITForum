@@ -283,7 +283,7 @@ function topicContent(topic){
 <!-- 左边导航栏 -->
 <script type="text/javascript">
 	$(function(){
-		$('.profilesNav').click(function(){
+		$('.profilesNav').mouseout(function(){
 			var obj = $(this).attr('href');
 			var panelbody = $(obj).find('.panel-body');
 			var profile = $(this).html();

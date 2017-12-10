@@ -43,8 +43,20 @@ public class TopicServlet extends HttpServlet {
 			toTopic(request,response);
 		}else if(op.equals("findUserTopic")){
 			findUserTopic(request,response);
+		}else if(op.equals("deleteTopic")){
+			deleteTopic(request,response);
 		}
 		
+	}
+	private void deleteTopic(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String tid = request.getParameter("tid");
+		PrintWriter out = response.getWriter();
+		if(topicService.deleteTopic(tid)){
+			out.print("true");
+		}else{
+			out.print("false");
+		}
 	}
 	/**
 	 * 查询用户的topic分页

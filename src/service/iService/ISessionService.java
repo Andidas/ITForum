@@ -11,6 +11,12 @@ import entity.Session;
  */
 public interface ISessionService {
 	/**
+	 * 删除session
+	 * @param sid 
+	 * @return
+	 */
+	boolean deleteSession(String sid);
+	/**
 	 * 查询属于同一类的session
 	 * @param sprofile
 	 * @return

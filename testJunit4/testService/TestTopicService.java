@@ -1,5 +1,7 @@
 package testService;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import service.TopicService;
@@ -9,7 +11,12 @@ import entity.PageParam;
 import entity.Topic;
 
 public class TestTopicService {
-
+	TopicService ts = new TopicService();
+	
+	@Test
+	public void testDeleteTopic(){
+		assertTrue(ts.deleteTopic("75"));
+	}
 	@Test
 	public void test() {
 		System.out.println(new TopicDaoImpl().splitPage(new PageParam(1,5)));

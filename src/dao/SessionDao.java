@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -15,6 +16,22 @@ import entity.viewEntity.SessionView;
  *
  */
 public interface SessionDao {
+	/**
+	 * 删除session
+	 * 触发器如下：
+	 * DROP TRIGGER IF EXISTS t_afterdelete_on_session;
+	 * CREATE TRIGGER t_afterdelete_on_session
+	 * BEFORE DELETE ON `session`
+	 * FOR EACH ROW
+	 * BEGIN
+     * 		delete from topic where tsid=old.sid;
+	 *		delete from follow where sid=old.sid;
+	 * END;
+	 * @param sid
+	 * @return
+	 */
+	@Delete("delete from `session` where sid= #{__parameter}")
+	int deleteSession(int sid);
 	/**
 	 * 通过用户id查询该用户创建的session
 	 * @param userid

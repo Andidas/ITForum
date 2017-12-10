@@ -34,10 +34,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="nav.jsp" flush="true"></jsp:include>
 	<div class="container" id="content">
 		<div class="row clearfix">
-			<div class="col-lg-12 page-header" style="margin-top:0;">
+			<div class="col-lg-12 page-header" style="margin-top:0;background: #00BCD4;">
 				<h2 class="col-lg-12">
-				<span class="TopicTName" id="nowTopicName">${nowActiveTopicView.ttopic}</span>
-				<input type="hidden" value="${nowActiveTopicView.tid}" id="nowTopicTid" class="topicTid"/> 
+				<span class="TopicTName" id="nowTopicName" style="color:#fff;">${nowActiveTopicView.ttopic}</span>
+				<input type="hidden" value="${nowActiveTopicView.tid}" id="nowTopicTid" class="topicTid"/>
+				<c:if test="${nowActiveTopicView.tuid == NowLoginUser.uid}">
+				<small><a href="javaScript:;" onclick="deleteTopic(${nowActiveTopicView.tid})">删除</a></small> 
+				</c:if>
 				</h2>
 				<a href="javaScript:void(0)" class="col-lg-12 pull-right" >-
 					<span class="sessionName">${nowActiveTopicView.sname}</span>
@@ -94,12 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li>
 							<h4>${ReplyPage.totalRecordCount} &nbsp;条回复</h4>
 						</li>
-						<li class="pull-right"><a href="#answers" data-toggle="tab"
-							aria-expanded="false">oldest</a></li>
-						<li class="pull-right active"><a href="#questions"
-							data-toggle="tab" aria-expanded="true">new</a></li>
-						<li class="pull-right"><a href="#All" data-toggle="tab"
-							aria-expanded="false">vote</a></li>
+						
 				</ul>
 				<div class="answers">
 				<c:forEach items="${ReplyPage.data}" var="reply">
@@ -152,6 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</div>
 										<div>
 											<a class="comments-link replyComment">回复</a>
+											
 										</div>
 									</td>
 								</tr>
@@ -176,16 +175,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<tbody>
 							<tr>
 								<td>
-									<p class="label-key">发帖时间：</p>
-								</td>
-								<td style="padding-left: 10px">
-									<p class="label-key zebra_tips1" title="发帖时间:${nowActiveTopicView.ttime}">
-										<b>${nowActiveTopicView.ttime}</b>
-									</p>
-								</td>
-							</tr>
-							<tr>
-								<td>
 									<p class="label-key">观看人数：</p>
 								</td>
 
@@ -197,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</tr>
 							<tr>
 								<td>
-									<p class="label-key">回帖时间：</p>
+									<p class="label-key">最后回帖：</p>
 								</td>
 								<td style="padding-left: 10px">
 									<p class="label-key">
@@ -220,9 +209,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</tbody>
 					</table>
 				</div>
-				<div class="panel " id="HotQuestion">
-					<div class="panel-heading">
-						<h3 class="panel-title">相关</h3>
+				<div class="panel" id="HotQuestion">
+					<div class="panel-heading" style="margin-top:0;background: #00BCD4;">
+						<h3 class="panel-title" style="color:#fff;">相关</h3>
 					</div>
 					<div class="panel-body">
 						<ul class=""> 
@@ -295,6 +284,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	//回复内容
 	function replyContent(reply){
+		var deleteText;
+		if($('#nowUserID').val()==reply.ruid){
+			deleteText="<a href='javaScript:;' onclick='deleteReply("+reply.rid+")'>删除</a>";
+		}else{
+			deleteText="";
+		}
 		var text = "<div class='answer'><table><tbody><input type='hidden' class='rid' value='"
 					+ reply.rid
 					+"'><tr><td class='votecell'><div class='vote'><span class='date-dz-z pull-left reply_tips' title='点赞，可以加该贴的排名'>"
@@ -320,9 +315,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					+"<td><div class='comments '>"
 					+"<table><tbody></tbody></table></div><div>"
 					+"<a class='comments-link replyComment'>回复</a>"
+					+deleteText
 					+"</div></td></tr></tbody></table></div></div>";
 					
 		return text;
+	}
+	//删除回复reply
+	function deleteReply(rid){
+		var param = {
+				'op':'deleteReply',
+				'rid':rid
+		}
+		$.post('Reply',param,function(data){
+			if(data == 'false'){
+				alert('无法删除');
+			}else{
+				alert('删除成功');
+				location.reload();
+			}
+		});
+	}
+	//删除帖子topic
+	function deleteTopic(tid){
+		var msg = '确定要删除该帖子，并删除相关的东西吗?';
+		if(confirm(msg)==true){
+			var param = {
+					'op':'deleteTopic',
+					'tid':tid
+			}
+			$.post('Topic',param,function(data){
+				if(data=='false'){
+					alert('无法删除');
+				}else{
+					alert('删除成功');
+					location.href = "Session?op=toSession&SessionSid=" + $('#sessionSid').val();
+				}
+			});
+		}else{
+			alert('删除取消');
+		}
 	}
 </script>
 <!-- 回复帖子  -->

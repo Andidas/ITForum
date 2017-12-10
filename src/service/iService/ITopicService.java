@@ -11,6 +11,12 @@ import entity.Topic;
  */
 public interface ITopicService {
 	/**
+	 * 删除topic
+	 * @param tid
+	 * @return
+	 */
+	boolean deleteTopic(String tid);
+	/**
 	 * 分页，用户发布的所有topic
 	 * @param pageno
 	 * @param pagesize

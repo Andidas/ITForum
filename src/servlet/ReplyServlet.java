@@ -49,8 +49,20 @@ public class ReplyServlet extends HttpServlet {
 			findReplyByPage(request,response);
 		}else if(op.equals("findUserReply")){
 			findUserReply(request,response);
+		}else if(op.equals("deleteReply")){
+			deleteReply(request,response);
 		}
 	}
+	private void deleteReply(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String rid = request.getParameter("rid");
+		PrintWriter out = response.getWriter();
+		if(replyService.deleteReply(rid))
+			out.print("true");
+		else
+			out.print("false");
+	}
+
 	/**
 	 * 用户的回帖分页
 	 **/

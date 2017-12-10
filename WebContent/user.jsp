@@ -59,10 +59,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 
 								<div class="g-row _gutters ai-start fl-none -row-first">
-									<div class="g-col g-row g-center badge1-alternate zebra_tips1" title="普通用户${queryUserInfo.uissectioner}">
-										<a class="g-col g-center -total"><i class="glyphicon glyphicon-tower"></i></a>
-									</div>
-									<div class="g-col g-row g-center badge2-alternate zebra_tips1" title="发送电子邮件~">
+									<c:if test="${queryUserInfo.uissectioner ==0}">
+										<div class="g-col g-row g-center badge1-alternate zebra_tips1" title="普通用户">
+											<a class="g-col g-center -total"><i class="	glyphicon glyphicon-magnet"></i></a>
+										</div>						
+									</c:if>
+									<c:if test="${queryUserInfo.uissectioner ==1}">
+										<div class="g-col g-row g-center badge1-alternate zebra_tips1" title="版主">
+											<a class="g-col g-center -total"><i class="glyphicon glyphicon-tower"></i></a>
+										</div>
+									</c:if>
+									<div class="g-col g-row g-center badge2-alternate zebra_tips1" title="发送电子邮件给他">
 										<a href="" class="g-col g-center -total"><i class="glyphicon glyphicon-envelope"></i></a>
 									</div>
 									<div class="g-col g-row g-center badge3-alternate zebra_tips1"
@@ -101,13 +108,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 									<div class="user-link">
 										<ul class="list-unstyled">
+											<li>
+												<span class="	glyphicon glyphicon-fire"></span>
+												性别：<c:if test="${queryUserInfo.usex==1 }">男</c:if>
+												<c:if test="${queryUserInfo.usex==0 }">女</c:if>
+											</li>
 											
-											<li><span class="glyphicon glyphicon-gift"></span>
-												出生日期：${queryUserInfo.ubirthady}
-											</li>
-											<li><span class="glyphicon glyphicon-time"></span>
-												注册时间：<i id="regist_time">${queryUserInfo.uregdate}</i>
-											</li>
 											<li><span class="glyphicon glyphicon-file"></span>
 												发帖个数：${userTopic.totalRecordCount}
 											</li>
@@ -118,6 +124,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											用户状态：
 											<c:if test="${queryUserInfo.ustate > 0}">良好</c:if>
 											<c:if test="${queryUserInfo.ustate < -10}">警告</c:if>
+											</li>
+											<li><span class="glyphicon glyphicon-gift"></span>
+												出生日期：${queryUserInfo.ubirthady}
+											</li>
+											<li><span class="glyphicon glyphicon-time"></span>
+												注册时间：<i id="regist_time">${queryUserInfo.uregdate}</i>
 											</li>
 										</ul>
 									</div>
@@ -421,9 +433,7 @@ function hide_MoreBtn_LoadBtn_reply(){
 <script type="text/javascript" src="js/transform_time.js"></script>
 <script type="text/javascript">
 	$(function(){
-		var time = $('#regist_time').html();
-		$('#regist_time').html(getDateDiff(time));
-		console.log(getDateDiff('2017-11-04'))
+		
 		textAreaChange($("#userBio"));
 	});
 </script>

@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
+
 import entity.PageMode;
 import entity.PageParam;
 import entity.Topic;
@@ -12,7 +14,21 @@ import entity.viewEntity.TopicView;
  *
  */
 public interface TopicDao {
-	
+	/**
+	 * 删除topic
+	 * 触发器如下：
+	 * Drop TRIGGER if EXISTS t_afterdelete_on_topic;
+	 * create trigger t_afterdelete_on_topic
+	 * before delete on topic
+	 * for each ROW
+	 * begin 
+	 *			delete from reply where rtid = old.tid;
+	 * end;
+	 * @param tid
+	 * @return
+	 */
+	@Delete("delete from topic where tid =#{_parameter}")
+	int deleteTopic(int tid);
 	/**
 	 * 查询用户发表过的所有topic
 	 * @param page

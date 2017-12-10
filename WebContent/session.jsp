@@ -59,7 +59,12 @@
 						 主题：<a href="javaScript:void(0)" title="分类依据:${nowActiveSessionView.sprofile}" class="zebra_tips1">${nowActiveSessionView.sprofile}</a>
 					 </small>
 				</h1>
-				<p >${nowActiveSessionView.sstatement}<a href="javaScript:;" title="创建人:${nowActiveSessionView.uname}" class="zebra_tips1" style="color:#888;" onclick="touserjump(${nowActiveSessionView.smasterid})">——<span>${nowActiveSessionView.uname}</span></a></p>
+				<p >${nowActiveSessionView.sstatement}<a href="javaScript:;" title="创建人:${nowActiveSessionView.uname}" class="zebra_tips1" style="color:#888;" onclick="touserjump(${nowActiveSessionView.smasterid})">——<span>${nowActiveSessionView.uname}</span></a>
+				<c:if test="${nowActiveSessionView.smasterid == NowLoginUser.uid}">
+					<a href="javaScript:;" id="editSession">编辑</a>&nbsp;<a href="javaScript:;" id="deleteSession">删除</a>
+				</c:if>			
+				
+				</p>
 			</div>
 		</div>
 			
@@ -127,6 +132,34 @@
 	
 	<%@include file="footer.html" %>
 </body>
+<!-- 编辑，删除session -->
+<script type="text/javascript">
+ $(function(){
+	 $('#editSession').click(function(){
+		 
+	 });
+	 $('#deleteSession').click(function(){
+		 var msg = "您真的确定要删除该板块，并与之相关的东西吗？\n\n请确认！";
+		 if (confirm(msg)==true){
+			 var param = {
+					'op':'deleteSession',
+					'sid':$('#sessionSid').val()
+			 }
+			 $.post('Session',param,function(data){
+				 if(data == 'false'){
+					alert('程序出错，无法删除');					 
+				 }else{
+					alert('删除成功');	
+					location.href="welcome";
+				 }
+			 });
+		 }else{
+			 alert('删除被取消');
+		 }
+	 });
+ });
+
+</script>
 <!-- 提示框 -->
 <script type="text/javascript" src="js/zebra_tooltips.js"></script> 
 <!-- 页面跳转 -->

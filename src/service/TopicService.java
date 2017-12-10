@@ -76,4 +76,14 @@ public class TopicService implements ITopicService {
 		PageParam pageParam = new PageParam(pageno,pagesize,id);
 		return topicDao.queryUserAllTopic(pageParam);
 	}
+
+	@Override
+	public boolean deleteTopic(String tid) {
+		int topic_id = Integer.parseInt(tid);
+		SqlSession sqlsession = MyBatisSessionFactory.getSession();
+		int result = sqlsession.getMapper(TopicDao.class).deleteTopic(topic_id);
+		sqlsession.commit();
+		MyBatisSessionFactory.closeSession();
+		return result>0;
+	}
 }

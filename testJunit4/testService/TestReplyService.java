@@ -1,11 +1,18 @@
 package testService;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
+import service.ReplyService;
 import dao.impl.ReplyDaoImpl;
 
 public class TestReplyService {
-
+	ReplyService rs = new ReplyService();
+	@Test
+	public void testDeleteReply(){
+		assertTrue(rs.deleteReply("16"));
+	}
 	@Test
 	public void testQueryUserAllReply() {
 	}

@@ -95,4 +95,10 @@ public class ReplyDaoImpl implements ReplyDao {
 
 	}
 
+	@Override
+	public int deleteReply(int rid) {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
 }

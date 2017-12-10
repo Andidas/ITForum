@@ -149,5 +149,11 @@ public class TopicDaoImpl implements TopicDao {
 			return topics;
 	}
 
+	@Override
+	public int deleteTopic(int tid) {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
 
 }
