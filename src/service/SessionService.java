@@ -39,9 +39,10 @@ public class SessionService implements ISessionService {
 		return false;
 	}
 	@Override
-	public Session searchSession(int sid) {
+	public Session querySessionOne(String sid) {
+		int session_id = Integer.parseInt(sid);
 		SqlSession sqlsession = MyBatisSessionFactory.getSession();
-		Session session = sqlsession.getMapper(SessionDao.class).searchSessionBySid(sid);
+		Session session = sqlsession.getMapper(SessionDao.class).searchSessionBySid(session_id);
 		MyBatisSessionFactory.closeSession();
 		return session;
 	}
@@ -130,6 +131,20 @@ public class SessionService implements ISessionService {
 		int session_id = Integer.parseInt(sid);
 		SqlSession sqlsession = MyBatisSessionFactory.getSession();
 		int result = sqlsession.getMapper(SessionDao.class).deleteSession(session_id);
+		sqlsession.commit();
+		MyBatisSessionFactory.closeSession();
+		return result>0;
+	}
+	@Override
+	public boolean updateSession(String sname,String sprofile,String sstatement,String spicture,String sid) {
+		Session session = new Session();
+		session.setSid(Integer.parseInt(sid));
+		session.setSname(sname);
+		session.setSprofile(sprofile);session.setSstatement(sstatement);
+		session.setSpicture(spicture);
+		
+		SqlSession sqlsession = MyBatisSessionFactory.getSession();
+		int result = sqlsession.getMapper(SessionDao.class).updateSession(session);
 		sqlsession.commit();
 		MyBatisSessionFactory.closeSession();
 		return result>0;

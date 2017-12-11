@@ -29,12 +29,17 @@
 	<div class="container">
 		<div class="col-md-12 column">
 			<form role="form" method="post" enctype="multipart/form-data"
-				action="Session?op=doNewSession" id="newSessionForm">
+				action="Session?op=<c:if test="${empty nowUpdateSession}">doNewSession</c:if><c:if test="${not empty nowUpdateSession}">doUpdateSession</c:if>" id="newSessionForm">
 				<%-- 2、在提交页面中存储令牌--%>
 				<input type="hidden" name="token" value="${token}">
 				<div class="col-md-3">
 					<div class="thumbnail" >
-						<img src="img/ITForum.jpg" alt="图片不符合规范" id="PictureBySet" style="width: 235; height: 235;">
+						<c:if test="${not empty nowUpdateSession}">
+							<input type="hidden" name="sid" value="${nowUpdateSession.sid }">
+						</c:if>
+						<img
+							src="<c:if test="${not empty nowUpdateSession}">files/${nowUpdateSession.spicture}</c:if><c:if test="${empty nowUpdateSession}">img/ITForum.jpg</c:if>"
+							alt="图片不符合规范" id="PictureBySet" style="width: 235; height: 235;">
 						<div class="caption">
 							<label for="setPicture" class="btn btn-success btn-block">set
 								picture</label><input type="file" id="setPicture" class="hidden"
@@ -49,7 +54,7 @@
 								<label for="sessionSprofile">类别</label>
 								<select  class="form-control" name="sessionSprofile" id="sessionSprofile">
 									<c:forEach items="${AllSessionProfiles}" var="profile">
-										<option value="${profile}">${profile}</option>
+										<option value="${profile}" <c:if test="${profile==nowUpdateSession.sprofile }">selected="selected"</c:if>>${profile}</option>
 									</c:forEach>
 									<option value="other">其他</option>
 								</select>
@@ -61,7 +66,7 @@
 					</div>
 					<div class="col-md-9" >
 						<label for="sessionName">版名</label>
-						<input type="text" class="form-control" id="sessionName" name="sessionName" onkeyup='textAreaChange(this)' onkeydown='textAreaChange(this)'/>
+						<input type="text" class="form-control" id="sessionName" name="sessionName" onkeyup='textAreaChange(this)' onkeydown='textAreaChange(this)' value="${nowUpdateSession.sname}"/>
 						<div class='text-right'>
 							<em style='color: red'>50</em>/<span>50</span>
 						</div>
@@ -70,7 +75,7 @@
 						<label for="sessionBio">简介</label>
 						<textarea class='form-control' id="sessionBio" name="sessionBio"
 							onkeyup='textAreaChange(this)' onkeydown='textAreaChange(this)'
-							rows='5'></textarea>
+							rows='5'>${nowUpdateSession.sstatement}</textarea>
 						<div class='text-right'>
 							<em style='color: red'>100</em>/<span>100</span>
 						</div>

@@ -68,7 +68,7 @@ public class UserService implements IUserService{
 	public boolean addUser(String name,String email,String password) {
 		SqlSession session = MyBatisSessionFactory.getSession();	
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String regdateTime = df.format(new Date());//��ȡע��ʱ��
+		String regdateTime = df.format(new Date());
 		User user = new User();
 		user.setUname(name);
 		user.setUemail(email);

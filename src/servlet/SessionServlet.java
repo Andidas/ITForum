@@ -11,6 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import service.JsonService;
+import service.SessionService;
+import service.SessionViewService;
+import service.TopicViewService;
+import utils.ConstantsData;
+
 import com.jspsmart.upload.SmartFile;
 import com.jspsmart.upload.SmartFiles;
 import com.jspsmart.upload.SmartRequest;
@@ -18,14 +24,10 @@ import com.jspsmart.upload.SmartUpload;
 import com.jspsmart.upload.SmartUploadException;
 
 import entity.PageMode;
+import entity.Session;
 import entity.User;
 import entity.viewEntity.SessionView;
 import entity.viewEntity.TopicView;
-import service.JsonService;
-import service.SessionService;
-import service.SessionViewService;
-import service.TopicViewService;
-import utils.ConstantsData;
 /**
  * session
  * @author lwy
@@ -57,9 +59,71 @@ public class SessionServlet extends HttpServlet {
 			toNewSession(request,response);
 		}else if(op.equals("deleteSession")){
 			deleteSession(request,response);
+		}else if(op.equals("toUpdateSession")){
+			toUpdateSession(request,response);
+		}else if(op.equals("doUpdateSession")){
+			doUpdateSession(request,response);
 		}
 		
 	}
+	private void doUpdateSession(HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+		SmartUpload su = upPicture(request,response);
+		// 4、获取表单信息，包括文件的详细信息
+		SmartRequest smRequest = su.getRequest();
+		SmartFiles fs = su.getFiles();// 得到所有文件
+		SmartFile f = fs.getFile(0);
+		
+		HttpSession session = request.getSession();
+		String formToken = smRequest.getParameter("token");
+		String sessionToken = (String)session.getAttribute("token");
+		if(formToken==null||sessionToken==null||!formToken.equals(sessionToken)){
+			response.getWriter().print("<script>alert('请不要重复提交');location.href='welcome'</script>");
+		}else{
+			String sid = smRequest.getParameter("sid");
+			String spicture = f.getFileName();
+			String sname = smRequest.getParameter("sessionName");
+			String sprofile = smRequest.getParameter("sessionSprofile");
+			if(sprofile.equals("other")){
+				sprofile = smRequest.getParameter("otherSprofile");
+			}
+			String sstatement = smRequest.getParameter("sessionBio");
+			if(!sessionService.updateSession(sname,sprofile,sstatement,spicture,sid)){
+				System.out.println("修改失败");
+			}else{
+				session.setAttribute("nowUpdateSession",null);
+				response.sendRedirect("Session?op=toSession&SessionSid="+sid);
+			}
+		}
+		
+		session.removeAttribute("token");
+	}
+	/**
+	 * token令牌技术：用于防止重复提交的问题：
+	 * 1、跳转到提交页面前先添加令牌
+	 * 2、在提交页面中存储令牌
+	 * 3、在提交方法中校验令牌
+	 * 从而达到防止重复提交的功能
+	 * @throws IOException 
+	 */
+	private void toUpdateSession(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		//1、跳转到提交页面前先添加令牌
+		HttpSession session = request.getSession();
+		session.setAttribute("token", System.currentTimeMillis()+"");
+		
+		List<String> profiles= sessionService.queryAllProfile();
+		session.setAttribute("AllSessionProfiles",profiles);
+
+		String sid = request.getParameter("sid");
+		
+		Session sessionInfo = sessionService.querySessionOne(sid);
+		System.out.println(sessionInfo);
+		session.setAttribute("nowUpdateSession", sessionInfo);
+		response.sendRedirect("newSession.jsp");
+				
+	}
+
 	private void deleteSession(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String sid = request.getParameter("sid");
@@ -104,6 +168,7 @@ public class SessionServlet extends HttpServlet {
 		if(formToken==null||sessionToken==null||!formToken.equals(sessionToken)){
 			response.getWriter().print("<script>alert('请不要重复提交');location.href='welcome'</script>");
 		}else{
+			
 			String spicture = f.getFileName();
 			String sname = smRequest.getParameter("sessionName");
 			String sprofile = smRequest.getParameter("sessionSprofile");

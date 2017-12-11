@@ -63,7 +63,7 @@ public interface ISessionService {
 	 * @param sid 板块的id
 	 * @return session
 	 */
-	Session searchSession(int sid);
+	Session querySessionOne(String sid);
 	/**
 	 * 查询符合的版块组，条件sprofile
 	 * @param sprofile // session 主题，分类依据
@@ -73,7 +73,12 @@ public interface ISessionService {
 	
 	List<Session>querySameSession(String sprofile,int sid);
 	
-	
+	/**
+	 * 更新session
+	 * @param session
+	 * @return
+	 */
+	boolean updateSession(String sname,String sprofile,String sstatement,String spicture,String sid);
 	/**
 	 * 点击次数加1
 	 * @param sid

@@ -287,7 +287,6 @@ function topicContent(topic){
 			var obj = $(this).attr('href');
 			var panelbody = $(obj).find('.panel-body');
 			var profile = $(this).html();
-			console.log(profile);
 			var param ={
 					'profile':profile,
 					'op':'getSnameAndSid'

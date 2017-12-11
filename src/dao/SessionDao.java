@@ -98,11 +98,11 @@ public interface SessionDao {
 
 	
 	/**
-	 * 查询单个版块
+	 * 查询单个版块,模糊查询
 	 * @param sid 要查询的版块sid
 	 * @return 查询到得一个版块Session(all)
 	 */
-	@Select("select * from session where sname like CONCAT(CONCAT('%', #{_parameter}), '%')")
+	@Select("select * from session where sid = #{_parameter}")
 	Session searchSessionBySid(int sid);
 	/**
 	 * 查询符合的相似版块组，条件sprofile 和sid
@@ -128,6 +128,6 @@ public interface SessionDao {
 	List<Session> searchSession(String searchText);
 	
 
-	
-	
+	@Update("update `session` set sname=#{sname},sprofile=#{sprofile},sstatement=#{sstatement},spicture=#{spicture} where sid = #{sid}")
+	int updateSession(Session session);
 }

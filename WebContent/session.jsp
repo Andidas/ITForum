@@ -27,9 +27,10 @@
 
 <link href="css/session.css" rel="stylesheet" />
 <link href="dist/summernote.css" rel="stylesheet" />
-<!-- 提示框 -->
-<link rel="stylesheet" href="css/zebra_tooltips.css" type="text/css"> 
+
 <link href="css/init.css" rel="stylesheet" />
+
+
 </head>
 <body id="MyBody">
 	<jsp:include page="nav.jsp" flush="true" />
@@ -61,7 +62,7 @@
 				</h1>
 				<p >${nowActiveSessionView.sstatement}<a href="javaScript:;" title="创建人:${nowActiveSessionView.uname}" class="zebra_tips1" style="color:#888;" onclick="touserjump(${nowActiveSessionView.smasterid})">——<span>${nowActiveSessionView.uname}</span></a>
 				<c:if test="${nowActiveSessionView.smasterid == NowLoginUser.uid}">
-					<a href="javaScript:;" id="editSession">编辑</a>&nbsp;<a href="javaScript:;" id="deleteSession">删除</a>
+					<a href="Session?op=toUpdateSession&sid=${nowActiveSessionView.sid}" >编辑</a>&nbsp;<a href="javaScript:;" id="deleteSession">删除</a>
 				</c:if>			
 				
 				</p>
@@ -130,14 +131,15 @@
 	
 	</div>
 	
+
+	
 	<%@include file="footer.html" %>
 </body>
+
 <!-- 编辑，删除session -->
 <script type="text/javascript">
  $(function(){
-	 $('#editSession').click(function(){
-		 
-	 });
+	 
 	 $('#deleteSession').click(function(){
 		 var msg = "您真的确定要删除该板块，并与之相关的东西吗？\n\n请确认！";
 		 if (confirm(msg)==true){
