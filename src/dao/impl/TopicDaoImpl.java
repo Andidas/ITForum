@@ -46,9 +46,30 @@ public class TopicDaoImpl implements TopicDao {
 		
 			MyBatisSessionFactory.closeSession();
 			return pm;
-		
-		
 	}
+	
+	//
+	@Override
+	public PageMode<TopicView> splitPageByReplyCount(PageParam page){
+		int start = (page.getPageno()-1)*page.getPagesize();
+		page.setPageno(start);
+		
+			PageMode<TopicView> pm = new PageMode<TopicView>();
+			List<TopicView> pageData = new ArrayList<TopicView>();
+			
+			SqlSession sqlSession = MyBatisSessionFactory.getSession();
+			pageData = sqlSession.selectList("Topic.splitPageByReplyCount", page);
+			
+			pm.setData(pageData);
+			pm.setPageParam(page);
+			pm.setTotalRecordCount(this.rowCount(page.getId()));
+		
+			MyBatisSessionFactory.closeSession();
+			return pm;
+	}
+	
+	
+	
 	@Override
 	public PageMode<Topic> queryUserAllTopic(PageParam page) {
 		int start = (page.getPageno()-1)*page.getPagesize();

@@ -106,7 +106,7 @@
 		<div class="col-md-4" style="padding:0;">
 			<div class="panel " id="HotQuestion">
 				<div class="panel-heading">
-					<h3 class="panel-title">相关session</h3>
+					<h3 class="panel-title">相关版块</h3>
 				</div>
 				<div class="panel-body">
 					<ul>
@@ -117,10 +117,11 @@
 						</li>
 					</c:if>
 					<c:forEach items="${nowActiveSessionView.sameSprofile}" var="session">
-						<li><a href="javaScript:void(0)" class="sessionName">${session.sname }</a>
+						<li style="border-bottom:1px #e7e7e7 solid;">
+							版名：<a href="javaScript:void(0)" class="sessionName">${session.sname }</a>
 							<input type="hidden" value="${session.sid}" class="sessionSid">
 							<br>
-							<span>${session.sstatement}</span>
+							<small style="color:#ababab;">描述：${session.sstatement}</small>
 						</li>
 					</c:forEach>
 					</ul>

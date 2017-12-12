@@ -1,11 +1,12 @@
 @CHARSET "UTF-8";
-#mainContent .panel-body div{
+#mainContent .panel-body div,#hot_mainContent .panel-body div{
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
     white-space: nowrap;
 }
-#mainContent .panel,#mainContent .panel-heading,#mainContent .panel-body,#mainContent .panel-footer{
+#mainContent .panel,#mainContent .panel-heading,#mainContent .panel-body,#mainContent .panel-footer,
+#hot_mainContent .panel,#hot_mainContent .panel-heading,#hot_mainContent .panel-body,#hot_mainContent .panel-footer{
 	margin-bottom:0;
 	padding-bottom:2px;
 	padding-top:2px;
@@ -34,28 +35,27 @@
 #HotQuestion .panel-body a {
 	text-decoration: none;
 }
-#mainContent .panel{
+#mainContent .panel,#hot_mainContent .panel{
 	position: relative;
 }
 
-#mainContent .panel-heading,#mainContent .panel-body{
+#mainContent .panel-heading,#mainContent .panel-body,#hot_mainContent .panel-heading,#hot_mainContent .panel-body{
 	padding:0px;
 }
-#mainContent .panel-heading{
+#mainContent .panel-heading,#hot_mainContent .panel-heading{
 	width:80%;
 }
-#mainContent .panel-body{
+#mainContent .panel-body,#hot_mainContent .panel-body{
 	background:rgba(231, 231, 231, 0.55);
 	border-bottom:1px solid #e7e7e7;
-	width:80%;
 }
 
-#mainContent .author{
+#mainContent .author,#hot_mainContent .author{
 	position: absolute;
 	top:5px;
 	right:5px;
 }
-#mainContent .lastRelpy{
+#mainContent .lastRelpy,#hot_mainContent .lastRelpy{
 	position: absolute;
 	top:30px;
 	right:5px;

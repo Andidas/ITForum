@@ -24,6 +24,12 @@ public class TopicViewService implements ITopicViewService {
 		return topicDao.splitPage(pageParam);
 	}
 	@Override
+	public PageMode<TopicView> splitPageByReplyCount(int pageno,int pagesize){
+		PageParam pageParam = new PageParam(pageno,pagesize);
+		return topicDao.splitPageByReplyCount(pageParam);
+				
+	}
+	@Override
 	public PageMode<TopicView> TopicSplitPage(int pageno, int pagesize) {
 		PageParam pageParam = new PageParam(pageno, pagesize);
 		return topicDao.splitPage(pageParam);
@@ -38,8 +44,6 @@ public class TopicViewService implements ITopicViewService {
 		 List<Topic> sameList = topicDao.querySameTopicListByTSID(sessionid);
 		 
 		 topicView = topicDao.getTopicViewOne(tid);
-		 String oldtime = topicView.getTtime();
-		 topicView.setTtime(TransformTime.howLongFromNow(oldtime));
 		 topicView.setTlastreplaytime(TransformTime.howLongFromNow(topicView.getTlastreplaytime()));
 		 topicView.setAllReply(allReply);	
 		 topicView.setSameTopic(sameList);

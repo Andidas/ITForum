@@ -30,5 +30,13 @@ public interface ITopicViewService {
 	 * @return
 	 */
 	PageMode<TopicView> TopicSplitPage(int pageno, int pagesize);
+	
+	/**
+	 * 得到topic的分页视图,按照回复条数最多来分页
+	 * @param pageno 第几页
+	 * @param pagesize 一页需要几条数据
+	 * @return
+	 */
+	PageMode<TopicView> splitPageByReplyCount(int pageno, int pagesize);
 
 }

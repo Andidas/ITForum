@@ -31,7 +31,7 @@ function getMainContents(imgs,content){
 }
 //把图片和文字整合在一起
 function neatenContent(imgs,content){
-	var lastContent = '<div style="max-height:60px;min-height:20px;">'+content+'</div><div>';
+	var lastContent = '<div style="max-height:70px;min-height:25px;">'+content+'</div><div>';
 	var len = imgs.length;
 	if(len>3)len=3;
 	for(var i =0;i<len;i++){

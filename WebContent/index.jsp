@@ -104,35 +104,59 @@
 					</div>
 
 					<ul id="myTab" class="nav nav-tabs">
-						<li class="active"><a href="#profile" data-toggle="tab">
+						<li class="active"><a href="#newest" data-toggle="tab">
 								最新</a></li>
-						<li><a href="#activity" data-toggle="tab">感兴趣</a></li>
-						
-					</ul>
-					<ul class="content-text" id="mainContent">
-						<!-- content -->
+						<li><a href="#hotest" data-toggle="tab">最热</a></li>
 					</ul>
 					
-	   				<div class="col-xs-2 col-xs-offset-5" style="padding-bottom:20px;">								
-						<a class="btn btn-default" id="showMore">加载更多</a>
-						<input type="hidden" value="1" id="nowPageNo">
-						<div class="loadEffect" id="loadEffect" style="display:none;">
-					        <span></span>
-					        <span></span>
-					        <span></span>
-					        <span></span>
-					        <span></span>
-					        <span></span>
-					        <span></span>
-					        <span></span>
+					<div class="tab-content">
+					<div id="newest" class="tab-pane active">
+						<ul class="content-text" id="mainContent">
+							<!-- content -->
+						</ul>
+						
+		   				<div class="col-xs-2 col-xs-offset-5" style="padding-bottom:20px;">								
+							<a class="btn btn-default" id="showMore">加载更多</a>
+							<input type="hidden" value="1" id="nowPageNo">
+							<div class="loadEffect" id="loadEffect" style="display:none;">
+						        <span></span>
+						        <span></span>
+						        <span></span>
+						        <span></span>
+						        <span></span>
+						        <span></span>
+						        <span></span>
+						        <span></span>
+							</div>
+						</div>
+					</div>
+					
+					<div id="hotest" class="tab-pane" >
+						<ul class="content-text" id="hot_mainContent">
+							<!-- content -->
+						</ul>
+						
+		   				<div class="col-xs-2 col-xs-offset-5" style="padding-bottom:20px;">								
+							<a class="btn btn-default" id="hot_showMore">加载更多</a>
+							<input type="hidden" value="1" id="hot_nowPageNo">
+							<div class="loadEffect" id="hot_loadEffect" style="display:none;">
+						        <span></span>
+						        <span></span>
+						        <span></span>
+						        <span></span>
+						        <span></span>
+						        <span></span>
+						        <span></span>
+						        <span></span>
+							</div>
 						</div>
 					</div>
 				</div>
-
+				</div>
 				<div class="col-lg-3" id="content-right">
 					<c:if test="${!empty sessionScope.NowLoginUser.uemail}">
 					<div class="panel panel-info" id="userinfo">
-						<div class="panel-heading  text-center">
+						<div class="panel-heading  text-center" style="background-color: #00bcd4;border-color: #00bcd4;">
 						<a href="javaScript:;" onclick="touserjump(${NowLoginUser.uid})">
 							<img class="img-circle" src="<c:if test="${not empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/${sessionScope.NowLoginUser.uhead}</c:if><c:if test="${empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/ITForum.jpg</c:if>" width="60" height="60" />
 						</a>
@@ -161,8 +185,8 @@
 					<%@include file="MyLogin.html" %>						
 					</c:if>
 					<div class="panel " id="HotQuestion">
-					<div class="panel-heading">
-						<h3 class="panel-title">热议</h3>
+					<div class="panel-heading" style="background:#00bcd4;">
+						<h3 class="panel-title" style="color:#fff;">最近热议</h3>
 					</div>
 					<div class="panel-body">
 						<ul class=""> 
@@ -187,16 +211,55 @@
 <script type="text/javascript">
 	$(function(){
 		loadedMore();
+		hot_loadedMore();
 		$("#showMore").click(loadedMore);
+		$("#hot_showMore").click(hot_loadedMore);
 	});
+function hot_loadedMore(){
+		hide_show($("#hot_showMore"),$("#hot_loadEffect"));
+		var nowPageNo = $("#hot_nowPageNo").val();
+		var param = {
+				'op':'findTopicByPage',
+				'pageno':nowPageNo,
+				'type':'hot'
+		}
+		$.post('welcome',param,function(data){
+			if(data=="false"){
+				setTimeout('hot_hide_MoreBtn_LoadBtn()',1000);
+			}else{
+				
+				hide_show($("#hot_loadEffect"),$("#hot_showMore"));
+				
+				var topics = JSON.parse(data);
+				$.each(topics,function(i,topic){
+					var content=topicContent(topic);
+					$('#hot_mainContent').append(content);
+				});
+				nowPageNo++;
+				$("#hot_nowPageNo").val(nowPageNo);
+				
+
+				//按钮点击
+				$('#hot_mainContent .sessionName').unbind('click',sessionName);
+				$('#hot_mainContent .TopicTName').unbind('click',TopicTName);
+				$('#hot_mainContent .sessionName').click(sessionName);
+				$('#hot_mainContent .TopicTName').click(TopicTName);
+				//图片放大器
+				PostbirdImgGlass.init({
+			        domSelector:"#hot_mainContent img",
+			        animation:true
+			    });
+			}
+		});
+	}
 	  
 function loadedMore(){
 	hide_show($("#showMore"),$("#loadEffect"));
-	
 	var nowPageNo = $("#nowPageNo").val();
 	var param = {
 			'op':'findTopicByPage',
-			'pageno':nowPageNo
+			'pageno':nowPageNo,
+			'type':'cold'
 	}
 	$.post('welcome',param,function(data){
 		if(data=="false"){
@@ -213,12 +276,12 @@ function loadedMore(){
 			nowPageNo++;
 			$("#nowPageNo").val(nowPageNo);
 			
-			$("[data-toggle='tooltip']").tooltip();
+
 			//按钮点击
-			$('.sessionName').unbind('click',sessionName);
-			$('.TopicTName').unbind('click',TopicTName);
-			$('.sessionName').click(sessionName);
-			$('.TopicTName').click(TopicTName);
+			$('#mainContent .sessionName').unbind('click',sessionName);
+			$('#mainContent .TopicTName').unbind('click',TopicTName);
+			$('#mainContent .sessionName').click(sessionName);
+			$('#mainContent .TopicTName').click(TopicTName);
 			//图片放大器
 			PostbirdImgGlass.init({
 		        domSelector:"#mainContent img",
@@ -234,6 +297,10 @@ function hide_show(obj_x,obj_y){
 function hide_MoreBtn_LoadBtn(){
 	$("#showMore").hide();
 	$("#loadEffect").hide();
+}
+function hot_hide_MoreBtn_LoadBtn(){
+	$("#hot_showMore").hide();
+	$("#hot_loadEffect").hide();
 }
 function topicContent(topic){
 	var myimgs = getImageSrc(topic.tcontents);

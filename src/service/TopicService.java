@@ -86,4 +86,6 @@ public class TopicService implements ITopicService {
 		MyBatisSessionFactory.closeSession();
 		return result>0;
 	}
+
+	
 }

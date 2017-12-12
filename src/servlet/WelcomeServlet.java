@@ -56,7 +56,6 @@ public class WelcomeServlet extends HttpServlet {
 
 	private void main(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		PageMode<TopicView> topicViewPageMode = topicviewService.TopicSplitPage(ConstantsData.PAGENO,ConstantsData.PAGESIZE);
 		List<String> profiles = sessionService.queryAllProfile();
 		List<Topic> topics = topicService.queryHotsTopicList();
 		User user = (User)session.getAttribute("NowLoginUser");
@@ -66,7 +65,6 @@ public class WelcomeServlet extends HttpServlet {
 		}
 		request.setAttribute("HotsTopics", topics);
 		request.setAttribute("welcomeProfiles", profiles);
-		request.setAttribute("topicViewPageMode", topicViewPageMode);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 		
 	}
@@ -90,20 +88,25 @@ public class WelcomeServlet extends HttpServlet {
 	}
 	private void findTopicByPage(HttpServletRequest request,
 			HttpServletResponse response)throws ServletException, IOException  {
+		String type = request.getParameter("type");
 		PrintWriter out = response.getWriter();
-		int pageno=ConstantsData.PAGENO; //Ò³Êý
-		
+		int pageno=ConstantsData.PAGENO; 
+		PageMode<TopicView> pm = null;
 		String pagenoStr = request.getParameter("pageno");
-		if(pagenoStr!=null&&!"".equals(pagenoStr)){
-			pageno = Integer.parseInt(pagenoStr);
-		}
-		PageMode<TopicView> pm = new TopicViewService().TopicSplitPage(pageno, ConstantsData.PAGESIZE_10);
 		
-		if(pm.getData().size()==0){
+		if(pagenoStr!=null&&!"".equals(pagenoStr))
+			pageno = Integer.parseInt(pagenoStr);
+		
+		if(type.equals("hot"))
+			pm = topicviewService.splitPageByReplyCount(pageno, ConstantsData.PAGESIZE_10);			
+		else
+			pm = topicviewService.TopicSplitPage(pageno, ConstantsData.PAGESIZE_10);
+		
+		if(pm.getData().size()==0)
 			out.print("false");
-		}else{
+		else
 			out.print(jsonService.toJSONArray(pm.getData()));
-		}		
+				
 	}
 }
 

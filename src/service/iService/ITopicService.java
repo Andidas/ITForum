@@ -10,6 +10,7 @@ import entity.Topic;
  * topic service 
  */
 public interface ITopicService {
+	
 	/**
 	 * 删除topic
 	 * @param tid

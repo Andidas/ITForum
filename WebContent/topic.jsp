@@ -34,9 +34,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="nav.jsp" flush="true"></jsp:include>
 	<div class="container" id="content">
 		<div class="row clearfix">
-			<div class="col-lg-12 page-header" style="margin-top:0;background: #00BCD4;">
+			<div class="col-lg-12 page-header" style="margin-top:0;">
 				<h2 class="col-lg-12">
-				<span class="TopicTName" id="nowTopicName" style="color:#fff;">${nowActiveTopicView.ttopic}</span>
+				<span class="TopicTName" id="nowTopicName" >${nowActiveTopicView.ttopic}</span>
 				<input type="hidden" value="${nowActiveTopicView.tid}" id="nowTopicTid" class="topicTid"/>
 				<c:if test="${nowActiveTopicView.tuid == NowLoginUser.uid}">
 				<small><a href="javaScript:;" onclick="deleteTopic(${nowActiveTopicView.tid})">删除</a></small> 
@@ -53,12 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<table>
 						<tbody>
 							<tr>
-								<td class="votecell">
-									<div class="vote">
-										 <span class="date-dz-z pull-left zebra_tips1" title="点赞，可以加该贴的排名">
-    										<i class="date-dz-z-click-red"></i><i class="z-num">666</i></span>
-									</div>
-								</td>
+								
 								<td class="answercell" >
 									<div class="post-text" >
 										${nowActiveTopicView.tcontents}
@@ -77,8 +72,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												</div>
 												<div class="user-details">
 													<a href="javaScript:;" title="发帖人:${nowActiveTopicView.uname}" class="zebra_tips1" onclick="touserjump(${nowActiveTopicView.tuid})">${nowActiveTopicView.uname}</a>
-													<div>
-														<span title="用户当前状态:" class="reply_tips">1</span><span title="用户当前积分: "
+													<div class="hide">
+													
+														<span title="用户当前积分: "
 															class="reply_tips">1</span><span title="用户是否是版主："
 															class="reply_tips">1</span>
 													</div>
@@ -93,9 +89,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</tbody>
 					</table>
 				</div>
-				<ul id="Tabson" class="nav nav-tabs ">
-						<li>
-							<h4>${ReplyPage.totalRecordCount} &nbsp;条回复</h4>
+				<ul id="Tabson" class="nav nav-tabs" style="background: #00BCD4;">
+						<li >
+							<h4 style="color:#fff;">&nbsp;${ReplyPage.totalRecordCount} &nbsp;条回复</h4>
 						</li>
 						
 				</ul>
@@ -106,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<tbody>
 								<tr>
 									<td class="votecell">
-										<div class="vote">
+										<div class="vote hide">
 											 <span class="date-dz-z pull-left">
     										<i class="date-dz-z-click-red zebra_tips1"  title="点赞，可以加该贴的排名"></i><i class="z-num">${reply.rfavour}</i></span>
 										</div>
@@ -180,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 								<td style="padding-left: 10px">
 									<p class="label-key">
-										<b class="zebra_tips1" title="观看人数:${nowActiveTopicView.tclickcount}">${nowActiveTopicView.tclickcount}</b>
+										<b class="zebra_tips1" title="观看人数:${nowActiveTopicView.tclickcount}"><a href="javaScript:;">${nowActiveTopicView.tclickcount} 人</a></b>
 									</p>
 								</td>
 							</tr>
@@ -201,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</td>
 								<td style="padding-left: 10px">
 									<p class="label-key">
-										<b><a class="lastactivity-link zebra_tips1"
+										<b><a class="lastactivity-link zebra_tips1" onclick="touserjump(${nowActiveTopicView.tlastreplyuseid})"
 											title="最后回复用户:${nowActiveTopicView.lastreplyuser}">${nowActiveTopicView.lastreplyuser}</a></b>
 									</p>
 								</td>
@@ -277,7 +273,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function clickInit(){
 		//移除事件
 		//添加事件
+		$('.date-dz-z').unbind('click',clickZan);
 		$('.date-dz-z').click(clickZan);
+		$('.replyComment').unbind('click',springReply);
 		$('.replyComment').click(springReply);
 		//提示框
 		new $.Zebra_Tooltips($('.reply_tips'));
@@ -292,7 +290,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		var text = "<div class='answer'><table><tbody><input type='hidden' class='rid' value='"
 					+ reply.rid
-					+"'><tr><td class='votecell'><div class='vote'><span class='date-dz-z pull-left reply_tips' title='点赞，可以加该贴的排名'>"
+					+"'><tr><td class='votecell'><div class='vote hide'><span class='date-dz-z pull-left reply_tips' title='点赞，可以加该贴的排名'>"
 					+"	<i class='date-dz-z-click-red'></i><i class='z-num'>"
 					+ reply.rfavour
 					+"</i></span></div></td><td class='answercell'><div>"
@@ -303,9 +301,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					+ reply.rtime
 					+"</span></div><div class='user-gravatar32'><a href='javaScript:;'>"
 					+"<img src='img/17883626.jpg' width='32' height='32'>"
-					+"</a></div><div class='user-details'><a href='javaScript:;' title='回帖人:"+reply.uname+"' class='reply_tips'>"
+					+"</a></div><div class='user-details'><a href='javaScript:;' onclick='touserjump("+reply.ruid+")' title='回帖人:"+reply.uname+"' class='reply_tips'>"
 					+ reply.uname
-					+"</a><div><span title='用户当前状态:"+reply.ustate+"' class='reply_tips'>"
+					+"</a><div class='hide'><span title='用户当前状态:"+reply.ustate+"' class='reply_tips'>"
 					+ reply.ustate
 					+"</span><span title='用户当前积分:"+reply.upoint+"' class='reply_tips'>"
 					+ reply.upoint
@@ -415,13 +413,15 @@ function addReply(obj,val){
 	var text = "<tr class='comment '>"
 					+"<td class='comment-actions'>"
 					+"<table><tbody><tr>"
-					+"<td class=' comment-score'><span class='cool'>1</span></td>"
+					+"<td class=' comment-score'><span class='glyphicon glyphicon-comment'></span></td>"
 					+"<td>&nbsp;</td></tr></tbody></table></td>"
 					+"<td class='comment-text'>"
 					+"<div style='display: block;' class='comment-body'>"
 					+"<span class='comment-copy'>"+val
 					+"</span> –&nbsp; <a "
-					+"href='javaScript:void(0)' title='用户'class='comment-user reply_tips'>"
+					+"href='javaScript:void(0)' onclick='touserjump("
+					+$('#nowUserID').val()
+					+")' title='用户'class='comment-user reply_tips'>"
 					+$('#nowUserName').html()
 					+"</a> <span class='comment-date' dir='ltr'><w class='comment-link'><span "
 					+"title='回复日期' class='reply_tips'>Sep 10 '15 at 9:09</span></w>"

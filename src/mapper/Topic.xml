@@ -84,6 +84,21 @@
 		order by t.ttime DESC
 		LIMIT #{pageno},#{pagesize}
 	</select>
+	<select id="splitPageByReplyCount" parameterType="entity.PageParam" resultMap="splitPageResult">
+		select t.*,s.sname,u.uname,u1.uname lastreplyuser
+		from topic t,`session` s,`user` u,`user` u1 
+		<where>
+			t.tsid = s.sid and u.uid = t.tuid and t.tlastreplyuseid = u1.uid 
+			<if test="id != 0">
+	    		 and t.tsid = #{id}
+	    	</if>
+		</where>
+		order by t.treplycount DESC
+		LIMIT #{pageno},#{pagesize}
+	</select>
+	
+	
+	
 	<resultMap type="INTEGER" id="rowNumResult">
 		<result column="num" jdbcType="INTEGER" property="num" />
 	</resultMap>

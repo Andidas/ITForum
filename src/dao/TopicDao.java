@@ -103,4 +103,11 @@ public interface TopicDao {
 	 * @return
 	 */
 	int rowUserTopicNum(int id);
+	
+	/**
+	 * 分页，回复数最多的帖子
+	 * @param page
+	 * @return
+	 */
+	PageMode<TopicView> splitPageByReplyCount(PageParam page);
 }
