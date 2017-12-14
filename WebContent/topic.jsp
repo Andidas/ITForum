@@ -96,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 				</ul>
 				<div class="answers">
-				<c:forEach items="${ReplyPage.data}" var="reply">
+				<!--<c:forEach items="${ReplyPage.data}" var="reply">
 					<div class="answer">
 						<table>
 							<tbody>
@@ -154,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</table>
 					</div>
 					
-					</c:forEach>
+					</c:forEach>-->
 				</div>
 				
    				<ul class="pagination" id="pagination"></ul>
@@ -264,11 +264,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var text = replyContent(reply);
 					$('.answers').append(text);
 				});
+				findLzlReply();	
 				clickInit();
 				jumpEveryWhere("#");
 			}
 		});
 	}
+	//楼中楼的回复
+	function findLzlReply(){
+		var answers = $('.answer');
+		var comments;
+		for(var i = 1;i<answers.length;i++){
+			var rid = $(answers[i]).find('.rid').val();
+			comments = $(answers[i]).find('.comments').find('tbody');
+			comments.html('123');
+			$.post("Reply",{'op':'findLzlReplyByPage','rid':rid},function(data){
+				var lzlreplys = JSON.parse(data);
+				
+				$.each(lzlreplys,function(j,lzl){
+					addReply(comments,lzl);
+				});
+				
+			});
+		}
+	}
+	
 	//初始化赞和回复的点击事件
 	function clickInit(){
 		//移除事件
@@ -377,7 +397,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					"replyText" :replyText
 					}
 				$.post("Reply",param,function(data){
-					console.log(data);
 					if(data=="false"){
 						alert("回复失败");
 					}else{
@@ -406,25 +425,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 $(document).ready(function(e) {
 	/*点击回复的时候跳出回复框*/
+	$('.replyComment').unbind('click',springReply);
 	$('.replyComment').click(springReply);
 });
 //添加楼中楼回复
 function addReply(obj,val){
+	var name;
+	if(val.uname!=""&&val.uname!=null){
+		name=val.uname;
+	}else {
+		name=$('#nowUserName').html();
+	}
 	var text = "<tr class='comment '>"
 					+"<td class='comment-actions'>"
-					+"<table><tbody><tr>"
+					+"<table><tbody><tr><input type='hidden' class='lid' value='"+val.lid+"'>"
 					+"<td class=' comment-score'><span class='glyphicon glyphicon-comment'></span></td>"
 					+"<td>&nbsp;</td></tr></tbody></table></td>"
 					+"<td class='comment-text'>"
 					+"<div style='display: block;' class='comment-body'>"
-					+"<span class='comment-copy'>"+val
+					+"<span class='comment-copy'>"+val.lcontent
 					+"</span> –&nbsp; <a "
 					+"href='javaScript:void(0)' onclick='touserjump("
-					+$('#nowUserID').val()
+					+val.luid
 					+")' title='用户'class='comment-user reply_tips'>"
-					+$('#nowUserName').html()
+					+name
 					+"</a> <span class='comment-date' dir='ltr'><w class='comment-link'><span "
-					+"title='回复日期' class='reply_tips'>Sep 10 '15 at 9:09</span></w>"
+					+"title='回复日期' class='reply_tips'>"
+					+val.ltime
+					+"</span></w>"
 					+"</span></div></td></tr>";
 	obj.append(text);
 }
@@ -435,6 +463,7 @@ function showReply(){
 }
 /*点击楼中楼回复的时候跳出回复框*/
 function springReply(){
+	var rid = $(this).parents("tr").siblings(".rid").val();
 	if($('#nowUserName').html()==undefined){
 		alert('请登录');
 	}else{
@@ -444,7 +473,7 @@ function springReply(){
 	   				 +"<div class='Input_Box'>"
 			      	+"<textarea class='Input_text'></textarea>"
 			      	+"<div class='faceDiv'> </div>"
-			     	+ "<div class='Input_Foot'> <a class='imgBtn' href='javascript:void(0);'></a><a class='postBtn'>确定</a> </div>"
+			     	+ "<div class='Input_Foot'> <a class='imgBtn hide' href='javascript:void(0);'></a><a class='postBtn'>确定</a> </div>"
 			   		+"</div></div>";
 		$(this).parent("div").prepend(content);//添加回复框
 		$(this).hide();//隐藏回复按钮
@@ -457,8 +486,20 @@ function springReply(){
 			if(val==""){
 				showReply();
 			}else{
-				addReply(obj,val);
-				showReply();					
+				var param = {
+						'op':'addLzlReply',
+						'uid':$('#nowUserID').val(),
+						'rid':rid,
+						'content':val
+				}
+				$.post('Reply',param,function(data){
+					if(data=='false'){
+						alert('回复失败');
+					}else{
+						addReply(obj,JSON.parse(data));
+						showReply();											
+					}
+				});
 			}
 		});
 	}//end else

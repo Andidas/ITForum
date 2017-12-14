@@ -73,6 +73,7 @@ public class PrivateLetterServlet extends HttpServlet {
 		String ptouid = request.getParameter("receiver");
 		String pcontent = request.getParameter("body");
 		if(pls.batchAdd(puid, ptouid, ORDINARY_MESSAGE, pcontent)){
+			
 			request.getRequestDispatcher("UserInFo?op=toInfoCenter&uid="+user.getUid()).forward(request, response);
 		}else{
 			response.getWriter().print("<script>alert('发送失败');history.back();</script>");
@@ -90,13 +91,17 @@ public class PrivateLetterServlet extends HttpServlet {
 		if(sender==null){
 			out.print("false");
 		}else{
-			int friend_id = Integer.parseInt(request.getParameter("friend_id"));
-			PageParam param = new PageParam(PAGENO,PAGESIZE_10,sender.getUid(),friend_id);
+			String friend_id = request.getParameter("friend_id");
+			PageParam param = new PageParam(PAGENO,PAGESIZE_10,sender.getUid(),Integer.parseInt(friend_id));
+			
+			pls.evenReaded(sender.getUid()+"", friend_id);
+			
+			
 			PageMode<Map<String, Object>> detail_info = pls.queryMyPrivateLetterList_detail(param);
-			if(detail_info==null){
+			if(detail_info==null)
 				out.print("false");
-			}else
-			out.print(jsonService.toJSONArray(detail_info.getData()));
+			else
+				out.print(jsonService.toJSONArray(detail_info.getData()));
 		}
 		
 	}

@@ -1,3 +1,7 @@
+function getDateTimeStamp (dateStr) {
+     return Date.parse(dateStr.replace(/-/gi,"/"));
+ }
+//将返回的时间戳与当前时间戳进行比较，转换成几秒前、几分钟前、几小时前、几天前的形式。
 function getDateDiff (dateStr) {
     var publishTime = getDateTimeStamp(dateStr)/1000,
         d_seconds,

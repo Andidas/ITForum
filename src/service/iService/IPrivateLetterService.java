@@ -8,7 +8,12 @@ import entity.PageParam;
 import entity.PrivateLetter;
 
 public interface IPrivateLetterService {
-
+	/**
+	 * 私信状态设置为已读
+	 * @param 
+	 * @return
+	 */
+	boolean evenReaded(String user_id,String friend_id);
 	/**
 	 * 分页查询我的私信列表详情
 	 * @param param {

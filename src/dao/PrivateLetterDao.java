@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import entity.PageParam;
 import entity.PrivateLetter;
@@ -12,7 +13,13 @@ public interface PrivateLetterDao {
 	@Select("select * from private_letter")
 	List<PrivateLetter> findAll();
 
-		
+	/**
+	 * 私信状态设置为已读
+	 * @param id
+	 * @return
+	 */
+	@Update("update  private_letter set pstatus=2  where user_id = #{user_id} and friend_id = #{friend_id};")
+	int evenReaded(Map<String,Object> id);
 	/**
 	 * 批量插入数据
 	 * @param letters

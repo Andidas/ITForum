@@ -3,6 +3,7 @@ package service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -104,6 +105,17 @@ public class PrivateLetterService implements IPrivateLetterService {
 
 		MyBatisSessionFactory.closeSession();
 		return pm;
+	}
+	@Override
+	public boolean evenReaded(String user_id,String friend_id) {
+		HashMap<String,Object> ids = new HashMap<String, Object>();
+		ids.put("user_id",user_id);
+		ids.put("friend_id",friend_id);
+		SqlSession sqlSession = MyBatisSessionFactory.getSession();
+		int result = sqlSession.getMapper(PrivateLetterDao.class).evenReaded(ids);
+		sqlSession.commit();
+		MyBatisSessionFactory.closeSession();
+		return result>0;
 	}
 	
 }

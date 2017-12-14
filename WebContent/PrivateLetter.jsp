@@ -75,42 +75,10 @@
 
 		<div class="w1170-w row ntf-bg">
 			<ul class="notice-info-tab">
-				<li class="notify "><a href="NoticeUser.jsp">通知</a></li>
 				<li class="letter curr-tab"><a href="javaScript:;">私信</a></li>
 			</ul>
 			<div class="col-xs-4 col-summary nLeft">
-				<div class="nl_setting">
-					<a href="/letters?type=1" class="nGzAndWgz ">已关注（未读0）</a> <span
-						class="nSeparator">|</span> <a href="/letters?type=2"
-						class="nGzAndWgz ">未关注（未读0）</a> <a href="javascript:void(0);"
-						class="nSettings dropdown-toggle" data-toggle="dropdown"> <i
-						class="glyphicon glyphicon-cog"></i>
-					</a>
-					<ul class="dropdown-menu nsetting-menu">
-						<li><span class="nty-top-arr"></span> <label
-							href="javascript:void(0);" class="del"> <a
-								class="icon-ok" href="javascript:void(0);"> <i
-									class="glyphicon glyphicon-ok">&nbsp; </i> <span
-									style="font-family: microsoft yahei;">允许所有人私信我</span>
-							</a>
-						</label></li>
-						<li><label href="javascript:void(0);" class="mark"> <a
-								href="/letters/set_receive_letter_notify_rule?type=fans_to_other">
-									<span style="font-family: microsoft yahei;">仅允许我关注的人私信我</span>
-							</a>
-						</label></li>
-					</ul>
-				</div>
-
-				<form class="form-inline nty-seabar" action="/letters">
-					<label for="keywords"><span
-						class="glyphicon glyphicon-search"></span></label>
-					<div class="form-group">
-						<input id="keywords" type="text" placeholder="搜索联系人"
-							class="form-control" name="username" value=""> <input
-							type="submit" style="display: none">
-					</div>
-				</form>
+				
 				<!--使用post方式提交表单，此处会出现 Can't verify CSRF token authenticity 错误,无法读取到cookie中的信息，需要controller中增加 skip_before_filter :verify_authenticity_token, :only => [:del, :mark]-->
 				<form class="form-horizontal" method="get" action="#">
 					<input type="hidden" name="start_id" value="0">
@@ -140,7 +108,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="media-list" style="min-height: 300px;">
+					<div class="media-list" style="min-height: 376px;">
 						<input type="hidden" value="${letterList.data[0].user_id}" id="user_id">
 						<c:forEach items="${letterList.data}" var="letter">
 						<div class="media nty-mas-li">
@@ -246,6 +214,7 @@
 </body>
 <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
 <script type="text/javascript">
 	$(function() {
 		//查看信息
@@ -253,6 +222,7 @@
 			var friend_id = $(this).find('.friend_id').val();
 			show_hide($('.private-list'),$('.private-new'));
 			$('.nl_username').html($(this).find('.txt').html());
+			$('.nl_username').attr('onclick','touserjump('+friend_id+')');
 			$('#receiver_id').val(friend_id);
 			var param = {
 				'op':'letter_detail',

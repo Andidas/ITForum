@@ -1,4 +1,11 @@
-/servlet/
-/service/
-/dao/
+/log4j.properties
 /mapper/
+/utils/
+/Configuration.xml
+/dao/
+/entity/
+/filter/
+/init.properties
+/service/
+/servlet/
+/testService/

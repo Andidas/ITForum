@@ -3,6 +3,8 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,10 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import service.JsonService;
+import service.LzlReplyService;
 import service.ReplyService;
 import service.TopicViewService;
 import utils.ConstantsData;
+import entity.LzlReply;
 import entity.PageMode;
 import entity.Reply;
 import entity.viewEntity.ReplyView;
@@ -34,6 +39,7 @@ public class ReplyServlet extends HttpServlet {
 	private ReplyService replyService = new ReplyService();
 	private JsonService jsonService = new JsonService();
 	private TopicViewService topicViewService = new TopicViewService();
+	private LzlReplyService lzlReplyService = new LzlReplyService();
     public ReplyServlet() {
         super();
     }
@@ -51,8 +57,41 @@ public class ReplyServlet extends HttpServlet {
 			findUserReply(request,response);
 		}else if(op.equals("deleteReply")){
 			deleteReply(request,response);
+		}else if(op.equals("addLzlReply")){
+			addLzlReply(request,response);
+		}else if(op.equals("findLzlReplyByPage")){
+			findLzlReplyByPage(request,response);
 		}
 	}
+	/**
+	 * 查询楼中楼数据，根据rid
+	 */
+	private void findLzlReplyByPage(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		PrintWriter out = response.getWriter();
+		String rid = request.getParameter("rid");
+		List<Map<String, Object>> lzlReplys= lzlReplyService.queryLzlReplyByLrid(rid);
+		if(lzlReplys.size()>0)
+			out.print(jsonService.toJSONArray(lzlReplys));
+		else 
+			out.print("false");
+	}
+
+	private void addLzlReply(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		PrintWriter out = response.getWriter();
+		
+		String lrid = request.getParameter("rid");
+		String content = request.getParameter("content");
+		String luid = request.getParameter("uid");
+		LzlReply lzl = lzlReplyService.insertLzlReply(lrid, luid, content);
+		if(lzl.getLid()>0){
+			out.print(JSONObject.fromObject(lzl));
+		}else{
+			out.print("false");
+		}
+	}
+
 	private void deleteReply(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String rid = request.getParameter("rid");

@@ -37,6 +37,7 @@
      <mapper resource="mapper/PrivateLetter.xml"/> 
      <mapper resource="mapper/SensitiveWord.xml"/> 
      <mapper class="dao.FollowDao"/>  
+     <mapper resource="mapper/LzlReply.xml"/>  
      <mapper class="dao.UserDao"/> 
      <mapper class="dao.SessionDao"/>
       <mapper class="dao.ReplyDao"/>
