@@ -85,7 +85,7 @@
 					<div class="form-group check-all-toolbar">
 						<div class="col-xs-6">
 							<div class="checkbox select-all">
-								<label> <input type="checkbox">全选
+								<label> <a id="select-all" >全选</a>
 								</label>
 							</div>
 						</div>
@@ -115,7 +115,7 @@
 							<div class="pull-left">
 								<div class="checkbox">
 									<label> 
-									<input type="checkbox" name="ids[]" value="${letter.receiver_name}" class="select">
+									<input type="checkbox" name="checkbox" value="${letter.receiver_name}" class="select">
 									<img src="<%=basePath%>files/${letter.receiver_image}" class="media-object">
 									</label>
 								</div>
@@ -215,6 +215,16 @@
 <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
+<!-- 点击全选按钮 -->
+<script type="text/javascript">
+	$(function(){
+		$('#select-all').click(function(){
+			$(this).attr("checked","false");
+			var type = $(this).attr("checked");
+			$("input[name='checkbox']").attr("checked",type);
+		});
+	});
+</script>
 <script type="text/javascript">
 	$(function() {
 		//查看信息
