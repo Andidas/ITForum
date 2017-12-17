@@ -51,7 +51,14 @@
             $('#owl-login').removeClass('password');
         });
         /*表单提交*/
-		$("#Mylogin").click(function() {
+		$("#Mylogin").click(myUserLogin);
+		/*键盘监听事件*/
+		$(document).on('keydown',function(event){
+			if(event.keyCode==13){
+				myUserLogin();
+			}
+		});
+		function myUserLogin() {
 			if($("#email").val()==""){
 				alert("请输入邮箱");
 				$("#email").focus();
@@ -76,7 +83,7 @@
 			}
 		});
         
-    });
+    }
     </script>
 </div>
 <!-- end -->

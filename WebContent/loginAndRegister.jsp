@@ -206,7 +206,14 @@ body {
 			}
 		});
 		/*表单提交*/
-		$("#login").click(function() {
+		$("#login").click(myLogin);
+		/*键盘监听事件*/
+		$(document).on('keydown',function(event){
+			if(event.keyCode==13){
+				myLogin();
+			}
+		});
+		function myLogin() {
 			if($("#inputEmail").val()==""){
 				$("#inputEmail").focus();
 			}else if($("#inputPassword").val()==""){
@@ -214,7 +221,7 @@ body {
 			}else{
 				$("#FormLogin").submit();				
 			}
-		});
+		}
 		$("#register").click(function() {
 			var regName = /^[\u4e00-\u9fa5\w+$]/;
 			var regPass = /^[a-zA-Z]\w{5,17}$/;

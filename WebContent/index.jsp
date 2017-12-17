@@ -29,7 +29,7 @@
 <link href="css/index.css" rel="stylesheet" />
 <link href="css/init.css" rel="stylesheet" />
 <link href="css/loadingButton.css" rel="stylesheet">
-
+<link rel="stylesheet" href="css/toastr.css" type="text/css"></link>
 </head>
 <body data-spy="scroll" data-target="#myScrollspy" id="MyBody">
 	<jsp:include page="nav.jsp" flush="true"></jsp:include>
@@ -360,7 +360,7 @@ function topicContent(topic){
 					}
 			$.post('welcome',param,function(data){
 				if(data == 'false'){
-					alert('获取失败');
+					toastr.error('获取失败');
 				}else{
 					var sessions = JSON.parse(data);
 					panelbody.empty();
@@ -380,6 +380,7 @@ function topicContent(topic){
 <script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
 <!-- 图片放大器 -->
 <script src="./js/postbird-img-glass.js"></script>
+<script type="text/javascript" src="js/toastr.js"></script>
  <script>
         PostbirdImgGlass.init({
             domSelector:"#mainContent img",

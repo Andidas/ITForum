@@ -9,6 +9,12 @@ import entity.PrivateLetter;
 
 public interface IPrivateLetterService {
 	/**
+	 * 标记所有私信为已读
+	 * @param uid
+	 * @return
+	 */
+	boolean updateAllReaded(String uid);
+	/**
 	 * 私信状态设置为已读
 	 * @param 
 	 * @return
@@ -42,7 +48,7 @@ public interface IPrivateLetterService {
 	 * @param ids
 	 * @return
 	 */
-	boolean batchDelete(List<Integer> ids);
+	boolean batchDelete(String ids);
 	/**
 	 * 批量插入
 	 * @param puid 发送者
@@ -51,5 +57,12 @@ public interface IPrivateLetterService {
 	 * @return 成功返回true
 	 */
 	boolean batchAdd(String puid, String ptouid, int type, String pcontent);
+	/**
+	 * 批量删除friend的私信
+	 * @param uid
+	 * @param fid
+	 * @return
+	 */
+	boolean deleteFriendsLetter(String uid, String fid);
 
 }

@@ -1,5 +1,9 @@
 package servlet;
 
+import static utils.ConstantsData.ORDINARY_MESSAGE;
+import static utils.ConstantsData.PAGENO;
+import static utils.ConstantsData.PAGESIZE_10;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
@@ -13,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import service.JsonService;
 import service.PrivateLetterService;
 import service.UserService;
-import static utils.ConstantsData.*;
 import entity.PageMode;
 import entity.PageParam;
 import entity.User;
@@ -38,10 +41,50 @@ public class PrivateLetterServlet extends HttpServlet {
 			send_letter(request,response);
 		}else if(op.equals("new_letter")){
 			new_letter(request,response);
+		}else if(op.equals("deleteLetter")){
+			deleteLetter(request,response);
+		}else if(op.equals("updateAllReaded")){
+			updateAllReaded(request,response);
 		}
 	}
 
-	
+	/**
+	 * 标记所有私信为已读
+	 */
+	private void updateAllReaded(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
+		
+		User user = (User) session.getAttribute("NowLoginUser");
+		if(user!=null){
+			if(pls.updateAllReaded(String.valueOf(user.getUid())))
+				out.print("true");
+			else 
+				out.print("false");
+		}else 
+			out.print("false");
+		
+	}
+
+	private void deleteLetter(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
+
+		String fids = request.getParameter("fids");
+		System.out.println(fids);
+		User user = (User)session.getAttribute("NowLoginUser");
+		if(user!=null){
+			String uid = String.valueOf(user.getUid());
+			if(pls.deleteFriendsLetter(uid,fids))
+				out.print("true");
+			else 
+				out.print("false");
+		}else
+			out.print("false");
+		
+	}
 
 	/**
 	 * 新建私信
@@ -95,8 +138,7 @@ public class PrivateLetterServlet extends HttpServlet {
 			PageParam param = new PageParam(PAGENO,PAGESIZE_10,sender.getUid(),Integer.parseInt(friend_id));
 			
 			pls.evenReaded(sender.getUid()+"", friend_id);
-			
-			
+		
 			PageMode<Map<String, Object>> detail_info = pls.queryMyPrivateLetterList_detail(param);
 			if(detail_info==null)
 				out.print("false");

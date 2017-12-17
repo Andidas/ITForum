@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -14,6 +15,15 @@ import service.PrivateLetterService;
 public class TestPrivateLetter {
 	PrivateLetterService pls = new PrivateLetterService();
 	
+	@Test
+	public void testDeleteFriendsLetter(){
+		assertTrue(pls.deleteFriendsLetter("16", "[31,32]"));
+	}
+	@Test 
+	public void testStringToList(){
+		String array = "[31,32]";
+		System.out.println(pls.StringToList(array));
+	}
 	@Test 
 	public void testInsertOne(){
 		assertTrue(pls.batchAdd("16", "32",1, "你好"));
@@ -24,13 +34,6 @@ public class TestPrivateLetter {
 	@Test 
 	public void testFindAll(){
 		System.out.println(pls.findAll());
-	}
-	@Test 
-	public void testBatchDelete(){
-		List<Integer> ids = new ArrayList<Integer>();
-		ids.add(36);
-		ids.add(37);
-		assertTrue(pls.batchDelete(ids));
 	}
 	@Test
 	public void testQueryMyPrivateLetterList(){

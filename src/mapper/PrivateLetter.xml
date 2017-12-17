@@ -38,11 +38,16 @@
 			#{id}
 		</foreach>
 	</delete>
-	
+	<delete id="deleteFriendsLetter" parameterType="HashMap"><!--{uid:16,friend_id:[31,32]}  -->
+		delete from private_letter where user_id=#{user_id} and friend_id in 
+		<foreach collection="friend_id" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>	
+	</delete>
 	<!-- 分页查询我的信息列表 -->
 	<select id="queryMyPrivateLetterList" parameterType="entity.PageParam" resultType="HashMap">
 		SELECT p.pid,
-		COUNT(p.pid) AS message_count,p.user_id,p.friend_id,p.puid,p.ptouid,p.ptime,p.pcontent,
+		COUNT(p.pid) AS message_count,p.user_id,p.friend_id,p.puid,p.ptouid,p.ptime,p.pcontent,p.pstatus,p.message_type,
 		u.uname AS receiver_name,u.uhead AS receiver_image
 		FROM (SELECT * FROM private_letter ORDER BY pid DESC) p 
 		INNER JOIN `user` u on u.uid=p.friend_id 

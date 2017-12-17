@@ -28,13 +28,25 @@ public interface ILzlReplyService {
 	LzlReply insertLzlReply(String rid,String uid,String content);
 	
 	/**
-	 * 查询该reply的所有楼中楼回复
+	 * 通过lrid查询该reply的所有楼中楼回复
 	 * 多了一个uname
 	 * @param lrid
 	 * @return
 	 */
 	List<Map<String,Object>> queryLzlReplyByLrid(String lrid);
 
+	/**
+	 * 通过lid查询该reply的所有楼中楼回复
+	 * @param lid
+	 * @return
+	 */
 	List<Map<String, Object>> queryLzlReplyByLid(String lid);
+
+	/**
+	 * 删除一条记录
+	 * @param lid
+	 * @return
+	 */
+	boolean deleteCommentByLid(String lid);
 
 }

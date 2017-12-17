@@ -30,7 +30,7 @@
 
 <link href="css/init.css" rel="stylesheet" />
 
-
+<link rel="stylesheet" href="css/toastr.css" type="text/css"></link>
 </head>
 <body id="MyBody">
 	<jsp:include page="nav.jsp" flush="true" />
@@ -150,14 +150,16 @@
 			 }
 			 $.post('Session',param,function(data){
 				 if(data == 'false'){
-					alert('程序出错，无法删除');					 
+					toastr.error('程序出错，无法删除');					 
 				 }else{
-					alert('删除成功');	
-					location.href="welcome";
+					toastr.success('删除成功');	
+
+					setTimeout(function(){location.href="welcome";},800);
+					
 				 }
 			 });
 		 }else{
-			 alert('删除被取消');
+			 toastr.error('删除被取消');
 		 }
 	 });
  });
@@ -193,7 +195,7 @@ function findPage(pageno){
 	}
 	$.post("Session",param,function(data){
 		if(data=="false"){
-			alert('分页查询失败');
+			toastr.error('分页查询失败');
 		}else{
 			
 			$('.content-text').empty();
@@ -295,13 +297,13 @@ var text = "<li class='clearfix'><div class='col-xs-1'><div class='thumbsUp'><p 
 			var sessionSid = $('#sessionSid').val();//当前session的id
 			var nowUserUid = $('#nowUserID').val();
 			if(nowUserName==undefined){
-				alert('请登录');
+				toastr.error('请登录');
 			}else if(titleText==""){
 				$('#topicTitleText').focus();
-				alert('请填写标题');
+				toastr.success('请填写标题');
 			}else if(sessionText==""||sessionText=="<p><br></p>"){
 				$('#topicText').focus();
-				alert('请填写内容');
+				toastr.info('请填写内容');
 			}else{
 				$.ajax({
 					type : "post",
@@ -309,10 +311,11 @@ var text = "<li class='clearfix'><div class='col-xs-1'><div class='thumbsUp'><p 
 					data:{"op":"releaseTopic","ttopic":titleText,"tcontents":sessionText,"tsid":sessionSid,"tuid":nowUserUid},
 					success:function(data){
 						if(data=="false"){
-							alert('发帖失败');
+							toastr.error('发帖失败');
 						}else{
-							alert('发帖成功');
-						location.reload();//重新加载本页面
+							toastr.success('发帖成功');
+
+							setTimeout(function(){location.reload();},800);
 						}
 					}
 				});//end ajax
@@ -360,7 +363,7 @@ function showunfollow(){
 		/*关注*/
 		$("#follow").click(function() {
 			if($('#nowUserName').html()==undefined){
-				alert('请登录');
+				toastr.info('请登录');
 			}else{
 				var param = {
 						"op":"follow",
@@ -373,9 +376,9 @@ function showunfollow(){
 						var num = $('#followCount').html();
 						num++;//关注人数自增
 						$('#followCount').html(num);
-						alert("关注成功");
+						toastr.success("关注成功");
 					}else{
-						alert("关注失败，服务器错误！");
+						toastr.error("关注失败，服务器错误！");
 					}					
 				});//end post
 			}
@@ -383,7 +386,7 @@ function showunfollow(){
 		/*取消关注*/
 		$("#unfollow").click(function() {
 			if($('#nowUserName').html()==undefined){
-				alert('请登录');
+				toastr.info('请登录');
 			}else{
 				var param = {
 						"op" :"unfollow",
@@ -396,9 +399,9 @@ function showunfollow(){
 						var num = $('#followCount').html();
 						num--;//关注人数自减
 						$('#followCount').html(num);
-						alert("取消关注成功");
+						toastr.success("取消关注成功");
 					}else{
-						alert("取消关注失败，服务器错误！");
+						toastr.error("取消关注失败，服务器错误！");
 					}									
 				});//end post
 			}
@@ -407,5 +410,5 @@ function showunfollow(){
 </script>
 <!-- 图片放大器 -->
 <script src="./js/postbird-img-glass.js"></script>
-
+<script type="text/javascript" src="js/toastr.js"></script>
 </html>

@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -10,6 +11,14 @@ import entity.PageParam;
 import entity.PrivateLetter;
 
 public interface PrivateLetterDao {
+	
+	/**
+	 * 批量删除朋友私信
+	 * @param ids
+	 * @return
+	 */
+	void deleteFriendsLetter(Map<String,Object> ids);
+	
 	@Select("select * from private_letter")
 	List<PrivateLetter> findAll();
 
@@ -20,6 +29,14 @@ public interface PrivateLetterDao {
 	 */
 	@Update("update  private_letter set pstatus=2  where user_id = #{user_id} and friend_id = #{friend_id};")
 	int evenReaded(Map<String,Object> id);
+	
+	/**
+	 * 标记所有私信为已读
+	 * @param uid
+	 * @return
+	 */
+	@Update("update  private_letter set pstatus=2  where user_id = #{_parameter}")
+	int updateAllReaded(int uid);
 	/**
 	 * 批量插入数据
 	 * @param letters

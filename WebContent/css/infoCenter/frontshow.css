@@ -3686,7 +3686,7 @@ form .form-group .error {
 	display: block;
 	width: 14px;
 	height: 9px;
-	background: url(/assets/nty-top-arr-97d55e055d505fcc8e694241e40dc7ce.png) no-repeat
+	background: url(../../img/nty-top-arr-97d55e055d505fcc8e694241e40dc7ce.png) no-repeat
 }
 
 .nty-pop-small .icon-trash,
@@ -7847,7 +7847,7 @@ form .form-group .error {
 	display: block;
 	width: 14px;
 	height: 9px;
-	background: url(/assets/nty-top-arr-97d55e055d505fcc8e694241e40dc7ce.png) no-repeat !important
+	background: url(../../img/nty-top-arr-97d55e055d505fcc8e694241e40dc7ce.png) no-repeat !important
 }
 
 .nty-pop-small .icon-trash,

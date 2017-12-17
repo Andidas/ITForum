@@ -17,7 +17,27 @@ import entity.PageParam;
 import entity.PrivateLetter;
 
 public class PrivateLetterService implements IPrivateLetterService {
-
+	@Override
+	public boolean deleteFriendsLetter(String uid,String fids){
+		List<Integer> ids = StringToList(fids);
+		
+		SqlSession sqlsession = MyBatisSessionFactory.getSession();
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("user_id", uid);
+		map.put("friend_id", ids);
+		try{
+			sqlsession.getMapper(PrivateLetterDao.class).deleteFriendsLetter(map);
+			sqlsession.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			sqlsession.rollback();
+			return false;
+		}finally{
+			MyBatisSessionFactory.closeSession();
+		}
+		
+	}
 	@Override
 	public  boolean batchAdd(String puid,String ptouid,int type,String pcontent){
 		if(puid.equals(ptouid))return false;
@@ -43,8 +63,28 @@ public class PrivateLetterService implements IPrivateLetterService {
 			MyBatisSessionFactory.closeSession();
 		}
 	}
+	
+	/**
+	 * 字符串转成list集合，<T> = <Integer>,只转整形
+	 * pids= [14,32]
+	 * @param pids
+	 * @return
+	 */
+
+	public List<Integer> StringToList(String pids){
+		String array[] = pids.substring(1,pids.length()-1).split(",");
+		
+		List<Integer> ids = new ArrayList<Integer>();
+		for (String pid : array) {
+			ids.add(Integer.parseInt(pid));
+		}
+		return ids;
+	}
+	
 	@Override
-	public boolean batchDelete(List<Integer> ids){
+	public boolean batchDelete(String pids){
+		List<Integer> ids = StringToList(pids);
+		
 		SqlSession sqlsession = MyBatisSessionFactory.getSession();
 		try {
 			sqlsession.getMapper(PrivateLetterDao.class).batchDelete(ids);
@@ -114,6 +154,15 @@ public class PrivateLetterService implements IPrivateLetterService {
 		SqlSession sqlSession = MyBatisSessionFactory.getSession();
 		int result = sqlSession.getMapper(PrivateLetterDao.class).evenReaded(ids);
 		sqlSession.commit();
+		MyBatisSessionFactory.closeSession();
+		return result>0;
+	}
+	@Override
+	public boolean updateAllReaded(String uid) {
+		int user_id = Integer.parseInt(uid);
+		SqlSession sqlsession = MyBatisSessionFactory.getSession();
+		int result = sqlsession.getMapper(PrivateLetterDao.class).updateAllReaded(user_id);
+		sqlsession.commit();
 		MyBatisSessionFactory.closeSession();
 		return result>0;
 	}

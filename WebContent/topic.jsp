@@ -29,6 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="css/topic.css" rel="stylesheet" />
 <!-- 富文本框 -->
 <link href="dist/summernote.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/toastr.css" type="text/css"></link>
 </head>
 <body id="MyBody">
 <jsp:include page="nav.jsp" flush="true"></jsp:include>
@@ -96,65 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 				</ul>
 				<div class="answers">
-				<!--<c:forEach items="${ReplyPage.data}" var="reply">
-					<div class="answer">
-						<table>
-							<tbody>
-								<tr>
-									<td class="votecell">
-										<div class="vote hide">
-											 <span class="date-dz-z pull-left">
-    										<i class="date-dz-z-click-red zebra_tips1"  title="点赞，可以加该贴的排名"></i><i class="z-num">${reply.rfavour}</i></span>
-										</div>
-									</td>
-									<td class="answercell">
-										<div>${reply.rcontent}</div>
-										<div class="fw">
-											<div class="post-signature">
-												<div class="user-info ">
-													<div class="user-action-time">
-														回复时间： <span title="回复时间:${reply.rtime}" class="zebra_tips1">${reply.rtime}</span>
-													</div>
-													<div class="user-gravatar32">
-														<a href="javaScript:;">
-																<img src="img/17883626.jpg" width="32" height="32">
-														</a>
-													</div>
-													<div class="user-details">
-														<a href="javaScript:;" title="回帖人:${reply.uname}" class="zebra_tips1" onclick="touserjump(${reply.ruid})">${reply.uname}</a>
-														<div>
-															<span title="用户当前状态:${reply.ustate}" class="zebra_tips1">${reply.ustate}</span>
-															<span title="用户当前积分:${reply.upoint}" class="zebra_tips1">${reply.upoint}</span>
-															<span title="用户是否是版主:${reply.uissectioner}" class="zebra_tips1">${reply.uissectioner}</span>
-														</div>
-													</div>
-												</div>
-											</div>
-
-										</div>
-									</td>
-								</tr>
-
-								<tr>
-									<td class="votecell"></td>
-									<td>
-										<div class="comments ">
-											<table>
-												<tbody>
-												</tbody>
-											</table>
-										</div>
-										<div>
-											<a class="comments-link replyComment">回复</a>
-											
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					
-					</c:forEach>-->
+					<!-- content. can not be delete-->
 				</div>
 				
    				<ul class="pagination" id="pagination"></ul>
@@ -171,12 +114,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<tbody>
 							<tr>
 								<td>
-									<p class="label-key">观看人数：</p>
+									<p class="label-key">访问次数：</p>
 								</td>
 
 								<td style="padding-left: 10px">
 									<p class="label-key">
-										<b class="zebra_tips1" title="观看人数:${nowActiveTopicView.tclickcount}"><a href="javaScript:;">${nowActiveTopicView.tclickcount} 人</a></b>
+										<b class="zebra_tips1" title="观看人数:${nowActiveTopicView.tclickcount}"><a href="javaScript:;">${nowActiveTopicView.tclickcount} 次</a></b>
 									</p>
 								</td>
 							</tr>
@@ -256,7 +199,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$.post("Reply",param,function(data){
 			if(data=="false"){
-				alert('分页查询失败');
+				toastr.error('分页查询失败');
 			}else{
 				$('.answers').empty();
 				var replys = JSON.parse(data);
@@ -266,7 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				});
 				findLzlReply();	
 				clickInit();
-				jumpEveryWhere("#");
+				
 			}
 		});
 	}
@@ -346,10 +289,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		$.post('Reply',param,function(data){
 			if(data == 'false'){
-				alert('无法删除');
+				toastr.error('无法删除');
 			}else{
-				alert('删除成功');
-				location.reload();
+				toastr.success('删除成功');
+
+				setTimeout(function(){location.reload();},800);
+				
 			}
 		});
 	}
@@ -363,31 +308,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			$.post('Topic',param,function(data){
 				if(data=='false'){
-					alert('无法删除');
+					toastr.error('无法删除');
 				}else{
-					alert('删除成功');
-					location.href = "Session?op=toSession&SessionSid=" + $('#sessionSid').val();
+					toastr.success('删除成功');
+					setTimeout(function(){
+						location.href = "Session?op=toSession&SessionSid=" + $('#sessionSid').val();
+					},800);
 				}
 			});
 		}else{
-			alert('删除取消');
+			toastr.info('删除取消');
 		}
 	}
 </script>
 <!-- 回复帖子  -->
 <script type="text/javascript">
 	$(function(){
-		$('#ReplyTopic').click(function(){
+		$('#ReplyTopic').click(myReplyTopic);
+		
+		function myReplyTopic(){
 			var replyText = $('#summernoteReply').summernote('code');
 			var nowTopicTid = $('#nowTopicTid').val();
 			var nowSessionID = $('#sessionSid').val();
 			var nowUserID = $('#nowUserID').val();
 			
 			if($('#nowUserName').html()==undefined){
-				alert('请登录');
+				toastr.info('请登录');
 			}else if(replyText==""||replyText=="<p><br></p>"){
 				$('#summernoteReply').focus();
-				alert('请填写内容');
+				toastr.info('请填写内容');
 			}else{
 				var param  = {
 					"op" : "ReplyTopic",
@@ -398,14 +347,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 				$.post("Reply",param,function(data){
 					if(data=="false"){
-						alert("回复失败");
+						toastr.error("回复失败");
 					}else{
-						alert('回帖成功');
-						location.reload();//重新加载本页面
+						toastr.success('回帖成功');
+						setTimeout(function(){location.reload();},800);
+						
 					}
 				});
 			}	
-		});//end #ReplyTopic
+		}//end #ReplyTopic
 		//富文本框初始化
 		$('#summernoteReply').summernote(
 				{
@@ -436,6 +386,12 @@ function addReply(obj,val){
 	}else {
 		name=$('#nowUserName').html();
 	}
+	var del;
+	if($('#nowUserID').val()==val.luid){
+		del="<a class='comments-link deleteComment' onclick='delCom("+val.lid+")'>删除</a>";
+	}else{
+		del="";
+	}
 	var text = "<tr class='comment '>"
 					+"<td class='comment-actions'>"
 					+"<table><tbody><tr><input type='hidden' class='lid' value='"+val.lid+"'>"
@@ -452,9 +408,21 @@ function addReply(obj,val){
 					+"</a> <span class='comment-date' dir='ltr'><w class='comment-link'><span "
 					+"title='回复日期' class='reply_tips'>"
 					+val.ltime
-					+"</span></w>"
+					+"</span>"
+					+del
+					+"</w>"
 					+"</span></div></td></tr>";
 	obj.append(text);
+}
+function delCom(lid){
+	$.post("Reply",{"op":"delComment","lid":lid},function(data){
+		if(data=="false"){
+			toastr.error("删除失败");			
+		}else{
+			toastr.success("删除成功");
+			setTimeout(function(){location.reload();},800);
+		}
+	});	
 }
 //显示楼中楼回复按钮
 function showReply(){
@@ -465,7 +433,7 @@ function showReply(){
 function springReply(){
 	var rid = $(this).parents("tr").siblings(".rid").val();
 	if($('#nowUserName').html()==undefined){
-		alert('请登录');
+		toastr.info('请登录');
 	}else{
 		//去除原来已经存在的楼中楼回复框
 		showReply();
@@ -494,7 +462,7 @@ function springReply(){
 				}
 				$.post('Reply',param,function(data){
 					if(data=='false'){
-						alert('回复失败');
+						toastr.error('回复失败');
 					}else{
 						addReply(obj,JSON.parse(data));
 						showReply();											
@@ -613,7 +581,7 @@ var ImgIputHandler={
 <script type="text/javascript">
 	function clickZan(){
 		if($('#nowUserName').html()==undefined){
-			alert('请登录');
+			toastr.info('请登录');
 		}else{
 			var zNum = $(this).find('.z-num').html();
 	        if($(this).is('.date-dz-z-click')){
@@ -636,4 +604,5 @@ var ImgIputHandler={
 </script>
 <!-- 提示框 -->
 <script type="text/javascript" src="js/zebra_tooltips.js"></script> 
+<script type="text/javascript" src="js/toastr.js"></script>
 </html>

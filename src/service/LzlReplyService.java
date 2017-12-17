@@ -14,7 +14,16 @@ import dao.LzlReplyDao;
 import entity.LzlReply;
 
 public class LzlReplyService implements ILzlReplyService {
-
+	@Override
+	public boolean deleteCommentByLid(String lid){
+		int lzl_id = Integer.parseInt(lid);
+		SqlSession session = MyBatisSessionFactory.getSession();
+		int result = session.getMapper(LzlReplyDao.class).deleteCommentByLid(lzl_id);
+		session.commit();
+		MyBatisSessionFactory.closeSession();
+		return result>0;
+	}
+	
 	@Override
 	public boolean deleteLzlReply(String lid) {
 		int id = Integer.parseInt(lid);

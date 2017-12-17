@@ -61,8 +61,23 @@ public class ReplyServlet extends HttpServlet {
 			addLzlReply(request,response);
 		}else if(op.equals("findLzlReplyByPage")){
 			findLzlReplyByPage(request,response);
+		}else if(op.equals("delComment")){
+			delComment(request,response);
 		}
 	}
+	/**
+	 * 删除一条楼中楼的回帖
+	 */
+	private void delComment(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String lid = request.getParameter("lid");
+		PrintWriter out = response.getWriter();
+		if(lzlReplyService.deleteCommentByLid(lid))
+			out.print("true");
+		else 
+			out.print("false");
+	}
+
 	/**
 	 * 查询楼中楼数据，根据rid
 	 */

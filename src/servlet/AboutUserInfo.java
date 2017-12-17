@@ -80,7 +80,6 @@ public class AboutUserInfo extends HttpServlet {
 			PageMode<Map<String, Object>> letters = pls.queryMyPrivateLetterList(param);
 			transformTime(letters);
 			if(letters!=null){
-			System.err.println(user);
 			request.setAttribute("queryUserInfo", user);
 			request.setAttribute("letterList", letters);
 			request.getRequestDispatcher("PrivateLetter.jsp").forward(request, response);

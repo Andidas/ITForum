@@ -36,7 +36,15 @@
 
 <link href="css/infoCenter/frontshow.css" rel="stylesheet" />
 <link href="css/infoCenter/notices.css" rel="stylesheet" />
-
+<link rel="stylesheet" href="css/toastr.css" type="text/css"></link>
+<style type="text/css">
+	.unRead{
+		background: #fcf8e3;
+	}
+	#operation a:hover{
+		background: #fcf8e3;
+	}
+</style>
 </head>
 <meta content="authenticity_token" name="csrf-param" />
 <meta content="dGBSiGhfHAv6IlAuZKAym2FPsqWeA3RYvxkKMY1d4Xw="
@@ -85,7 +93,7 @@
 					<div class="form-group check-all-toolbar">
 						<div class="col-xs-6">
 							<div class="checkbox select-all">
-								<label> <a id="select-all" >全选</a>
+								<label> <input type="checkbox" id="select-all" >全选
 								</label>
 							</div>
 						</div>
@@ -97,12 +105,12 @@
 									操作 <span class="caret"></span>
 								</button>
 								<ul aria-labelledby="center-list-menu" class="dropdown-menu">
-									<li>
+									<li id="operation">
 										<span class="nty-top-arr"></span> 
-										<a class="del" href="javascript:void(0);">
+										<a class="del" href="javascript:void(0);" id="delLetter">
 											<span class="glyphicon glyphicon-trash"></span> 删除私信</a>
-										<a class="mark" href="javascript:void(0);">
-										<span class="glyphicon glyphicon-volume-down"></span>标记已读</a>
+										<a class="" href="javascript:void(0);" id="markReaded">
+										<span class="glyphicon glyphicon-volume-down"></span>全标记为已读</a>
 									</li>
 								</ul>
 							</div>
@@ -111,12 +119,13 @@
 					<div class="media-list" style="min-height: 376px;">
 						<input type="hidden" value="${letterList.data[0].user_id}" id="user_id">
 						<c:forEach items="${letterList.data}" var="letter">
-						<div class="media nty-mas-li">
+						<div class="media nty-mas-li <c:if test="${letter.pstatus ==1}">unRead</c:if>">
 							<div class="pull-left">
 								<div class="checkbox">
 									<label> 
-									<input type="checkbox" name="checkbox" value="${letter.receiver_name}" class="select">
-									<img src="<%=basePath%>files/${letter.receiver_image}" class="media-object">
+									<input type="checkbox" name="checkbox" value="${letter.receiver_name}" class="select" fid="${letter.friend_id}">
+									
+									<img src="<c:if test="${not empty letter.receiver_image}"><%=basePath%>files/${letter.receiver_image}</c:if><c:if test="${empty letter.receiver_image}">img/ITForum.jpg</c:if>" class="media-object">
 									</label>
 								</div>
 							</div>
@@ -215,20 +224,78 @@
 <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/GotoTopicOrSession.js"></script>
-<!-- 点击全选按钮 -->
+<script type="text/javascript" src="js/toastr.js"></script>
 <script type="text/javascript">
 	$(function(){
+		//提示框初始化
+		toastr.options.positionClass = "toast-center";
+		// 点击全选按钮 
 		$('#select-all').click(function(){
-			$(this).attr("checked","false");
-			var type = $(this).attr("checked");
-			$("input[name='checkbox']").attr("checked",type);
+			var check = $(this).attr("checked");
+			if(check!=null){
+				$(this).removeAttr("checked");
+				$("input[name='checkbox']").removeAttr("checked");
+			}else{
+				$(this).attr("checked","checked");
+				$("input[name='checkbox']").attr("checked","checked");
+			}
 		});
+		//普通checked按钮的点击事件
+		$("input[name='checkbox']").click(function(){
+			var check = $(this).attr("checked");
+			if(check!=null){
+				$(this).removeAttr("checked");
+				
+			}else{
+				$(this).attr("checked","checked");
+			}
+		});
+		//删除私信按钮
+		$("#delLetter").on("click",function(){
+			var checks = $("input[name='checkbox']");
+			var array = new Array();
+			$.each(checks,function(i,check){
+				if($(check).attr("checked")!=null)
+					array.push(Number($(check).attr("fid")));
+			});
+			console.log(array);
+			console.log(JSON.stringify(array));
+			var param = {
+					"op":"deleteLetter",
+					"fids":JSON.stringify(array)
+			}
+			$.post("letter",param,function(data){
+				if(data=="false"){
+					toastr.error("删除失败");
+				}else{
+					toastr.success("删除成功");
+
+					setTimeout(function(){location.reload();},800);
+				}
+			});//end post
+		});
+		// 全部标记为已读
+		$("#markReaded").on("click",function(){
+			$.post('letter',{"op":"updateAllReaded"},function(data){
+				if(data=="false"){
+					toastr.error("未知错误");
+				}else{
+					toastr.success("标记成功");
+					$(".media").removeClass("unRead");					
+				}
+			});
+		});
+		
+		
 	});
 </script>
 <script type="text/javascript">
 	$(function() {
 		//查看信息
 		$('.userList').click(function() {
+			$(this).parents('.media').removeClass("unRead");
+			
+			
 			var friend_id = $(this).find('.friend_id').val();
 			show_hide($('.private-list'),$('.private-new'));
 			$('.nl_username').html($(this).find('.txt').html());
@@ -240,7 +307,8 @@
 			}
 			$.post('letter',param,function(data){
 				if(data=='false'){
-					alert('获取数据错误');
+					toastr.error('获取数据错误');
+					location.href="User?op=toLogin";
 				}else{
 					$('.nl_dialog').empty();
 					var letters = JSON.parse(data);
