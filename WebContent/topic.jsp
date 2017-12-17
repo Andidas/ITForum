@@ -168,6 +168,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<%@include file="footer.html" %>
+	
+	
+	
 </body>
 <!-- 日起转换s -->
 <script type="text/javascript" src="js/transform_time.js"></script>

@@ -3,6 +3,7 @@ package servlet;
 import static utils.ConstantsData.ORDINARY_MESSAGE;
 import static utils.ConstantsData.PAGENO;
 import static utils.ConstantsData.PAGESIZE_10;
+import static utils.ConstantsData.SYSTEM_MESSAGE;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,6 +46,27 @@ public class PrivateLetterServlet extends HttpServlet {
 			deleteLetter(request,response);
 		}else if(op.equals("updateAllReaded")){
 			updateAllReaded(request,response);
+		}else if(op.equals("sendWhistleBlowing")){
+			sendWhistleBlowing(request,response);			
+		}
+	}
+
+	/**
+	 * 发送举报消息
+	 */
+	private void sendWhistleBlowing(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String ptouid = String.valueOf(new UserService().queryUserByName("admin"));
+		
+		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("NowLoginUser");
+		String puid = String.valueOf(user.getUid());
+		String pcontent = request.getParameter("content");
+		if(pls.batchAdd(puid, ptouid, SYSTEM_MESSAGE, pcontent)){
+			out.print("true");
+		}else{
+			out.print("false");
 		}
 	}
 
@@ -67,6 +89,9 @@ public class PrivateLetterServlet extends HttpServlet {
 		
 	}
 
+	/**
+	 * 删除私信
+	 */
 	private void deleteLetter(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		PrintWriter out = response.getWriter();

@@ -4,20 +4,16 @@ body.user-page #content * {
 	box-sizing: border-box;
 }
 
-#myNew-tags .label, #interesting-tags .label{
-	display:inline-block;
-	min-width:113px;
+#myNew-tags .label, #interesting-tags .label {
+	display: inline-block;
+	min-width: 113px;
 	padding: 10px 0;
-    margin-top:5px;
-        font-weight: 500;
+	margin-top: 5px;
+	font-weight: 500;
 }
 
-
-
-
 /*用户信息*/
-
-#profile,#activity,#edit {
+#profile, #activity, #edit {
 	margin-top: 26px;
 }
 
@@ -68,15 +64,11 @@ body.user-page #content * {
 	margin-right: -2px;
 }
 
-.g-row.ai-start,
-.g-column.ai-start,
-[class^="g-col"].ai-start {
+.g-row.ai-start, .g-column.ai-start, [class^="g-col"].ai-start {
 	align-items: flex-start;
 }
 
-.g-row.fl-none,
-.g-column.fl-none,
-[class^="g-col"].fl-none {
+.g-row.fl-none, .g-column.fl-none, [class^="g-col"].fl-none {
 	-webkit-flex: 0 auto;
 	flex: 0 auto;
 }
@@ -94,8 +86,7 @@ body.user-page #content * {
 	max-width: 100%;
 }
 
-.g-row,
-.g-column {
+.g-row, .g-column {
 	position: relative;
 	display: -webkit-flex;
 	display: flex;
@@ -111,27 +102,20 @@ body.user-page #content * {
 	border-color: #9C27B0;
 }
 
-.badge1-alternate,
-.badge2-alternate,
-.badge3-alternate,
-.badge-how-to {
+.badge1-alternate, .badge2-alternate, .badge3-alternate, .badge-how-to {
 	padding: 4px 8px;
 	border: 1px solid transparent;
-	
 }
 
-.badge1-alternate .-total,
-.badge2-alternate .-total,
-.badge3-alternate .-total,
-.badge-how-to .-total {
+.badge1-alternate .-total, .badge2-alternate .-total, .badge3-alternate .-total,
+	.badge-how-to .-total {
 	font-weight: 700;
 	color: #fff;
 }
 
-.badge2-alternate,
-.badge-how-to {
-	background-color: #ffc107;
-	border-color: #ffc107;
+.badge2-alternate, .badge-how-to {
+	background-color: #be1a21;
+	border-color: #be1a21;
 }
 
 .g-center {
@@ -150,9 +134,7 @@ body.user-page #content * {
 	background-position: -102px -398px;
 }
 
-.badge1,
-.badge2,
-.badge3 {
+.badge1, .badge2, .badge3 {
 	margin-right: 3px;
 	margin-left: 2px;
 	width: 6px;
@@ -163,8 +145,8 @@ body.user-page #content * {
 }
 
 .badge3-alternate {
-	background-color: #be1a21;
-	border-color: #be1a21;
+	background-color: #ffc107;
+	border-color: #ffc107;
 }
 
 #user-card .about {
@@ -215,8 +197,7 @@ body.user-page #content * {
 	padding-right: 20px;
 }
 
-#user-card .bio p,
-#user-card .bio a {
+#user-card .bio p, #user-card .bio a {
 	word-break: break-word;
 }
 
@@ -276,7 +257,7 @@ a {
 	vertical-align: bottom;
 }
 
-.svg-icon:not(.native) * {
+.svg-icon:not (.native ) * {
 	fill: currentColor;
 }
 
@@ -288,11 +269,11 @@ a {
 	margin-left: -1px;
 }
 
-
 /*关注的版块*/
-#sidebar{
+#sidebar {
 	margin-top: 50px;
 }
+
 .module {
 	word-wrap: break-word;
 	margin-bottom: 1.5em;
@@ -310,8 +291,6 @@ a {
 	margin-left: 5px;
 }
 
-
-
 #interesting-tags span {
 	float: right;
 }
@@ -324,14 +303,11 @@ a {
 	width: 50px;
 }
 
-#addTag button,
-#addTag input {
+#addTag button, #addTag input {
 	display: inline-block;
 }
 
-
 /*回答和提问*/
-
 .title-section {
 	font-weight: 700;
 	margin-bottom: 16px;
@@ -344,5 +320,116 @@ a {
 	font-weight: 400;
 }
 
+/*模态窗口*/
+#myModal .text-gray, #myModal a.link-gray, #myModal a.link-gray:hover,
+	#myModal .link-gray a, #myModal .link-gray a:hover {
+	color: #999;
+}
 
+#myModal .text-problems {
+	color: #4D97EF;
+}
 
+#myModal .form-row {
+	margin: 10px 0 13px;
+}
+
+#myModal	.form-label {
+	text-align: right;
+	height: 25px;
+	line-height: 25px;
+}
+
+#myModal .form-need {
+	color: #F33;
+	font: bold 14px/23px \5FAE\8F6F\96C5\9ED1, \9ED1\4F53;
+	margin-right: 5px;
+	vertical-align: middle;
+}
+
+#myModal select {
+	border: 1px solid #ABADB3;
+	width: 152px;
+}
+
+#myModal .form-select {
+	border: 1px solid #C7C7C7;
+	color: #333;
+	height: 25px;
+	margin-right: 5px;
+	padding: 2px;
+}
+
+#myModal .f-control * {
+	font-size: 12px;
+}
+
+#myModal .form-select option {
+	color: #333;
+}
+
+#myModal input {
+	border: 1px solid #ABADB3;
+	width: 152px;
+	padding: 0 6px;
+}
+
+#myModal .form-input, #myModal .code-input {
+	border: 1px solid #C7C7C7;
+	color: #333;
+	height: 23px;
+	line-height: 23px;
+	margin-right: 5px;
+}
+
+#myModal .text-icon-tips {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	display: inline-block;
+	height: 23px;
+	line-height: 23px;
+}
+
+#myModal .form-label-block {
+	display: block;
+}
+
+#myModal textarea {
+	border: 1px solid #CCC;
+	height: 68px;
+	line-height: 19px;
+	margin-top: 3px;
+	overflow-y: hidden;
+	outline: none;
+	resize: none;
+	width: 570px;
+}
+
+#myModal .poplayer-feedback-tips {
+	float: right;
+	margin: 4px 0 0;
+}
+
+#myModal .char-constantia {
+	color: #333;
+	font-family: Georgia;
+	font-size: 14px;
+}
+
+#myModal .form-label, #myModal .f-control, #myModal .form-tips,
+	#myModal .form-row div, #myModal .form-input, #myModal .code-input,
+	#myModal .form-code-input, #myModal .form-select, #myModal .form-radio,
+	#myModal .form-checkbox, #myModal .form-checkbox-label, #myModal .code-img,
+	#myModal .form-code-img, #myModal .code-change, #myModal .form-code-change,
+	#myModal .form-dash {
+	display: inline-block;
+	vertical-align: top;
+}
+
+#myModal .form-need-hidden {
+	font: bold 14px/1.4 \5FAE\8F6F\96C5\9ED1, \9ED1\4F53;
+	margin-right: 5px;
+	visibility: hidden;
+}
+/*end modal*/

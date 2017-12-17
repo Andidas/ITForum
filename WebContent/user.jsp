@@ -25,6 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="css/user.css" rel="stylesheet" />
 <link rel="stylesheet" href="css/zebra_tooltips.css" type="text/css"> 
 <link href="css/loadingButton.css" rel="stylesheet">
+<link rel="stylesheet" href="css/toastr.css" type="text/css"></link>
 </head>
 <body class="user-page" id="MyBody">
 	<jsp:include page="nav.jsp" flush="true"></jsp:include>
@@ -69,8 +70,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<a class="g-col g-center -total"><i class="glyphicon glyphicon-tower"></i></a>
 										</div>
 									</c:if>
-									<div class="g-col g-row g-center badge2-alternate zebra_tips1" title="发送电子邮件给他">
-										<a href="" class="g-col g-center -total"><i class="glyphicon glyphicon-envelope"></i></a>
+									<div class="g-col g-row g-center badge2-alternate zebra_tips1" title="举报该用户">
+										<a href="javaScript:;" data-toggle="modal" class="g-col g-center -total" id="toMyModal"><i class="glyphicon glyphicon-warning-sign"></i></a>
 									</div>
 									<div class="g-col g-row g-center badge3-alternate zebra_tips1"
 										title="发送私信给他">
@@ -100,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div class="user-stats">
 										<div class="row" style="margin: 0;">
 											<div class="stat">
-												<span class="number"><i class="glyphicon glyphicon-user"></i> ${queryUserInfo.uname}</span>
+												<span class="number"><i class="glyphicon glyphicon-user"></i> <i id="queryUserName">${queryUserInfo.uname}</i></span>
 											</div>
 										
 										</div>
@@ -326,8 +327,121 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 	</div>
-	<%@include file="footer.html" %>	
+	<%@include file="footer.html" %>
+	
+	<!--模态窗口 -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			 <div class="modal-dialog">
+			  <div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="myModalLabel">举报用户</h3>
+			</div>
+			<div class="modal-body">
+				<form action="#" method="post" id="reportForm">
+				<div class="poplayer-bd">
+					<p class="text-gray">温馨提示：填写完整的描述，举报将得到优先处理。<br>请再次确认您的举报信息，确认信息已全部上传，以便投诉可以全部处理。</p>
+					<div class="form-row js-row">
+						<label class="form-label" for="">
+							<span class="form-need">*</span>
+							举报问题类别：
+						</label>
+						<div class="f-control">
+							<select class="form-select js-type">
+								<option value="广告类" selected="selected">广告类</option>
+								<option value="诈骗类">诈骗类</option>
+								<option value="个人资料">个人资料</option>
+								<option value="政治有害类">政治有害类</option>
+								<option value="淫秽色情类">淫秽色情类</option>
+								<option value="头像、签名档赌博类">头像、签名档赌博类</option>
+								<option value="其他有害类">其他有害类</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-row js-row">
+						<label class="form-label" for="">
+							<span class="form-need-hidden">*</span>
+							被举报的用户：
+						</label>
+						<div class="f-control">
+							<input class="form-input js-phone" type="text" placeholder="填写正确的用户">
+						</div>
+						<div class="form-tips">
+							<span class="text-icon-tips hidden js-phoneTips"></span>
+						</div>
+					</div>
+					<div class="form-row js-row">
+						<label class="form-label-block">
+							<span class="form-need">*</span>
+								问题描述
+							<span class="text-gray">
+								(为了更快速解决您的问题，请尽量提供详实描述)
+							</span>
+						</label>
+						<div class="f-control">
+							<textarea maxlength="250" placeholder="如：在xx版块，发布了xxx信息。" id="myTextare"></textarea>
+						</div>
+						<div class="poplayer-feedback-tips js-wordCounter">
+							<b class="char-constantia">250</b>字
+						</div>
+					</div>
+				</div>
+			
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+				<button class="btn btn-danger" id="doReport">举报</button>
+			</div>
+		</div>
+		</div></div>
+		<!-- end modal -->
+		
 </body>
+<!-- 模态窗口 -->
+<script type="text/javascript">
+$(function(){
+	$('#toMyModal').click(function(){
+		if($('#nowUserName').html()==undefined){
+			toastr.info('请登录');
+		}else{
+			$('.js-phone').val($('#queryUserName').html());
+			$('#myModal').modal('show');
+		}		
+	});
+	
+	$('#doReport').click(function(){
+		var selectText = $(".form-select").find("option:selected").text();
+		var userText = $('.js-phone').val();
+		var mytextare = $('#myTextare').val();
+		
+		if(userText==null||userText==""){
+			$('.js-phone').focus();
+			toastr.info("请填写用户名！");
+		}else if(mytextare==null||mytextare==""){
+			$('#myTextare').focus();
+			toastr.info("请填写描述！");
+		}else{
+			var param = {
+					"op":"sendWhistleBlowing",
+					"content":"我举报用户<a>"+userText+"</a>,原因："+mytextare
+			}
+			$.post("letter",param,function(data){
+				if(data=="false"){
+					toastr.error("举报失败！");		
+				}else{
+					toastr.success("举报成功！");
+					$('.js-phone').val("");
+					$('#myTextare').val("");
+					$('#myModal').modal('hide');
+				}
+			});
+		}
+		
+	});
+});
+
+</script>
 <!-- topic加载更多 -->
 <script type="text/javascript">
 	$(function(){
@@ -437,4 +551,5 @@ function hide_MoreBtn_LoadBtn_reply(){
 		textAreaChange($("#userBio"));
 	});
 </script>
+<script type="text/javascript" src="js/toastr.js"></script>
 </html>
