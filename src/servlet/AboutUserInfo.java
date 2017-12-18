@@ -57,7 +57,9 @@ public class AboutUserInfo extends HttpServlet {
 		PageMode<Topic>topics = topicService.queryUserAllTopic(ConstantsData.PAGENO,ConstantsData.PAGESIZE_10,uid);
 		PageMode<Reply>replys = replyService.queryUserAllReply(ConstantsData.PAGENO,ConstantsData.PAGESIZE,uid);
 		List<Map<String,Object>> created = sessionService.queryAllSessionByMaster(uid);
-		
+		int sessionCount = sessionService.querySessionCountCreatedByMaster(uid);
+
+		request.setAttribute("sessionCount", sessionCount);
 		request.setAttribute("userReplys", replys);
 		request.setAttribute("sessionsCreatedByUser", created);
 		request.setAttribute("queryUserInfo", user);

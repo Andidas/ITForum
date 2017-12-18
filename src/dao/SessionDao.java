@@ -39,6 +39,14 @@ public interface SessionDao {
 	 */
 	@Select("select * from `session` where smasterid = #{_parameter}")
 	List<Map<String,Object>> queryAllSessionByMaster(int userid);
+	
+	/**
+	 * 用户创建的session个数
+	 * @param userid
+	 * @return
+	 */
+	@Select("select count(*) from `session` where smasterid = #{_parameter}")
+	int querySessionCountCreatedByMaster(int userid);
 	/**
 	 * 查询所有的session分类profile
 	 * @return

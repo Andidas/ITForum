@@ -103,6 +103,12 @@ public interface ISessionService {
 	 * @return
 	 */
 	List<Map<String, Object>> queryAllSessionByMaster(String userid);
+	/**
+	 * 获得用户创建的session个数
+	 * @param userid
+	 * @return
+	 */
+	int querySessionCountCreatedByMaster(String userid);
 	
 }		
  

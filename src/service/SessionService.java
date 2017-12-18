@@ -17,6 +17,17 @@ import entity.Session;
  *
  */
 public class SessionService implements ISessionService {
+	private SensitivewordFilter filter = new SensitivewordFilter();
+	
+	@Override
+	public int querySessionCountCreatedByMaster(String userid){
+		int uid = Integer.parseInt(userid);
+		SqlSession sqlsession = MyBatisSessionFactory.getSession();
+		int result = sqlsession.getMapper(SessionDao.class).querySessionCountCreatedByMaster(uid);
+		MyBatisSessionFactory.closeSession();
+		
+		return result;
+	}
 	@Override
 	public List<Map<String,Object>> queryAllSessionByMaster(String userid){
 		int id = Integer.parseInt(userid);
@@ -25,7 +36,6 @@ public class SessionService implements ISessionService {
 		MyBatisSessionFactory.closeSession();
 		return sessions;
 	}
-	private SensitivewordFilter filter = new SensitivewordFilter();
 	@Override
 	public boolean isSearchSession(String text){
 		if(!text.equals("")&&text.length()>2){

@@ -216,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		});
 	}
-	//楼中楼的回复
+	//显示楼中楼的回复
 	function findLzlReply(){
 		var answers = $('.answer');
 		var comments;
@@ -224,6 +224,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var rid = $(answers[i]).find('.rid').val();
 			comments = $(answers[i]).find('.comments').find('tbody');
 			comments.html('123');
+			
 			$.post("Reply",{'op':'findLzlReplyByPage','rid':rid},function(data){
 				var lzlreplys = JSON.parse(data);
 				

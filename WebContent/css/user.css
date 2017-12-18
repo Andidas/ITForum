@@ -417,12 +417,12 @@ a {
 	font-size: 14px;
 }
 
-#myModal .form-label, #myModal .f-control, #myModal .form-tips,
-	#myModal .form-row div, #myModal .form-input, #myModal .code-input,
-	#myModal .form-code-input, #myModal .form-select, #myModal .form-radio,
-	#myModal .form-checkbox, #myModal .form-checkbox-label, #myModal .code-img,
-	#myModal .form-code-img, #myModal .code-change, #myModal .form-code-change,
-	#myModal .form-dash {
+#myModal .form-label, #myModal .f-control, #myModal .form-tips, #myModal .form-row div,
+	#myModal .form-input, #myModal .code-input, #myModal .form-code-input,
+	#myModal .form-select, #myModal .form-radio, #myModal .form-checkbox,
+	#myModal .form-checkbox-label, #myModal .code-img, #myModal .form-code-img,
+	#myModal .code-change, #myModal .form-code-change, #myModal .form-dash
+	{
 	display: inline-block;
 	vertical-align: top;
 }
@@ -433,3 +433,67 @@ a {
 	visibility: hidden;
 }
 /*end modal*/
+/*成就*/
+#achievePane div.polaroid {
+	width: 250px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	text-align: center;
+	display: inline-block;
+	margin-top: 20px;
+    margin-left: 50px;
+    
+    opacity: 0.4;
+	filter: alpha(opacity = 40); /* For IE8 and earlier */
+}
+
+#achievePane div.container {
+	padding: 10px;
+	color: #fff;
+    width: 100%;
+	background: #4CAF50;
+}
+
+#achievePane div.polaroid a {
+	width: 250px;
+	height: 250px;
+	display: block;
+	
+}
+
+#achievePane .polaroid:nth-child(1) a {
+	background: url('../img/achievement.jpg') no-repeat -78px -55px;
+}
+
+#achievePane .polaroid:nth-child(2) a {
+	background: url('../img/achievement.jpg') no-repeat -390px -55px;
+}
+
+#achievePane .polaroid:nth-child(3) a {
+	background: url('../img/achievement.jpg') no-repeat -708px -35px;
+}
+
+#achievePane .polaroid:nth-child(4) a {
+	background: url('../img/achievement.jpg') no-repeat -78px -366px;
+}
+
+#achievePane .polaroid:nth-child(5) a {
+	background: url('../img/achievement.jpg') no-repeat -390px -362px;
+}
+
+#achievePane .polaroid:nth-child(6) a {
+	background: url('../img/achievement.jpg') no-repeat -708px -363px;
+}
+
+#achievePane .polaroid:nth-child(7) a {
+	background: url('../img/achievement.jpg') no-repeat -78px -672px;
+}
+
+#achievePane .polaroid:nth-child(8) a {
+	background: url('../img/achievement.jpg') no-repeat -390px -666px;
+}
+
+#achievePane .polaroid:nth-child(9) a {
+	background: url('../img/achievement.jpg') no-repeat -708px -666px;
+}
+/*end achieve*/
