@@ -254,6 +254,8 @@ var text = "<li class='clearfix'><div class='col-xs-1'><div class='thumbsUp'><p 
 <script type="text/javascript">
 	/*富文本框初始化*/
 	$(function() {
+		/*初始化提示框*/
+		toastr.options.positionClass = "toast-center";
 		$('#topicText').summernote(
 				{
 					height : 200,

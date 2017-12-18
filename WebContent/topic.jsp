@@ -327,6 +327,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 回复帖子  -->
 <script type="text/javascript">
 	$(function(){
+		/*初始化提示框*/
+		toastr.options.positionClass = "toast-center";
+		
 		$('#ReplyTopic').click(myReplyTopic);
 		
 		function myReplyTopic(){

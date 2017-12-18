@@ -15,7 +15,7 @@ public class AuthenticateService implements IAuthenticateService{
 		String captcha = SendEmail.generateCAPTCHA();//生成验证码
 		String to = email;
 		String head = "ITForum 注 册 验 证";
-		String content = "您好！ 验证码为:" + captcha;
+		String content =  SendEmail.getContent(captcha);
 		boolean result = false;
 		try {
 			result = SendEmail.sendEmail(to, head, content);
