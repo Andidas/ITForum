@@ -223,16 +223,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		for(var i = 1;i<answers.length;i++){
 			var rid = $(answers[i]).find('.rid').val();
 			comments = $(answers[i]).find('.comments').find('tbody');
-			comments.html('123');
-			
-			$.post("Reply",{'op':'findLzlReplyByPage','rid':rid},function(data){
-				var lzlreplys = JSON.parse(data);
-				
-				$.each(lzlreplys,function(j,lzl){
-					addReply(comments,lzl);
-				});
-				
+			$.ajax({
+				async:false,
+				cache: true, 
+				type:'post',
+				url:'Reply',
+				data:{'op':'findLzlReplyByPage','rid':rid},
+				dataType:'text',
+				success:function(data){
+					var lzlreplys = JSON.parse(data);
+					$.each(lzlreplys,function(j,lzl){
+						addReply(comments,lzl);
+					});
+				},
+				error:function(req,status,ex){toastr.error('服务器错误');},
+				timeout:60000
 			});
+			
 		}
 	}
 	
