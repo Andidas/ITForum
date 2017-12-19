@@ -1,0 +1,316 @@
+insert into user(uid,uname,upassword,uemail,uregdate) 
+values(NULL,'lwy','123','123@qq.com','9-12')
+
+delete from user where uemail = '1233@qq.com'
+
+update user set uname='aaa',upassword='sss',ubirthady='ddd',usex=1,
+uhead='fff',usatement='ggg',ustate=1,upoint=1,uissectioner=1
+where uemail ='1233@qq.com';
+
+select * from user where uemail ='1233@qq.com'
+
+insert into session(sname,smasterid,sprofile)
+values('PHP',16,'后端');
+insert into session(sname,smasterid,sprofile)
+values('SpringBoot',16,'后端');
+
+insert into session(sname,smasterid,sprofile)
+values('Python',16,'后端');
+insert into session(sname,smasterid,sprofile)
+values('C',16,'后端');
+insert into session(sname,smasterid,sprofile)
+values('C++',16,'后端');
+insert into session(sname,smasterid,sprofile)
+values('Go',16,'后端');
+insert into session(sname,smasterid,sprofile)
+values('C#',16,'后端');
+select * from session
+
+insert into topic(tsid,tuid,ttopic,tcontents,ttime)
+values(9,16,'java怎么开始学习','我是一个新手，请问要怎么开始呢？','11-19');
+insert into topic(tsid,tuid,ttopic,tcontents,ttime)
+values(9,16,'学习ssm框架','学习了用ssm框架对数据库的增删改查接下来该学啥','11-18');
+insert into topic(tsid,tuid,ttopic,tcontents,ttime)
+values(9,16,'软考证','大佬们都拿了什么等级的软考证啊，这个很重要吗','11-20');
+insert into topic(tsid,tuid,ttopic,tcontents,ttime)
+values(9,16,'求问写代码用win7好还是win10','萌新求助。家里电脑是win10 
+创建了java的文本 但是用解析不出来 提示找不到文件
+
+然后按照度娘的方法各种调环境变量 还是不行
+
+急哭。。
+
+是不是还得用win7才行','11-18');
+insert into topic(tsid,tuid,ttopic,tcontents,ttime)
+values(9,16,'女程序员','女的，培训狗，还有一个月出来','11-18');
+insert into topic(tsid,tuid,ttopic,tcontents,ttime)
+values(9,16,'请问下aptana插件怎么下载的啊？','我在官方网站下载eclipse插件的aptana，下载链接打不开，各位有遇到过吗？怎么解决的呀','11-18');
+select * from follow;
+
+insert into follow(uid,sid) VALUES(16,1);
+insert into follow(uid,sid) VALUES(16,2);
+insert into follow(uid,sid) VALUES(16,3);
+insert into follow(uid,sid) VALUES(16,4);
+insert into follow(uid,sid) VALUES(16,5);
+insert into follow(uid,sid) VALUES(16,6);
+insert into follow(uid,sid) VALUES(16,7);
+insert into follow(uid,sid) VALUES(16,8);
+select count(fid) as total from follow where sid =9
+select fid from follow where uid = 16 and sid = 2;
+delete from follow where fid=1;
+
+select * from topic where tsid = 9 order by ttime DESC
+
+UPDATE topic set tclickcount = tclickcount+1 where ttopic='img';
+select tclickcount from topic where ttopic='img';
+
+UPDATE `session` set stopiccount = stopiccount+1 where sname= 'PHP';
+select stopiccount from `session` where sname='PHP';
+
+UPDATE `session` set stopiccount = stopiccount-1 where sname= 'PHP';
+select * from `session` where sname='c';
+
+
+UPDATE reply set rfavour = rfavour+1 where rid= 1;
+select rfavour from reply where rid=1;
+
+insert into reply(rtid,rsid,ruid,rcontent,rtime) values(77,13,30,'简单回个帖','2017-11-07 21:36:58');
+select * from reply
+delete from reply where rid = 2;
+
+UPDATE topic set treplycount = treplycount+1,tlastreplyuseid=16,tlastreplaytime='10-11' where tid= 77;
+select * from topic where tid=77;
+
+select * from reply where rtid = 82;
+
+select tid,tsid,treplycount,ttopic from topic where tsid = 9 order by ttime DESC limit 0,10
+
+select count(*) as num from topic where tsid = 9;
+
+-- topic 分页
+select t.*,s.sname,u.uname,u1.uname lastreplyuser
+from topic t,`session` s,`user` u,`user` u1 
+where  t.tsid = s.sid and u.uid = t.tuid and t.tlastreplyuseid = u1.uid 
+and t.tsid = 9 
+order by t.ttime DESC
+LIMIT 0,4;
+
+SELECT * from topic
+-- topic view one 
+select t.*,s.sname,u.uname,u1.uname lastreplyuser
+from topic t,`session` s,`user` u,`user` u1 
+where t.tid = 69
+and t.tsid = s.sid and u.uid = t.tuid and t.tlastreplyuseid = u1.uid;
+
+-- reply split page
+select r.*,u.uname,u.ustate,u.upoint,u.uissectioner from reply r,`user` u
+where rtid = 74 and r.ruid = u.uid order by r.rtime DESC limit 4,4 ;
+-- count total 
+select count(*) as num from reply where rtid = 74;
+-- same topic belong to same tsid
+select tid,treplycount,ttopic from topic where tsid = 9 
+order by ttime DESC 
+limit 0,10;
+-- session view 
+select s.*,u.uname
+from `session` s,`user` u
+where s.smasterid=u.uid 
+select count(*) from follow where sid = 2
+-- same session`s sprofile
+select sid,sname,sstatement,sclickcount from `session` 
+where sprofile='后端' and sid <> 9
+order by sclickcount DESC
+limit 0,5;
+-- session view 
+select s.*,u.uname
+from `session` s,`user` u
+where s.smasterid = u.uid and sid = 9
+
+select sid,count(fid) num from follow GROUP BY sid
+select * from follow
+
+select * from topic where ttopic like '%la%' or tcontents like '%la%';
+
+select * from session where sname like '%H%'
+
+insert into session values(null,'JQuery',16,'JavaScript','',0,0,'')
+
+select sid from session where sname='Vue.js'
+
+select DISTINCT sprofile from session 
+select DISTINCT tsid from topic order by tsid 
+
+select sid,sname from `session` where sprofile = '大数据'
+
+select tid,tsid,ttopic,treplycount from topic order by treplycount desc limit 0,10
+
+SELECT * from `user` where uid = 16
+
+select * from `session` where smasterid = 16
+
+select * from topic where tuid = 16 ORDER BY ttime DESC LIMIT 0,10;
+
+select * from reply where ruid = 16 ORDER BY rtime DESC LIMIT 0,10;
+
+select count(*) num from reply where ruid = 16
+
+select fid,uid,f.sid,s.sname
+from follow f left join `session` s on  f.sid = s.sid
+where uid =16
+
+insert into private_letter(puid,ptouid,ptime,pcontent) values(16,30,'11-12','hi');
+
+select pid,puid,ptouid,ptime,pcontent 
+from private_letter 
+where (puid = 16 and ptouid = 30) or (puid = 30 and ptouid = 16)
+order by ptime ;
+
+insert into it_admin values(null,'admin','admin');
+
+select * from it_admin;
+
+select count(*) num from it_admin where aname='lwy' and apassword = '123456'
+
+select * from private_letter;
+
+INSERT INTO private_letter VALUES 
+(null, 16, 30, 16, 30, '1', '我是程序员，你呢', '2015-09-09 10:25:43', '2'),
+(null, 30, 16, 16, 30, '1', '我是程序员，你呢', '2015-09-09 10:26:41', '1');
+-- 批量插入
+INSERT INTO private_letter(
+	user_id,friend_id,puid,ptouid,message_type,ptime,pcontent
+)
+ VALUES 
+(16, 30, 30, 16,1, '2015-09-11 10:30:16', '收到了吗'),
+(30, 16, 30, 16,1,'2015-09-11 10:30:59', '收到了吗');
+-- 批量删除
+delete from private_letter where pid in(28,29,30,31,32,33,34,35)
+-- 我的私信列表
+SELECT p.pid,
+COUNT(p.pid) AS message_count,p.user_id,p.friend_id,p.puid,p.ptouid,p.ptime,p.pcontent,p.pstatus,p.message_type,
+u.uname AS receiver_name,u.uhead AS receiver_image
+FROM (SELECT * FROM private_letter ORDER BY pid DESC) p 
+INNER JOIN `user` u on u.uid=p.friend_id 
+WHERE p.user_id=16 and p.pstatus !=3 GROUP BY p.friend_id ORDER BY p.pid DESC 
+limit 0,10
+-- 
+SELECT * from private_letter where user_id=16 and friend_id in (32,30)
+select count(DISTINCT friend_id) as num from private_letter where user_id = 16
+-- 我的私信列表详情
+SELECT p.pid,p.pcontent,p.puid,p.ptouid,p.ptime,u.uname AS sender_name,
+u.uhead AS sender_image,uu.uname AS receiver_name FROM private_letter p 
+INNER JOIN `user` u on u.uid=p.puid 
+INNER JOIN `user` uu on uu.uid=p.ptouid 
+WHERE p.user_id=16 and p.friend_id=31
+and p.pstatus !=3 
+ORDER BY p.pid DESC 
+limit 0,10
+
+-- 
+select * from private_letter
+
+select * from user where uemail = '865799243@qq.com'
+ and upassword = '787c8ad9f686d6ae66a053497de9ae15b6b13364'
+
+select * from sensitive_word
+-- 批量插入敏感词
+insert into sensitive_word(word) values('AV'),('sex')
+
+select wid,word from sensitive_word LIMIT 0,20;
+
+select COUNT(*) as num from sensitive_word;
+
+select * from `user`
+
+select count(*) as topic_num from topic where tuid = 16;
+select count(*) as reply_num from reply where ruid = 16;
+
+
+select * from reply where ruid =16;
+
+-- 删除session表的触发器
+DROP TRIGGER IF EXISTS t_afterdelete_on_session;
+CREATE TRIGGER t_afterdelete_on_session
+BEFORE DELETE ON `session`
+FOR EACH ROW
+BEGIN
+      delete from topic where tsid=old.sid;
+			delete from follow where sid=old.sid;
+END;
+
+delete from `session` where sid=49
+-- 删除topic的触发器
+Drop TRIGGER if EXISTS t_afterdelete_on_topic;
+create trigger t_afterdelete_on_topic
+before delete on topic
+for each ROW
+begin 
+			delete from reply where rtid = old.tid;
+end;
+
+
+-- 删除reply的触发器
+DROP TRIGGER IF EXISTS t_afterdelete_on_reply;
+create TRIGGER t_afterdelete_on_reply
+before delete on reply
+for each ROW
+begin 
+			
+			delete from lzl_reply where lrid = old.rid;
+end;
+
+-- 插入topic的触发器
+DROP TRIGGER IF EXISTS t_afterinsert_on_topic;
+create TRIGGER t_afterinsert_on_topic
+after INSERT on topic
+for each ROW
+begin 
+			UPDATE `session` set stopiccount = stopiccount+1 where sid=new.tsid;
+end;
+-- 插入reply的触发器
+DROP TRIGGER IF EXISTS t_afterinsert_on_reply;
+create TRIGGER t_afterinsert_on_reply
+after INSERT on reply
+for each ROW
+begin 
+			update topic set treplycount=treplycount where tid=new.rtid;
+end;
+
+update topic set treplycount=treplycount-1 where tid=old.rtid;
+
+
+
+
+select * from `session` where sid =9;
+
+update `session` set stopiccount='0' 
+select * from topic where tsid = 9;
+select * from user;
+select * from reply where rtid = 67;
+
+delete from topic
+
+select * from topic where tid=67
+-- 楼中楼
+select * from reply where rid =76;
+select * from lzl_reply where lrid = 76;
+select * from lzl_reply where lid = 25;
+delete from lzl_reply where lid = 25;
+
+delete from lzl_reply where lid=3;
+insert into lzl_reply(lrid,luid,lcontent,ltime) values(1,30,'你的回帖也太简单了吧','12-13');
+
+delete from reply where rid = 1;
+
+select l.*,uname from lzl_reply l
+INNER JOIN `user` on l.luid=uid 
+where lrid = 76
+
+
+select l.*,uname from lzl_reply l
+INNER JOIN `user` on l.luid=uid 
+where lid = 14
+
+-- 私信状态更新为已读
+update  private_letter set pstatus=2  where user_id = 31 and friend_id = 16;
+select * from private_letter where user_id = 31 and friend_id = 16;
