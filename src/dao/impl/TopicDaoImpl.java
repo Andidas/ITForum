@@ -176,5 +176,11 @@ public class TopicDaoImpl implements TopicDao {
 		return 0;
 	}
 
+	@Override
+	public int updateReplyCountSub(int tid) {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
 
 }

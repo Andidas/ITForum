@@ -47,7 +47,8 @@
     $(function() {
         $('#login #password').focus(function() {
             $('#owl-login').addClass('password');
-        }).blur(function() {
+        })
+        $('#login #password').blur(function() {
             $('#owl-login').removeClass('password');
         });
         /*表单提交*/
@@ -78,12 +79,11 @@
 					}else{
 						location.reload();
 					}
-				});
-								
+				});			
 			}
-		});
+		}
         
-    }
+    });
     </script>
 </div>
 <!-- end -->

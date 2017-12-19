@@ -106,7 +106,6 @@
 										<li><a href="javaScript:;" class="dropdown-item" onclick="touserjump(${sessionScope.NowLoginUser.uid})">个人信息</a></li>
 										<li><a href="javaScript:;" class="dropdown-item" onclick="toInfoCenterjump(${sessionScope.NowLoginUser.uid})" >消息中心</a></li>
 										<li class="divider"></li>
-										<li><a href="#" class="dropdown-item"> 设置</a></li>
 										<li><a href="javaScript:void(0)" class="dropdown-item"
 											id="exitEmail"> 退出</a></li>
 									</ul></li>

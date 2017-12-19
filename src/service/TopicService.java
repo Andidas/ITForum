@@ -34,6 +34,7 @@ public class TopicService implements ITopicService {
 		Topic topic = new Topic(0,sid,uid,0,null,title,content,ttime,0,0,uid,ttime);
 		SqlSession sqlsession = MyBatisSessionFactory.getSession();
 		int result = sqlsession.getMapper(SessionDao.class).addSessionStopiccount(sid);
+		
 		MyBatisSessionFactory.closeSession();
 		if(result>0){
 			return topicDao.addTopic(topic)>0;
@@ -80,8 +81,11 @@ public class TopicService implements ITopicService {
 	@Override
 	public boolean deleteTopic(String tid) {
 		int topic_id = Integer.parseInt(tid);
+		Topic topic = queryTopicOneByTopic(topic_id);
 		SqlSession sqlsession = MyBatisSessionFactory.getSession();
 		int result = sqlsession.getMapper(TopicDao.class).deleteTopic(topic_id);
+		//帖子数减一
+		sqlsession.getMapper(SessionDao.class).subSessionStopiccount(topic.getTsid());
 		sqlsession.commit();
 		MyBatisSessionFactory.closeSession();
 		return result>0;

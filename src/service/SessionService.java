@@ -68,14 +68,7 @@ public class SessionService implements ISessionService {
 		return sessions;
 	}
 
-	@Override
-	public boolean subSessionStopiccount(String sname) {
-		SqlSession sqlsession = MyBatisSessionFactory.getSession();
-		int result = sqlsession.getMapper(SessionDao.class).subSessionStopiccount(sname);
-		sqlsession.commit();
-		MyBatisSessionFactory.closeSession();
-		return result>0;
-	}
+	
 
 	@Override
 	public int querySessionStopicCount(String sname) {

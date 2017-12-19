@@ -46,12 +46,7 @@ public interface ISessionService {
 	 * @return
 	 */
 	public boolean isSearchSession(String text);
-	/**
-	 * 帖子数减1
-	 * @param sname
-	 * @return 成功,返回true
-	 */
-	boolean subSessionStopiccount(String sname);
+	
 	/**
 	 * 查询帖子数
 	 * @param sname

@@ -1,6 +1,7 @@
 package dao;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Select;
 
 import entity.PageMode;
 import entity.PageParam;
@@ -20,6 +21,14 @@ public interface ReplyDao {
 	 */
 	@Delete("delete from reply where rid = #{_parameter}")
 	int deleteReply(int rid);
+	
+	/**
+	 * 查询单个reply
+	 * @param rid
+	 * @return
+	 */
+	@Select("select * from reply where rid=#{_parameter}")
+	Reply queryReply(int rid);
 	/**
 	 * 查询该用户的所有回复
 	 * @param uid 用户id

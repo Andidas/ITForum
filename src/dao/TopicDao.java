@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Update;
 
 import entity.PageMode;
 import entity.PageParam;
@@ -96,7 +97,13 @@ public interface TopicDao {
 	 * @return
 	 */
 	int updateReplyCountAdd(Topic topic);
-
+	
+	/**
+	 * 回帖数减一
+	 * @return
+	 */
+	@Update("update topic set treplycount=treplycount-1 where tid=#{_parameter};")
+	int updateReplyCountSub(int tid);
 	/**
 	 * 用户发表的帖子数
 	 * @param id

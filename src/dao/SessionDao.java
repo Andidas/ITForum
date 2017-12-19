@@ -86,8 +86,8 @@ public interface SessionDao {
 	 * @param sname
 	 * @return 大于0成功
 	 */
-	@Update("UPDATE `session` set stopiccount = stopiccount-1 where sname= #{_parameter}")
-	int subSessionStopiccount(String sname);
+	@Update("UPDATE `session` set stopiccount = stopiccount-1 where sid= #{_parameter}")
+	int subSessionStopiccount(int sid);
 	/**
 	 * 查询帖子数
 	 * @param sname

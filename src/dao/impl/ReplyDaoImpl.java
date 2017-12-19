@@ -101,4 +101,10 @@ public class ReplyDaoImpl implements ReplyDao {
 		return 0;
 	}
 
+	@Override
+	public Reply queryReply(int rid) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 }

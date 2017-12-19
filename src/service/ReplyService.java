@@ -9,6 +9,7 @@ import service.iService.IReplyService;
 import utils.db.MyBatisSessionFactory;
 import utils.sensitive_word.SensitivewordFilter;
 import dao.ReplyDao;
+import dao.TopicDao;
 import dao.impl.ReplyDaoImpl;
 import dao.impl.TopicDaoImpl;
 import entity.PageMode;
@@ -64,11 +65,21 @@ public class ReplyService implements IReplyService {
 	@Override
 	public boolean deleteReply(String rid) {
 		int reply_id = Integer.parseInt(rid);
+		Reply reply = queryReply(reply_id);
+		
 		SqlSession sqlsession = MyBatisSessionFactory.getSession();
 		int result = sqlsession.getMapper(ReplyDao.class).deleteReply(reply_id);
+		//帖子数减一
+		sqlsession.getMapper(TopicDao.class).updateReplyCountSub(reply.getRtid());
 		sqlsession.commit();
 		MyBatisSessionFactory.closeSession();
 		return result>0;
+	}
+	private Reply queryReply(int reply_id) {
+		SqlSession sqlsession = MyBatisSessionFactory.getSession();
+		Reply reply = sqlsession.getMapper(ReplyDao.class).queryReply(reply_id);
+		MyBatisSessionFactory.closeSession();
+		return reply;
 	}
 
 
