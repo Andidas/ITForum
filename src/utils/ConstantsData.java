@@ -32,6 +32,11 @@ public class ConstantsData {
 	public final static int SYSTEM_MESSAGE = 2;
 	
 	/**
+	 * 反馈消息
+	 */
+	public final static int FEEDBACK_MESSAGE =3;
+	
+	/**
 	 * 消息状态：已读
 	 */
 	public final static int MESSAGE_STATUS_READED = 1;

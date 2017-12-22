@@ -92,7 +92,8 @@
 							</c:if>
 							<c:if test="${!empty sessionScope.NowLoginUser.uemail}">
 								<li class="dropdown"><a href="#" class="dropdown-toggle"
-									data-toggle="dropdown"> <img alt="user"
+									data-toggle="dropdown"><small><i class="glyphicon glyphicon-bell" id="glyphicon-bell" style="color:red;position: relative;top: -8px;left: 4px;display: none;"></i></small>
+								<img alt="user"
 										src="<c:if test="${not empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/${sessionScope.NowLoginUser.uhead}</c:if><c:if test="${empty sessionScope.NowLoginUser.uhead}"><%=basePath%>files/ITForum.jpg</c:if>"
 										width="22" height="22" class="img-rounded" /> <strong
 										class="caret"></strong>
@@ -104,7 +105,7 @@
 										</li>
 										<li class="divider"></li>
 										<li><a href="javaScript:;" class="dropdown-item" onclick="touserjump(${sessionScope.NowLoginUser.uid})">个人信息</a></li>
-										<li><a href="javaScript:;" class="dropdown-item" onclick="toInfoCenterjump(${sessionScope.NowLoginUser.uid})" >消息中心</a></li>
+										<li><a href="javaScript:;" class="dropdown-item" onclick="toInfoCenterjump(${sessionScope.NowLoginUser.uid})">消息中心 <span class="label label-info" id="label-info">+<i id="countInfo">3</i></span></a></li>
 										<li class="divider"></li>
 										<li><a href="javaScript:void(0)" class="dropdown-item"
 											id="exitEmail"> 退出</a></li>
@@ -140,6 +141,22 @@ $(document).ready(function(){
 		$("#exitEmail").click(function(){
 			location.href='<%=basePath%>UserServlet?op=exitUser';
 		});
+		getLetterCount();
+		function getLetterCount(){
+			var param = {
+				"op":"getLetterCount"
+			}
+			$.post("letter",param,function(data){
+				$("#countInfo").html(data);
+				if(data>0){
+					$('#label-info').show();
+					$('#glyphicon-bell').show();
+				}else{
+					$('#label-info').hide();
+					$('#glyphicon-bell').hide();
+				}
+			});
+		}
 	});
 </script>
 <!-- 搜索框 -->
@@ -166,7 +183,6 @@ $(document).ready(function(){
                 alert('请输入内容');
                 $(obj).focus();
             }else{
-            	console.log(123);
             	location.href="Search?value="+value;
             }
             evt.preventDefault();

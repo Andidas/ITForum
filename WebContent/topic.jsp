@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<h2 class="col-lg-12">
 				<span class="TopicTName" id="nowTopicName" >${nowActiveTopicView.ttopic}</span>
 				<input type="hidden" value="${nowActiveTopicView.tid}" id="nowTopicTid" class="topicTid"/>
-				<c:if test="${nowActiveTopicView.tuid == NowLoginUser.uid}">
+				<c:if test="${nowActiveTopicView.tuid == NowLoginUser.uid or sessionMaster == NowLoginUser.uid}">
 				<small><a href="javaScript:;" onclick="deleteTopic(${nowActiveTopicView.tid})">删除</a></small> 
 				</c:if>
 				</h2>

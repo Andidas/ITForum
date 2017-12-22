@@ -3,7 +3,6 @@ package dao;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -69,4 +68,8 @@ public interface PrivateLetterDao {
 	 * @return
 	 */
 	List<Map<String,Object>> queryMyPrivateLetterList_detail(PageParam pageParam);
+
+	
+	@Select("select count(*) as num from private_letter where user_id =#{_parameter} and pstatus = 1")
+	int queryUnreadCount(int uid);
 }

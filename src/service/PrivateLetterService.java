@@ -166,5 +166,12 @@ public class PrivateLetterService implements IPrivateLetterService {
 		MyBatisSessionFactory.closeSession();
 		return result>0;
 	}
+	@Override
+	public int queryUnreadCount(int uid) {
+		SqlSession sqlsession = MyBatisSessionFactory.getSession();
+		int result = sqlsession.getMapper(PrivateLetterDao.class).queryUnreadCount(uid);
+		MyBatisSessionFactory.closeSession();
+		return result;
+	}
 	
 }

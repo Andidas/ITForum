@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import service.JsonService;
+import service.SessionService;
 import service.TopicService;
 import service.TopicViewService;
 import utils.ConstantsData;
@@ -27,6 +28,7 @@ public class TopicServlet extends HttpServlet {
 	/*实例化业务类*/
 	private JsonService jsonService = new JsonService();	 
 	private TopicService topicService = new TopicService();
+	private SessionService sessionService = new SessionService();
 	private TopicViewService topicViewService = new TopicViewService();
 	
     public TopicServlet() {
@@ -87,13 +89,14 @@ public class TopicServlet extends HttpServlet {
 		
 		String topicTid = request.getParameter("topicTid");
 		String sid = request.getParameter("sessionSid");
-		
+		int sessionMaster = sessionService.querySessionOne(sid).getSmasterid();
 		TopicView topicView = topicViewService.getTopicViewOne(topicTid,sid);
 		
 		if(topicView==null){
 			response.getWriter().print("<script>alert('帖子不存在');history.back();</script>");
 		}else{
 			topicService.updateClickCount(topicTid);
+			request.setAttribute("sessionMaster", sessionMaster);
 			request.setAttribute("nowActiveTopicView", topicView);
 			request.setAttribute("ReplyPage", topicView.getAllReply());
 			request.getRequestDispatcher("topic.jsp").forward(request,response);

@@ -1,10 +1,6 @@
 package servlet;
 
-import static utils.ConstantsData.ORDINARY_MESSAGE;
-import static utils.ConstantsData.PAGENO;
-import static utils.ConstantsData.PAGESIZE_10;
-import static utils.ConstantsData.SYSTEM_MESSAGE;
-
+import static utils.ConstantsData.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
@@ -48,7 +44,25 @@ public class PrivateLetterServlet extends HttpServlet {
 			updateAllReaded(request,response);
 		}else if(op.equals("sendWhistleBlowing")){
 			sendWhistleBlowing(request,response);			
+		}else if(op.equals("getLetterCount")){
+			getLetterCount(request,response);
 		}
+	}
+
+	/**
+	 * 获得当前用户的未读私信数量
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 */
+	private void getLetterCount(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("NowLoginUser");
+		
+		int num = pls.queryUnreadCount(user.getUid());
+		out.print(num);
 	}
 
 	/**
@@ -63,7 +77,7 @@ public class PrivateLetterServlet extends HttpServlet {
 		User user = (User)session.getAttribute("NowLoginUser");
 		String puid = String.valueOf(user.getUid());
 		String pcontent = request.getParameter("content");
-		if(pls.batchAdd(puid, ptouid, SYSTEM_MESSAGE, pcontent)){
+		if(pls.batchAdd(puid, ptouid, FEEDBACK_MESSAGE, pcontent)){
 			out.print("true");
 		}else{
 			out.print("false");

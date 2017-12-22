@@ -64,5 +64,11 @@ public interface IPrivateLetterService {
 	 * @return
 	 */
 	boolean deleteFriendsLetter(String uid, String fid);
+	/**
+	 * 查询用户的未读私信数量
+	 * @param uid
+	 * @return
+	 */
+	int queryUnreadCount(int uid);
 
 }

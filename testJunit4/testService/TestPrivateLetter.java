@@ -30,6 +30,11 @@ public class TestPrivateLetter {
 		assertTrue(pls.batchAdd("31", "16",1, "我是程序员"));
 		assertFalse(pls.batchAdd("30", "30",1, "you too"));
 	}
+	@Test
+	public void queryUnreadCount(){
+		assertTrue(pls.queryUnreadCount(16)>0);
+		System.out.println(pls.queryUnreadCount(16));
+	}
 	
 	@Test 
 	public void testFindAll(){
