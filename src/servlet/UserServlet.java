@@ -190,17 +190,22 @@ public class UserServlet extends HttpServlet {
 		String url = (String) session.getAttribute("toLoginURL");//从哪个页面点击的登录
 		if (userService.checkUser(email, password)||userService.checkUser_isSha_1(email, password)) {
 			User user = userService.queryUser(email);
-			if (rememberMe != null && rememberMe.equals("yes")) {
-				Cookie c = new Cookie(String.valueOf(user.getUid())+"itforum", email);//将email和用户名保存在Cookie
-				c.setMaxAge(7 * 24 * 60 * 60);
-				response.addCookie(c);
-			} else {
-				Cookie c = new Cookie(String.valueOf(user.getUid())+"itforum", null);
-				c.setMaxAge(0);
-				response.addCookie(c);
+			if(user.getUstate()==1){
+				System.out.println(user.getUstate());
+				response.getWriter().print("<script>alert('由于不良行为，您已经被封号');history.back();</script>");
+			}else{
+				if (rememberMe != null && rememberMe.equals("yes")) {
+					Cookie c = new Cookie(String.valueOf(user.getUid())+"itforum", email);//将email和用户名保存在Cookie
+					c.setMaxAge(7 * 24 * 60 * 60);
+					response.addCookie(c);
+				} else {
+					Cookie c = new Cookie(String.valueOf(user.getUid())+"itforum", null);
+					c.setMaxAge(0);
+					response.addCookie(c);
+				}
+				session.setAttribute("NowLoginUser", user);
+				response.sendRedirect(url);
 			}
-			session.setAttribute("NowLoginUser", user);
-			response.sendRedirect(url);
 		} else {
 			session.setAttribute("NowLoginUser", null);
 			response.sendRedirect("loginAndRegister.jsp");
